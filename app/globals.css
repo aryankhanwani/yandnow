@@ -1,26 +1,461 @@
 @import "tailwindcss";
 
+@custom-variant dark (&:is(.dark *));
+
+/* ============================================================
+   DESIGN SYSTEM — YandNow B2B Workforce Training
+   Tailwind v4 CSS-first configuration via @theme
+   ============================================================ */
+
+@theme {
+  /* ----------------------------------------------------------
+     FONTS
+     next/font injects --font-heading and --font-body as CSS
+     variables onto <html>. We alias them here so Tailwind's
+     font-heading / font-body utilities pick them up.
+     ---------------------------------------------------------- */
+  --font-family-heading: var(--font-heading, 'Manrope'), system-ui, sans-serif;
+  --font-family-body:    var(--font-body, 'Inter'), system-ui, sans-serif;
+
+  /* ----------------------------------------------------------
+     FONT WEIGHTS (named tokens)
+     ---------------------------------------------------------- */
+  --font-weight-400: 400;
+  --font-weight-500: 500;
+  --font-weight-600: 600;
+  --font-weight-700: 700;
+  --font-weight-800: 800;
+
+  /* ----------------------------------------------------------
+     COLOR TOKENS
+
+     Primary:   #2E3192 (deep indigo-blue)  — 500 is the brand hex
+     Secondary: #27AAE2 (sky blue)          — 500 is the brand hex
+     Ink:       #14152E (near-black navy for body text)
+     Surface:   #F7F9FC (light cool-white for section backgrounds)
+     Neutral:   cool-undertone gray scale
+
+     Weight conventions (in code comments):
+       - Headings default to font-weight 700 (Manrope)
+       - Eyebrows/labels: font-weight 600 + letter-spacing tracked
+       - Body text: font-weight 400
+     ---------------------------------------------------------- */
+
+  /* --- Primary scale (indigo-blue, 500 = #2E3192) ---------- */
+  --color-primary-50:  #eeeef8;
+  --color-primary-100: #d4d5ef;
+  --color-primary-200: #b0b2e2;
+  --color-primary-300: #8b8ed5;
+  --color-primary-400: #6669c4;
+  --color-primary-500: #2E3192;  /* brand exact */
+  --color-primary-600: #272a7e;
+  --color-primary-700: #1f2267;
+  --color-primary-800: #171950;
+  --color-primary-900: #0f113a;
+  --color-primary-950: #080920;
+
+  /* --- Secondary scale (sky-blue, 500 = #27AAE2) ----------- */
+  --color-secondary-50:  #e8f6fd;
+  --color-secondary-100: #c4e8f9;
+  --color-secondary-200: #92d5f4;
+  --color-secondary-300: #5ec0ed;
+  --color-secondary-400: #32b4e8;
+  --color-secondary-500: #27AAE2;  /* brand exact */
+  --color-secondary-600: #208fc0;
+  --color-secondary-700: #19729a;
+  --color-secondary-800: #125673;
+  --color-secondary-900: #0b3a4d;
+  --color-secondary-950: #061e28;
+
+  /* --- Ink (near-black navy for high-contrast text) --------- */
+  --color-ink: #14152E;
+
+  /* --- Surface (very light cool-white, section backgrounds) - */
+  --color-surface: #F7F9FC;
+
+  /* --- Neutral (cool/blue-undertone grays, 50–900) ---------- */
+  --color-neutral-50:  #f4f6f9;
+  --color-neutral-100: #e8ecf2;
+  --color-neutral-200: #d1d8e6;
+  --color-neutral-300: #b3bdd0;
+  --color-neutral-400: #8e9cb8;
+  --color-neutral-500: #6b7a98;
+  --color-neutral-600: #53607c;
+  --color-neutral-700: #3f4b61;
+  --color-neutral-800: #2b3247;
+  --color-neutral-900: #1a1f2e;
+
+  /* ----------------------------------------------------------
+     TYPOGRAPHY SCALE
+     Each entry: [font-size, { lineHeight }]
+     ---------------------------------------------------------- */
+
+  /* Display — large hero headline */
+  --font-size-display:    3.5rem;   /* 56px */
+  --line-height-display:  1.1;
+
+  /* Headings */
+  --font-size-h1:   2.75rem;  /* 44px */
+  --line-height-h1: 1.15;
+
+  --font-size-h2:   2.125rem; /* 34px */
+  --line-height-h2: 1.25;
+
+  --font-size-h3:   1.625rem; /* 26px */
+  --line-height-h3: 1.3;
+
+  --font-size-h4:   1.25rem;  /* 20px */
+  --line-height-h4: 1.4;
+
+  /* Body */
+  --font-size-body-lg: 1.125rem; /* 18px */
+  --line-height-body-lg: 1.75;
+
+  --font-size-body:    1rem;    /* 16px */
+  --line-height-body:  1.75;
+
+  --font-size-body-sm: 0.875rem; /* 14px */
+  --line-height-body-sm: 1.6;
+
+  /* Caption / eyebrow label — small-caps section labels */
+  --font-size-caption: 0.75rem;  /* 12px */
+  --line-height-caption: 1.5;
+
+  /* ----------------------------------------------------------
+     BORDER RADIUS TOKENS
+     Registered as --radius-* so Tailwind generates rounded-card,
+     rounded-pill etc. alongside the default scale.
+     ---------------------------------------------------------- */
+  --radius-card: 16px;
+  --radius-pill: 999px;
+  --radius-none:    0px;
+  --radius-sm:      4px;
+  --radius-DEFAULT: 6px;
+  --radius-md:      8px;
+  --radius-lg:      12px;
+  --radius-xl:      16px;
+  --radius-2xl:     20px;
+  --radius-full:    9999px;
+
+  /* ----------------------------------------------------------
+     BOX SHADOW TOKENS
+     card  — subtle cool-toned lift, no pure black
+     glow  — secondary color halo for hover states
+     ---------------------------------------------------------- */
+  --shadow-card: 0 4px 24px 0 rgba(20, 21, 46, 0.08), 0 1px 4px 0 rgba(20, 21, 46, 0.04);
+  --shadow-glow: 0 0 32px 8px rgba(39, 170, 226, 0.18);
+  --shadow-none: none;
+  --shadow-sm:   0 1px 3px 0 rgba(20, 21, 46, 0.06);
+  --shadow-DEFAULT: 0 2px 8px 0 rgba(20, 21, 46, 0.08);
+  --shadow-md:   0 4px 16px 0 rgba(20, 21, 46, 0.10);
+  --shadow-lg:   0 8px 32px 0 rgba(20, 21, 46, 0.12);
+  --shadow-xl:   0 16px 48px 0 rgba(20, 21, 46, 0.16);
+
+  /* ----------------------------------------------------------
+     GRADIENT TOKENS (as background-image values)
+     Named semantically for their purpose:
+       gradient-brand   — hero sections, primary CTAs
+       gradient-subtle  — very-low-contrast section backgrounds
+       gradient-overlay — bottom text overlay on photos
+       gradient-glow    — decorative radial accent behind cards/stats
+     ---------------------------------------------------------- */
+  --background-image-gradient-brand:
+    linear-gradient(135deg, #2E3192 0%, #27AAE2 100%);
+
+  --background-image-gradient-subtle:
+    linear-gradient(180deg, #F7F9FC 0%, #eeeef8 100%);
+
+  --background-image-gradient-overlay:
+    linear-gradient(180deg, rgba(15, 17, 58, 0.90) 0%, rgba(15, 17, 58, 0.40) 100%);
+
+  --background-image-gradient-glow:
+    radial-gradient(ellipse at center, rgba(39, 170, 226, 0.25) 0%, transparent 70%);
+
+  /* ----------------------------------------------------------
+     SUBTLE GRADIENTS (preferred going forward)
+     Lighter, lower-contrast washes — used instead of the strong
+     brand gradient for section backgrounds, card covers, and
+     accents. Keep these whisper-quiet.
+       soft   — near-white vertical wash for section fades
+       mist   — faint cool tint for panels/covers
+       halo   — soft top-centred glow accent (very low alpha)
+       aurora — barely-there multi-stop tint for hero-ish panels
+     ---------------------------------------------------------- */
+  --background-image-gradient-soft:
+    linear-gradient(180deg, #ffffff 0%, #f4f6f9 100%);
+
+  --background-image-gradient-mist:
+    linear-gradient(135deg, #f8fafc 0%, #eef1f7 100%);
+
+  --background-image-gradient-halo:
+    radial-gradient(60% 60% at 50% 0%, rgba(46, 49, 146, 0.05) 0%, transparent 70%);
+
+  --background-image-gradient-aurora:
+    linear-gradient(135deg, rgba(46,49,146,0.04) 0%, rgba(39,170,226,0.05) 50%, rgba(247,249,252,0) 100%);
+}
+
+/* ============================================================
+   BASE STYLES
+   ============================================================ */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  color-scheme: light;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background-color: #ffffff;
+  color: #14152E;
+  font-family: var(--font-family-body);
+}
+
+/* ============================================================
+   LAYOUT UTILITIES
+   ============================================================ */
+@layer utilities {
+  /* Gradient backgrounds (named semantically, used throughout) */
+  .bg-gradient-brand {
+    background-image: var(--background-image-gradient-brand);
+  }
+  .bg-gradient-subtle {
+    background-image: var(--background-image-gradient-subtle);
+  }
+  .bg-gradient-overlay {
+    background-image: var(--background-image-gradient-overlay);
+  }
+  .bg-gradient-glow {
+    background-image: var(--background-image-gradient-glow);
+  }
+  /* Subtle, preferred washes */
+  .bg-gradient-soft {
+    background-image: var(--background-image-gradient-soft);
+  }
+  .bg-gradient-mist {
+    background-image: var(--background-image-gradient-mist);
+  }
+  .bg-gradient-halo {
+    background-image: var(--background-image-gradient-halo);
+  }
+  .bg-gradient-aurora {
+    background-image: var(--background-image-gradient-aurora);
+  }
+  /* Faint dotted texture for card covers / section backdrops */
+  .bg-dot-grid {
+    background-image: radial-gradient(rgba(20, 21, 46, 0.06) 1px, transparent 1px);
+    background-size: 18px 18px;
+  }
+
+  /* Font family shorthands */
+  .font-heading {
+    font-family: var(--font-family-heading);
+  }
+  .font-body {
+    font-family: var(--font-family-body);
+  }
+
+  /* Font weight shorthands (Tailwind v4 doesn't auto-generate named weights) */
+  .font-400 { font-weight: 400; }
+  .font-500 { font-weight: 500; }
+  .font-600 { font-weight: 600; }
+  .font-700 { font-weight: 700; }
+  .font-800 { font-weight: 800; }
+}
+
+/* ============================================================
+   TYPOGRAPHY UTILITY CLASSES
+   Applied via @layer utilities so they're tree-shakeable.
+   ============================================================ */
+@layer utilities {
+  /* Display / Hero headline */
+  .text-display {
+    font-family: var(--font-family-heading);
+    font-size: var(--font-size-display);
+    line-height: var(--line-height-display);
+    font-weight: 800;
+    letter-spacing: -0.02em;
+  }
+
+  /* Heading scale */
+  .text-h1 {
+    font-family: var(--font-family-heading);
+    font-size: var(--font-size-h1);
+    line-height: var(--line-height-h1);
+    font-weight: 700;
+    letter-spacing: -0.015em;
+  }
+  .text-h2 {
+    font-family: var(--font-family-heading);
+    font-size: var(--font-size-h2);
+    line-height: var(--line-height-h2);
+    font-weight: 700;
+    letter-spacing: -0.01em;
+  }
+  .text-h3 {
+    font-family: var(--font-family-heading);
+    font-size: var(--font-size-h3);
+    line-height: var(--line-height-h3);
+    font-weight: 600;
+  }
+  .text-h4 {
+    font-family: var(--font-family-heading);
+    font-size: var(--font-size-h4);
+    line-height: var(--line-height-h4);
+    font-weight: 600;
+  }
+
+  /* Body scale */
+  .text-body-lg {
+    font-family: var(--font-family-body);
+    font-size: var(--font-size-body-lg);
+    line-height: var(--line-height-body-lg);
+    font-weight: 400;
+  }
+  .text-body {
+    font-family: var(--font-family-body);
+    font-size: var(--font-size-body);
+    line-height: var(--line-height-body);
+    font-weight: 400;
+  }
+  .text-body-sm {
+    font-family: var(--font-family-body);
+    font-size: var(--font-size-body-sm);
+    line-height: var(--line-height-body-sm);
+    font-weight: 400;
+  }
+
+  /* Caption / eyebrow labels — MEASURABLE OUTCOMES style */
+  .text-caption {
+    font-family: var(--font-family-body);
+    font-size: var(--font-size-caption);
+    line-height: var(--line-height-caption);
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  /* Line-clamp utility */
+  .line-clamp-1 {
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 1;
+  }
+}
+
+/* ============================================================
+   ANIMATION KEYFRAMES
+   ============================================================ */
+
+/* Hero orbs — slow drift */
+@keyframes orb-drift-1 {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  33%       { transform: translate(30px, -20px) scale(1.05); }
+  66%       { transform: translate(-15px, 25px) scale(0.97); }
+}
+@keyframes orb-drift-2 {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  40%       { transform: translate(-25px, 30px) scale(1.08); }
+  70%       { transform: translate(20px, -10px) scale(0.95); }
+}
+@keyframes orb-drift-3 {
+  0%, 100% { transform: translateX(-50%) scaleX(1); }
+  50%       { transform: translateX(-50%) scaleX(1.1); }
+}
+
+/* Hero highlight — subtle shimmer sweep */
+@keyframes shimmer {
+  0%   { background-position: -200% center; }
+  100% { background-position: 200% center; }
+}
+
+/* Eyebrow lines — expand from centre */
+@keyframes line-expand {
+  from { transform: scaleX(0); opacity: 0; }
+  to   { transform: scaleX(1); opacity: 1; }
+}
+
+/* Header entrance slide down */
+@keyframes header-slide-in {
+  from { opacity: 0; transform: translateY(-16px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ============================================================
+   ANIMATION UTILITY CLASSES
+   ============================================================ */
+
+/* Hero orb animations */
+.hero-orb-1 {
+  animation: orb-drift-1 18s ease-in-out infinite;
+}
+.hero-orb-2 {
+  animation: orb-drift-2 22s ease-in-out infinite;
+}
+.hero-orb-3 {
+  animation: orb-drift-3 15s ease-in-out infinite;
+}
+
+/* Hero highlighted text — animated gradient shimmer */
+.hero-highlight {
+  background: linear-gradient(
+    90deg,
+    #32b4e8 0%,
+    #7dd3fc 40%,
+    #32b4e8 60%,
+    #27aae2 100%
+  );
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: shimmer 4s linear infinite;
+}
+
+/* Eyebrow separator lines */
+.hero-line-expand {
+  animation: line-expand 0.8s ease-out 0.1s both;
+  transform-origin: left center;
+}
+
+/* Header entrance on mount */
+.header-entrance {
+  animation: header-slide-in 0.6s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+/* Logo hover — subtle scale */
+.logo-hover {
+  transition: transform 0.25s ease, opacity 0.25s ease;
+}
+.logo-hover:hover {
+  transform: scale(1.04);
+  opacity: 0.9;
+}
+
+/* Typewriter cursor blink */
+@keyframes cursor-blink {
+  0%, 49% { opacity: 1; }
+  50%, 100% { opacity: 0; }
+}
+
+.animate-blink {
+  animation: cursor-blink 0.75s step-start infinite;
+}
+
+@theme inline {
+  --animate-marquee: marquee var(--duration) infinite linear;
+  --animate-marquee-vertical: marquee-vertical var(--duration) linear infinite;
+  @keyframes marquee {
+  from {
+    transform: translateX(0);
+    }
+  to {
+    transform: translateX(calc(-100% - var(--gap)));
+    }
+  }
+  @keyframes marquee-vertical {
+  from {
+    transform: translateY(0);
+    }
+  to {
+    transform: translateY(calc(-100% - var(--gap)));
+    }
+  }
 }

@@ -1,0 +1,48 @@
+"use client";
+
+import { useEffect } from "react";
+import Lenis from "lenis";
+
+/* ============================================================
+   LenisProvider
+   Boots Lenis smooth scrolling on the client for the entire site.
+
+   Lenis v1 works by intercepting wheel/touch events and updating
+   the real scrollTop on <html> — so existing window.scrollY reads
+   and window "scroll" event listeners work without any bridging.
+
+   Config:
+   • duration      1.3 s  — leisurely, premium feel
+   • easing        expo-out — quick to engage, floaty to settle
+   • smoothWheel   true
+   • touchMultiplier adjusted for natural mobile feel
+   ============================================================ */
+export default function LenisProvider({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
+  useEffect(() => {
+    const lenis = new Lenis({
+      duration: 1.3,
+      easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+      smoothWheel: true,
+      touchMultiplier: 1.8,
+      infinite: false,
+    });
+
+    let rafId: number;
+    function raf(time: number) {
+      lenis.raf(time);
+      rafId = requestAnimationFrame(raf);
+    }
+    rafId = requestAnimationFrame(raf);
+
+    return () => {
+      cancelAnimationFrame(rafId);
+      lenis.destroy();
+    };
+  }, []);
+
+  return <>{children}</>;
+}
