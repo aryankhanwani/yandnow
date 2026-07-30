@@ -28,21 +28,11 @@ const CLIENTS = [
 const MARQUEE_ITEMS = [...CLIENTS, ...CLIENTS];
 
 function ClientChip({ name }: { name: string }) {
-  /* Get initials for the icon avatar */
-  const initials = name
-    .split(" ")
-    .map((w) => w[0])
-    .join("")
-    .slice(0, 2)
-    .toUpperCase();
-
   return (
-    <div className="flex-shrink-0 flex items-center gap-2.5 px-5 py-2.5 rounded-lg border border-neutral-200 bg-white shadow-sm mx-3 select-none">
+    <div className="flex-shrink-0 flex items-center gap-2.5 px-5 py-2.5 rounded-lg  bg-white select-none">
       {/* Avatar tile */}
-      <div className="w-7 h-7 rounded-md bg-primary-50 flex items-center justify-center flex-shrink-0">
-        <span className="text-[10px] font-bold text-primary-600 leading-none">{initials}</span>
-      </div>
-      <span className="text-sm font-semibold text-neutral-700 whitespace-nowrap">{name}</span>
+
+      <span className="text-lg font-semibold text-neutral-700 whitespace-nowrap">{name}</span>
     </div>
   );
 }

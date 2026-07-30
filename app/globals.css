@@ -192,6 +192,27 @@
 
   --background-image-gradient-aurora:
     linear-gradient(135deg, rgba(46,49,146,0.04) 0%, rgba(39,170,226,0.05) 50%, rgba(247,249,252,0) 100%);
+
+  /* ----------------------------------------------------------
+     NEUREX-STYLE TOKENS (SaaS gradient-hero direction)
+     Deep-navy surface for dark bands + the signature hero
+     "gradient fade" (navy → vivid brand blue → white), built
+     entirely from the Y&Now indigo/sky palette.
+     ---------------------------------------------------------- */
+  --color-navy: #0a0b1f;        /* dark section / dark cards */
+  --color-navy-700: #12163a;    /* raised dark card surface */
+
+  /* Calm, light brand wash for the hero — soft indigo/sky tint
+     fading to white. Deliberately low-contrast and quiet. */
+  --background-image-gradient-hero:
+    linear-gradient(180deg,
+      #e9edfb 0%,
+      #eef2fc 24%,
+      #f6f9ff 56%,
+      #ffffff 100%);
+
+  --background-image-gradient-cta:
+    linear-gradient(135deg, #12163a 0%, #2E3192 55%, #27AAE2 120%);
 }
 
 /* ============================================================
@@ -236,6 +257,12 @@ body {
   }
   .bg-gradient-aurora {
     background-image: var(--background-image-gradient-aurora);
+  }
+  .bg-gradient-hero {
+    background-image: var(--background-image-gradient-hero);
+  }
+  .bg-gradient-cta {
+    background-image: var(--background-image-gradient-cta);
   }
   /* Faint dotted texture for card covers / section backdrops */
   .bg-dot-grid {

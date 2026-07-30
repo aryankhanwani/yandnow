@@ -135,9 +135,31 @@ function PreviewArt({ item }: { item: SubLink }) {
 }
 
 /* ============================================================
+   HOVER-SLIDE LABEL — on hover the current label slides up and
+   out while an identical copy slides up from below to replace
+   it; reverses smoothly when the hover ends. Used by every text
+   nav item on both the full-width and floating navbars.
+   ============================================================ */
+function HoverSlideLabel({ children, className }: { children: React.ReactNode; className?: string }) {
+  return (
+    <span className={cn("relative inline-flex h-[1.2em] items-center justify-center overflow-hidden align-middle", className)}>
+      <span className="flex h-full items-center justify-center transition-transform duration-300 ease-out group-hover:-translate-y-full">
+        {children}
+      </span>
+      <span
+        aria-hidden="true"
+        className="absolute inset-0 flex items-center justify-center translate-y-full transition-transform duration-300 ease-out group-hover:translate-y-0"
+      >
+        {children}
+      </span>
+    </span>
+  );
+}
+
+/* ============================================================
    DESKTOP DROPDOWN — two-pane mega menu with live preview
    ============================================================ */
-function DesktopDropdown({ item, isScrolled }: { item: NavItem; isScrolled: boolean }) {
+function DesktopDropdown({ item, idPrefix }: { item: NavItem; idPrefix: string }) {
   const [open, setOpen] = useState(false);
   const [activeIndex, setActiveIndex] = useState(0);
   const ref = useRef<HTMLDivElement>(null);
@@ -169,16 +191,13 @@ function DesktopDropdown({ item, isScrolled }: { item: NavItem; isScrolled: bool
       onMouseLeave={handleMouseLeave}
     >
       <button
-        id={`nav-dropdown-${item.label.toLowerCase().replace(/\s+/g, "-")}`}
+        id={`${idPrefix}-nav-dropdown-${item.label.toLowerCase().replace(/\s+/g, "-")}`}
         aria-expanded={open}
         aria-haspopup="true"
         onClick={() => setOpen((v) => !v)}
-        className={cn(
-          "nav-link-btn flex items-center gap-1 rounded-md px-3 py-2 text-sm font-semibold outline-none transition-all duration-200 focus-visible:ring-2 focus-visible:ring-primary-300",
-          isScrolled ? "text-neutral-700 hover:text-primary-500" : "text-white/90 hover:text-white",
-        )}
+        className="group flex items-center gap-1 rounded-lg px-3 py-2 text-sm font-semibold text-neutral-700 outline-none transition-colors duration-300 hover:bg-black/5 hover:text-primary-600 focus-visible:ring-2 focus-visible:ring-primary-300"
       >
-        {item.label}
+        <HoverSlideLabel>{item.label}</HoverSlideLabel>
         <ChevronDown
           size={13}
           strokeWidth={2.5}
@@ -416,36 +435,94 @@ function MobileDrawer({ open, onClose }: { open: boolean; onClose: () => void })
 }
 
 /* ============================================================
-   MAIN HEADER — overlapping hero, no spacer
+   NAV ROW — shared logo / links / CTA / mobile-toggle markup,
+   rendered once per bar (idPrefix keeps element ids unique since
+   both bars stay mounted so the slide transition can animate).
    ============================================================ */
-type NavPhase = "top" | "glassy" | "normal";
+function NavRow({ idPrefix, onOpenMobile }: { idPrefix: string; onOpenMobile: () => void }) {
+  return (
+    <div className="mx-auto flex h-[64px] max-w-6xl items-center justify-between px-4 lg:px-6">
+      <Link href="/" id={`${idPrefix}-site-logo`} aria-label="Y&Now — home" className="logo-hover flex-shrink-0">
+        <Image
+          src="/logo.png"
+          alt="Y&Now — Workforce Capability Solutions"
+          width={120}
+          height={40}
+          className="h-9 w-auto object-contain"
+          priority
+        />
+      </Link>
+
+      <nav aria-label="Primary navigation" className="hidden items-center gap-0.5 lg:flex">
+        {NAV_ITEMS.map((item) =>
+          item.children ? (
+            <DesktopDropdown key={item.label} item={item} idPrefix={idPrefix} />
+          ) : (
+            <Link
+              key={item.href}
+              href={item.href}
+              id={`${idPrefix}-nav-${item.label.toLowerCase().replace(/\s+/g, "-")}`}
+              className="group rounded-lg px-3 py-2 text-sm font-semibold text-neutral-700 transition-colors duration-300 hover:bg-black/5 hover:text-primary-600"
+            >
+              <HoverSlideLabel>{item.label}</HoverSlideLabel>
+            </Link>
+          ),
+        )}
+      </nav>
+
+      <div className="hidden items-center gap-2 lg:flex">
+        <Link
+          href="/contact-us"
+          id={`${idPrefix}-header-cta-contact`}
+          className="group rounded-lg px-3 py-2 text-sm font-semibold text-neutral-600 transition-colors duration-300 hover:bg-black/5 hover:text-primary-600"
+        >
+          <HoverSlideLabel>Contact Us</HoverSlideLabel>
+        </Link>
+        <CtaButton href={CTA_HREF} id={`${idPrefix}-header-cta-primary`} variant="primary" className="px-5 py-2">
+          {CTA_LABEL}
+        </CtaButton>
+      </div>
+
+      <button
+        id={`${idPrefix}-mobile-nav-toggle`}
+        onClick={onOpenMobile}
+        aria-label="Open navigation"
+        aria-controls="mobile-nav-drawer"
+        className="rounded-lg p-2 text-neutral-700 transition-colors hover:bg-neutral-100 lg:hidden"
+      >
+        <Menu size={22} />
+      </button>
+    </div>
+  );
+}
+
+/* ============================================================
+   MAIN HEADER
+   ────────────────────────────────────────────────────────────
+   Two physical bars, both always mounted so the swap animates:
+     • Flat bar   — full-width, flush with the viewport edge.
+                    Translucent + blurred on the homepage (the
+                    colour wash behind the hero shows through),
+                    solid white on inner pages. Slides straight
+                    up and out once the page scrolls.
+     • Floating   — centred capsule, rounded + shadowed. Sits
+                    just above the viewport until the page
+                    scrolls, then slides down into place.
+   The inactive bar is marked `inert` so it's never focusable or
+   exposed to assistive tech while it's off-screen.
+   ============================================================ */
+type NavPhase = "top" | "scrolled";
 
 export default function Header() {
   const [navPhase, setNavPhase] = useState<NavPhase>("top");
+  const [isHome, setIsHome] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
 
   useEffect(() => {
-    const update = () => {
-      const y = window.scrollY;
-      const vh = window.innerHeight;
-      const root = document.getElementById("hero-section-root");
+    const detectHome = () => setIsHome(!!document.getElementById("hero-section-root"));
+    detectHome();
 
-      /* Inner pages (no dark video hero) only ever toggle between the solid
-         white "top" and "normal" states — the frosted-dark "glassy" phase is
-         reserved for the homepage hero where a dark video sits behind the nav. */
-      if (!root) {
-        setNavPhase(y <= 5 ? "top" : "normal");
-        return;
-      }
-
-      const rootBottom = root.offsetTop + root.offsetHeight;
-      const glassyStart = root.offsetHeight * 0.25;
-      const glassyEnd = rootBottom - vh;
-
-      if (y <= 5) setNavPhase("top");
-      else if (y >= glassyStart && y < glassyEnd) setNavPhase("glassy");
-      else setNavPhase("normal");
-    };
+    const update = () => setNavPhase(window.scrollY <= 24 ? "top" : "scrolled");
     update();
     window.addEventListener("scroll", update, { passive: true });
     return () => window.removeEventListener("scroll", update);
@@ -457,92 +534,44 @@ export default function Header() {
     return () => document.removeEventListener("keydown", onKey);
   }, []);
 
+  const scrolled = navPhase === "scrolled";
+  const openMobile = () => setMobileOpen(true);
+
   return (
     <>
-      <div className="fixed inset-x-0 top-0 z-30 flex justify-center px-4 pt-4">
-        <header
-          id="site-header"
+      <div className="fixed inset-x-0 top-0 z-30">
+        {/* Flat, full-width bar — slides up and out once scrolled */}
+        <div
           className={cn(
-            "header-entrance w-full max-w-6xl rounded-xl transition-all duration-500",
-            navPhase === "top"
-              ? "border border-neutral-100 bg-white shadow-sm"
-              : navPhase === "glassy"
-              ? "border border-white/12 bg-black/18 shadow-lg backdrop-blur-xl"
-              : "border border-neutral-100 bg-white/97 shadow-lg backdrop-blur-md",
+            "flex justify-center transition-transform duration-500 ease-out",
+            scrolled ? "-translate-y-full" : "translate-y-0",
           )}
+          inert={scrolled}
         >
-          <div className="flex h-[60px] items-center justify-between px-4 lg:px-6">
-            <Link href="/" id="site-logo" aria-label="Y&Now — home" className="logo-hover flex-shrink-0">
-              <Image
-                src="/logo.png"
-                alt="Y&Now — Workforce Capability Solutions"
-                width={120}
-                height={40}
-                className={cn(
-                  "h-9 w-auto object-contain transition-all duration-500",
-                  navPhase === "glassy" && "brightness-0 invert",
-                )}
-                priority
-              />
-            </Link>
+          <header
+            className={cn(
+              "header-entrance w-full transition-colors duration-500",
+              isHome
+                ? "border-b border-white/25 bg-white/20 backdrop-blur-xl"
+                : "border-b border-neutral-100 bg-white shadow-sm",
+            )}
+          >
+            <NavRow idPrefix="flat" onOpenMobile={openMobile} />
+          </header>
+        </div>
 
-            <nav aria-label="Primary navigation" className="hidden items-center gap-0.5 lg:flex">
-              {NAV_ITEMS.map((item) =>
-                item.children ? (
-                  <DesktopDropdown key={item.label} item={item} isScrolled={navPhase !== "glassy"} />
-                ) : (
-                  <Link
-                    key={item.href}
-                    href={item.href}
-                    id={`nav-${item.label.toLowerCase().replace(/\s+/g, "-")}`}
-                    className={cn(
-                      "nav-link group relative rounded-md px-3 py-2 text-sm font-semibold transition-all duration-200",
-                      navPhase === "glassy" ? "text-white/90 hover:text-white" : "text-neutral-700 hover:text-primary-500",
-                    )}
-                  >
-                    {item.label}
-                    <span
-                      className={cn(
-                        "absolute bottom-1 left-3 h-[2px] w-0 rounded-full transition-[width] duration-300 ease-out group-hover:w-[calc(100%-1.5rem)]",
-                        navPhase === "glassy" ? "bg-white/80" : "bg-primary-500",
-                      )}
-                    />
-                  </Link>
-                ),
-              )}
-            </nav>
-
-            <div className="hidden items-center gap-2 lg:flex">
-              <Link
-                href="/contact-us"
-                id="header-cta-contact"
-                className={cn(
-                  "rounded-md px-3 py-2 text-sm font-semibold transition-all duration-200",
-                  navPhase === "glassy" ? "text-white/80 hover:text-white" : "text-neutral-600 hover:text-primary-500",
-                )}
-              >
-                Contact Us
-              </Link>
-              <CtaButton href={CTA_HREF} id="header-cta-primary" variant="primary" glassy={navPhase === "glassy"} className="px-5 py-2">
-                {CTA_LABEL}
-              </CtaButton>
-            </div>
-
-            <button
-              id="mobile-nav-toggle"
-              onClick={() => setMobileOpen(true)}
-              aria-label="Open navigation"
-              aria-expanded={mobileOpen}
-              aria-controls="mobile-nav-drawer"
-              className={cn(
-                "rounded-lg p-2 transition-colors lg:hidden",
-                navPhase === "glassy" ? "text-white hover:bg-white/15" : "text-neutral-700 hover:bg-neutral-100",
-              )}
-            >
-              <Menu size={22} />
-            </button>
-          </div>
-        </header>
+        {/* Floating capsule — slides down into view once scrolled */}
+        <div
+          className={cn(
+            "absolute inset-x-0 top-0 flex justify-center px-4 pt-4 transition-transform duration-500 ease-out",
+            scrolled ? "translate-y-0" : "-translate-y-[calc(100%+1rem)]",
+          )}
+          inert={!scrolled}
+        >
+          <header className="w-full max-w-6xl rounded-xl border border-neutral-100 bg-white/95 shadow-lg backdrop-blur-md">
+            <NavRow idPrefix="floating" onOpenMobile={openMobile} />
+          </header>
+        </div>
       </div>
 
       <MobileDrawer open={mobileOpen} onClose={() => setMobileOpen(false)} />

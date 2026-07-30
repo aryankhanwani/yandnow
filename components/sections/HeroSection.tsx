@@ -66,56 +66,20 @@ function useTypewriter(phrases: string[]) {
   return { displayed, isTyping };
 }
 
-function ease(t: number) {
-  return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
-}
-
-function lerp(a: number, b: number, t: number) {
-  return a + (b - a) * t;
-}
-
 /* ============================================================
-   HERO SECTION — Sticky-scroll video expansion
-   ─────────────────────────────────────────────────────────────
+   HERO SECTION
+   ────────────────────────────────────────────────────────────
+   Calm, static hero: eyebrow / H1 / sub / CTAs, then the product
+   video sits below as a plain rounded card in normal document
+   flow — no scroll-linked expansion, it just sits there.
 
-   DOM structure:
-   ┌─────────────────────────────────────────┐
-   │  <div id="hero-text">                   │  ← normal flow, white bg
-   │    Eyebrow / H1 / sub / CTAs            │
-   │  </div>                                 │
-   │                                         │
-   │  <div id="hero-wrapper" ref={wrapperRef}│  ← sticky zone
-   │    height = 100vh + BUDGET_PX           │
-   │                                         │
-   │    <div style="sticky; top:0; h:100vh"> │  ← pins here while user scrolls
-   │       <div video-box />                 │     video expands 0→fullscreen
-   │    </div>                               │
-   │  </div>                                 │
-   └─────────────────────────────────────────┘
-
-   Progress = (-wrapper.top) / BUDGET_PX
-   • At rest (top = 0):       progress = 0  → video is a padded card
-   • After scrolling BUDGET:  progress = 1  → video is fullscreen
-   • Past wrapper bottom:     sticky unsticks, next sections scroll up naturally
-
-   BUDGET_VH = 1.2 → the video goes fullscreen after scrolling 1.2 viewport
-   heights through the sticky zone (= ~4-5 Lenis wheel ticks, feels like
-   "3-4 scrolls" to the user).
+   A soft blurred colour wash sits behind the very top of the
+   section so the full-width nav (translucent while at rest)
+   blends into it instead of floating on flat white.
    ============================================================ */
-
-const BUDGET_VH = 1.2; // viewport-heights of scroll to reach fullscreen
-
-/* Navbar uses max-w-6xl = 1152px (same as container max-width) */
-const NAV_MAX_W = 1152;
-
 export default function HeroSection() {
-  const wrapperRef  = useRef<HTMLDivElement>(null);
-  const videoRef    = useRef<HTMLVideoElement>(null);
-
-  const [visible,  setVisible]  = useState(false);
-  const [progress, setProgress] = useState(0); // 0 → 1
-  /* Viewport dims — updated on resize so insets stay correct */
-  const [dims, setDims] = useState({ vw: 1440, vh: 900 });
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const [visible, setVisible] = useState(false);
 
   const { displayed, isTyping } = useTypewriter(ROTATING_PHRASES);
 
@@ -130,90 +94,25 @@ export default function HeroSection() {
     videoRef.current?.play().catch(() => {});
   }, []);
 
-  /* ── Track viewport dimensions ──────────────────────────── */
-  useEffect(() => {
-    const update = () => setDims({ vw: window.innerWidth, vh: window.innerHeight });
-    update();
-    window.addEventListener("resize", update);
-    return () => window.removeEventListener("resize", update);
-  }, []);
-
-  /* ── Scroll-driven progress ──────────────────────────────── */
-  useEffect(() => {
-    const compute = () => {
-      const wrapper = wrapperRef.current;
-      if (!wrapper) return;
-
-      /* wrapper.getBoundingClientRect().top goes from 0 (when wrapper just
-         enters the viewport from below) to negative (as we scroll into it).
-         The budget is BUDGET_VH * vh, which is the "travel distance". */
-      const { top } = wrapper.getBoundingClientRect();
-      const vh = window.innerHeight;
-      const budgetPx = BUDGET_VH * vh;
-
-      // scrolled = how many px into the sticky zone we are (0 → budgetPx)
-      const scrolled = -top;
-      const raw = budgetPx > 0 ? scrolled / budgetPx : 0;
-      setProgress(Math.max(0, Math.min(1, raw)));
-    };
-
-    compute();
-    window.addEventListener("scroll", compute, { passive: true });
-    return () => window.removeEventListener("scroll", compute);
-  }, []);
-
-  /* ── Derived visual values ───────────────────────────────── */
-  const p = ease(progress);
-
-  // Text fades out in first 35% of scroll travel
-  const textOpacity = Math.max(0, 1 - (progress / 0.35) * 1.5);
-
-  /*
-   * Video box insets at rest — match the navbar width & maintain 16:9 ratio.
-   *
-   * sideRest mirrors the navbar's max-width centering.
-   * The sticky shell sits directly below the text block in document flow —
-   * its top edge is already at the bottom of the hero text on every screen.
-   * So topRest is just a small breathing gap (VIDEO_GAP) from the shell's
-   * top edge to the video card. Clamped so the card always fits on short
-   * viewports (e.g. landscape mobile).
-   */
-  const { vw, vh } = dims;
-  const sideRest   = Math.max(16, (vw - NAV_MAX_W) / 2);  // mirrors navbar centering
-  const widthRest  = vw - 2 * sideRest;                    // = NAV_MAX_W on wide screens
-  const heightRest = widthRest * (9 / 16);                 // 16:9
-  const VIDEO_GAP  = 24;                                    // px gap: shell top → video card
-  const topRest    = Math.min(VIDEO_GAP, Math.max(0, vh - heightRest - VIDEO_GAP));
-  const bottomRest = Math.max(0, vh - topRest - heightRest);
-
-  const insetSide   = lerp(sideRest,   0, p);
-  const insetTop    = lerp(topRest,    0, p);
-  const insetBottom = lerp(bottomRest, 0, p);
-  const radius      = lerp(16, 0, p);
-
-  // White bg overlay on sticky shell fades away as video fills it
-  const shellBg = Math.max(0, 1 - p * 5);
-
   return (
-    /* Root wrapper — white background for the entire hero zone */
     <div style={{ background: "#ffffff" }} id="hero-section-root">
-
-      {/* ══ TEXT BLOCK — normal flow, scrolls up naturally ══════════ */}
       <div
         id="hero"
         aria-label="Hero — Y&Now Workforce Capability Solutions"
-        style={{
-          position: "relative",
-          overflow: "hidden",
-          zIndex: 2,
-          background: "#ffffff",
-        }}
+        style={{ position: "relative", overflow: "hidden", background: "#ffffff" }}
       >
-        {/* Subtle bg orbs */}
+        {/* Subtle bg orbs + top blur wash (behind the translucent nav) */}
         <div
           aria-hidden="true"
           style={{ position: "absolute", inset: 0, pointerEvents: "none", zIndex: 0 }}
         >
+          <div
+            className="pointer-events-none absolute inset-x-0 -top-32 h-[460px] blur-[100px]"
+            style={{
+              background:
+                "radial-gradient(55% 100% at 50% 0%, rgba(46,49,146,0.18) 0%, rgba(39,170,226,0.13) 45%, transparent 75%)",
+            }}
+          />
           <div
             className="hero-orb-1"
             style={{
@@ -340,95 +239,36 @@ export default function HeroSection() {
             </CtaButton>
           </div>
         </div>
-      </div>
 
-      {/* ══ STICKY SCROLL ZONE — video expands as user scrolls ══════ */}
-      {/*
-          Height = 100vh (sticky shell) + BUDGET_VH * 100vh (scroll travel)
-          Once the user scrolls through the budget, the wrapper exits the
-          viewport and sticky unsticks — next sections flow up naturally.
-      */}
-      <div
-        id="hero-wrapper"
-        ref={wrapperRef}
-        style={{
-          position: "relative",
-          height: `calc(100vh + ${BUDGET_VH * 100}vh)`,
-          /* No background here — let the sticky shell handle it */
-        }}
-      >
-        {/* ── STICKY SHELL — height:100vh, sticks at top:0 ── */}
+        {/* ══ PRODUCT VIDEO — static card, no scroll-linked effect ══ */}
         <div
-          style={{
-            position: "sticky",
-            top: 0,
-            height: "100vh",
-            width: "100%",
-            overflow: "hidden",
-            /* White bg that fades away as the video expands to fullscreen */
-            background: `rgba(255,255,255,${shellBg})`,
-            zIndex: 10,
-          }}
+          className={`relative z-[1] mx-auto max-w-6xl px-4 pb-20 transition-all duration-700 delay-[950ms] ease-out sm:px-6 ${
+            visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
+          }`}
         >
-          {/* ── VIDEO BOX — absolute inside sticky shell ───────── */}
-          {/*
-              p=0: navbar-width wide, 16:9 tall, vertically centred
-              p=1: all insets = 0, fills the full sticky shell (viewport)
-          */}
           <div
+            className="overflow-hidden rounded-2xl border border-neutral-100 bg-white"
             style={{
-              position: "absolute",
-              top:    `${insetTop}px`,
-              left:   `${insetSide}px`,
-              right:  `${insetSide}px`,
-              bottom: `${insetBottom}px`,
-              borderRadius: `${radius}px`,
-              overflow: "hidden",
-              boxShadow: p < 0.06
-                ? "0 4px 6px rgba(20,21,46,0.04), 0 20px 48px rgba(20,21,46,0.10), 0 48px 80px rgba(46,49,146,0.06)"
-                : "none",
-              border: p < 0.06 ? "1px solid #e8ecf2" : "none",
-              willChange: "top, left, right, bottom, border-radius",
+              boxShadow:
+                "0 4px 6px rgba(20,21,46,0.04), 0 20px 48px rgba(20,21,46,0.10), 0 48px 80px rgba(46,49,146,0.06)",
             }}
           >
             <video
               ref={videoRef}
               src="/hero-video.mp4"
+              className="aspect-video w-full object-cover"
               autoPlay
               muted
               loop
               playsInline
               preload="auto"
               aria-hidden="true"
-              style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }}
-            />
-            {/* Dark overlay that materialises as video expands */}
-            <div
-              style={{
-                position: "absolute",
-                inset: 0,
-                background:
-                  "linear-gradient(160deg, rgba(10,12,44,0.75) 0%, rgba(10,12,44,0.50) 60%, rgba(10,12,44,0.38) 100%)",
-                opacity: p,
-                pointerEvents: "none",
-              }}
             />
           </div>
         </div>
       </div>
 
-      {/* ── Scroll indicator — fades with text ─────────────────── */}
-      <div
-        className={`pointer-events-none fixed bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-1 transition-all duration-700 delay-[1200ms] ease-out ${
-          visible ? "opacity-100" : "opacity-0"
-        }`}
-        style={{ zIndex: 50, opacity: textOpacity * 0.55 }}
-      >
-        <span className="text-neutral-400 text-[10px] tracking-[0.15em] uppercase font-medium">
-          Scroll
-        </span>
-        <ChevronDown size={18} className="text-neutral-400 animate-bounce" />
-      </div>
+
     </div>
   );
 }

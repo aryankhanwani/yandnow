@@ -237,7 +237,6 @@ export default function WhoWeServe() {
           eyebrow="Who We Serve"
           title="Capability programmes built for"
           highlight="every segment"
-          subtitle="Whether you run an enterprise L&D function, manage CSR commitments, or are an individual looking to grow — hover a panel to explore the programme designed for you."
           className="mb-12"
         />
 

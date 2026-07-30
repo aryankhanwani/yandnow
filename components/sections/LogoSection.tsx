@@ -33,12 +33,9 @@ const CLIENTS_ROW_2 = [
 
 function LogoChip({ name, abbr }: { name: string; abbr: string }) {
   return (
-    <div
-      className="flex flex-shrink-0 select-none items-center gap-3 rounded-xl border bg-white px-5 py-3 transition-colors"
-      style={{ borderColor: "#e8ecf2", boxShadow: "0 1px 4px rgba(20,21,46,0.05)" }}
-    >
-      <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-md bg-primary-50">
-        <span className="text-[10px] font-bold leading-none tracking-tight text-primary-600">{abbr}</span>
+    <div className="flex flex-shrink-0 select-none items-center gap-3 rounded-xl bg-surface px-5 py-3 ring-1 ring-neutral-100 transition-colors">
+      <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-md bg-white">
+        <span className="text-[10px] font-bold leading-none tracking-tight text-primary-500">{abbr}</span>
       </div>
       <span className="whitespace-nowrap text-[13px] font-semibold text-neutral-700">{name}</span>
     </div>
@@ -60,9 +57,10 @@ export default function LogoSection() {
           transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
           className="mb-10 flex flex-col items-center gap-4 text-center"
         >
-          <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-neutral-400">
-            Trusted across India
-          </p>
+          <span className="inline-flex items-center gap-2 rounded-full border border-primary-100 bg-white/70 px-3 py-1.5 shadow-sm backdrop-blur">
+            <span className="flex h-1.5 w-1.5 rounded-full bg-secondary-500" />
+            <span className="text-[12px] font-500 tracking-wide text-neutral-600">Trusted across India</span>
+          </span>
           <p className="max-w-2xl text-balance text-lg font-medium text-neutral-700">
             <CountUp to={3800} suffix="+" className="font-heading font-800 text-primary-600" /> organisations
             trust Y&Now across manufacturing, energy, retail, defence &amp; financial services.

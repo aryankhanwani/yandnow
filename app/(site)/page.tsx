@@ -7,6 +7,7 @@ import HowWeWork from "@/components/sections/HowWeWork";
 import ImpactMetrics from "@/components/sections/ImpactMetrics";
 import Testimonials from "@/components/sections/Testimonials";
 import FaqSection from "@/components/sections/FaqSection";
+import SocialProofBar from "@/components/sections/SocialProofBar";
 
 export const metadata: Metadata = {
   title: "Workforce Capability Solutions for Enterprise, CSR & Industrial India | Y&Now",
@@ -71,7 +72,7 @@ export default function HomePage() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
       />
       <HeroSection />
-      <LogoSection />
+      <SocialProofBar />
       <WhoWeServe />
       <PlatformPreview />
       <HowWeWork />
