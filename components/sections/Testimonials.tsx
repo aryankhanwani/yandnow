@@ -93,14 +93,14 @@ export default function Testimonials() {
         />
 
         <div
-          className="relative mx-auto max-w-3xl"
+          className="relative mx-auto max-w-5xl"
           onMouseEnter={() => setPaused(true)}
           onMouseLeave={() => setPaused(false)}
         >
-          <div className="relative overflow-hidden rounded-3xl border border-[#e8ecf2] bg-white p-8 shadow-[0_20px_50px_rgba(20,21,46,0.07)] sm:p-12">
-            <Quote className="absolute right-8 top-8 h-14 w-14 text-primary-50" strokeWidth={1.5} fill="currentColor" />
+          <div className="relative overflow-hidden rounded-3xl border border-[#e8ecf2] bg-white p-6 shadow-[0_20px_50px_rgba(20,21,46,0.07)] sm:p-10 lg:p-16">
+            <Quote className="absolute right-6 top-6 h-14 w-14 text-primary-50 sm:right-10 sm:top-10 lg:right-12 lg:top-12" strokeWidth={1.5} fill="currentColor" />
 
-            <div className="relative min-h-[220px] sm:min-h-[190px]">
+            <div className="relative flex h-[360px] flex-col justify-center sm:h-[300px] lg:h-[280px]">
               <AnimatePresence mode="wait" custom={dir}>
                 <motion.figure
                   key={index}
@@ -110,7 +110,7 @@ export default function Testimonials() {
                   exit={{ opacity: 0, x: reduce ? 0 : dir * -40 }}
                   transition={{ duration: 0.4, ease: EASE }}
                 >
-                  <blockquote className="font-heading text-xl font-500 leading-relaxed text-ink sm:text-2xl">
+                  <blockquote className="font-heading text-lg font-500 leading-relaxed text-ink sm:text-2xl lg:text-[1.75rem]">
                     &ldquo;{t.quote}&rdquo;
                   </blockquote>
                   <figcaption className="mt-7 flex items-center gap-4">

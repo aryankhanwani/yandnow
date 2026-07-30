@@ -27,10 +27,9 @@ export default function ImpactMetrics() {
     <section className="bg-white py-20 sm:py-28">
       <Container>
         <SectionHeading
-          eyebrow="Measurable Outcomes"
           title="Impact you can put in a board report"
-          subtitle="We measure what matters — and report it transparently. Capability programmes delivered at national scale, with outcomes tracked end-to-end."
-          className="mx-auto mb-14"
+          align="left"
+          className="mb-14"
         />
         <Stagger className="grid grid-cols-2 gap-4 lg:grid-cols-4 lg:gap-6" stagger={0.1}>
           {STATS.map((s) => (

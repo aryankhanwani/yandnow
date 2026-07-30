@@ -12,7 +12,7 @@ import FaqAccordion, { type FaqItemData } from "@/components/ui/FaqAccordion";
 import { Reveal, Stagger, StaggerItem } from "@/components/ui/motion-primitives";
 
 export const metadata: Metadata = {
-  title: "About Y&Now — Future-Skills EdTech Division of BroadArks Technology",
+  title: "About Y&Now | Future-Skills EdTech Division of BroadArks Technology, Bhopal India",
   description:
     "Y&Now is the future-skills EdTech division of BroadArks Technology Pvt. Ltd. — ISO 9001:2015 certified, headquartered in Bhopal, MP — delivering workforce capability for enterprises, government, defence, and schools across India.",
 };
@@ -27,19 +27,38 @@ const SERVE = [
 ];
 
 const CREDENTIALS = [
-  { icon: BadgeCheck, title: "ISO 9001:2015", body: "Certified quality management systems under BroadArks Technology Pvt. Ltd." },
-  { icon: Award, title: "NSDC Training Partnership", body: "Partner for training and implementation, with co-badging for eligible programmes." },
-  { icon: FileCheck2, title: "NCVET / DGT Alignment", body: "Qualification alignment to national skilling standards where applicable." },
+  {
+    icon: BadgeCheck,
+    title: "ISO 9001:2015",
+    body: "Certified quality management systems under BroadArks Technology Pvt. Ltd.",
+    // [VERIFY] Certificate number and validity — Legal/Compliance to supply.
+    meta: "Certificate number: [INSERT] · Validity: [INSERT]",
+  },
+  {
+    icon: Award,
+    title: "NSDC Training Partnership",
+    body: "Partner for training and implementation across eligible programmes.",
+    // [VERIFY] Current partnership scope — Accreditation team to confirm.
+    meta: "Partnership scope: [INSERT]",
+  },
+  {
+    icon: FileCheck2,
+    title: "NCVET / DGT Qualification Alignment",
+    body: "Qualification alignment to national skilling standards where applicable.",
+    // [VERIFY] Applicable qualifications — Accreditation team to confirm.
+    meta: "Applicable qualifications: [INSERT]",
+  },
 ];
 
 const PARTNERS = [
-  "MPIHTTS Bhopal",
-  "CRISP, Bhopal",
-  "iACE — Industry Academia Centre of Excellence",
-  "IIP",
-  "Sagar Institute of Research & Technology, Bhopal",
-  "CVRU — C.V. Raman University",
-  "SGSU — Sardar Gulab Singh University",
+  { name: "MPIHTTS, Bhopal", full: "Madhya Pradesh Institute of Hotel Management, Tourism, and Travel Studies" },
+  { name: "CRISP, Bhopal", full: "Centre for Research and Industrial Staff Performance" },
+  { name: "iACE", full: "Industry Academia Centre of Excellence" },
+  // [VERIFY] IIP full name — Business team to supply.
+  { name: "IIP", full: "[INSERT: full name]" },
+  { name: "Sagar Institute of Research & Technology", full: "Bhopal" },
+  { name: "CVRU", full: "C.V. Raman University" },
+  { name: "SGSU", full: "Sardar Gulab Singh University" },
 ];
 
 const FAQS: FaqItemData[] = [
@@ -53,7 +72,7 @@ const FAQS: FaqItemData[] = [
   },
   {
     q: "Is Y&Now the same as BroadArks Foundation?",
-    a: "No. Y&Now is a commercial EdTech division of BroadArks Technology Pvt. Ltd. BroadArks Foundation is a separate registered charitable entity. The two entities have different legal registrations, purposes, and contact details.",
+    a: "No. Y&Now is a commercial EdTech division of BroadArks Technology Pvt. Ltd. BroadArks Foundation is a separate registered charitable entity operating at broadarksfoundation.org. The two entities have different legal registrations, purposes, and contact details.",
   },
   {
     q: "Who owns Y&Now?",
@@ -131,7 +150,7 @@ export default function AboutPage() {
                   Y&Now operates as the EdTech division of BroadArks Technology Pvt. Ltd. All commercial contracts, invoicing, and legal agreements are executed under BroadArks Technology Pvt. Ltd.
                 </p>
                 <p>
-                  BroadArks Foundation is a separate registered charitable entity. It is not part of BroadArks Technology Pvt. Ltd. and has no commercial or legal relationship with Y&Now.
+                  BroadArks Foundation (broadarksfoundation.org) is a separate registered charitable entity. It is not part of BroadArks Technology Pvt. Ltd. and has no commercial or legal relationship with Y&Now.
                 </p>
               </Reveal>
               <Reveal delay={0.2} className="mt-6">
@@ -161,6 +180,9 @@ export default function AboutPage() {
                         <div>
                           <h3 className="mb-1 font-heading text-base font-700 text-ink">{c.title}</h3>
                           <p className="text-sm leading-relaxed text-neutral-600">{c.body}</p>
+                          <p className="mt-2 inline-flex rounded-md border border-dashed border-[#d5dbe6] bg-surface px-2 py-1 text-xs font-medium text-neutral-500">
+                            {c.meta}
+                          </p>
                         </div>
                       </div>
                     </StaggerItem>
@@ -181,12 +203,13 @@ export default function AboutPage() {
             highlight="partners"
             className="mb-12"
           />
-          <Stagger className="flex flex-wrap justify-center gap-3" stagger={0.05}>
+          <Stagger className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3" stagger={0.06}>
             {PARTNERS.map((p) => (
-              <StaggerItem key={p}>
-                <span className="inline-flex items-center rounded-full border border-[#e8ecf2] bg-surface px-5 py-2.5 text-sm font-medium text-neutral-700 transition-colors hover:border-primary-200 hover:text-primary-700">
-                  {p}
-                </span>
+              <StaggerItem key={p.name} className="h-full">
+                <div className="flex h-full flex-col justify-center rounded-2xl border border-[#e8ecf2] bg-surface p-5 transition-colors hover:border-primary-200">
+                  <h3 className="font-heading text-base font-700 text-ink">{p.name}</h3>
+                  <p className="mt-1 text-sm leading-relaxed text-neutral-600">{p.full}</p>
+                </div>
               </StaggerItem>
             ))}
           </Stagger>

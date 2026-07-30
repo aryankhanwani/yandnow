@@ -6,7 +6,7 @@ import Image from "next/image";
 import { AnimatePresence, motion } from "motion/react";
 import {
   ChevronDown, Menu, X, ArrowRight, ArrowUpRight,
-  Building2, Heart, Factory, Shield, School, GraduationCap,
+  Building2, Heart, Factory, Shield, School, GraduationCap, Store,
   type LucideIcon,
 } from "lucide-react";
 import { CtaButton } from "@/components/ui/CtaButton";
@@ -70,6 +70,13 @@ const SOLUTIONS: SubLink[] = [
     gradient: "from-secondary-400 via-secondary-500 to-secondary-700",
   },
   {
+    label: "Micro-Entrepreneurship",
+    href: "/micro-entrepreneurship",
+    description: "Livelihood, SHG & market-linkage programmes that turn skills into income.",
+    icon: Store,
+    gradient: "from-secondary-500 via-primary-500 to-primary-700",
+  },
+  {
     label: "For Learners",
     href: "/learners-b2c",
     description: "Individual upskilling journeys with placement support and employer connections.",
@@ -83,6 +90,7 @@ const NAV_ITEMS: NavItem[] = [
   { label: "Solutions", href: "#", children: SOLUTIONS },
   { label: "Our Platform", href: "/our-platform" },
   { label: "About Us", href: "/about-us" },
+  { label: "FAQ", href: "/resources/faq" },
 ];
 
 const CTA_LABEL = "Talk to Our Team";

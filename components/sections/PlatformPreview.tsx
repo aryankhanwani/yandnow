@@ -46,8 +46,12 @@ function LearningMock() {
         <StatPill label="3 of 5" />
       </div>
       <div className="space-y-2">
-        {rows.map((row) => (
-          <div key={row.title} className="flex items-center justify-between rounded-xl bg-white px-3.5 py-2.5">
+        {rows.map((row, i) => (
+          <div
+            key={row.title}
+            className="flex items-center justify-between rounded-xl bg-white px-3.5 py-2.5 transition-transform duration-300 ease-out group-hover:translate-x-1"
+            style={{ transitionDelay: `${i * 50}ms` }}
+          >
             <span className="text-[13px] font-medium text-ink">{row.title}</span>
             <span className="text-[11px] font-semibold text-neutral-500">{row.status}</span>
           </div>
@@ -55,7 +59,7 @@ function LearningMock() {
       </div>
       <div className="flex items-center justify-between border-t border-neutral-200/70 pt-4">
         <span className="text-[12px] text-neutral-500">Team completion</span>
-        <div className="flex -space-x-2">
+        <div className="flex -space-x-2 transition-transform duration-300 ease-out group-hover:-translate-y-0.5">
           <Avatar initials="AK" className="bg-primary-500 text-white ring-2 ring-surface" />
           <Avatar initials="MP" className="bg-secondary-500 text-white ring-2 ring-surface" />
           <Avatar initials="+8" className="bg-neutral-200 text-neutral-600 ring-2 ring-surface" />
@@ -78,14 +82,19 @@ function AssessmentMock() {
       </div>
       <div>
         <div className="text-[11px] font-medium text-neutral-500">Skill score</div>
-        <div className="font-heading text-3xl font-800 text-ink">82%</div>
+        <div className="font-heading text-3xl font-800 text-ink transition-transform duration-300 ease-out group-hover:scale-105 origin-left">
+          82%
+        </div>
       </div>
-      <div className="flex flex-wrap gap-2">
+      <div className="flex flex-wrap gap-2 transition-transform duration-300 ease-out group-hover:translate-x-1">
         <StatPill label="View report" tone="primary" />
         <StatPill label="Compare" />
         <StatPill label="History" />
       </div>
-      <div className="rounded-xl bg-navy px-4 py-3">
+      <div
+        className="rounded-xl bg-navy px-4 py-3 transition-transform duration-300 ease-out group-hover:-translate-y-0.5"
+        style={{ transitionDelay: "80ms" }}
+      >
         <div className="flex items-center justify-between text-[11px] font-semibold text-white/50">
           <span>Last assessment</span>
           <span>See all</span>
@@ -105,12 +114,12 @@ function PerformanceMock() {
   return (
     <div className="space-y-4">
       <span className="text-[13px] font-semibold text-ink">Performance</span>
-      <div className="flex gap-1.5">
+      <div className="flex gap-1.5 transition-transform duration-300 ease-out group-hover:translate-x-1">
         {tabs.map((tab, i) => (
           <StatPill key={tab} label={tab} tone={i === 0 ? "primary" : "neutral"} />
         ))}
       </div>
-      <div className="flex items-center gap-3 rounded-xl bg-white px-3.5 py-3">
+      <div className="flex items-center gap-3 rounded-xl bg-white px-3.5 py-3 transition-transform duration-300 ease-out group-hover:-translate-y-0.5">
         <Avatar initials="KR" className="bg-secondary-500 text-white" />
         <div>
           <div className="text-[11px] text-neutral-500">Top performer</div>
@@ -120,7 +129,9 @@ function PerformanceMock() {
       <div className="flex items-center justify-between border-t border-neutral-200/70 pt-4">
         <div>
           <div className="text-[11px] font-medium text-neutral-500">OKRs achieved</div>
-          <div className="font-heading text-2xl font-800 text-ink">142</div>
+          <div className="font-heading text-2xl font-800 text-ink transition-transform duration-300 ease-out group-hover:scale-105 origin-left">
+            142
+          </div>
         </div>
         <span className="text-[12px] font-semibold text-primary-600">View all →</span>
       </div>
@@ -167,9 +178,17 @@ export default function PlatformPreview() {
         <Stagger className="grid grid-cols-1 gap-6 md:grid-cols-3" stagger={0.1}>
           {PLATFORM_CARDS.map((card) => (
             <StaggerItem key={card.title}>
-              <div className="flex h-full min-h-[440px] flex-col rounded-3xl border border-neutral-100 bg-white p-4 shadow-card">
-                <div className="rounded-2xl bg-surface p-6">{card.mock}</div>
-                <div className="mt-6 px-2 pb-2">
+              <div className="group relative flex h-full min-h-[440px] flex-col rounded-3xl border border-neutral-100 bg-white p-5 shadow-card transition-transform duration-300 ease-out hover:-translate-y-1.5">
+                {/* Animated border reveal on hover — no glow, just an outline that draws in */}
+                <span
+                  aria-hidden
+                  className="pointer-events-none absolute -inset-px rounded-3xl border-2 border-primary-300 opacity-0 transition-opacity duration-500 ease-out group-hover:opacity-100"
+                />
+
+                <div className="flex flex-1 flex-col justify-center rounded-2xl bg-surface p-6">
+                  {card.mock}
+                </div>
+                <div className="mt-6">
                   <h3 className="font-heading text-lg font-700 text-ink">{card.title}</h3>
                   <p className="mt-2 line-clamp-2 text-[13.5px] leading-relaxed text-neutral-600">
                     {card.description}

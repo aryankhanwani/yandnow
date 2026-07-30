@@ -1,11 +1,11 @@
 "use client";
 
-import { useState } from "react";
+import { useMemo, useRef, useState } from "react";
 import {
   ClipboardCheck, GraduationCap, Wrench, TrendingUp, RefreshCw,
   type LucideIcon,
 } from "lucide-react";
-import { motion, useReducedMotion } from "motion/react";
+import { motion, useMotionValueEvent, useReducedMotion, useScroll } from "motion/react";
 import Container from "@/components/ui/Container";
 import SectionHeading from "@/components/ui/SectionHeading";
 import { Reveal } from "@/components/ui/motion-primitives";
@@ -78,34 +78,58 @@ const STEPS: Step[] = [
 
 const EASE = [0.16, 1, 0.3, 1] as const;
 
-function TimelineNode({ step, isActive }: { step: Step; isActive: boolean }) {
+function TimelineNode({ step, glow }: { step: Step; glow: boolean }) {
   const Icon = step.icon;
   return (
-    <button
-      type="button"
-      className="absolute left-6 top-0 z-10 -translate-x-1/2 lg:left-1/2"
+    <span
       aria-hidden
-      tabIndex={-1}
+      className="absolute left-6 top-0 z-10 -translate-x-1/2 lg:left-1/2"
     >
       <span
         className={cn(
-          "flex h-12 w-12 items-center justify-center rounded-full border bg-white shadow-[0_6px_18px_rgba(20,21,46,0.10)] transition-all duration-300",
-          isActive ? "scale-110 border-transparent" : "border-neutral-150",
+          "flex h-12 w-12 items-center justify-center rounded-full border bg-white transition-all duration-500",
+          glow ? "scale-110 border-transparent" : "border-neutral-150",
         )}
         style={{
-          borderColor: isActive ? undefined : "#e8ecf2",
-          backgroundColor: isActive ? `rgb(${step.tint})` : undefined,
+          borderColor: glow ? undefined : "#e8ecf2",
+          backgroundColor: glow ? `rgb(${step.tint})` : undefined,
+          boxShadow: glow
+            ? `0 0 0 7px rgba(${step.tint},0.16), 0 8px 22px rgba(${step.tint},0.35)`
+            : "0 6px 18px rgba(20,21,46,0.10)",
         }}
       >
-        <Icon size={19} className={isActive ? "text-white" : "text-primary-600"} strokeWidth={2} />
+        <Icon size={19} className={glow ? "text-white" : "text-primary-600"} strokeWidth={2} />
       </span>
-    </button>
+    </span>
   );
 }
 
 export default function HowWeWork() {
   const reduce = useReducedMotion();
   const [active, setActive] = useState<string | null>(null);
+  const [reachedIndex, setReachedIndex] = useState(-1);
+  const railRef = useRef<HTMLDivElement>(null);
+
+  /* Thresholds where the scroll-drawn fill "reaches" each node —
+     evenly spaced across the rail, since nodes sit at even intervals. */
+  const thresholds = useMemo(
+    () => STEPS.map((_, i) => i / (STEPS.length - 1)),
+    [],
+  );
+
+  const { scrollYProgress } = useScroll({
+    target: railRef,
+    offset: ["start center", "end center"],
+  });
+
+  useMotionValueEvent(scrollYProgress, "change", (v) => {
+    if (reduce) return;
+    let idx = -1;
+    for (let i = 0; i < thresholds.length; i++) {
+      if (v >= thresholds[i]) idx = i;
+    }
+    setReachedIndex((prev) => (prev === idx ? prev : idx));
+  });
 
   return (
     <section
@@ -123,29 +147,27 @@ export default function HowWeWork() {
           className="mb-16"
         />
 
-        <div className="relative mx-auto max-w-4xl">
-          {/* Rail — track + scroll-drawn fill */}
+        <div ref={railRef} className="relative mx-auto max-w-4xl">
+          {/* Rail — track + scroll-scrubbed fill */}
           <div className="absolute bottom-0 left-6 top-2 w-[2px] -translate-x-1/2 bg-neutral-150 lg:left-1/2" style={{ backgroundColor: "#e8ecf2" }} />
           <motion.div
             aria-hidden
             className="absolute left-6 top-2 w-[2px] -translate-x-1/2 origin-top rounded-full bg-primary-400 lg:left-1/2"
-            style={{ bottom: 0 }}
-            initial={{ scaleY: reduce ? 1 : 0 }}
-            whileInView={{ scaleY: 1 }}
-            viewport={{ once: true, margin: "0px 0px -20% 0px" }}
-            transition={{ duration: 1.1, ease: EASE }}
+            style={{ bottom: 0, scaleY: reduce ? 1 : scrollYProgress }}
+            transition={{ ease: EASE }}
           />
 
           <div className="space-y-10 lg:space-y-4">
             {STEPS.map((step, i) => {
               const even = i % 2 === 0;
               const isActive = active === step.id;
+              const glow = isActive || reduce || i <= reachedIndex;
               return (
                 <div
                   key={step.id}
                   className="relative pl-20 lg:grid lg:grid-cols-2 lg:gap-x-16 lg:pl-0"
                 >
-                  <TimelineNode step={step} isActive={isActive} />
+                  <TimelineNode step={step} glow={glow} />
 
                   <Reveal
                     y={20}
