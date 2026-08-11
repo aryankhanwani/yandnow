@@ -33,16 +33,31 @@ function CapabilityTrack({
             aria-current={activeIndex === index ? "step" : undefined}
             className={`group relative aspect-[3/4] w-[clamp(270px,76vw,320px)] flex-none overflow-hidden rounded-2xl border p-7 transition-[border-color,background-color,transform,opacity] duration-500 ease-out sm:w-[clamp(280px,34vw,320px)] ${
               active
-                ? "scale-100 border-[#4e47ad] bg-gradient-to-br from-[#2e3192] via-[#493aa5] to-[#6848ba] opacity-100"
+                ? "scale-100 border-[#4e47ad] bg-[#2e3192] opacity-100"
                 : "scale-[0.955] border-[#d8e3ef] bg-white opacity-90"
             }`}
           >
-            {!active && (
-              <span
-                aria-hidden
-                className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_100%_100%,rgba(37,99,235,0.34),rgba(14,165,233,0.13)_34%,transparent_68%)]"
-              />
-            )}
+            <motion.span
+              aria-hidden
+              className="pointer-events-none absolute inset-0 bg-[linear-gradient(135deg,#2e3192_0%,#6848ba_48%,#41369d_100%)] bg-[length:180%_180%]"
+              initial={false}
+              animate={
+                active
+                  ? { opacity: 1, backgroundPosition: ["0% 50%", "100% 50%"] }
+                  : { opacity: 0, backgroundPosition: "0% 50%" }
+              }
+              transition={{
+                opacity: { duration: 0.45, ease: "easeOut" },
+                backgroundPosition: { duration: 3.2, repeat: Infinity, repeatType: "mirror", ease: "easeInOut" },
+              }}
+            />
+            <motion.span
+              aria-hidden
+              className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_100%_100%,rgba(37,99,235,0.34),rgba(14,165,233,0.13)_34%,transparent_68%)]"
+              initial={false}
+              animate={{ opacity: active ? 0 : 1 }}
+              transition={{ duration: 0.4, ease: "easeOut" }}
+            />
             {active ? (
               <div className="relative flex h-full flex-col justify-between">
                 <motion.h3
