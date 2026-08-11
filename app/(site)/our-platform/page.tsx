@@ -1,8 +1,5 @@
 import type { Metadata } from "next";
-import {
-  GraduationCap, ClipboardCheck, TrendingUp, Users2, Boxes, KeyRound,
-  FileCode2, Webhook, Database, Handshake, BarChart3, type LucideIcon,
-} from "lucide-react";
+import AnimIcon from "@/components/ui/AnimIcon";
 import Container from "@/components/ui/Container";
 import PageHero from "@/components/ui/PageHero";
 import SectionHeading from "@/components/ui/SectionHeading";
@@ -23,7 +20,7 @@ export const metadata: Metadata = {
 
 const MODULES: ModuleTab[] = [
   {
-    icon: <ClipboardCheck size={24} strokeWidth={2} />,
+    icon: <AnimIcon name="ClipboardCheck" size={24} />,
     tint: "39,170,226",
     tag: "Assess",
     title: "Assessments",
@@ -38,7 +35,7 @@ const MODULES: ModuleTab[] = [
     note: "Proctored delivery available.",
   },
   {
-    icon: <GraduationCap size={24} strokeWidth={2} />,
+    icon: <AnimIcon name="GraduationCap" size={24} />,
     tint: "46,49,146",
     tag: "Learn",
     title: "LMS",
@@ -53,7 +50,7 @@ const MODULES: ModuleTab[] = [
     ],
   },
   {
-    icon: <TrendingUp size={24} strokeWidth={2} />,
+    icon: <AnimIcon name="TrendingUp" size={24} />,
     tint: "31,34,103",
     tag: "Perform",
     title: "Performance Management",
@@ -75,7 +72,7 @@ const STATS = [
 ];
 
 interface Integration {
-  icon: LucideIcon;
+  icon: string;
   type: string;
   systems: string[];
 }
@@ -83,32 +80,32 @@ interface Integration {
 // [VERIFY] HRMS + ERP rows contain [INSERT] placeholders from copy doc — Product team to confirm additional supported systems.
 const INTEGRATIONS: Integration[] = [
   {
-    icon: Users2,
+    icon: "Users2",
     type: "HRMS",
     systems: ["SAP SuccessFactors", "Darwinbox", "[additional HRMS — to be confirmed]"],
   },
   {
-    icon: Boxes,
+    icon: "Boxes",
     type: "ERP",
     systems: ["SAP", "[additional ERP platforms — to be confirmed]"],
   },
   {
-    icon: KeyRound,
+    icon: "KeyRound",
     type: "Authentication",
     systems: ["SSO/SAML", "OIDC", "SCIM provisioning for automated user management"],
   },
   {
-    icon: FileCode2,
+    icon: "FileCode2",
     type: "Content standards",
     systems: ["SCORM 1.2", "SCORM 2004", "xAPI (Tin Can)", "cmi5"],
   },
   {
-    icon: Webhook,
+    icon: "Webhook",
     type: "API",
     systems: ["REST APIs for custom integrations", "iPaaS connectors", "SFTP for bulk data exchange"],
   },
   {
-    icon: Database,
+    icon: "Database",
     type: "LRS",
     systems: ["xAPI-compatible Learning Record Store for activity tracking across all delivery modes"],
   },
@@ -116,42 +113,42 @@ const INTEGRATIONS: Integration[] = [
 
 const STEPS: StepItem[] = [
   {
-    icon: <Handshake size={24} strokeWidth={2} />,
+    icon: <AnimIcon name="Handshake" size={24} />,
     tint: "46,49,146",
     kicker: "Step 01",
     label: "Client Onboarding & Alignment",
     body: "A structured discovery session covers your workforce structure, role requirements, SOPs, safety mandates, and existing gaps. Outputs: role profiles, a competency framework, and a deployment roadmap — typically 2–3 working days of your L&D lead's time.",
   },
   {
-    icon: <ClipboardCheck size={24} strokeWidth={2} />,
+    icon: <AnimIcon name="ClipboardCheck" size={24} />,
     tint: "39,170,226",
     kicker: "Step 02",
     label: "Talent Assessment & Baseline Mapping",
     body: "Role-based assessments establish a competency baseline for each employee, combining scenario-based evaluations, technical checks, and compliance audits. Outputs: individual skill heatmaps, team-level gap reports, and a prioritised intervention plan.",
   },
   {
-    icon: <GraduationCap size={24} strokeWidth={2} />,
+    icon: <AnimIcon name="GraduationCap" size={24} />,
     tint: "31,34,103",
     kicker: "Step 03",
     label: "Personalised Learning Path Creation",
     body: "Learning paths are built per role and per individual — drawing from Y&Now's library, client-specific SCORM/xAPI modules, AR/VR simulations, and microlearning. Each path moves learners from baseline to role-proficient in the shortest effective time.",
   },
   {
-    icon: <TrendingUp size={24} strokeWidth={2} />,
+    icon: <AnimIcon name="TrendingUp" size={24} />,
     tint: "23,25,80",
     kicker: "Step 04",
     label: "Continuous Performance Monitoring",
     body: "OKRs and performance milestones are tracked through the PMS as learning progresses. Supervisor check-ins and on-the-job evaluations validate transfer to the workplace, data flows into your HRMS, and alerts flag learners falling behind.",
   },
   {
-    icon: <Users2 size={24} strokeWidth={2} />,
+    icon: <AnimIcon name="Users2" size={24} />,
     tint: "32,180,232",
     kicker: "Step 05",
     label: "Engagement & Retention Programmes",
     body: "Refresher modules, peer cohorts, recognition frameworks, and career development pathways sustain performance over time — reducing post-training attrition by connecting learning to visible career progression.",
   },
   {
-    icon: <BarChart3 size={24} strokeWidth={2} />,
+    icon: <AnimIcon name="BarChart3" size={24} />,
     tint: "46,49,146",
     kicker: "Step 06",
     label: "Analytics & ROI Reporting",
@@ -254,12 +251,12 @@ export default function OurPlatformPage() {
           />
           <Stagger className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3" stagger={0.08}>
             {INTEGRATIONS.map((it) => {
-              const Icon = it.icon;
+              const iconName = it.icon;
               return (
                 <StaggerItem key={it.type} className="h-full">
                   <HoverWashCard className="bg-surface">
                     <div className="mb-4 flex h-11 w-11 items-center justify-center rounded-xl bg-white text-primary-600 shadow-sm ring-1 ring-neutral-100 transition-transform duration-300 group-hover:scale-105">
-                      <Icon size={20} />
+                      <AnimIcon name={iconName} size={20} />
                     </div>
                     <h3 className="mb-4 font-heading text-base font-700 text-ink">{it.type}</h3>
                     <div className="flex flex-wrap gap-2">

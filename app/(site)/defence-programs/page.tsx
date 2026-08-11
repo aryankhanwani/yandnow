@@ -1,9 +1,5 @@
 import type { Metadata } from "next";
-import {
-  ClipboardCheck, HardHat, MessagesSquare, Handshake,
-  Sparkles, Shield, Landmark, Users, Clock, TrendingUp,
-  type LucideIcon,
-} from "lucide-react";
+import AnimIcon from "@/components/ui/AnimIcon";
 import Container from "@/components/ui/Container";
 import PageHero from "@/components/ui/PageHero";
 import SectionHeading from "@/components/ui/SectionHeading";
@@ -22,28 +18,28 @@ export const metadata: Metadata = {
 
 const PROGRAMME_DESIGN: StepItem[] = [
   {
-    icon: <ClipboardCheck size={24} strokeWidth={2} />,
+    icon: <AnimIcon name="ClipboardCheck" size={24} />,
     tint: "46,49,146",
     kicker: "Step 01",
     label: "Skills assessment",
     body: "We map transferable capabilities from service roles — leadership, technical skills, discipline, and operational decision-making — onto civilian job families, so the programme focuses on genuine gaps rather than retraining existing strengths.",
   },
   {
-    icon: <HardHat size={24} strokeWidth={2} />,
+    icon: <AnimIcon name="HardHat" size={24} />,
     tint: "39,170,226",
     kicker: "Step 02",
     label: "Sector-specific vocational training",
     body: "Vocational retraining for manufacturing operations, security management, logistics, facilities management, and other sectors with strong, stated demand for veteran hires.",
   },
   {
-    icon: <MessagesSquare size={24} strokeWidth={2} />,
+    icon: <AnimIcon name="MessagesSquare" size={24} />,
     tint: "31,34,103",
     kicker: "Step 03",
     label: "Soft skills for civilian environments",
     body: "Communication adaption, team dynamics, and commercial awareness — bridging the gap between a service environment and a commercial workplace.",
   },
   {
-    icon: <Handshake size={24} strokeWidth={2} />,
+    icon: <AnimIcon name="Handshake" size={24} />,
     tint: "32,180,232",
     kicker: "Step 04",
     label: "Employer linkage",
@@ -51,7 +47,7 @@ const PROGRAMME_DESIGN: StepItem[] = [
   },
   // [VERIFY] Specific programmes and delivery formats — awaiting Defence programme lead
   {
-    icon: <Sparkles size={24} strokeWidth={2} />,
+    icon: <AnimIcon name="Sparkles" size={24} />,
     tint: "46,49,146",
     kicker: "Step 05",
     label: "Programme formats",
@@ -60,7 +56,7 @@ const PROGRAMME_DESIGN: StepItem[] = [
 ];
 
 interface Partner {
-  icon: LucideIcon;
+  icon: string;
   name: string;
   scope: string;
   pending?: boolean;
@@ -69,14 +65,14 @@ interface Partner {
 const PARTNERS: Partner[] = [
   // [VERIFY] Indian Army — specific programme scope pending Defence programme lead
   {
-    icon: Shield,
+    icon: "Shield",
     name: "Indian Army",
     scope: "Specific programme scope to be confirmed with the Defence programme lead.",
     pending: true,
   },
   // [VERIFY] BSF / Bhartiya Vayu Sena / other armed forces partnerships — confirm with Defence team
   {
-    icon: Landmark,
+    icon: "Landmark",
     name: "Additional armed forces partners",
     scope: "BSF, Bhartiya Vayu Sena, and other armed forces partnerships to be confirmed with the Defence team.",
     pending: true,
@@ -84,15 +80,15 @@ const PARTNERS: Partner[] = [
 ];
 
 interface ImpactStat {
-  icon: LucideIcon;
+  icon: string;
   label: string;
 }
 
 // [VERIFY] All impact figures pending M&E team — rendered as placeholders, no fabricated numbers
 const IMPACT_STATS: ImpactStat[] = [
-  { icon: Users, label: "Veterans supported" },
-  { icon: TrendingUp, label: "Employment linkage rate for veteran participants" },
-  { icon: Clock, label: "Average time from programme completion to employment" },
+  { icon: "Users", label: "Veterans supported" },
+  { icon: "TrendingUp", label: "Employment linkage rate for veteran participants" },
+  { icon: "Clock", label: "Average time from programme completion to employment" },
 ];
 
 const FAQS: FaqItemData[] = [
@@ -164,13 +160,13 @@ export default function DefenceProgramsPage() {
           />
           <Stagger className="grid grid-cols-1 gap-6 md:grid-cols-2" stagger={0.1}>
             {PARTNERS.map((p) => {
-              const Icon = p.icon;
+              const iconName = p.icon;
               return (
                 <StaggerItem key={p.name} className="h-full">
                   <HoverWashCard noLift className="bg-surface">
                     <div className="flex gap-5">
                       <div className="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-xl bg-white text-primary-600 shadow-sm ring-1 ring-neutral-100 transition-transform duration-300 group-hover:scale-105">
-                        <Icon size={22} strokeWidth={2} />
+                        <AnimIcon name={iconName} size={22} />
                       </div>
                       <div>
                         <h3 className="mb-1.5 flex items-center gap-2 font-heading text-base font-700 text-ink">
@@ -204,13 +200,13 @@ export default function DefenceProgramsPage() {
           />
           <Stagger className="grid grid-cols-1 gap-6 sm:grid-cols-3" stagger={0.1}>
             {IMPACT_STATS.map((s) => {
-              const Icon = s.icon;
+              const iconName = s.icon;
               return (
                 <StaggerItem key={s.label} className="h-full">
                   {/* [VERIFY] Metric value pending M&E team — placeholder shown, no fabricated number */}
                   <HoverWashCard noLift className="items-center p-8 text-center">
                     <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-primary-50 text-primary-600 transition-transform duration-300 group-hover:scale-105">
-                      <Icon size={22} strokeWidth={2} />
+                      <AnimIcon name={iconName} size={22} />
                     </div>
                     <div className="mb-2 font-heading text-3xl font-800 text-neutral-300">—</div>
                     <p className="text-sm leading-relaxed text-neutral-600">{s.label}</p>

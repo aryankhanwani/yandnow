@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Mail, Phone, MapPin, Building, ShieldCheck, Clock } from "lucide-react";
+import AnimIcon from "@/components/ui/AnimIcon";
 import Container from "@/components/ui/Container";
 import PageHero from "@/components/ui/PageHero";
 import ContactForm from "@/components/sections/ContactForm";
@@ -13,16 +13,16 @@ export const metadata: Metadata = {
 };
 
 const DETAILS = [
-  { icon: Mail, label: "Email", value: "info@broadarks.com", href: "mailto:info@broadarks.com" },
-  { icon: Phone, label: "Phone", value: "+91 75535 53372", href: "tel:+917553553372" },
+  { icon: "Mail", label: "Email", value: "info@broadarks.com", href: "mailto:info@broadarks.com" },
+  { icon: "Phone", label: "Phone", value: "+91 75535 53372", href: "tel:+917553553372" },
   {
-    icon: MapPin,
+    icon: "MapPin",
     label: "Address",
     value: "Sagar Premium Tower, Phase I, Block C-1, CP-02, JK Hospital Road, Kolar, Bhopal – 462042, Madhya Pradesh, India",
   },
-  { icon: Building, label: "Legal entity", value: "BroadArks Technology Pvt. Ltd." },
-  { icon: ShieldCheck, label: "ISO certification", value: "ISO 9001:2015 certified" },
-  { icon: Clock, label: "Response time", value: "We respond to all commercial enquiries within 2 working days." },
+  { icon: "Building", label: "Legal entity", value: "BroadArks Technology Pvt. Ltd." },
+  { icon: "ShieldCheck", label: "ISO certification", value: "ISO 9001:2015 certified" },
+  { icon: "Clock", label: "Response time", value: "We respond to all commercial enquiries within 2 working days." },
 ];
 
 export default function ContactPage() {
@@ -52,11 +52,11 @@ export default function ContactPage() {
               </Reveal>
               <div className="mt-6 space-y-4">
                 {DETAILS.map((d) => {
-                  const Icon = d.icon;
+                  const iconName = d.icon;
                   const content = (
                     <div className="flex items-start gap-4 rounded-2xl border border-[#e8ecf2] bg-white p-5 transition-colors hover:border-primary-200">
                       <div className="flex h-11 w-11 flex-shrink-0 items-center justify-center rounded-xl bg-primary-50 text-primary-600">
-                        <Icon size={19} />
+                        <AnimIcon name={iconName} size={19} />
                       </div>
                       <div className="min-w-0">
                         <p className="text-[11px] font-semibold uppercase tracking-wider text-neutral-400">{d.label}</p>

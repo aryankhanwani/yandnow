@@ -1,8 +1,5 @@
 import type { Metadata } from "next";
-import {
-  Cog, Flame, Wrench, ShieldAlert, ClipboardCheck, Glasses,
-  Award, BadgeCheck, FileCheck, Factory, type LucideIcon,
-} from "lucide-react";
+import AnimIcon from "@/components/ui/AnimIcon";
 import Container from "@/components/ui/Container";
 import PageHero from "@/components/ui/PageHero";
 import SectionHeading from "@/components/ui/SectionHeading";
@@ -19,7 +16,7 @@ export const metadata: Metadata = {
 };
 
 interface Capability {
-  icon: LucideIcon;
+  icon: string;
   tint: string;
   title: string;
   body: string;
@@ -27,37 +24,37 @@ interface Capability {
 
 const CAPABILITIES: Capability[] = [
   {
-    icon: Cog,
+    icon: "Cog",
     tint: "46,49,146",
     title: "CNC Machine Operation",
     body: "Setup, programming, and quality control for CNC machining across production environments.",
   },
   {
-    icon: Flame,
+    icon: "Flame",
     tint: "39,170,226",
     title: "Welding Certification",
     body: "SMAW, GTAW, and GMAW certification delivered to WPS (Welding Procedure Specification) standards.",
   },
   {
-    icon: Wrench,
+    icon: "Wrench",
     tint: "31,34,103",
     title: "TPM & SMED",
     body: "Total Productive Maintenance and Single-Minute Exchange of Die for reliable, high-uptime operations.",
   },
   {
-    icon: ShieldAlert,
+    icon: "ShieldAlert",
     tint: "32,180,232",
     title: "EHS Compliance",
     body: "Hazard identification, incident reporting, and emergency response embedded into daily practice.",
   },
   {
-    icon: ClipboardCheck,
+    icon: "ClipboardCheck",
     tint: "46,49,146",
     title: "Quality Management",
     body: "FPY (first-pass yield), RCA (root cause analysis), and NDT protocols for measurable quality gains.",
   },
   {
-    icon: Glasses,
+    icon: "Glasses",
     tint: "39,170,226",
     title: "AR/VR Simulation Labs",
     body: "Simulation for high-risk procedures — enabling practice without production risk or consumables cost.",
@@ -65,25 +62,25 @@ const CAPABILITIES: Capability[] = [
 ];
 
 interface Accreditation {
-  icon: LucideIcon;
+  icon: string;
   title: string;
   body: string;
 }
 
 const ACCREDITATIONS: Accreditation[] = [
   {
-    icon: Award,
+    icon: "Award",
     title: "NSDC Training Partnership",
     body: "Co-badged certifications for eligible programmes under our NSDC training partnership.",
   },
   {
-    icon: BadgeCheck,
+    icon: "BadgeCheck",
     title: "NCVET & DGT Alignment",
     /* [VERIFY] confirm specific qualifications — Accreditation team */
     body: "NCVET and DGT qualification alignment. [Specific qualifications to be confirmed.]",
   },
   {
-    icon: FileCheck,
+    icon: "FileCheck",
     title: "ISO 9001:2015 Certified",
     body: "ISO 9001:2015 certified delivery process (BroadArks Technology Pvt. Ltd.).",
   },
@@ -144,7 +141,7 @@ export default function IndustrySolutionsPage() {
           />
           <Stagger className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3" stagger={0.08}>
             {CAPABILITIES.map((c) => {
-              const Icon = c.icon;
+              const iconName = c.icon;
               return (
                 <StaggerItem key={c.title} className="h-full">
                   <HoverWashCard>
@@ -152,7 +149,7 @@ export default function IndustrySolutionsPage() {
                       className="mb-5 flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-xl transition-transform duration-300 group-hover:scale-105"
                       style={{ color: `rgb(${c.tint})`, backgroundColor: `rgba(${c.tint},0.08)` }}
                     >
-                      <Icon size={22} strokeWidth={2} />
+                      <AnimIcon name={iconName} size={22} />
                     </div>
                     <div>
                       <h3 className="mb-2 font-heading text-lg font-700 text-ink">{c.title}</h3>
@@ -181,7 +178,7 @@ export default function IndustrySolutionsPage() {
               <div aria-hidden className="pointer-events-none absolute inset-0 bg-gradient-mist opacity-60" />
               <div className="relative">
                 <div className="mb-6 flex h-12 w-12 items-center justify-center rounded-xl bg-primary-50 text-primary-600">
-                  <Factory size={22} />
+                  <AnimIcon name="Factory" size={22} />
                 </div>
                 <blockquote className="font-heading text-xl font-600 leading-snug text-ink lg:text-2xl">
                   &ldquo;A pilot at an automotive components manufacturer in India reduced
@@ -208,12 +205,12 @@ export default function IndustrySolutionsPage() {
           />
           <Stagger className="grid grid-cols-1 gap-6 md:grid-cols-3" stagger={0.1}>
             {ACCREDITATIONS.map((a) => {
-              const Icon = a.icon;
+              const iconName = a.icon;
               return (
                 <StaggerItem key={a.title} className="h-full">
                   <HoverWashCard>
                     <div className="mb-5 flex h-11 w-11 items-center justify-center rounded-xl bg-primary-50 text-primary-600 transition-transform duration-300 group-hover:scale-105">
-                      <Icon size={20} />
+                      <AnimIcon name={iconName} size={20} />
                     </div>
                     <h3 className="mb-2 font-heading text-base font-700 text-ink">{a.title}</h3>
                     <p className="text-sm leading-relaxed text-neutral-600">{a.body}</p>

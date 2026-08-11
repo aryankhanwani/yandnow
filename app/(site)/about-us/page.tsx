@@ -1,16 +1,15 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
-import {
-  Building2, Landmark, Shield, HeartHandshake, School, GraduationCap,
-  BadgeCheck, Award, FileCheck2, ArrowUpRight, Target,
-} from "lucide-react";
+import { ArrowUpRight } from "lucide-react";
+import AnimIcon from "@/components/ui/AnimIcon";
 import Container from "@/components/ui/Container";
 import PageHero from "@/components/ui/PageHero";
 import SectionHeading from "@/components/ui/SectionHeading";
-import CtaBand from "@/components/ui/CtaBand";
 import FaqAccordion, { type FaqItemData } from "@/components/ui/FaqAccordion";
 import HoverWashCard from "@/components/ui/HoverWashCard";
-import { CtaButton } from "@/components/ui/CtaButton";
+import ScrollTextReveal from "@/components/ui/ScrollTextReveal";
+import WhoWeServeExplorer, { type AudienceItem } from "@/components/sections/WhoWeServeExplorer";
 import { Reveal, Stagger, StaggerItem } from "@/components/ui/motion-primitives";
 
 export const metadata: Metadata = {
@@ -19,32 +18,68 @@ export const metadata: Metadata = {
     "Y&Now is the future-skills EdTech division of BroadArks Technology Pvt. Ltd. — ISO 9001:2015 certified, headquartered in Bhopal, MP — delivering workforce capability for enterprises, government, defence, and schools across India.",
 };
 
-const SERVE = [
-  { icon: Building2, text: "Enterprises across manufacturing, retail, financial services, energy, and logistics" },
-  { icon: HeartHandshake, text: "Corporate CSR sponsors funding community skilling and livelihood programmes" },
-  { icon: Landmark, text: "Government bodies and PSUs including Indian Army, Indian Oil, NSDC, and state skill missions" },
-  { icon: Shield, text: "Defence establishments and veteran resettlement programmes" },
-  { icon: School, text: "Schools and educational institutions preparing students for industry entry" },
-  { icon: GraduationCap, text: "Individual learners seeking industry-recognised vocational qualifications" },
+const SERVE: AudienceItem[] = [
+  {
+    icon: "Building2",
+    title: "Enterprises",
+    description: "Role-based capability programmes that connect technical learning to plant, service, and business performance.",
+    image: "/about/audiences/enterprises.png",
+    imageAlt: "Manufacturing professionals learning a digital technical workflow on a factory floor",
+  },
+  {
+    icon: "HeartHandshake",
+    title: "CSR Sponsors",
+    description: "Outcome-led community skilling and livelihood programmes designed for measurable, Schedule VII-aligned impact.",
+    image: "/about/audiences/csr-sponsors.png",
+    imageAlt: "CSR programme leaders visiting a community digital-skills workshop",
+  },
+  {
+    icon: "Landmark",
+    title: "Government & PSUs",
+    description: "Scalable implementation for public workforce priorities, national qualifications, and state skill missions.",
+    image: "/about/audiences/government-psus.png",
+    imageAlt: "Public-sector programme team reviewing training outcomes with vocational instructors",
+  },
+  {
+    icon: "Shield",
+    title: "Defence & Veterans",
+    description: "Transition-focused technical pathways that translate service experience into meaningful civilian opportunities.",
+    image: "/about/audiences/defence-veterans.png",
+    imageAlt: "Veterans participating in an advanced technical reskilling workshop",
+  },
+  {
+    icon: "School",
+    title: "Schools",
+    description: "Applied vocational exposure that helps students discover pathways and prepare confidently for industry entry.",
+    image: "/about/audiences/schools.png",
+    imageAlt: "School students collaborating with a teacher on an applied robotics project",
+  },
+  {
+    icon: "GraduationCap",
+    title: "Individual Learners",
+    description: "Industry-recognised skills, practical assessment, and clearer routes into work and career progression.",
+    image: "/about/audiences/learners.png",
+    imageAlt: "A learner practising a digital technical skill with guidance from a mentor",
+  },
 ];
 
 const CREDENTIALS = [
   {
-    icon: BadgeCheck,
+    icon: "BadgeCheck",
     title: "ISO 9001:2015",
     body: "Certified quality management systems under BroadArks Technology Pvt. Ltd.",
     // [VERIFY] Certificate number and validity — Legal/Compliance to supply.
     meta: "Certificate number and validity available on request",
   },
   {
-    icon: Award,
+    icon: "Award",
     title: "NSDC Training Partnership",
     body: "Partner for training and implementation across eligible programmes.",
     // [VERIFY] Current partnership scope — Accreditation team to confirm.
     meta: "Partnership scope confirmed at scoping",
   },
   {
-    icon: FileCheck2,
+    icon: "FileCheck2",
     title: "NCVET / DGT Qualification Alignment",
     body: "Qualification alignment to national skilling standards where applicable.",
     // [VERIFY] Applicable qualifications — Accreditation team to confirm.
@@ -61,6 +96,33 @@ const PARTNERS = [
   { name: "Sagar Institute of Research & Technology", full: "Bhopal" },
   { name: "CVRU", full: "C.V. Raman University" },
   { name: "SGSU", full: "Sardar Gulab Singh University" },
+];
+
+const TEAM_IMAGES = [
+  {
+    src: "/about/team-collaboration.png",
+    alt: "Y&Now team members collaborating over programme sketches",
+    className: "h-[19rem] sm:h-[27rem] lg:h-[34rem]",
+    sizes: "(max-width: 639px) 50vw, (max-width: 1023px) 50vw, 24vw",
+  },
+  {
+    src: "/about/program-planning.png",
+    alt: "Learning designers planning a vocational programme together",
+    className: "mt-8 h-[15rem] sm:mt-14 sm:h-[21rem] lg:mt-20 lg:h-[25rem]",
+    sizes: "(max-width: 639px) 50vw, (max-width: 1023px) 50vw, 25vw",
+  },
+  {
+    src: "/about/training-review.png",
+    alt: "Programme managers reviewing digital training material",
+    className: "h-[15rem] sm:mt-6 sm:h-[23rem] lg:mt-8 lg:h-[29rem]",
+    sizes: "(max-width: 639px) 50vw, (max-width: 1023px) 50vw, 23vw",
+  },
+  {
+    src: "/about/learning-team.png",
+    alt: "Y&Now colleagues sharing ideas around a laptop",
+    className: "mt-8 h-[19rem] sm:mt-0 sm:h-[27rem] lg:h-[34rem]",
+    sizes: "(max-width: 639px) 50vw, (max-width: 1023px) 50vw, 24vw",
+  },
 ];
 
 const FAQS: FaqItemData[] = [
@@ -94,24 +156,43 @@ export default function AboutPage() {
         title="The future-skills EdTech division of"
         highlight="BroadArks Technology"
         subtitle="Building workforce capability for enterprises, government, defence, communities, and schools through industry-aligned programmes and platform."
-      >
-        <CtaButton href="/contact-us" variant="primary" className="px-7 py-3.5">
-          Talk to the Y&Now Team
-        </CtaButton>
-        <CtaButton href="/our-platform" variant="secondary" className="px-7 py-3.5">
-          Explore the Platform
-        </CtaButton>
-      </PageHero>
+        className="border-b-0"
+      />
+
+      {/* Team collage */}
+      <section className="overflow-hidden py-8 sm:py-12 lg:py-16" aria-label="The Y&Now team at work">
+        <Container>
+          <div className="grid grid-cols-2 items-start gap-3 sm:gap-5 lg:grid-cols-[0.95fr_1.06fr_0.95fr_0.95fr] lg:gap-7">
+            {TEAM_IMAGES.map((image, index) => (
+              <Reveal
+                key={image.src}
+                delay={index * 0.08}
+                y={24}
+                className={`relative overflow-hidden rounded-[1.25rem] sm:rounded-[1.75rem] ${image.className}`}
+              >
+                <Image
+                  src={image.src}
+                  alt={image.alt}
+                  fill
+                  sizes={image.sizes}
+                  className="object-cover transition-transform duration-700 hover:scale-[1.025]"
+                />
+              </Reveal>
+            ))}
+          </div>
+        </Container>
+      </section>
 
       {/* Mission */}
       <section className="bg-surface py-20 lg:py-28">
         <Container>
-          <div className="mx-auto max-w-3xl rounded-3xl border border-[#e8ecf2] bg-white p-8 text-center shadow-[0_18px_50px_rgba(20,21,46,0.06)] sm:p-12">
-            <Reveal className="mx-auto mb-5 flex h-12 w-12 items-center justify-center rounded-2xl bg-primary-50 text-primary-600">
-              <Target size={24} />
-            </Reveal>
-            <p className="mb-3 text-[11px] font-semibold uppercase tracking-[0.16em] text-secondary-500">Our Mission</p>
-            <AnimatedMission />
+          <div className="max-w-5xl text-left">
+            <p className="mb-6 text-[11px] font-semibold uppercase tracking-[0.16em] text-secondary-500">Our Mission</p>
+            <ScrollTextReveal
+              text="We bridge the gap between industry needs and workforce skills, turning practical learning into stronger performance and lasting opportunity."
+              highlightWords={["industry", "skills", "performance", "opportunity"]}
+              className="font-heading text-[clamp(1.65rem,3.4vw,3rem)] font-600 leading-[1.2] tracking-tight"
+            />
           </div>
         </Container>
       </section>
@@ -123,25 +204,10 @@ export default function AboutPage() {
             eyebrow="Who We Serve"
             title="Capability across every corner of"
             highlight="India's workforce"
+            align="left"
             className="mb-14"
           />
-          <Stagger className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3" stagger={0.07}>
-            {SERVE.map((s) => {
-              const Icon = s.icon;
-              return (
-                <StaggerItem key={s.text} className="h-full">
-                  <HoverWashCard noLift className="bg-surface p-6">
-                    <div className="flex items-start gap-4">
-                      <div className="flex h-11 w-11 flex-shrink-0 items-center justify-center rounded-xl bg-white text-primary-600 shadow-sm ring-1 ring-neutral-100 transition-transform duration-300 group-hover:scale-105">
-                        <Icon size={20} />
-                      </div>
-                      <p className="text-sm leading-relaxed text-neutral-700">{s.text}</p>
-                    </div>
-                  </HoverWashCard>
-                </StaggerItem>
-              );
-            })}
-          </Stagger>
+          <WhoWeServeExplorer items={SERVE} />
         </Container>
       </section>
 
@@ -180,13 +246,13 @@ export default function AboutPage() {
               <SectionHeading eyebrow="Certifications & Credentials" title="Built on verified standards" align="left" />
               <Stagger className="mt-6 flex flex-col gap-4" stagger={0.09}>
                 {CREDENTIALS.map((c) => {
-                  const Icon = c.icon;
+                  const iconName = c.icon;
                   return (
                     <StaggerItem key={c.title}>
                       <HoverWashCard noLift className="p-5">
                         <div className="flex gap-4">
                           <div className="flex h-11 w-11 flex-shrink-0 items-center justify-center rounded-xl bg-primary-50 text-primary-600 transition-transform duration-300 group-hover:scale-105">
-                            <Icon size={20} />
+                            <AnimIcon name={iconName} size={20} />
                           </div>
                           <div>
                             <h3 className="mb-1 font-heading text-base font-700 text-ink">{c.title}</h3>
@@ -240,24 +306,6 @@ export default function AboutPage() {
         </Container>
       </section>
 
-      <CtaBand
-        title="Let's build capability"
-        highlight="together"
-        subtitle="Talk to the Y&Now team about enterprise training, CSR programmes, or platform demos."
-        primaryLabel="Talk to the Y&Now Team"
-        primaryHref="/contact-us"
-        secondaryLabel="Explore Solutions"
-        secondaryHref="/corporate"
-      />
     </>
-  );
-}
-
-function AnimatedMission() {
-  return (
-    <p className="font-heading text-[clamp(1.35rem,2.6vw,1.9rem)] font-600 leading-snug text-ink">
-      To close the gap between what India&apos;s workforce can do and what India&apos;s industries need — through capability programmes and assessment systems that connect directly to{" "}
-      <span className="text-primary-600">performance.</span>
-    </p>
   );
 }

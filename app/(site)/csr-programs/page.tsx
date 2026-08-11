@@ -24,6 +24,7 @@ const PROGRAMMES: StackCardItem[] = [
     num: "01",
     icon: <GraduationCap size={26} strokeWidth={2} />,
     tint: "46,49,146",
+    image: "/images/csr/programme-streams/skill-development-employability.jpg",
     title: "Skill Development & Employability",
     body: "NSDC-aligned vocational training and employability skilling for youth and working-age adults, with employer linkage and placement support.",
     meta: "Schedule VII item (ii) — Promotion of education",
@@ -32,6 +33,7 @@ const PROGRAMMES: StackCardItem[] = [
     num: "02",
     icon: <ShieldCheck size={26} strokeWidth={2} />,
     tint: "39,170,226",
+    image: "/images/csr/programme-streams/veteran-transition.jpg",
     title: "Veteran Transition",
     body: "Post-service civilian resettlement programmes for armed forces personnel, combining skills assessment, vocational retraining, and employer connections.",
     meta: "Schedule VII item (vi) — Training to promote nationally recognised sports, and items covering armed forces veterans",
@@ -41,6 +43,7 @@ const PROGRAMMES: StackCardItem[] = [
     num: "03",
     icon: <Sprout size={26} strokeWidth={2} />,
     tint: "31,34,103",
+    image: "/images/csr/programme-streams/livelihood-entrepreneurship.jpg",
     title: "Livelihood & Entrepreneurship",
     body: "Vocational skilling, SHG strengthening, market linkage, and micro-enterprise development for women and marginalised communities.",
     meta: "Schedule VII item (iii) — Promoting gender equality and empowering women",
@@ -50,6 +53,7 @@ const PROGRAMMES: StackCardItem[] = [
     num: "04",
     icon: <HeartHandshake size={26} strokeWidth={2} />,
     tint: "32,180,232",
+    image: "/images/csr/programme-streams/community-development.jpg",
     title: "Community Development",
     body: "Broader social infrastructure capacity-building, including health awareness, digital literacy, and community governance.",
     meta: "Schedule VII item (i) — Eradicating hunger, poverty, and malnutrition",
@@ -62,6 +66,7 @@ const STAGES: ProcessStep[] = [
     kicker: "Stage 01",
     icon: <ClipboardList size={24} strokeWidth={2} />,
     tint: "46,49,146",
+    image: "/images/csr/delivery-model/needs-assessment.jpg",
     label: "Needs Assessment",
     body: "Community mapping, baseline surveys, and beneficiary identification — co-created with your CSR team.",
   },
@@ -70,6 +75,7 @@ const STAGES: ProcessStep[] = [
     kicker: "Stage 02",
     icon: <Cog size={24} strokeWidth={2} />,
     tint: "39,170,226",
+    image: "/images/csr/delivery-model/programme-execution.jpg",
     label: "Programme Execution",
     body: "On-ground delivery by qualified facilitators, with standardised quality assurance and mid-programme review.",
   },
@@ -78,6 +84,7 @@ const STAGES: ProcessStep[] = [
     kicker: "Stage 03",
     icon: <BarChart3 size={24} strokeWidth={2} />,
     tint: "31,34,103",
+    image: "/images/csr/delivery-model/impact-measurement-reporting.jpg",
     label: "Impact Measurement & Reporting",
     body: "End-line assessments, income verification, and a compliance-ready impact report for your CSR committee.",
   },
@@ -136,16 +143,18 @@ export default function CsrProgramsPage() {
       </PageHero>
 
       {/* What We Deliver — scroll-stacked deck of programme streams */}
-      <section className="bg-surface pt-20 lg:pt-28">
-        <Container>
-          <SectionHeading
-            eyebrow="What We Deliver"
-            title="Four CSR programme"
-            highlight="streams"
-            subtitle="Y&Now manages four programme streams under CSR — each mapped to a category of Schedule VII of the Companies Act, 2013. Scroll to step through each."
-          />
-        </Container>
-        <StackingCards cards={PROGRAMMES} className="mt-8" />
+      <section className="bg-surface">
+        <StackingCards
+          cards={PROGRAMMES}
+          heading={
+            <SectionHeading
+              eyebrow="What We Deliver"
+              title="Four CSR programme"
+              highlight="streams"
+              subtitle="Y&Now manages four programme streams under CSR — each mapped to a category of Schedule VII of the Companies Act, 2013. Scroll to step through each."
+            />
+          }
+        />
       </section>
 
       {/* Our CSR Delivery Approach — horizontal three-stage process */}

@@ -129,21 +129,40 @@ export default function StepScroller({
   const [active, setActive] = useState(0);
   const itemRefs = useRef<(HTMLLIElement | null)[]>([]);
 
+  // Scroll-driven activation: whichever step's centre is nearest the
+  // viewport centre wins. This is deterministic across every scroll
+  // position (unlike an IntersectionObserver, whose batched callbacks
+  // could keep a stale index and leave the walkthrough stuck part-way).
   useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        for (const entry of entries) {
-          if (entry.isIntersecting) {
-            const idx = Number((entry.target as HTMLElement).dataset.index);
-            if (!Number.isNaN(idx)) setActive(idx);
-          }
+    let frame = 0;
+    const compute = () => {
+      frame = 0;
+      const viewportCentre = window.innerHeight / 2;
+      let nearest = 0;
+      let nearestDist = Infinity;
+      itemRefs.current.forEach((el, i) => {
+        if (!el) return;
+        const rect = el.getBoundingClientRect();
+        const dist = Math.abs(rect.top + rect.height / 2 - viewportCentre);
+        if (dist < nearestDist) {
+          nearestDist = dist;
+          nearest = i;
         }
-      },
-      // Thin band across the vertical centre — the step crossing it wins.
-      { rootMargin: "-48% 0px -48% 0px", threshold: 0 },
-    );
-    itemRefs.current.forEach((el) => el && observer.observe(el));
-    return () => observer.disconnect();
+      });
+      setActive(nearest);
+    };
+    const onScroll = () => {
+      if (frame) return;
+      frame = requestAnimationFrame(compute);
+    };
+    compute();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onScroll, { passive: true });
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onScroll);
+      if (frame) cancelAnimationFrame(frame);
+    };
   }, [steps.length]);
 
   return (

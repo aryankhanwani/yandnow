@@ -1,8 +1,5 @@
 import type { Metadata } from "next";
-import {
-  GraduationCap, Briefcase, Store, Users, HeartHandshake,
-  UsersRound, TrendingUp, Sprout, BarChart3, type LucideIcon,
-} from "lucide-react";
+import AnimIcon from "@/components/ui/AnimIcon";
 import Container from "@/components/ui/Container";
 import PageHero from "@/components/ui/PageHero";
 import SectionHeading from "@/components/ui/SectionHeading";
@@ -19,7 +16,7 @@ export const metadata: Metadata = {
 };
 
 interface Component {
-  icon: LucideIcon;
+  icon: string;
   tint: string;
   title: string;
   body: string;
@@ -27,31 +24,31 @@ interface Component {
 
 const COMPONENTS: Component[] = [
   {
-    icon: GraduationCap,
+    icon: "GraduationCap",
     tint: "46,49,146",
     title: "Vocational skills training",
     body: "Sector-relevant skills matched to local market demand.",
   },
   {
-    icon: Briefcase,
+    icon: "Briefcase",
     tint: "39,170,226",
     title: "Business development",
     body: "Costing, pricing, quality standards, customer acquisition, and record-keeping for micro-enterprise owners.",
   },
   {
-    icon: Store,
+    icon: "Store",
     tint: "31,34,103",
     title: "Market linkage",
     body: "Connections to buyers, aggregators, e-commerce platforms, and local trade networks.",
   },
   {
-    icon: Users,
+    icon: "Users",
     tint: "32,180,232",
     title: "SHG strengthening",
     body: "Group formation, governance, savings and credit practice, and peer support.",
   },
   {
-    icon: HeartHandshake,
+    icon: "HeartHandshake",
     tint: "46,49,146",
     title: "Mentorship",
     body: "Ongoing support from Y&Now facilitators and sector-expert mentors during and after training.",
@@ -61,10 +58,10 @@ const COMPONENTS: Component[] = [
 /* [VERIFY] Impact figures are pending M&E team sign-off — rendered as a neutral
    placeholder ("—"), never fabricated numbers. */
 const IMPACT = [
-  { icon: UsersRound, label: "Women trained" },
-  { icon: TrendingUp, label: "Reporting income generation within 6 months" },
-  { icon: BarChart3, label: "Average income increase" },
-  { icon: Sprout, label: "SHGs strengthened or formed" },
+  { icon: "UsersRound", label: "Women trained" },
+  { icon: "TrendingUp", label: "Reporting income generation within 6 months" },
+  { icon: "BarChart3", label: "Average income increase" },
+  { icon: "Sprout", label: "SHGs strengthened or formed" },
 ];
 
 const FAQS: FaqItemData[] = [
@@ -120,7 +117,7 @@ export default function MicroEntrepreneurshipPage() {
           />
           <Stagger className="grid grid-cols-1 gap-6 md:grid-cols-2" stagger={0.08}>
             {COMPONENTS.map((c) => {
-              const Icon = c.icon;
+              const iconName = c.icon;
               return (
                 <StaggerItem key={c.title} className="h-full">
                   <HoverWashCard>
@@ -129,7 +126,7 @@ export default function MicroEntrepreneurshipPage() {
                         className="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-xl transition-transform duration-300 group-hover:scale-105"
                         style={{ color: `rgb(${c.tint})`, backgroundColor: `rgba(${c.tint},0.08)` }}
                       >
-                        <Icon size={22} strokeWidth={2} />
+                        <AnimIcon name={iconName} size={22} />
                       </div>
                       <div>
                         <h3 className="mb-2 font-heading text-lg font-700 text-ink">{c.title}</h3>
@@ -159,12 +156,12 @@ export default function MicroEntrepreneurshipPage() {
             </div>
             <Stagger className="grid grid-cols-1 gap-4 sm:grid-cols-2" stagger={0.1}>
               {IMPACT.map((m) => {
-                const Icon = m.icon;
+                const iconName = m.icon;
                 return (
                   <StaggerItem key={m.label} className="h-full">
                     <HoverWashCard noLift className="bg-surface p-6">
                       <div className="mb-4 flex h-11 w-11 items-center justify-center rounded-xl bg-white text-primary-600 shadow-sm ring-1 ring-neutral-100 transition-transform duration-300 group-hover:scale-105">
-                        <Icon size={20} />
+                        <AnimIcon name={iconName} size={20} />
                       </div>
                       {/* [VERIFY] Metric value pending — verified figures from M&E team. */}
                       <span className="mb-1 block font-heading text-3xl font-800 text-neutral-300">—</span>

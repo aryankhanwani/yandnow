@@ -15,12 +15,9 @@ import { cn } from "@/lib/utils";
 /* ============================================================
    StackingCards — page-scroll-native stacked-card reveal.
 
-   The section is as tall as N viewports. Each card lives in its
-   own `sticky top-0 h-screen` wrapper and is centred, so while
-   you scroll through the section ONE card fills the viewport at a
-   time. As the next card rises from the bottom and pins, the
-   card(s) behind it scale down a touch and peek out from the top
-   — a physical "deck" building up in the centre of the screen.
+   The section is as tall as N viewports. A single sticky stage keeps
+   the optional heading and the deck in one vertically centred layout,
+   while each new card rises into the deck as the page scrolls.
 
    Driven entirely by the page's own scroll (no inner scroll box),
    which is why it never traps the wheel. Falls back to a plain
@@ -59,16 +56,29 @@ function Card({
   // front-most card (last) stays at full size.
   const targetScale = 1 - (total - 1 - i) * 0.04;
   const scale = useTransform(progress, [i / total, 1], [1, targetScale]);
+  const enterStart = i === 0 ? 0 : (i - 0.75) / total;
+  const enterEnd = i === 0 ? 0.001 : i / total;
+  const y = useTransform(
+    progress,
+    [enterStart, enterEnd],
+    i === 0 ? ["0%", "0%"] : ["115%", "0%"],
+  );
+  const stackOffset = i * 8;
+  const maxStackOffset = (total - 1) * 8;
 
   return (
-    <div className="sticky top-0 flex h-screen items-center justify-center px-4">
-      <motion.div
-        style={{ scale, top: `calc(-6vh + ${i * 26}px)` }}
-        className="relative mx-auto w-full max-w-5xl"
-      >
-        <CardBody card={card} />
-      </motion.div>
-    </div>
+    <motion.div
+      style={{
+        scale,
+        y,
+        top: stackOffset,
+        height: `calc(100% - ${maxStackOffset}px)`,
+        zIndex: i + 1,
+      }}
+      className="absolute inset-x-0 top-0 h-full origin-top"
+    >
+      <CardBody card={card} />
+    </motion.div>
   );
 }
 
@@ -76,7 +86,7 @@ function CardBody({ card }: { card: StackCardItem }) {
   const { tint } = card;
   return (
     <div
-      className="grid min-h-[440px] grid-cols-1 overflow-hidden rounded-[28px] border border-[#e8ecf2] bg-white shadow-[0_30px_80px_-40px_rgba(20,21,46,0.45)] md:min-h-[520px] md:grid-cols-[0.85fr_1.4fr]"
+      className="grid h-full min-h-[300px] grid-cols-1 overflow-hidden rounded-[28px] border border-[#e8ecf2] bg-white md:min-h-[360px] md:grid-cols-[0.85fr_1.4fr]"
     >
       {/* Left — tinted panel with watermark number + icon */}
       <div
@@ -115,7 +125,7 @@ function CardBody({ card }: { card: StackCardItem }) {
       </div>
 
       {/* Right — title + body */}
-      <div className="flex flex-col justify-center p-8 md:p-12">
+      <div className="flex min-h-0 flex-col justify-center overflow-y-auto p-8 md:p-12">
         <h3 className="font-heading text-2xl font-700 leading-tight text-ink md:text-[2rem]">
           {card.title}
         </h3>
@@ -149,9 +159,12 @@ function CardBody({ card }: { card: StackCardItem }) {
 export default function StackingCards({
   cards,
   className,
+  heading,
 }: {
   cards: StackCardItem[];
   className?: string;
+  /** Optional heading that stays pinned at the top while the deck stacks. */
+  heading?: ReactNode;
 }) {
   const container = useRef<HTMLDivElement>(null);
   const reduce = useReducedMotion();
@@ -164,6 +177,7 @@ export default function StackingCards({
   if (reduce) {
     return (
       <div className={cn("mx-auto flex max-w-5xl flex-col gap-8 px-4", className)}>
+        {heading && <div className="mx-auto max-w-3xl">{heading}</div>}
         {cards.map((card) => (
           <CardBody key={card.num} card={card} />
         ))}
@@ -172,16 +186,31 @@ export default function StackingCards({
   }
 
   return (
-    <div ref={container} className={cn("relative", className)}>
-      {cards.map((card, i) => (
-        <Card
-          key={card.num}
-          card={card}
-          i={i}
-          total={cards.length}
-          progress={scrollYProgress}
-        />
-      ))}
+    <div
+      ref={container}
+      className={cn("relative", className)}
+      style={{ height: `${Math.max(cards.length, 1) * 100}vh` }}
+    >
+      <div className="sticky top-0 h-screen overflow-hidden px-4 pt-16 lg:pt-20">
+        <div className="mx-auto flex h-full w-full max-w-5xl flex-col justify-center pb-4 lg:pb-6">
+          {heading && (
+            <div className="relative z-20 mx-auto mb-5 w-full max-w-3xl shrink-0 lg:mb-7">
+              {heading}
+            </div>
+          )}
+          <div className="relative h-[min(53vh,430px)] min-h-[340px] w-full shrink-0 overflow-hidden rounded-[28px] md:h-[min(48vh,384px)] md:min-h-[384px]">
+            {cards.map((card, i) => (
+              <Card
+                key={card.num}
+                card={card}
+                i={i}
+                total={cards.length}
+                progress={scrollYProgress}
+              />
+            ))}
+          </div>
+        </div>
+      </div>
     </div>
   );
 }

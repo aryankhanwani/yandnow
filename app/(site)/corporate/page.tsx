@@ -1,9 +1,5 @@
 import type { Metadata } from "next";
-import {
-  Gauge, MonitorSmartphone, Users2, Sparkles,
-  Target, Plug, Layers,
-  ClipboardCheck, GraduationCap, Wrench, TrendingUp, RefreshCw,
-} from "lucide-react";
+import AnimIcon from "@/components/ui/AnimIcon";
 import Container from "@/components/ui/Container";
 import PageHero from "@/components/ui/PageHero";
 import SectionHeading from "@/components/ui/SectionHeading";
@@ -25,7 +21,7 @@ export const metadata: Metadata = {
 const CATEGORIES: StackCardItem[] = [
   {
     num: "01",
-    icon: <Gauge size={26} strokeWidth={2} />,
+    icon: <AnimIcon name="Gauge" size={26} />,
     tint: "46,49,146",
     image: "/images/corporate/programme-categories/operational-performance.jpg",
     title: "Operational Performance",
@@ -33,7 +29,7 @@ const CATEGORIES: StackCardItem[] = [
   },
   {
     num: "02",
-    icon: <MonitorSmartphone size={26} strokeWidth={2} />,
+    icon: <AnimIcon name="MonitorSmartphone" size={26} />,
     tint: "39,170,226",
     image: "/images/corporate/programme-categories/digital-workflow-adoption.jpg",
     title: "Digital & Workflow Adoption",
@@ -41,7 +37,7 @@ const CATEGORIES: StackCardItem[] = [
   },
   {
     num: "03",
-    icon: <Users2 size={26} strokeWidth={2} />,
+    icon: <AnimIcon name="Users2" size={26} />,
     tint: "31,34,103",
     image: "/images/corporate/programme-categories/leadership-management.jpg",
     title: "Leadership & Management",
@@ -49,7 +45,7 @@ const CATEGORIES: StackCardItem[] = [
   },
   {
     num: "04",
-    icon: <Sparkles size={26} strokeWidth={2} />,
+    icon: <AnimIcon name="Sparkles" size={26} />,
     tint: "32,180,232",
     image: "/images/corporate/programme-categories/customer-excellence.jpg",
     title: "Customer Excellence",
@@ -59,17 +55,17 @@ const CATEGORIES: StackCardItem[] = [
 
 const DIFFERENTIATORS = [
   {
-    icon: Target,
+    icon: "Target",
     title: "Performance linkage",
     body: "Every programme maps to a defined performance signal. L&D ROI is measured before the contract closes.",
   },
   {
-    icon: Plug,
+    icon: "Plug",
     title: "Platform integration",
     body: "Connects with SAP, SuccessFactors, Darwinbox, and other HRMS via REST APIs and SSO — no extra system to manage.",
   },
   {
-    icon: Layers,
+    icon: "Layers",
     title: "Scale and sector depth",
     body: "Sector-specific content, NSDC/NCVET co-badging, and AR/VR simulation across manufacturing, retail, and energy.",
   },
@@ -79,7 +75,7 @@ const DELIVERY: StepItem[] = [
   {
     label: "Assess",
     kicker: "Stage 01",
-    icon: <ClipboardCheck size={24} strokeWidth={2} />,
+    icon: <AnimIcon name="ClipboardCheck" size={24} />,
     tint: "46,49,146",
     image: "/images/corporate/delivery-model/assess.jpg",
     body: "We map current competency across roles, functions, and levels to pinpoint the exact gaps between where your workforce is and where it needs to be.",
@@ -87,7 +83,7 @@ const DELIVERY: StepItem[] = [
   {
     label: "Train",
     kicker: "Stage 02",
-    icon: <GraduationCap size={24} strokeWidth={2} />,
+    icon: <AnimIcon name="GraduationCap" size={24} />,
     tint: "39,170,226",
     image: "/images/corporate/delivery-model/train.jpg",
     body: "Personalised learning paths — instructor-led, digital, AR/VR simulation, and microlearning — close identified skill gaps at individual and team level.",
@@ -95,7 +91,7 @@ const DELIVERY: StepItem[] = [
   {
     label: "Apply",
     kicker: "Stage 03",
-    icon: <Wrench size={24} strokeWidth={2} />,
+    icon: <AnimIcon name="Wrench" size={24} />,
     tint: "31,34,103",
     image: "/images/corporate/delivery-model/apply.jpg",
     body: "On-the-job tasks, manager check-ins, and live scenario assessments verify that learning is transferring from training into the workplace.",
@@ -103,7 +99,7 @@ const DELIVERY: StepItem[] = [
   {
     label: "Perform",
     kicker: "Stage 04",
-    icon: <TrendingUp size={24} strokeWidth={2} />,
+    icon: <AnimIcon name="TrendingUp" size={24} />,
     tint: "23,25,80",
     image: "/images/corporate/delivery-model/perform.jpg",
     body: "OKR tracking and performance signals measure whether capability improvements show up in actual job performance and operational KPIs.",
@@ -111,7 +107,7 @@ const DELIVERY: StepItem[] = [
   {
     label: "Improve",
     kicker: "Stage 05",
-    icon: <RefreshCw size={24} strokeWidth={2} />,
+    icon: <AnimIcon name="RefreshCw" size={24} />,
     tint: "32,180,232",
     image: "/images/corporate/delivery-model/improve.jpg",
     body: "Analytics from each cycle inform the next — a continuous loop between learning investment, performance data, and workforce planning.",
@@ -160,17 +156,19 @@ export default function CorporatePage() {
         </CtaButton>
       </PageHero>
 
-      {/* Programme categories — scroll-stacked deck */}
-      <section className="bg-surface pt-20 lg:pt-28">
-        <Container>
-          <SectionHeading
-            eyebrow="Programme Categories"
-            title="Four categories of corporate"
-            highlight="capability"
-            subtitle="Y&Now delivers enterprise capability where it moves the business — from the frontline to the leadership bench. Scroll to step through each."
-          />
-        </Container>
-        <StackingCards cards={CATEGORIES} className="mt-8" />
+      {/* Programme categories — scroll-stacked deck with a pinned title */}
+      <section className="bg-surface">
+        <StackingCards
+          cards={CATEGORIES}
+          heading={
+            <SectionHeading
+              eyebrow="Programme Categories"
+              title="Four categories of corporate"
+              highlight="capability"
+              subtitle="Y&Now delivers enterprise capability where it moves the business — from the frontline to the leadership bench. Scroll to step through each."
+            />
+          }
+        />
       </section>
 
       {/* Why choose */}
@@ -185,12 +183,11 @@ export default function CorporatePage() {
           />
           <Stagger className="grid grid-cols-1 gap-6 md:grid-cols-3" stagger={0.1}>
             {DIFFERENTIATORS.map((d) => {
-              const Icon = d.icon;
               return (
                 <StaggerItem key={d.title} className="h-full">
                   <SpotlightCard>
                     <div className="mb-6 flex h-14 w-14 items-center justify-center rounded-2xl bg-primary-50 text-primary-600 ring-1 ring-primary-100 transition-transform duration-300 group-hover:scale-105">
-                      <Icon size={24} strokeWidth={2} />
+                      <AnimIcon name={d.icon} size={24} />
                     </div>
                     <h3 className="mb-2.5 font-heading text-xl font-700 leading-tight text-ink">{d.title}</h3>
                     <p className="text-[15px] leading-relaxed text-neutral-600">{d.body}</p>

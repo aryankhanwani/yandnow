@@ -1,9 +1,6 @@
 import type { Metadata } from "next";
-import {
-  Handshake, BadgeCheck, Briefcase, MonitorSmartphone, Clock,
-  Factory, ShoppingBag, Landmark, Headset, UtensilsCrossed,
-  ArrowRight, type LucideIcon,
-} from "lucide-react";
+import { ArrowRight } from "lucide-react";
+import AnimIcon from "@/components/ui/AnimIcon";
 import Container from "@/components/ui/Container";
 import PageHero from "@/components/ui/PageHero";
 import SectionHeading from "@/components/ui/SectionHeading";
@@ -20,7 +17,7 @@ export const metadata: Metadata = {
 };
 
 interface Benefit {
-  icon: LucideIcon;
+  icon: string;
   tint: string;
   title: string;
   body: string;
@@ -28,31 +25,31 @@ interface Benefit {
 
 const BENEFITS: Benefit[] = [
   {
-    icon: Handshake,
+    icon: "Handshake",
     tint: "46,49,146",
     title: "Courses co-designed with employers",
     body: "So you learn what's actually needed on the job — not generic textbook content.",
   },
   {
-    icon: BadgeCheck,
+    icon: "BadgeCheck",
     tint: "39,170,226",
     title: "NSQF certifications",
     body: "Nationally recognised qualifications accepted by employers across India.",
   },
   {
-    icon: Briefcase,
+    icon: "Briefcase",
     tint: "31,34,103",
     title: "Placement support",
     body: "Y&Now connects completing learners to hiring employers.",
   },
   {
-    icon: MonitorSmartphone,
+    icon: "MonitorSmartphone",
     tint: "32,180,232",
     title: "Blended delivery",
     body: "Choose in-person, online, or a combination.",
   },
   {
-    icon: Clock,
+    icon: "Clock",
     tint: "46,49,146",
     title: "Shorter durations",
     body: "Most courses run 4–12 weeks, not years.",
@@ -63,11 +60,11 @@ const BENEFITS: Benefit[] = [
    ([INSERT: confirm active learner sectors]) — replace with the confirmed
    active sector list from the School Solutions/Learner team. */
 const SECTORS = [
-  { icon: Factory, label: "Manufacturing" },
-  { icon: ShoppingBag, label: "Retail Operations" },
-  { icon: Landmark, label: "Financial Services" },
-  { icon: Headset, label: "IT Support" },
-  { icon: UtensilsCrossed, label: "Hospitality" },
+  { icon: "Factory", label: "Manufacturing" },
+  { icon: "ShoppingBag", label: "Retail Operations" },
+  { icon: "Landmark", label: "Financial Services" },
+  { icon: "Headset", label: "IT Support" },
+  { icon: "UtensilsCrossed", label: "Hospitality" },
 ];
 
 const FAQS: FaqItemData[] = [
@@ -122,7 +119,7 @@ export default function LearnersB2cPage() {
           />
           <Stagger className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3" stagger={0.08}>
             {BENEFITS.map((b) => {
-              const Icon = b.icon;
+              const iconName = b.icon;
               return (
                 <StaggerItem key={b.title} className="h-full">
                   <HoverWashCard>
@@ -131,7 +128,7 @@ export default function LearnersB2cPage() {
                         className="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-xl transition-transform duration-300 group-hover:scale-105"
                         style={{ color: `rgb(${b.tint})`, backgroundColor: `rgba(${b.tint},0.08)` }}
                       >
-                        <Icon size={22} strokeWidth={2} />
+                        <AnimIcon name={iconName} size={22} />
                       </div>
                       <div>
                         <h3 className="mb-2 font-heading text-lg font-700 text-ink">{b.title}</h3>
@@ -158,13 +155,13 @@ export default function LearnersB2cPage() {
           />
           <Stagger className="grid grid-cols-2 gap-5 sm:grid-cols-3 lg:grid-cols-5" stagger={0.07}>
             {SECTORS.map((s) => {
-              const Icon = s.icon;
+              const iconName = s.icon;
               return (
                 <StaggerItem key={s.label} className="h-full">
                   <HoverWashCard className="bg-surface p-6">
                     <div className="flex h-full flex-col items-center gap-4 text-center">
                       <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-primary-50 text-primary-600 transition-transform duration-300 group-hover:scale-105">
-                        <Icon size={22} strokeWidth={2} />
+                        <AnimIcon name={iconName} size={22} />
                       </div>
                       <h3 className="font-heading text-sm font-700 text-ink">{s.label}</h3>
                     </div>

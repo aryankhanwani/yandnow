@@ -1,15 +1,20 @@
 "use client";
 
-import { useMemo, useRef, useState } from "react";
-import {
-  ClipboardCheck, GraduationCap, Wrench, TrendingUp, RefreshCw,
-  type LucideIcon,
-} from "lucide-react";
+import { type ComponentType, useMemo, useRef, useState } from "react";
+import { ClipboardCheckIcon } from "@/components/ui/clipboard-check";
+import { GraduationCapIcon } from "@/components/ui/graduation-cap";
+import { WrenchIcon } from "@/components/ui/wrench";
+import { TrendingUpIcon } from "@/components/ui/trending-up";
+import { RefreshCWIcon } from "@/components/ui/refresh-cw";
 import { motion, useMotionValueEvent, useReducedMotion, useScroll } from "motion/react";
 import Container from "@/components/ui/Container";
 import SectionHeading from "@/components/ui/SectionHeading";
+import InViewIcon from "@/components/ui/InViewIcon";
 import { Reveal } from "@/components/ui/motion-primitives";
 import { cn } from "@/lib/utils";
+
+/** Animated icons expose only size/className to callers. */
+type AnimatedIcon = ComponentType<{ size?: number; className?: string }>;
 
 /* ============================================================
    HOW WE WORK — 5-step framework as an interactive vertical
@@ -23,7 +28,7 @@ interface Step {
   id: string;
   num: string;
   label: string;
-  icon: LucideIcon;
+  icon: AnimatedIcon;
   tint: string;
   description: string;
 }
@@ -33,46 +38,46 @@ const STEPS: Step[] = [
     id: "assess",
     num: "01",
     label: "Assess",
-    icon: ClipboardCheck,
+    icon: ClipboardCheckIcon,
     tint: "46,49,146",
     description:
-      "We map current competency across roles, functions, and levels to identify the exact gaps between where your workforce is and where it needs to be.",
+      "We map competency across roles and levels to pinpoint the exact skill gaps.",
   },
   {
     id: "train",
     num: "02",
     label: "Train",
-    icon: GraduationCap,
+    icon: GraduationCapIcon,
     tint: "46,49,146",
     description:
-      "Personalised learning paths — combining instructor-led training, digital modules, AR/VR simulation, and microlearning — close identified skill gaps at individual and team level.",
+      "Personalised learning paths — instructor-led, digital, AR/VR, and microlearning — close those gaps.",
   },
   {
     id: "apply",
     num: "03",
     label: "Apply",
-    icon: Wrench,
+    icon: WrenchIcon,
     tint: "46,49,146",
     description:
-      "On-the-job tasks, manager check-ins, and live scenario assessments verify that learning is transferring from the training environment to the workplace.",
+      "On-the-job tasks and live scenarios verify learning transfers to the workplace.",
   },
   {
     id: "perform",
     num: "04",
     label: "Perform",
-    icon: TrendingUp,
+    icon: TrendingUpIcon,
     tint: "46,49,146",
     description:
-      "OKR tracking and performance signals measure whether capability improvements are showing up in actual job performance and operational KPIs.",
+      "OKR tracking measures whether capability gains show up in real job performance.",
   },
   {
     id: "improve",
     num: "05",
     label: "Improve",
-    icon: RefreshCw,
+    icon: RefreshCWIcon,
     tint: "46,49,146",
     description:
-      "Analytics from each cycle inform the next — creating a continuous improvement loop between learning investment, performance data, and workforce planning.",
+      "Analytics from each cycle feed the next — a continuous improvement loop.",
   },
 ];
 
@@ -98,7 +103,9 @@ function TimelineNode({ step, glow }: { step: Step; glow: boolean }) {
             : "0 6px 18px rgba(20,21,46,0.10)",
         }}
       >
-        <Icon size={19} className={glow ? "text-white" : "text-primary-600"} strokeWidth={2} />
+        <InViewIcon>
+          <Icon size={19} className={glow ? "text-white" : "text-primary-600"} />
+        </InViewIcon>
       </span>
     </span>
   );
@@ -203,7 +210,7 @@ export default function HowWeWork() {
                           STEP {step.num}
                         </span>
                         <span className="h-1 w-1 rounded-full bg-neutral-300" />
-                        <span className="text-sm font-bold uppercase tracking-wider text-primary-700">
+                        <span className="text-lg font-800 uppercase tracking-wide text-primary-700 lg:text-xl">
                           {step.label}
                         </span>
                       </div>

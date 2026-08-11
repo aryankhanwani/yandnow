@@ -3,6 +3,7 @@
 import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import Image from "next/image";
+import { usePathname } from "next/navigation";
 import { AnimatePresence, motion } from "motion/react";
 import {
   ChevronDown, Menu, X, ArrowRight, ArrowUpRight,
@@ -36,7 +37,7 @@ const SOLUTIONS: SubLink[] = [
   {
     label: "Corporate Training",
     href: "/corporate",
-    description: "Enterprise L&D built around operational outcomes, tied to OKRs and your HRMS.",
+    description: "Enterprise L&D tied to real outcomes.",
     icon: Building2,
     image: "/images/solutions-navbar/corporate-training.jpg",
     tag: "Popular",
@@ -44,42 +45,42 @@ const SOLUTIONS: SubLink[] = [
   {
     label: "CSR Programs",
     href: "/csr-programs",
-    description: "Schedule VII-aligned skilling & livelihood initiatives with transparent impact reporting.",
+    description: "Schedule VII skilling with clear impact.",
     icon: Heart,
     image: "/images/solutions-navbar/csr-programs.jpg",
   },
   {
     label: "Industry Solutions",
     href: "/industry-solutions",
-    description: "Sector-specific capability for manufacturing, energy & regulated environments.",
+    description: "Capability for manufacturing & energy.",
     icon: Factory,
     image: "/images/solutions-navbar/industry-solutions.jpg",
   },
   {
     label: "Defence Programs",
     href: "/defence-programs",
-    description: "Structured resettlement & transition programmes for veterans and PSUs.",
+    description: "Resettlement programmes for veterans.",
     icon: Shield,
     image: "/images/solutions-navbar/defence-programs.jpg",
   },
   {
     label: "School Solutions",
     href: "/school-solutions",
-    description: "NSQF-aligned industry-readiness programmes co-designed with employers.",
+    description: "NSQF industry-readiness for students.",
     icon: School,
     image: "/images/solutions-navbar/school-solutions.jpg",
   },
   {
     label: "Micro-Entrepreneurship",
     href: "/micro-entrepreneurship",
-    description: "Livelihood, SHG & market-linkage programmes that turn skills into income.",
+    description: "Turn skills into steady income.",
     icon: Store,
     image: "/images/solutions-navbar/micro-entrepreneurship.jpg",
   },
   {
     label: "For Learners",
     href: "/learners-b2c",
-    description: "Individual upskilling journeys with placement support and employer connections.",
+    description: "Upskilling with placement support.",
     icon: GraduationCap,
     image: "/images/solutions-navbar/for-learners.jpg",
   },
@@ -97,6 +98,24 @@ const CTA_LABEL = "Talk to Our Team";
 const CTA_HREF = "/contact-us";
 
 /* ============================================================
+   useTopNavClick — makes every navbar link land at the TOP of
+   the target page. Cross-page navigation already tops via the
+   route-change effect in <Header>; this handles the same-page
+   case (Next does nothing on a same-URL click), scrolling back
+   up smoothly instead of leaving the visitor where they were.
+   ============================================================ */
+function useTopNavClick() {
+  const pathname = usePathname();
+  return (href: string) => (e: React.MouseEvent) => {
+    const target = href.split(/[?#]/)[0] || "/";
+    if (target === pathname && !href.includes("#")) {
+      e.preventDefault();
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+  };
+}
+
+/* ============================================================
    PREVIEW ART — contextual photography with a brand-toned text
    scrim. Each image is project-hosted and solution-specific.
    ============================================================ */
@@ -112,16 +131,9 @@ function PreviewArt({ item }: { item: SubLink }) {
       />
       <div className="absolute inset-0 bg-gradient-to-b from-primary-950/15 via-primary-950/20 to-primary-950/95" />
       <div className="absolute inset-0 bg-primary-900/10 mix-blend-multiply" />
-      {/* Foreground content */}
+      {/* Foreground content — label only (no description / CTA) */}
       <div className="relative flex h-full items-end p-5">
-        <div>
-          <p className="font-heading text-lg font-700 leading-tight text-white">{item.label}</p>
-          <p className="mt-1.5 text-[13px] leading-snug text-white/85">{item.description}</p>
-          <span className="mt-3 inline-flex items-center gap-1.5 text-[12px] font-semibold text-white">
-            Explore solution
-            <ArrowRight size={13} strokeWidth={2.5} />
-          </span>
-        </div>
+        <p className="font-heading text-lg font-700 leading-tight text-white">{item.label}</p>
       </div>
     </div>
   );
@@ -157,6 +169,7 @@ function DesktopDropdown({ item, idPrefix }: { item: NavItem; idPrefix: string }
   const [activeIndex, setActiveIndex] = useState(0);
   const ref = useRef<HTMLDivElement>(null);
   const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const onTop = useTopNavClick();
 
   const handleMouseEnter = () => {
     if (timeoutRef.current) clearTimeout(timeoutRef.current);
@@ -225,7 +238,7 @@ function DesktopDropdown({ item, idPrefix }: { item: NavItem; idPrefix: string }
                       role="menuitem"
                       onMouseEnter={() => setActiveIndex(idx)}
                       onFocus={() => setActiveIndex(idx)}
-                      onClick={() => setOpen(false)}
+                      onClick={(e) => { onTop(child.href)(e); setOpen(false); }}
                       className="group/item relative flex items-center gap-3 rounded-xl px-3 py-2.5"
                     >
                       {isActive && (
@@ -313,6 +326,7 @@ function DesktopDropdown({ item, idPrefix }: { item: NavItem; idPrefix: string }
    ============================================================ */
 function MobileAccordion({ item, onLinkClick }: { item: NavItem; onLinkClick: () => void }) {
   const [open, setOpen] = useState(false);
+  const onTop = useTopNavClick();
 
   return (
     <div className="border-b border-neutral-100 last:border-0">
@@ -336,7 +350,7 @@ function MobileAccordion({ item, onLinkClick }: { item: NavItem; onLinkClick: ()
                 key={child.href}
                 href={child.href}
                 className="flex items-center gap-3 rounded-xl px-3 py-2.5 transition-colors hover:bg-primary-50"
-                onClick={onLinkClick}
+                onClick={(e) => { onTop(child.href)(e); onLinkClick(); }}
               >
                 <span className="relative flex h-10 w-10 flex-shrink-0 items-center justify-center overflow-hidden rounded-lg bg-primary-800 text-white">
                   <Image src={child.image} alt="" fill sizes="40px" className="object-cover" />
@@ -360,6 +374,7 @@ function MobileAccordion({ item, onLinkClick }: { item: NavItem; onLinkClick: ()
    MOBILE MENU DRAWER
    ============================================================ */
 function MobileDrawer({ open, onClose }: { open: boolean; onClose: () => void }) {
+  const onTop = useTopNavClick();
   useEffect(() => {
     document.body.style.overflow = open ? "hidden" : "";
     return () => { document.body.style.overflow = ""; };
@@ -408,7 +423,7 @@ function MobileDrawer({ open, onClose }: { open: boolean; onClose: () => void })
                 key={item.href}
                 href={item.href}
                 className="flex items-center border-b border-neutral-100 py-3.5 text-base font-semibold text-ink transition-colors last:border-0 hover:text-primary-600"
-                onClick={onClose}
+                onClick={(e) => { onTop(item.href)(e); onClose(); }}
               >
                 {item.label}
               </Link>
@@ -432,9 +447,10 @@ function MobileDrawer({ open, onClose }: { open: boolean; onClose: () => void })
    both bars stay mounted so the slide transition can animate).
    ============================================================ */
 function NavRow({ idPrefix, onOpenMobile }: { idPrefix: string; onOpenMobile: () => void }) {
+  const onTop = useTopNavClick();
   return (
     <div className="mx-auto flex h-[64px] max-w-6xl items-center justify-between px-4 lg:px-6">
-      <Link href="/" id={`${idPrefix}-site-logo`} aria-label="Y&Now — home" className="logo-hover flex-shrink-0">
+      <Link href="/" onClick={onTop("/")} id={`${idPrefix}-site-logo`} aria-label="Y&Now — home" className="logo-hover flex-shrink-0">
         <Image
           src="/logo.png"
           alt="Y&Now — Workforce Capability Solutions"
@@ -453,6 +469,7 @@ function NavRow({ idPrefix, onOpenMobile }: { idPrefix: string; onOpenMobile: ()
             <Link
               key={item.href}
               href={item.href}
+              onClick={onTop(item.href)}
               id={`${idPrefix}-nav-${item.label.toLowerCase().replace(/\s+/g, "-")}`}
               className="group rounded-lg px-3 py-2 text-sm font-semibold text-neutral-700 transition-colors duration-300 hover:bg-black/5 hover:text-primary-600"
             >
@@ -502,6 +519,15 @@ export default function Header() {
   const [navPhase, setNavPhase] = useState<NavPhase>("top");
   const [isHome, setIsHome] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
+  const pathname = usePathname();
+
+  /* Land at the top of every page on cross-page navigation
+     (skip when the URL carries a hash, so in-page anchors work). */
+  useEffect(() => {
+    if (typeof window !== "undefined" && !window.location.hash) {
+      window.scrollTo({ top: 0 });
+    }
+  }, [pathname]);
 
   useEffect(() => {
     const detectHome = () => setIsHome(!!document.getElementById("hero-section-root"));

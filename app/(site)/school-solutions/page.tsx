@@ -1,8 +1,5 @@
 import type { Metadata } from "next";
-import {
-  GraduationCap, Handshake, Laptop, BadgeCheck,
-  Briefcase, UserCog, type LucideIcon,
-} from "lucide-react";
+import AnimIcon from "@/components/ui/AnimIcon";
 import Container from "@/components/ui/Container";
 import PageHero from "@/components/ui/PageHero";
 import SectionHeading from "@/components/ui/SectionHeading";
@@ -19,7 +16,7 @@ export const metadata: Metadata = {
 };
 
 interface Deliverable {
-  icon: LucideIcon;
+  icon: string;
   tint: string;
   title: string;
   body: string;
@@ -27,38 +24,38 @@ interface Deliverable {
 
 const DELIVERABLES: Deliverable[] = [
   {
-    icon: GraduationCap,
+    icon: "GraduationCap",
     tint: "46,49,146",
     title: "NSQF-aligned vocational courses",
     // [VERIFY] Sectors / qualification levels pending confirmation — School Solutions lead
     body: "NSQF-aligned vocational courses across confirmed sectors and qualification levels for secondary and senior secondary students.",
   },
   {
-    icon: Handshake,
+    icon: "Handshake",
     tint: "39,170,226",
     title: "Industry co-designed curriculum",
     body: "Curriculum built with input from employers in manufacturing, retail, financial services, and hospitality — so the skills taught match what employers need.",
   },
   {
-    icon: Laptop,
+    icon: "Laptop",
     tint: "31,34,103",
     title: "Blended delivery",
     body: "In-school facilitators paired with digital learning tools, delivered within the school's timetable and physical infrastructure.",
   },
   {
-    icon: BadgeCheck,
+    icon: "BadgeCheck",
     tint: "32,180,232",
     title: "Assessment & NSQF certification",
     body: "Student assessment and NSQF certification on programme completion — a credible, employer-recognised qualification.",
   },
   {
-    icon: Briefcase,
+    icon: "Briefcase",
     tint: "46,49,146",
     title: "Placement linkage",
     body: "Employer connections for students completing the programme, supporting entry into employment or further vocational education.",
   },
   {
-    icon: UserCog,
+    icon: "UserCog",
     tint: "39,170,226",
     title: "Teacher training",
     body: "Capacity building for school faculty on vocational pedagogy, so programmes are sustained and owned within the school.",
@@ -129,7 +126,7 @@ export default function SchoolSolutionsPage() {
           />
           <Stagger className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3" stagger={0.08}>
             {DELIVERABLES.map((d) => {
-              const Icon = d.icon;
+              const iconName = d.icon;
               return (
                 <StaggerItem key={d.title} className="h-full">
                   <HoverWashCard>
@@ -137,7 +134,7 @@ export default function SchoolSolutionsPage() {
                       className="mb-4 flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-xl transition-transform duration-300 group-hover:scale-105"
                       style={{ color: `rgb(${d.tint})`, backgroundColor: `rgba(${d.tint},0.08)` }}
                     >
-                      <Icon size={22} strokeWidth={2} />
+                      <AnimIcon name={iconName} size={22} />
                     </div>
                     <div>
                       <h3 className="mb-2 font-heading text-lg font-700 text-ink">{d.title}</h3>

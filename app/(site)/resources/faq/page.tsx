@@ -1,8 +1,5 @@
 import type { Metadata } from "next";
-import {
-  Building2, Briefcase, HeartHandshake, MonitorSmartphone, Rocket,
-  type LucideIcon,
-} from "lucide-react";
+import AnimIcon from "@/components/ui/AnimIcon";
 import Container from "@/components/ui/Container";
 import PageHero from "@/components/ui/PageHero";
 import SectionHeading from "@/components/ui/SectionHeading";
@@ -26,7 +23,7 @@ export const metadata: Metadata = {
    ============================================================ */
 
 interface FaqCategory {
-  icon: LucideIcon;
+  icon: string;
   tint: string; // "r,g,b"
   eyebrow: string;
   title: string;
@@ -36,7 +33,7 @@ interface FaqCategory {
 
 const CATEGORIES: FaqCategory[] = [
   {
-    icon: Building2,
+    icon: "Building2",
     tint: "46,49,146",
     eyebrow: "About Y&Now",
     title: "The company and",
@@ -70,7 +67,7 @@ const CATEGORIES: FaqCategory[] = [
     ],
   },
   {
-    icon: Briefcase,
+    icon: "Briefcase",
     tint: "39,170,226",
     eyebrow: "Corporate Programmes",
     title: "Enterprise training and",
@@ -99,7 +96,7 @@ const CATEGORIES: FaqCategory[] = [
     ],
   },
   {
-    icon: HeartHandshake,
+    icon: "HeartHandshake",
     tint: "31,34,103",
     eyebrow: "CSR Programmes",
     title: "Corporate social responsibility",
@@ -123,7 +120,7 @@ const CATEGORIES: FaqCategory[] = [
     ],
   },
   {
-    icon: MonitorSmartphone,
+    icon: "MonitorSmartphone",
     tint: "32,180,232",
     eyebrow: "Platform",
     title: "The digital capability",
@@ -150,7 +147,7 @@ const CATEGORIES: FaqCategory[] = [
     ],
   },
   {
-    icon: Rocket,
+    icon: "Rocket",
     tint: "46,49,146",
     eyebrow: "Getting Started",
     title: "Working with",
@@ -209,7 +206,7 @@ export default function FaqPage() {
       </PageHero>
 
       {CATEGORIES.map((cat, i) => {
-        const Icon = cat.icon;
+        const iconName = cat.icon;
         return (
           <section
             key={cat.eyebrow}
@@ -222,7 +219,7 @@ export default function FaqPage() {
                     className="mb-5 flex h-12 w-12 items-center justify-center rounded-2xl"
                     style={{ color: `rgb(${cat.tint})`, backgroundColor: `rgba(${cat.tint},0.08)` }}
                   >
-                    <Icon size={22} strokeWidth={2} />
+                    <AnimIcon name={iconName} size={22} />
                   </div>
                   <SectionHeading
                     eyebrow={cat.eyebrow}
