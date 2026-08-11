@@ -37,7 +37,6 @@ const PROGRAMMES: StackCardItem[] = [
     title: "Veteran Transition",
     body: "Post-service civilian resettlement programmes for armed forces personnel, combining skills assessment, vocational retraining, and employer connections.",
     meta: "Schedule VII item (vi) — Training to promote nationally recognised sports, and items covering armed forces veterans",
-    href: "/defence-programs",
   },
   {
     num: "03",
@@ -47,7 +46,6 @@ const PROGRAMMES: StackCardItem[] = [
     title: "Livelihood & Entrepreneurship",
     body: "Vocational skilling, SHG strengthening, market linkage, and micro-enterprise development for women and marginalised communities.",
     meta: "Schedule VII item (iii) — Promoting gender equality and empowering women",
-    href: "/micro-entrepreneurship",
   },
   {
     num: "04",

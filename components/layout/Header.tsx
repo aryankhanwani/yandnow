@@ -449,7 +449,7 @@ function MobileDrawer({ open, onClose }: { open: boolean; onClose: () => void })
 function NavRow({ idPrefix, onOpenMobile }: { idPrefix: string; onOpenMobile: () => void }) {
   const onTop = useTopNavClick();
   return (
-    <div className="mx-auto flex h-[64px] max-w-6xl items-center justify-between px-4 lg:px-6">
+    <div className="mx-auto flex h-[64px] w-full max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
       <Link href="/" onClick={onTop("/")} id={`${idPrefix}-site-logo`} aria-label="Y&Now — home" className="logo-hover flex-shrink-0">
         <Image
           src="/logo.png"
@@ -579,7 +579,7 @@ export default function Header() {
           )}
           inert={!scrolled}
         >
-          <header className="w-full max-w-6xl rounded-xl border border-neutral-100 bg-white/95 shadow-lg backdrop-blur-md">
+          <header className="w-full max-w-7xl rounded-xl border border-neutral-100 bg-white/95 shadow-lg backdrop-blur-md">
             <NavRow idPrefix="floating" onOpenMobile={openMobile} />
           </header>
         </div>

@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, type ReactNode } from "react";
+import { useLayoutEffect, useRef, useState, type ReactNode } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import {
@@ -46,11 +46,13 @@ function Card({
   i,
   total,
   progress,
+  entryDistance,
 }: {
   card: StackCardItem;
   i: number;
   total: number;
   progress: MotionValue<number>;
+  entryDistance: number;
 }) {
   // Cards further back in the deck settle at a smaller scale; the
   // front-most card (last) stays at full size.
@@ -61,7 +63,7 @@ function Card({
   const y = useTransform(
     progress,
     [enterStart, enterEnd],
-    i === 0 ? ["0%", "0%"] : ["115%", "0%"],
+    i === 0 ? [0, 0] : [entryDistance, 0],
   );
   const stackOffset = i * 8;
   const maxStackOffset = (total - 1) * 8;
@@ -167,7 +169,31 @@ export default function StackingCards({
   heading?: ReactNode;
 }) {
   const container = useRef<HTMLDivElement>(null);
+  const stage = useRef<HTMLDivElement>(null);
+  const deck = useRef<HTMLDivElement>(null);
+  const [entryDistance, setEntryDistance] = useState(0);
   const reduce = useReducedMotion();
+
+  useLayoutEffect(() => {
+    const measure = () => {
+      if (!stage.current || !deck.current) return;
+
+      const stageRect = stage.current.getBoundingClientRect();
+      const deckRect = deck.current.getBoundingClientRect();
+      setEntryDistance(Math.max(stageRect.height - (deckRect.top - stageRect.top), 0));
+    };
+
+    measure();
+    const observer = new ResizeObserver(measure);
+    if (stage.current) observer.observe(stage.current);
+    if (deck.current) observer.observe(deck.current);
+    window.addEventListener("resize", measure);
+
+    return () => {
+      observer.disconnect();
+      window.removeEventListener("resize", measure);
+    };
+  }, []);
 
   const { scrollYProgress } = useScroll({
     target: container,
@@ -191,14 +217,14 @@ export default function StackingCards({
       className={cn("relative", className)}
       style={{ height: `${Math.max(cards.length, 1) * 100}vh` }}
     >
-      <div className="sticky top-0 h-screen overflow-hidden px-4 pt-16 lg:pt-20">
+      <div ref={stage} className="sticky top-0 h-screen overflow-hidden px-4 pt-16 lg:pt-20">
         <div className="mx-auto flex h-full w-full max-w-5xl flex-col justify-center pb-4 lg:pb-6">
           {heading && (
             <div className="relative z-20 mx-auto mb-5 w-full max-w-3xl shrink-0 lg:mb-7">
               {heading}
             </div>
           )}
-          <div className="relative h-[min(53vh,430px)] min-h-[340px] w-full shrink-0 overflow-hidden rounded-[28px] md:h-[min(48vh,384px)] md:min-h-[384px]">
+          <div ref={deck} className="relative h-[min(53vh,430px)] min-h-[340px] w-full shrink-0 md:h-[min(48vh,384px)] md:min-h-[384px]">
             {cards.map((card, i) => (
               <Card
                 key={card.num}
@@ -206,6 +232,7 @@ export default function StackingCards({
                 i={i}
                 total={cards.length}
                 progress={scrollYProgress}
+                entryDistance={entryDistance}
               />
             ))}
           </div>

@@ -2,7 +2,6 @@
 
 import { type ReactNode } from "react";
 import Image from "next/image";
-import { ArrowRight } from "lucide-react";
 import SpotlightCard from "@/components/ui/SpotlightCard";
 import { Stagger, StaggerItem } from "@/components/ui/motion-primitives";
 import { cn } from "@/lib/utils";
@@ -11,10 +10,7 @@ import { cn } from "@/lib/utils";
    ProcessSteps — a compact, horizontal row of process cards.
    Each card carries a large watermark step number, a tinted
    icon badge, a stage kicker, a short title, and a tight body.
-   On desktop the cards are threaded by a small arrow node that
-   sits in the gap between them, so the row reads as a sequence
-   rather than three unrelated tiles. Cards inherit the cursor
-   spotlight glow from SpotlightCard.
+   Cards inherit the cursor spotlight glow from SpotlightCard.
    ============================================================ */
 
 export interface ProcessStep {
@@ -45,18 +41,8 @@ export default function ProcessSteps({
       className={cn("grid grid-cols-1 gap-6 md:grid-cols-3 md:gap-6", className)}
       stagger={0.12}
     >
-      {steps.map((s, i) => (
+      {steps.map((s) => (
         <StaggerItem key={s.label} className="relative h-full">
-          {/* Connector node in the gap (desktop only) */}
-          {i < steps.length - 1 && (
-            <span
-              aria-hidden
-              className="absolute -right-[18px] top-1/2 z-20 hidden h-9 w-9 -translate-y-1/2 items-center justify-center rounded-full border border-[#e8ecf2] bg-white text-primary-500 shadow-[0_6px_16px_-8px_rgba(20,21,46,0.4)] md:flex"
-            >
-              <ArrowRight size={15} strokeWidth={2.5} />
-            </span>
-          )}
-
           <SpotlightCard className={s.image ? "p-0" : undefined}>
             {s.image ? (
               <>
@@ -67,18 +53,6 @@ export default function ProcessSteps({
                     <h3 className="font-heading text-xl font-700 leading-tight text-white">
                       {s.label}
                     </h3>
-                    <div className="mt-4 flex items-center gap-1.5">
-                      {steps.map((step, progressIndex) => (
-                        <span
-                          key={step.num}
-                          className="h-1.5 flex-1 rounded-full"
-                          style={{
-                            backgroundColor:
-                              progressIndex <= i ? "#fff" : "rgba(255,255,255,0.3)",
-                          }}
-                        />
-                      ))}
-                    </div>
                   </div>
                 </div>
                 <div className="flex flex-1 p-6">

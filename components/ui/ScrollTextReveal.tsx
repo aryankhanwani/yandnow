@@ -69,7 +69,7 @@ function ScrollWord({
         <span
           className={
             highlighted
-              ? "relative inline-block bg-gradient-to-r from-[#1676d2] via-[#63c5f0] to-white bg-clip-text bg-[length:200%_100%] bg-left transition-[background-position,color] duration-300 ease-out after:absolute after:-bottom-1 after:left-0 after:h-0.5 after:w-full after:origin-left after:scale-x-0 after:rounded-full after:bg-gradient-to-r after:from-[#1676d2] after:via-[#63c5f0] after:to-white after:transition-transform after:duration-500 after:ease-[cubic-bezier(0.34,1.56,0.64,1)] group-hover/mission-copy:bg-right group-hover/mission-copy:!text-transparent group-hover/mission-copy:after:scale-x-100"
+              ? "relative inline-block bg-gradient-to-r from-[#2563eb] via-[#0ea5e9] to-[#1d4ed8] bg-clip-text bg-[length:200%_100%] bg-left transition-[background-position,color] duration-300 ease-out after:absolute after:-bottom-1 after:left-0 after:h-0.5 after:w-full after:origin-left after:scale-x-0 after:rounded-full after:bg-gradient-to-r after:from-[#2563eb] after:via-[#0ea5e9] after:to-[#1d4ed8] after:transition-transform after:duration-500 after:ease-[cubic-bezier(0.34,1.56,0.64,1)] group-hover/mission-copy:bg-right group-hover/mission-copy:!text-transparent group-hover/mission-copy:after:scale-x-100"
               : undefined
           }
         >

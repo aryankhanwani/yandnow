@@ -1,7 +1,13 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, type ReactNode } from "react";
 import Lenis from "lenis";
+
+let activeLenisController: Lenis | null = null;
+
+export function getLenisController() {
+  return activeLenisController;
+}
 
 /* ============================================================
    LenisProvider
@@ -20,7 +26,7 @@ import Lenis from "lenis";
 export default function LenisProvider({
   children,
 }: {
-  children: React.ReactNode;
+  children: ReactNode;
 }) {
   useEffect(() => {
     const lenis = new Lenis({
@@ -30,6 +36,7 @@ export default function LenisProvider({
       touchMultiplier: 1.8,
       infinite: false,
     });
+    activeLenisController = lenis;
 
     let rafId: number;
     function raf(time: number) {
@@ -41,6 +48,7 @@ export default function LenisProvider({
     return () => {
       cancelAnimationFrame(rafId);
       lenis.destroy();
+      if (activeLenisController === lenis) activeLenisController = null;
     };
   }, []);
 

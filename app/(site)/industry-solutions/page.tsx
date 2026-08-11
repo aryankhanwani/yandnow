@@ -6,6 +6,7 @@ import SectionHeading from "@/components/ui/SectionHeading";
 import CtaBand from "@/components/ui/CtaBand";
 import FaqAccordion, { type FaqItemData } from "@/components/ui/FaqAccordion";
 import HoverWashCard from "@/components/ui/HoverWashCard";
+import HorizontalCapabilityScroller, { type HorizontalCapability } from "@/components/ui/HorizontalCapabilityScroller";
 import { CtaButton } from "@/components/ui/CtaButton";
 import { Reveal, Stagger, StaggerItem } from "@/components/ui/motion-primitives";
 
@@ -15,14 +16,7 @@ export const metadata: Metadata = {
     "Y&Now delivers sector-specific workforce training for industrial environments — combining AR/VR simulation, NSDC/NCVET co-badging, EHS compliance, and traceable competency outcomes for manufacturing and precision engineering.",
 };
 
-interface Capability {
-  icon: string;
-  tint: string;
-  title: string;
-  body: string;
-}
-
-const CAPABILITIES: Capability[] = [
+const CAPABILITIES: HorizontalCapability[] = [
   {
     icon: "Cog",
     tint: "46,49,146",
@@ -130,38 +124,7 @@ export default function IndustrySolutionsPage() {
       </PageHero>
 
       {/* Manufacturing & Precision Engineering */}
-      <section className="bg-surface py-20 lg:py-28">
-        <Container>
-          <SectionHeading
-            eyebrow="Manufacturing & Precision Engineering"
-            title="What our manufacturing programmes"
-            highlight="cover"
-            subtitle="Y&Now's manufacturing training programmes span the full technical stack — from machine operation and certification through maintenance, safety, and quality."
-            className="mb-14"
-          />
-          <Stagger className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3" stagger={0.08}>
-            {CAPABILITIES.map((c) => {
-              const iconName = c.icon;
-              return (
-                <StaggerItem key={c.title} className="h-full">
-                  <HoverWashCard>
-                    <div
-                      className="mb-5 flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-xl transition-transform duration-300 group-hover:scale-105"
-                      style={{ color: `rgb(${c.tint})`, backgroundColor: `rgba(${c.tint},0.08)` }}
-                    >
-                      <AnimIcon name={iconName} size={22} />
-                    </div>
-                    <div>
-                      <h3 className="mb-2 font-heading text-lg font-700 text-ink">{c.title}</h3>
-                      <p className="text-sm leading-relaxed text-neutral-600">{c.body}</p>
-                    </div>
-                  </HoverWashCard>
-                </StaggerItem>
-              );
-            })}
-          </Stagger>
-        </Container>
-      </section>
+      <HorizontalCapabilityScroller items={CAPABILITIES} />
 
       {/* Case Evidence */}
       <section className="bg-white py-20 lg:py-28">
@@ -173,18 +136,43 @@ export default function IndustrySolutionsPage() {
             className="mb-12"
           />
           {/* [VERIFY] Replace anonymised placeholder with an approved client reference (named with permission, or anonymised) — Account team */}
-          <Reveal y={20} className="mx-auto max-w-3xl">
-            <figure className="relative overflow-hidden rounded-3xl border border-[#e8ecf2] bg-surface p-9 shadow-[0_18px_40px_rgba(20,21,46,0.06)] lg:p-12">
-              <div aria-hidden className="pointer-events-none absolute inset-0 bg-gradient-mist opacity-60" />
-              <div className="relative">
-                <div className="mb-6 flex h-12 w-12 items-center justify-center rounded-xl bg-primary-50 text-primary-600">
+          <Reveal y={20} className="mx-auto max-w-5xl">
+            <figure className="grid overflow-hidden rounded-[2rem] border border-[#dde5f0] bg-white lg:grid-cols-[0.78fr_1.22fr]">
+              <div className="relative flex min-h-[19rem] flex-col justify-between overflow-hidden bg-primary-950 p-8 text-white lg:p-10">
+                <div
+                  aria-hidden
+                  className="absolute inset-0 bg-[radial-gradient(circle_at_15%_10%,rgba(39,170,226,0.34),transparent_48%),radial-gradient(circle_at_100%_100%,rgba(46,49,146,0.7),transparent_55%)]"
+                />
+                <div className="relative flex h-12 w-12 items-center justify-center rounded-xl border border-white/15 bg-white/10 text-secondary-300 backdrop-blur-sm">
                   <AnimIcon name="Factory" size={22} />
                 </div>
-                <blockquote className="font-heading text-xl font-600 leading-snug text-ink lg:text-2xl">
-                  &ldquo;A pilot at an automotive components manufacturer in India reduced
-                  first-pass yield defects by 18% within 8 weeks.&rdquo;
-                </blockquote>
-                <figcaption className="mt-5 text-sm text-neutral-500">
+                <div className="relative">
+                  <div className="font-heading text-[clamp(4rem,8vw,6.5rem)] font-800 leading-none tracking-[-0.06em]">
+                    18%
+                  </div>
+                  <p className="mt-3 max-w-xs text-sm leading-relaxed text-white/70">
+                    reduction in first-pass yield defects during the pilot period
+                  </p>
+                </div>
+              </div>
+
+              <div className="flex flex-col justify-between p-8 lg:p-10 lg:pl-12">
+                <div>
+                  <div className="mb-8 flex flex-wrap items-center gap-2">
+                    <span className="rounded-full bg-primary-50 px-3 py-1.5 text-[11px] font-700 uppercase tracking-[0.14em] text-primary-600">
+                      8-week pilot
+                    </span>
+                    <span className="rounded-full border border-neutral-200 px-3 py-1.5 text-[11px] font-600 text-neutral-500">
+                      Automotive components
+                    </span>
+                  </div>
+                  <blockquote className="font-heading text-[clamp(1.45rem,2.7vw,2.15rem)] font-600 leading-[1.3] tracking-tight text-ink">
+                    &ldquo;A focused capability pilot translated training into a measurable improvement on the production floor.&rdquo;
+                  </blockquote>
+                </div>
+
+                <figcaption className="mt-10 flex items-start gap-3 border-t border-neutral-100 pt-5 text-xs leading-relaxed text-neutral-500">
+                  <span className="mt-1 block h-2 w-2 flex-none rounded-full bg-secondary-400" aria-hidden />
                   Anonymised pilot outcome — approved client reference pending verification.
                 </figcaption>
               </div>

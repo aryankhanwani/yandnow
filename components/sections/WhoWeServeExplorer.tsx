@@ -2,7 +2,6 @@
 
 import Image from "next/image";
 import { useState } from "react";
-import AnimIcon from "@/components/ui/AnimIcon";
 
 export interface AudienceItem {
   title: string;
@@ -14,7 +13,6 @@ export interface AudienceItem {
 
 export default function WhoWeServeExplorer({ items }: { items: AudienceItem[] }) {
   const [activeIndex, setActiveIndex] = useState(0);
-  const activeItem = items[activeIndex];
 
   return (
     <div className="grid items-start gap-10 lg:grid-cols-[0.9fr_1.1fr] lg:gap-14">
@@ -89,13 +87,6 @@ export default function WhoWeServeExplorer({ items }: { items: AudienceItem[] })
           />
         ))}
 
-        <div className="pointer-events-none absolute inset-x-0 bottom-0 h-2/5 bg-gradient-to-t from-white via-white/85 to-transparent" />
-        <div className="absolute inset-x-0 bottom-0 flex items-center gap-3 p-5 sm:p-6">
-          <div className="flex h-10 w-10 flex-none items-center justify-center rounded-xl bg-primary-500 text-white shadow-md shadow-primary-500/20">
-            <AnimIcon name={activeItem.icon} size={19} />
-          </div>
-          <p className="font-heading text-sm font-700 text-ink sm:text-base">{activeItem.title}</p>
-        </div>
       </div>
     </div>
   );
