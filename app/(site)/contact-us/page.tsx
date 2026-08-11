@@ -3,6 +3,7 @@ import { Mail, Phone, MapPin, Building, ShieldCheck, Clock } from "lucide-react"
 import Container from "@/components/ui/Container";
 import PageHero from "@/components/ui/PageHero";
 import ContactForm from "@/components/sections/ContactForm";
+import { CtaButton } from "@/components/ui/CtaButton";
 import { Reveal } from "@/components/ui/motion-primitives";
 
 export const metadata: Metadata = {
@@ -31,9 +32,15 @@ export default function ContactPage() {
         eyebrow="Contact Us"
         title="Talk to the"
         highlight="Y&Now team"
-        subtitle="Use the form or the contact details to reach us directly. Tell us which programme or service you're enquiring about and we'll route your message to the right person."
-        crumbs={[{ label: "Home", href: "/" }, { label: "Contact Us" }]}
-      />
+        subtitle="Use the form or contact details to reach us — tell us what you're enquiring about."
+      >
+        <CtaButton href="mailto:info@broadarks.com" variant="primary" className="px-7 py-3.5">
+          Email the Team
+        </CtaButton>
+        <CtaButton href="tel:+917553553372" variant="secondary" className="px-7 py-3.5">
+          Call +91 75535 53372
+        </CtaButton>
+      </PageHero>
 
       <section className="bg-surface py-20 lg:py-28">
         <Container>

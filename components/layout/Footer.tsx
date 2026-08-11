@@ -1,6 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
-import { Mail, Phone, MapPin, ArrowRight, ExternalLink } from "lucide-react";
+import { Mail, Phone, MapPin, ExternalLink } from "lucide-react";
 import Container from "@/components/ui/Container";
 
 /* ============================================================
@@ -51,7 +51,7 @@ const COMPANY_LINKS = [
   { label: "Our Platform", href: "/our-platform" },
   { label: "About Us", href: "/about-us" },
   { label: "Contact Us", href: "/contact-us" },
-  { label: "FAQ", href: "/#faq" },
+  { label: "Blog", href: "/blog" },
   { label: "Privacy Policy", href: "/privacy-policy" },
   { label: "Terms", href: "/terms" },
 ];
@@ -92,49 +92,13 @@ export default function Footer() {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer id="site-footer" aria-label="Site footer" className="relative overflow-hidden bg-ink text-white">
+    <footer id="site-footer" aria-label="Site footer" className="relative overflow-hidden rounded-t-[2.25rem] bg-primary-800 text-white">
       {/* Subtle top halo — soft light, not a brand gradient */}
       <div
         aria-hidden
         className="pointer-events-none absolute inset-x-0 top-0 h-64"
-        style={{ background: "radial-gradient(60% 100% at 50% 0%, rgba(39,170,226,0.10) 0%, transparent 70%)" }}
+        style={{ background: "radial-gradient(60% 100% at 50% 0%, rgba(39,170,226,0.14) 0%, transparent 70%)" }}
       />
-
-      {/* CTA band */}
-      <div className="relative border-b border-white/10">
-        <Container>
-          <div className="flex flex-col items-start justify-between gap-8 py-14 md:flex-row md:items-center lg:py-16">
-            <div className="max-w-xl">
-              <p className="mb-3 text-xs font-semibold uppercase tracking-[0.16em] text-secondary-400">
-                Ready to build workforce capability?
-              </p>
-              <h2 className="font-heading text-[clamp(1.6rem,3vw,2.25rem)] font-700 leading-tight text-white">
-                Let&apos;s find the right programme for your organisation.
-              </h2>
-              <p className="mt-3 max-w-md text-sm leading-relaxed text-neutral-400">
-                Enterprise training, CSR programmes, or learner journeys — talk to the Y&Now team.
-              </p>
-            </div>
-            <div className="flex flex-shrink-0 flex-wrap gap-3">
-              <Link
-                href="/contact-us"
-                id="footer-cta-primary"
-                className="group inline-flex items-center gap-2 rounded-lg bg-white px-6 py-3 text-sm font-semibold text-ink transition-all duration-200 hover:bg-neutral-100"
-              >
-                Talk to Our Team
-                <ArrowRight size={16} className="transition-transform duration-200 group-hover:translate-x-0.5" />
-              </Link>
-              <Link
-                href="mailto:info@broadarks.com"
-                id="footer-cta-email"
-                className="inline-flex items-center rounded-lg border border-white/20 px-6 py-3 text-sm font-medium text-neutral-300 transition-colors duration-200 hover:border-white/40 hover:text-white"
-              >
-                info@broadarks.com
-              </Link>
-            </div>
-          </div>
-        </Container>
-      </div>
 
       {/* Main grid */}
       <Container>

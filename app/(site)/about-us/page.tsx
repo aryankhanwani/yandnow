@@ -9,6 +9,8 @@ import PageHero from "@/components/ui/PageHero";
 import SectionHeading from "@/components/ui/SectionHeading";
 import CtaBand from "@/components/ui/CtaBand";
 import FaqAccordion, { type FaqItemData } from "@/components/ui/FaqAccordion";
+import HoverWashCard from "@/components/ui/HoverWashCard";
+import { CtaButton } from "@/components/ui/CtaButton";
 import { Reveal, Stagger, StaggerItem } from "@/components/ui/motion-primitives";
 
 export const metadata: Metadata = {
@@ -32,21 +34,21 @@ const CREDENTIALS = [
     title: "ISO 9001:2015",
     body: "Certified quality management systems under BroadArks Technology Pvt. Ltd.",
     // [VERIFY] Certificate number and validity — Legal/Compliance to supply.
-    meta: "Certificate number: [INSERT] · Validity: [INSERT]",
+    meta: "Certificate number and validity available on request",
   },
   {
     icon: Award,
     title: "NSDC Training Partnership",
     body: "Partner for training and implementation across eligible programmes.",
     // [VERIFY] Current partnership scope — Accreditation team to confirm.
-    meta: "Partnership scope: [INSERT]",
+    meta: "Partnership scope confirmed at scoping",
   },
   {
     icon: FileCheck2,
     title: "NCVET / DGT Qualification Alignment",
     body: "Qualification alignment to national skilling standards where applicable.",
     // [VERIFY] Applicable qualifications — Accreditation team to confirm.
-    meta: "Applicable qualifications: [INSERT]",
+    meta: "Aligned qualifications confirmed at scoping",
   },
 ];
 
@@ -55,7 +57,7 @@ const PARTNERS = [
   { name: "CRISP, Bhopal", full: "Centre for Research and Industrial Staff Performance" },
   { name: "iACE", full: "Industry Academia Centre of Excellence" },
   // [VERIFY] IIP full name — Business team to supply.
-  { name: "IIP", full: "[INSERT: full name]" },
+  { name: "IIP", full: "Full name to be confirmed" },
   { name: "Sagar Institute of Research & Technology", full: "Bhopal" },
   { name: "CVRU", full: "C.V. Raman University" },
   { name: "SGSU", full: "Sardar Gulab Singh University" },
@@ -91,9 +93,15 @@ export default function AboutPage() {
         eyebrow="About Us"
         title="The future-skills EdTech division of"
         highlight="BroadArks Technology"
-        subtitle="We build workforce capability for enterprises, government bodies, defence establishments, communities, and schools through industry-aligned programmes and a proprietary digital platform. Headquartered in Bhopal, Madhya Pradesh, and ISO 9001:2015 certified."
-        crumbs={[{ label: "Home", href: "/" }, { label: "About Us" }]}
-      />
+        subtitle="Building workforce capability for enterprises, government, defence, communities, and schools through industry-aligned programmes and platform."
+      >
+        <CtaButton href="/contact-us" variant="primary" className="px-7 py-3.5">
+          Talk to the Y&Now Team
+        </CtaButton>
+        <CtaButton href="/our-platform" variant="secondary" className="px-7 py-3.5">
+          Explore the Platform
+        </CtaButton>
+      </PageHero>
 
       {/* Mission */}
       <section className="bg-surface py-20 lg:py-28">
@@ -122,12 +130,14 @@ export default function AboutPage() {
               const Icon = s.icon;
               return (
                 <StaggerItem key={s.text} className="h-full">
-                  <div className="flex h-full items-start gap-4 rounded-2xl border border-[#e8ecf2] bg-surface p-6">
-                    <div className="flex h-11 w-11 flex-shrink-0 items-center justify-center rounded-xl bg-white text-primary-600 shadow-sm ring-1 ring-neutral-100">
-                      <Icon size={20} />
+                  <HoverWashCard noLift className="bg-surface p-6">
+                    <div className="flex items-start gap-4">
+                      <div className="flex h-11 w-11 flex-shrink-0 items-center justify-center rounded-xl bg-white text-primary-600 shadow-sm ring-1 ring-neutral-100 transition-transform duration-300 group-hover:scale-105">
+                        <Icon size={20} />
+                      </div>
+                      <p className="text-sm leading-relaxed text-neutral-700">{s.text}</p>
                     </div>
-                    <p className="text-sm leading-relaxed text-neutral-700">{s.text}</p>
-                  </div>
+                  </HoverWashCard>
                 </StaggerItem>
               );
             })}
@@ -173,18 +183,20 @@ export default function AboutPage() {
                   const Icon = c.icon;
                   return (
                     <StaggerItem key={c.title}>
-                      <div className="flex gap-4 rounded-2xl border border-[#e8ecf2] bg-white p-5">
-                        <div className="flex h-11 w-11 flex-shrink-0 items-center justify-center rounded-xl bg-primary-50 text-primary-600">
-                          <Icon size={20} />
+                      <HoverWashCard noLift className="p-5">
+                        <div className="flex gap-4">
+                          <div className="flex h-11 w-11 flex-shrink-0 items-center justify-center rounded-xl bg-primary-50 text-primary-600 transition-transform duration-300 group-hover:scale-105">
+                            <Icon size={20} />
+                          </div>
+                          <div>
+                            <h3 className="mb-1 font-heading text-base font-700 text-ink">{c.title}</h3>
+                            <p className="text-sm leading-relaxed text-neutral-600">{c.body}</p>
+                            <p className="mt-2 inline-flex rounded-md border border-dashed border-[#d5dbe6] bg-surface px-2 py-1 text-xs font-medium text-neutral-500">
+                              {c.meta}
+                            </p>
+                          </div>
                         </div>
-                        <div>
-                          <h3 className="mb-1 font-heading text-base font-700 text-ink">{c.title}</h3>
-                          <p className="text-sm leading-relaxed text-neutral-600">{c.body}</p>
-                          <p className="mt-2 inline-flex rounded-md border border-dashed border-[#d5dbe6] bg-surface px-2 py-1 text-xs font-medium text-neutral-500">
-                            {c.meta}
-                          </p>
-                        </div>
-                      </div>
+                      </HoverWashCard>
                     </StaggerItem>
                   );
                 })}
@@ -206,10 +218,10 @@ export default function AboutPage() {
           <Stagger className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3" stagger={0.06}>
             {PARTNERS.map((p) => (
               <StaggerItem key={p.name} className="h-full">
-                <div className="flex h-full flex-col justify-center rounded-2xl border border-[#e8ecf2] bg-surface p-5 transition-colors hover:border-primary-200">
+                <HoverWashCard noLift className="justify-center bg-surface p-5">
                   <h3 className="font-heading text-base font-700 text-ink">{p.name}</h3>
                   <p className="mt-1 text-sm leading-relaxed text-neutral-600">{p.full}</p>
-                </div>
+                </HoverWashCard>
               </StaggerItem>
             ))}
           </Stagger>

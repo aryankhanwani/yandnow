@@ -1,15 +1,15 @@
 import type { Metadata } from "next";
-import Link from "next/link";
 import {
   GraduationCap, ShieldCheck, Sprout, HeartHandshake,
-  ClipboardList, Cog, BarChart3, ArrowRight,
-  Users, Briefcase, TrendingUp, ScrollText, type LucideIcon,
+  ClipboardList, Cog, BarChart3,
 } from "lucide-react";
 import Container from "@/components/ui/Container";
 import PageHero from "@/components/ui/PageHero";
 import SectionHeading from "@/components/ui/SectionHeading";
 import CtaBand from "@/components/ui/CtaBand";
 import FaqAccordion, { type FaqItemData } from "@/components/ui/FaqAccordion";
+import StackingCards, { type StackCardItem } from "@/components/ui/StackingCards";
+import ProcessSteps, { type ProcessStep } from "@/components/ui/ProcessSteps";
 import { CtaButton } from "@/components/ui/CtaButton";
 import { Reveal, Stagger, StaggerItem } from "@/components/ui/motion-primitives";
 
@@ -19,89 +19,78 @@ export const metadata: Metadata = {
     "Y&Now delivers end-to-end CSR skilling programmes aligned to Schedule VII of the Companies Act — covering skill development, veteran transition, livelihoods, and community development with measurable impact reporting.",
 };
 
-interface Programme {
-  icon: LucideIcon;
-  tint: string;
-  title: string;
-  body: string;
-  schedule: string;
-  href: string;
-}
-
-const PROGRAMMES: Programme[] = [
+const PROGRAMMES: StackCardItem[] = [
   {
-    icon: GraduationCap,
+    num: "01",
+    icon: <GraduationCap size={26} strokeWidth={2} />,
     tint: "46,49,146",
     title: "Skill Development & Employability",
     body: "NSDC-aligned vocational training and employability skilling for youth and working-age adults, with employer linkage and placement support.",
-    schedule: "Schedule VII item (ii) — Promotion of education",
-    href: "/csr-programs/skill-development",
+    meta: "Schedule VII item (ii) — Promotion of education",
   },
   {
-    icon: ShieldCheck,
+    num: "02",
+    icon: <ShieldCheck size={26} strokeWidth={2} />,
     tint: "39,170,226",
     title: "Veteran Transition",
     body: "Post-service civilian resettlement programmes for armed forces personnel, combining skills assessment, vocational retraining, and employer connections.",
-    schedule:
-      "Schedule VII item (vi) — Training to promote nationally recognised sports, and items covering armed forces veterans",
-    href: "/csr-programs/veteran-transition",
+    meta: "Schedule VII item (vi) — Training to promote nationally recognised sports, and items covering armed forces veterans",
+    href: "/defence-programs",
   },
   {
-    icon: Sprout,
+    num: "03",
+    icon: <Sprout size={26} strokeWidth={2} />,
     tint: "31,34,103",
     title: "Livelihood & Entrepreneurship",
     body: "Vocational skilling, SHG strengthening, market linkage, and micro-enterprise development for women and marginalised communities.",
-    schedule: "Schedule VII item (iii) — Promoting gender equality and empowering women",
-    href: "/csr-programs/livelihood",
+    meta: "Schedule VII item (iii) — Promoting gender equality and empowering women",
+    href: "/micro-entrepreneurship",
   },
   {
-    icon: HeartHandshake,
+    num: "04",
+    icon: <HeartHandshake size={26} strokeWidth={2} />,
     tint: "32,180,232",
     title: "Community Development",
     body: "Broader social infrastructure capacity-building, including health awareness, digital literacy, and community governance.",
-    schedule: "Schedule VII item (i) — Eradicating hunger, poverty, and malnutrition",
-    href: "/csr-programs/community-development",
+    meta: "Schedule VII item (i) — Eradicating hunger, poverty, and malnutrition",
   },
 ];
 
-interface Stage {
-  icon: LucideIcon;
-  step: string;
-  title: string;
-  body: string;
-}
-
-const STAGES: Stage[] = [
+const STAGES: ProcessStep[] = [
   {
-    icon: ClipboardList,
-    step: "Stage 1",
-    title: "Needs Assessment",
-    body: "Community mapping, baseline surveys, beneficiary identification, and co-creation with the corporate partner to align programme design with both community need and CSR policy objectives.",
+    num: "01",
+    kicker: "Stage 01",
+    icon: <ClipboardList size={24} strokeWidth={2} />,
+    tint: "46,49,146",
+    label: "Needs Assessment",
+    body: "Community mapping, baseline surveys, and beneficiary identification — co-created with your CSR team.",
   },
   {
-    icon: Cog,
-    step: "Stage 2",
-    title: "Programme Execution",
-    body: "On-ground delivery by qualified facilitators and sector experts, with standardised quality assurance protocols, attendance tracking, and mid-programme corrective review.",
+    num: "02",
+    kicker: "Stage 02",
+    icon: <Cog size={24} strokeWidth={2} />,
+    tint: "39,170,226",
+    label: "Programme Execution",
+    body: "On-ground delivery by qualified facilitators, with standardised quality assurance and mid-programme review.",
   },
   {
-    icon: BarChart3,
-    step: "Stage 3",
-    title: "Impact Measurement & Reporting",
-    body: "End-line assessments, employment and income verification, beneficiary documentation, and a final impact report in the format required by your corporate compliance and CSR committee.",
+    num: "03",
+    kicker: "Stage 03",
+    icon: <BarChart3 size={24} strokeWidth={2} />,
+    tint: "31,34,103",
+    label: "Impact Measurement & Reporting",
+    body: "End-line assessments, income verification, and a compliance-ready impact report for your CSR committee.",
   },
 ];
 
-/* [VERIFY] Impact metrics are unconfirmed placeholders — awaiting verified CSR
-   metrics from the M&E team. Do NOT publish real numbers until confirmed. */
+/* [VERIFY] Impact metric VALUES are unconfirmed — awaiting verified CSR metrics
+   from the M&E team. Values render as "—" until confirmed. Do NOT publish real
+   numbers until confirmed. */
 const IMPACT_METRICS = [
-  { icon: Users, label: "Total individuals reached through CSR programmes" },
-  {
-    icon: Briefcase,
-    label: "Employment linkage rate — securing employment or income within 6 months of completing the programme",
-  },
-  { icon: HeartHandshake, label: "Women participation percentage" },
-  { icon: TrendingUp, label: "Household income improvement — households reporting an income increase" },
+  { title: "Individuals Reached", sub: "total individuals reached through CSR programmes" },
+  { title: "Employment Linkage", sub: "secure employment or income within 6 months of completion" },
+  { title: "Women Participation", sub: "share of women participants across programmes" },
+  { title: "Income Uplift", sub: "households reporting an income increase" },
 ];
 
 const FAQS: FaqItemData[] = [
@@ -134,10 +123,9 @@ export default function CsrProgramsPage() {
     <>
       <PageHero
         eyebrow="CSR Programmes"
-        title="CSR Skill Development & Livelihood Programmes That Deliver"
+        title="CSR Skilling Programmes with"
         highlight="Measurable Impact"
-        subtitle="Y&Now is a structured CSR implementation partner for corporations and foundations seeking measurable community impact. We design, deliver, and report on end-to-end skill development, livelihood, and community programmes aligned to Schedule VII of the Companies Act, 2013 — with independent monitoring, transparent fund utilisation reporting, and impact documentation that meets the requirements of corporate compliance teams and government oversight bodies."
-        crumbs={[{ label: "Home", href: "/" }, { label: "CSR Programmes" }]}
+        subtitle="As your CSR partner, we design, deliver, and report skilling programmes aligned to Schedule VII."
       >
         <CtaButton href="/contact-us?type=csr" variant="primary" className="px-7 py-3.5">
           Partner on a CSR Programme
@@ -147,76 +135,30 @@ export default function CsrProgramsPage() {
         </CtaButton>
       </PageHero>
 
-      {/* What We Deliver — four programme streams */}
-      <section className="bg-surface py-20 lg:py-28">
+      {/* What We Deliver — scroll-stacked deck of programme streams */}
+      <section className="bg-surface pt-20 lg:pt-28">
         <Container>
           <SectionHeading
             eyebrow="What We Deliver"
             title="Four CSR programme"
             highlight="streams"
-            subtitle="Y&Now manages four programme streams under CSR — each mapped to a category of Schedule VII of the Companies Act, 2013."
-            className="mb-14"
+            subtitle="Y&Now manages four programme streams under CSR — each mapped to a category of Schedule VII of the Companies Act, 2013. Scroll to step through each."
           />
-          <Stagger className="grid grid-cols-1 gap-6 md:grid-cols-2" stagger={0.08}>
-            {PROGRAMMES.map((p) => {
-              const Icon = p.icon;
-              return (
-                <StaggerItem key={p.title} className="h-full">
-                  <Link
-                    href={p.href}
-                    className="group flex h-full flex-col rounded-2xl border border-[#e8ecf2] bg-white p-7 transition-all duration-300 hover:-translate-y-1 hover:border-primary-200 hover:shadow-[0_18px_44px_rgba(20,21,46,0.09)]"
-                  >
-                    <div
-                      className="mb-5 flex h-12 w-12 items-center justify-center rounded-xl transition-transform duration-300 group-hover:scale-105"
-                      style={{ color: `rgb(${p.tint})`, backgroundColor: `rgba(${p.tint},0.08)` }}
-                    >
-                      <Icon size={22} strokeWidth={2} />
-                    </div>
-                    <h3 className="mb-2 font-heading text-lg font-700 text-ink">{p.title}</h3>
-                    <p className="mb-4 text-sm leading-relaxed text-neutral-600">{p.body}</p>
-                    <div className="mt-auto flex items-start gap-2 border-t border-[#eef1f6] pt-4">
-                      <ScrollText size={15} className="mt-0.5 flex-shrink-0 text-secondary-500" />
-                      <span className="text-xs font-500 leading-relaxed text-neutral-500">{p.schedule}</span>
-                    </div>
-                    <span className="mt-5 inline-flex items-center gap-1.5 text-sm font-600 text-primary-600">
-                      Explore programme
-                      <ArrowRight size={15} className="transition-transform duration-300 group-hover:translate-x-1" />
-                    </span>
-                  </Link>
-                </StaggerItem>
-              );
-            })}
-          </Stagger>
         </Container>
+        <StackingCards cards={PROGRAMMES} className="mt-8" />
       </section>
 
-      {/* Our CSR Delivery Approach — three-stage model */}
+      {/* Our CSR Delivery Approach — horizontal three-stage process */}
       <section className="bg-white py-20 lg:py-28">
         <Container>
           <SectionHeading
             eyebrow="Our CSR Delivery Approach"
             title="A structured three-stage"
             highlight="delivery model"
-            subtitle="Every Y&Now CSR programme follows the same structured delivery model — from community mapping to compliance-ready reporting."
+            subtitle="Every Y&Now CSR programme follows the same model — from community mapping to compliance-ready reporting."
             className="mb-14"
           />
-          <Stagger className="grid grid-cols-1 gap-6 md:grid-cols-3" stagger={0.1}>
-            {STAGES.map((s) => {
-              const Icon = s.icon;
-              return (
-                <StaggerItem key={s.step} className="h-full">
-                  <div className="flex h-full flex-col rounded-2xl border border-[#e8ecf2] bg-surface p-7">
-                    <div className="mb-5 flex h-12 w-12 items-center justify-center rounded-xl bg-white text-primary-600 shadow-sm ring-1 ring-neutral-100">
-                      <Icon size={22} strokeWidth={2} />
-                    </div>
-                    <span className="mb-1.5 text-xs font-700 uppercase tracking-wide text-secondary-600">{s.step}</span>
-                    <h3 className="mb-2 font-heading text-lg font-700 text-ink">{s.title}</h3>
-                    <p className="text-sm leading-relaxed text-neutral-600">{s.body}</p>
-                  </div>
-                </StaggerItem>
-              );
-            })}
-          </Stagger>
+          <ProcessSteps steps={STAGES} className="mx-auto max-w-6xl" />
         </Container>
       </section>
 
@@ -230,24 +172,18 @@ export default function CsrProgramsPage() {
             subtitle="Every programme is evaluated against defined outcome indicators, independently verified and documented for your CSR committee."
             className="mb-14"
           />
-          <Stagger className="grid grid-cols-1 gap-5 sm:grid-cols-2" stagger={0.08}>
-            {IMPACT_METRICS.map((m) => {
-              const Icon = m.icon;
-              return (
-                <StaggerItem key={m.label} className="h-full">
-                  <div className="flex h-full items-center gap-5 rounded-2xl border border-[#e8ecf2] bg-white p-6">
-                    <div className="flex h-11 w-11 flex-shrink-0 items-center justify-center rounded-xl bg-primary-50 text-primary-600">
-                      <Icon size={20} />
-                    </div>
-                    <div>
-                      {/* [VERIFY] Metric value pending — verified CSR metrics from M&E team. */}
-                      <span className="block font-heading text-2xl font-800 text-neutral-300">—</span>
-                      <p className="text-sm leading-relaxed text-neutral-600">{m.label}</p>
-                    </div>
-                  </div>
-                </StaggerItem>
-              );
-            })}
+          {/* Same stat-card UI as the homepage Impact section. */}
+          <Stagger className="grid grid-cols-2 gap-4 lg:grid-cols-4 lg:gap-6" stagger={0.1}>
+            {IMPACT_METRICS.map((s) => (
+              <StaggerItem key={s.title} className="rounded-2xl bg-white p-6 shadow-card lg:p-8">
+                <div className="text-[13px] font-600 text-neutral-500">{s.title}</div>
+                {/* [VERIFY] Metric value pending — verified CSR metrics from M&E team. */}
+                <span className="mt-3 block font-heading text-[clamp(1.9rem,4vw,2.75rem)] font-800 leading-none text-neutral-300">
+                  —
+                </span>
+                <p className="mt-3 text-[13.5px] leading-relaxed text-neutral-600">{s.sub}</p>
+              </StaggerItem>
+            ))}
           </Stagger>
           {/* [VERIFY] Client testimonial removed — awaiting a confirmed CSR client name,
               designation and outcome from the BD team. CEAT logo placeholder removed

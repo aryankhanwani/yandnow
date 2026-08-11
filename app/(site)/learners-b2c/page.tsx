@@ -9,6 +9,7 @@ import PageHero from "@/components/ui/PageHero";
 import SectionHeading from "@/components/ui/SectionHeading";
 import CtaBand from "@/components/ui/CtaBand";
 import FaqAccordion, { type FaqItemData } from "@/components/ui/FaqAccordion";
+import HoverWashCard from "@/components/ui/HoverWashCard";
 import { CtaButton } from "@/components/ui/CtaButton";
 import { Reveal, Stagger, StaggerItem } from "@/components/ui/motion-primitives";
 
@@ -99,8 +100,7 @@ export default function LearnersB2cPage() {
         eyebrow="For Learners"
         title="Get Industry-Ready. Get Placed."
         highlight="Start with Y&Now."
-        subtitle="Y&Now offers industry-recognised courses that prepare you for real employment. Every course is co-designed with employers, so you learn exactly what companies are hiring for — not generic textbook content. Complete your course, earn your NSQF certification, and access Y&Now's employer connections for placement support."
-        crumbs={[{ label: "Home", href: "/" }, { label: "For Learners" }]}
+        subtitle="Learn what companies hire for through employer-designed courses, earn NSQF certification, and get placement support."
       >
         <CtaButton href="/learners-b2c/courses" variant="primary" className="px-7 py-3.5">
           Find a Course
@@ -125,18 +125,20 @@ export default function LearnersB2cPage() {
               const Icon = b.icon;
               return (
                 <StaggerItem key={b.title} className="h-full">
-                  <div className="group flex h-full gap-5 rounded-2xl border border-[#e8ecf2] bg-white p-7 transition-all duration-300 hover:-translate-y-1 hover:border-primary-200 hover:shadow-[0_18px_44px_rgba(20,21,46,0.09)]">
-                    <div
-                      className="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-xl transition-transform duration-300 group-hover:scale-105"
-                      style={{ color: `rgb(${b.tint})`, backgroundColor: `rgba(${b.tint},0.08)` }}
-                    >
-                      <Icon size={22} strokeWidth={2} />
+                  <HoverWashCard>
+                    <div className="flex gap-5">
+                      <div
+                        className="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-xl transition-transform duration-300 group-hover:scale-105"
+                        style={{ color: `rgb(${b.tint})`, backgroundColor: `rgba(${b.tint},0.08)` }}
+                      >
+                        <Icon size={22} strokeWidth={2} />
+                      </div>
+                      <div>
+                        <h3 className="mb-2 font-heading text-lg font-700 text-ink">{b.title}</h3>
+                        <p className="text-sm leading-relaxed text-neutral-600">{b.body}</p>
+                      </div>
                     </div>
-                    <div>
-                      <h3 className="mb-2 font-heading text-lg font-700 text-ink">{b.title}</h3>
-                      <p className="text-sm leading-relaxed text-neutral-600">{b.body}</p>
-                    </div>
-                  </div>
+                  </HoverWashCard>
                 </StaggerItem>
               );
             })}
@@ -159,12 +161,14 @@ export default function LearnersB2cPage() {
               const Icon = s.icon;
               return (
                 <StaggerItem key={s.label} className="h-full">
-                  <div className="flex h-full flex-col items-center gap-4 rounded-2xl border border-[#e8ecf2] bg-surface p-6 text-center transition-all duration-300 hover:-translate-y-1 hover:border-primary-200 hover:shadow-[0_18px_44px_rgba(20,21,46,0.09)]">
-                    <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-primary-50 text-primary-600">
-                      <Icon size={22} strokeWidth={2} />
+                  <HoverWashCard className="bg-surface p-6">
+                    <div className="flex h-full flex-col items-center gap-4 text-center">
+                      <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-primary-50 text-primary-600 transition-transform duration-300 group-hover:scale-105">
+                        <Icon size={22} strokeWidth={2} />
+                      </div>
+                      <h3 className="font-heading text-sm font-700 text-ink">{s.label}</h3>
                     </div>
-                    <h3 className="font-heading text-sm font-700 text-ink">{s.label}</h3>
-                  </div>
+                  </HoverWashCard>
                 </StaggerItem>
               );
             })}

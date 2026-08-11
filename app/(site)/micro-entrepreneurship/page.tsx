@@ -8,8 +8,9 @@ import PageHero from "@/components/ui/PageHero";
 import SectionHeading from "@/components/ui/SectionHeading";
 import CtaBand from "@/components/ui/CtaBand";
 import FaqAccordion, { type FaqItemData } from "@/components/ui/FaqAccordion";
+import HoverWashCard from "@/components/ui/HoverWashCard";
 import { CtaButton } from "@/components/ui/CtaButton";
-import { Reveal, Stagger, StaggerItem } from "@/components/ui/motion-primitives";
+import { Stagger, StaggerItem } from "@/components/ui/motion-primitives";
 
 export const metadata: Metadata = {
   title: "Micro-Entrepreneurship & Livelihood Programmes India | Y&Now",
@@ -57,20 +58,13 @@ const COMPONENTS: Component[] = [
   },
 ];
 
-/* [VERIFY] Impact metrics are placeholders pending M&E team sign-off — see [INSERT] markers in content doc */
+/* [VERIFY] Impact figures are pending M&E team sign-off — rendered as a neutral
+   placeholder ("—"), never fabricated numbers. */
 const IMPACT = [
-  { icon: UsersRound, label: "Women trained", value: "[INSERT: number of women trained]" },
-  {
-    icon: TrendingUp,
-    label: "Reporting income generation",
-    value: "[INSERT: % within 6 months of programme completion]",
-  },
-  {
-    icon: BarChart3,
-    label: "Average income increase",
-    value: "[INSERT: percentage or absolute figure]",
-  },
-  { icon: Sprout, label: "SHGs strengthened or formed", value: "[INSERT: SHGs strengthened or formed]" },
+  { icon: UsersRound, label: "Women trained" },
+  { icon: TrendingUp, label: "Reporting income generation within 6 months" },
+  { icon: BarChart3, label: "Average income increase" },
+  { icon: Sprout, label: "SHGs strengthened or formed" },
 ];
 
 const FAQS: FaqItemData[] = [
@@ -81,7 +75,7 @@ const FAQS: FaqItemData[] = [
   {
     q: "What sectors do participants typically train in?",
     /* [VERIFY] active livelihood sectors pending Programme team confirmation */
-    a: "[INSERT: active livelihood sectors — Programme team. Examples: food processing, tailoring, handicrafts, retail, beauty and wellness, digital services]",
+    a: "Participants train in sectors matched to local market demand — for example food processing, tailoring, handicrafts, retail, beauty and wellness, and digital services. The active list for a given programme is confirmed during the community needs assessment.",
   },
   {
     q: "How does Y&Now ensure income generation actually happens?",
@@ -102,10 +96,9 @@ export default function MicroEntrepreneurshipPage() {
     <>
       <PageHero
         eyebrow="Micro-Entrepreneurship & Livelihood"
-        title="Livelihood & Micro-Entrepreneurship Programmes That Generate"
-        highlight="Measurable Income"
-        subtitle="Y&Now designs and delivers livelihood and micro-entrepreneurship programmes for women, Self-Help Groups (SHGs), and marginalised communities. Our programmes combine vocational training, business development skills, and market linkage — creating sustainable income pathways that are measurable, documentable, and aligned to CSR compliance requirements under Schedule VII of the Companies Act, 2013."
-        crumbs={[{ label: "Home", href: "/" }, { label: "Micro-Entrepreneurship" }]}
+        title="Build a Business, Earn"
+        highlight="Real Income"
+        subtitle="We help women and local groups gain skills, start small businesses, and earn steady income."
       >
         <CtaButton href="/contact-us?type=livelihood" variant="primary" className="px-7 py-3.5">
           Design a Livelihood Programme
@@ -130,18 +123,20 @@ export default function MicroEntrepreneurshipPage() {
               const Icon = c.icon;
               return (
                 <StaggerItem key={c.title} className="h-full">
-                  <div className="group flex h-full gap-5 rounded-2xl border border-[#e8ecf2] bg-white p-7 transition-all duration-300 hover:-translate-y-1 hover:border-primary-200 hover:shadow-[0_18px_44px_rgba(20,21,46,0.09)]">
-                    <div
-                      className="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-xl transition-transform duration-300 group-hover:scale-105"
-                      style={{ color: `rgb(${c.tint})`, backgroundColor: `rgba(${c.tint},0.08)` }}
-                    >
-                      <Icon size={22} strokeWidth={2} />
+                  <HoverWashCard>
+                    <div className="flex gap-5">
+                      <div
+                        className="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-xl transition-transform duration-300 group-hover:scale-105"
+                        style={{ color: `rgb(${c.tint})`, backgroundColor: `rgba(${c.tint},0.08)` }}
+                      >
+                        <Icon size={22} strokeWidth={2} />
+                      </div>
+                      <div>
+                        <h3 className="mb-2 font-heading text-lg font-700 text-ink">{c.title}</h3>
+                        <p className="text-sm leading-relaxed text-neutral-600">{c.body}</p>
+                      </div>
                     </div>
-                    <div>
-                      <h3 className="mb-2 font-heading text-lg font-700 text-ink">{c.title}</h3>
-                      <p className="text-sm leading-relaxed text-neutral-600">{c.body}</p>
-                    </div>
-                  </div>
+                  </HoverWashCard>
                 </StaggerItem>
               );
             })}
@@ -167,13 +162,14 @@ export default function MicroEntrepreneurshipPage() {
                 const Icon = m.icon;
                 return (
                   <StaggerItem key={m.label} className="h-full">
-                    <div className="flex h-full flex-col rounded-2xl border border-[#e8ecf2] bg-surface p-6">
-                      <div className="mb-4 flex h-11 w-11 items-center justify-center rounded-xl bg-white text-primary-600 shadow-sm ring-1 ring-neutral-100">
+                    <HoverWashCard noLift className="bg-surface p-6">
+                      <div className="mb-4 flex h-11 w-11 items-center justify-center rounded-xl bg-white text-primary-600 shadow-sm ring-1 ring-neutral-100 transition-transform duration-300 group-hover:scale-105">
                         <Icon size={20} />
                       </div>
-                      <h3 className="mb-1.5 font-heading text-base font-700 text-ink">{m.label}</h3>
-                      <p className="text-sm leading-relaxed text-neutral-500">{m.value}</p>
-                    </div>
+                      {/* [VERIFY] Metric value pending — verified figures from M&E team. */}
+                      <span className="mb-1 block font-heading text-3xl font-800 text-neutral-300">—</span>
+                      <h3 className="font-heading text-sm font-700 text-ink">{m.label}</h3>
+                    </HoverWashCard>
                   </StaggerItem>
                 );
               })}

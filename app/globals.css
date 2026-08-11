@@ -29,11 +29,15 @@
   /* ----------------------------------------------------------
      COLOR TOKENS
 
-     Primary:   #2E3192 (deep indigo-blue)  — 500 is the brand hex
-     Secondary: #27AAE2 (sky blue)          — 500 is the brand hex
+     Brand Book palette (R/G/B → hex):
+       Primary:   #2E3191 (R46  G49  B145)  — deep indigo-blue
+       Secondary: #27AAE1 (R39  G170 B225)  — sky blue
+       Brand Gray:#606161 (R96  G97  B97)   — the 3rd brand colour
+       White:     #FFFFFF
+
      Ink:       #14152E (near-black navy for body text)
      Surface:   #F7F9FC (light cool-white for section backgrounds)
-     Neutral:   cool-undertone gray scale
+     Neutral:   cool-undertone gray scale (UI scale, tuned to #606161)
 
      Weight conventions (in code comments):
        - Headings default to font-weight 700 (Manrope)
@@ -41,31 +45,43 @@
        - Body text: font-weight 400
      ---------------------------------------------------------- */
 
-  /* --- Primary scale (indigo-blue, 500 = #2E3192) ---------- */
+  /* --- Primary scale (indigo-blue, 500 = #2E3191) ---------- */
   --color-primary-50:  #eeeef8;
   --color-primary-100: #d4d5ef;
   --color-primary-200: #b0b2e2;
   --color-primary-300: #8b8ed5;
   --color-primary-400: #6669c4;
-  --color-primary-500: #2E3192;  /* brand exact */
+  --color-primary-500: #2E3191;  /* brand exact — R46 G49 B145 */
   --color-primary-600: #272a7e;
   --color-primary-700: #1f2267;
   --color-primary-800: #171950;
   --color-primary-900: #0f113a;
   --color-primary-950: #080920;
 
-  /* --- Secondary scale (sky-blue, 500 = #27AAE2) ----------- */
+  /* --- Secondary scale (sky-blue, 500 = #27AAE1) ----------- */
   --color-secondary-50:  #e8f6fd;
   --color-secondary-100: #c4e8f9;
   --color-secondary-200: #92d5f4;
   --color-secondary-300: #5ec0ed;
   --color-secondary-400: #32b4e8;
-  --color-secondary-500: #27AAE2;  /* brand exact */
+  --color-secondary-500: #27AAE1;  /* brand exact — R39 G170 B225 */
   --color-secondary-600: #208fc0;
   --color-secondary-700: #19729a;
   --color-secondary-800: #125673;
   --color-secondary-900: #0b3a4d;
   --color-secondary-950: #061e28;
+
+  /* --- Brand Gray scale (neutral gray, 500 = #606161) ------- */
+  --color-gray-50:  #f6f6f6;
+  --color-gray-100: #e9e9e9;
+  --color-gray-200: #d4d4d4;
+  --color-gray-300: #b8b8b8;
+  --color-gray-400: #8f9090;
+  --color-gray-500: #606161;  /* brand exact — R96 G97 B97 */
+  --color-gray-600: #4e4f4f;
+  --color-gray-700: #3d3e3e;
+  --color-gray-800: #2b2c2c;
+  --color-gray-900: #1a1a1a;
 
   /* --- Ink (near-black navy for high-contrast text) --------- */
   --color-ink: #14152E;
@@ -160,7 +176,7 @@
        gradient-glow    — decorative radial accent behind cards/stats
      ---------------------------------------------------------- */
   --background-image-gradient-brand:
-    linear-gradient(135deg, #2E3192 0%, #27AAE2 100%);
+    linear-gradient(135deg, #2E3191 0%, #27AAE1 100%);
 
   --background-image-gradient-subtle:
     linear-gradient(180deg, #F7F9FC 0%, #eeeef8 100%);
@@ -212,7 +228,7 @@
       #ffffff 100%);
 
   --background-image-gradient-cta:
-    linear-gradient(135deg, #12163a 0%, #2E3192 55%, #27AAE2 120%);
+    linear-gradient(135deg, #12163a 0%, #2E3191 55%, #27AAE1 120%);
 }
 
 /* ============================================================
@@ -427,7 +443,7 @@ body {
     #32b4e8 0%,
     #7dd3fc 40%,
     #32b4e8 60%,
-    #27aae2 100%
+    #27aae1 100%
   );
   background-size: 200% auto;
   -webkit-background-clip: text;

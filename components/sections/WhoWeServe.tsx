@@ -128,8 +128,10 @@ function HorizontalGallery() {
               sizes="(max-width: 1024px) 100vw, 55vw"
               className="object-cover"
             />
-            {/* Base darkening so collapsed labels stay legible */}
-            <div className="absolute inset-0 bg-gradient-to-t from-ink/85 via-ink/25 to-ink/10" />
+            {/* Legibility scrims — strong at the bottom, softer at the top,
+                so white text stays readable over any image */}
+            <div className="absolute inset-0 bg-gradient-to-t from-ink/90 via-ink/50 to-ink/25" />
+            <div className="pointer-events-none absolute inset-x-0 top-0 h-28 bg-gradient-to-b from-ink/45 to-transparent" />
 
             {/* Collapsed vertical label */}
             <AnimatePresence>
@@ -205,7 +207,7 @@ function MobileStack() {
             className="group relative block h-56 overflow-hidden rounded-2xl"
           >
             <Image src={a.image} alt="" fill sizes="100vw" className="object-cover" />
-            <div className="absolute inset-0 bg-gradient-to-t from-ink/85 via-ink/30 to-transparent" />
+            <div className="absolute inset-0 bg-gradient-to-t from-ink/90 via-ink/55 to-ink/15" />
             <div className="absolute inset-0 flex flex-col justify-end p-6">
               <span className="mb-2 inline-flex w-fit items-center gap-1.5 rounded-full bg-white/15 px-2.5 py-1 text-[10px] font-bold uppercase tracking-[0.12em] text-white backdrop-blur-sm">
                 <Icon size={12} />

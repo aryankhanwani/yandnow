@@ -8,6 +8,7 @@ import PageHero from "@/components/ui/PageHero";
 import SectionHeading from "@/components/ui/SectionHeading";
 import CtaBand from "@/components/ui/CtaBand";
 import FaqAccordion, { type FaqItemData } from "@/components/ui/FaqAccordion";
+import HoverWashCard from "@/components/ui/HoverWashCard";
 import { CtaButton } from "@/components/ui/CtaButton";
 import { Stagger, StaggerItem } from "@/components/ui/motion-primitives";
 
@@ -104,10 +105,9 @@ export default function SchoolSolutionsPage() {
     <>
       <PageHero
         eyebrow="School Solutions"
-        title="Industry-Readiness Programmes for Schools:"
-        highlight="NSQF-Aligned, Employer Co-Designed"
-        subtitle="Y&Now delivers NSQF-aligned vocational and applied skills programmes for secondary and senior secondary students — co-designed with industry employers to ensure the skills taught match the competencies employers actually need. Our school programmes combine practical training, assessment, and industry connections to help students enter employment or continue vocational education with a credible, employer-recognised qualification."
-        crumbs={[{ label: "Home", href: "/" }, { label: "School Solutions" }]}
+        title="Job-Ready Skills for"
+        highlight="School Students"
+        subtitle="Hands-on skills courses built with employers, so school students earn a real, recognised certificate."
       >
         <CtaButton href="/contact-us?type=schools" variant="primary" className="px-7 py-3.5">
           Enquire About School Programmes
@@ -132,9 +132,9 @@ export default function SchoolSolutionsPage() {
               const Icon = d.icon;
               return (
                 <StaggerItem key={d.title} className="h-full">
-                  <div className="group flex h-full flex-col gap-4 rounded-2xl border border-[#e8ecf2] bg-white p-7 transition-all duration-300 hover:-translate-y-1 hover:border-primary-200 hover:shadow-[0_18px_44px_rgba(20,21,46,0.09)]">
+                  <HoverWashCard>
                     <div
-                      className="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-xl transition-transform duration-300 group-hover:scale-105"
+                      className="mb-4 flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-xl transition-transform duration-300 group-hover:scale-105"
                       style={{ color: `rgb(${d.tint})`, backgroundColor: `rgba(${d.tint},0.08)` }}
                     >
                       <Icon size={22} strokeWidth={2} />
@@ -143,7 +143,7 @@ export default function SchoolSolutionsPage() {
                       <h3 className="mb-2 font-heading text-lg font-700 text-ink">{d.title}</h3>
                       <p className="text-sm leading-relaxed text-neutral-600">{d.body}</p>
                     </div>
-                  </div>
+                  </HoverWashCard>
                 </StaggerItem>
               );
             })}

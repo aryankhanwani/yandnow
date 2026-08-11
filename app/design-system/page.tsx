@@ -11,7 +11,7 @@ const primaryScale = [
   { name: "200", hex: "#b0b2e2" },
   { name: "300", hex: "#8b8ed5" },
   { name: "400", hex: "#6669c4" },
-  { name: "500", hex: "#2E3192", isBrand: true },
+  { name: "500", hex: "#2E3191", isBrand: true },
   { name: "600", hex: "#272a7e" },
   { name: "700", hex: "#1f2267" },
   { name: "800", hex: "#171950" },
@@ -25,12 +25,25 @@ const secondaryScale = [
   { name: "200", hex: "#92d5f4" },
   { name: "300", hex: "#5ec0ed" },
   { name: "400", hex: "#32b4e8" },
-  { name: "500", hex: "#27AAE2", isBrand: true },
+  { name: "500", hex: "#27AAE1", isBrand: true },
   { name: "600", hex: "#208fc0" },
   { name: "700", hex: "#19729a" },
   { name: "800", hex: "#125673" },
   { name: "900", hex: "#0b3a4d" },
   { name: "950", hex: "#061e28" },
+];
+
+const grayScale = [
+  { name: "50",  hex: "#f6f6f6" },
+  { name: "100", hex: "#e9e9e9" },
+  { name: "200", hex: "#d4d4d4" },
+  { name: "300", hex: "#b8b8b8" },
+  { name: "400", hex: "#8f9090" },
+  { name: "500", hex: "#606161", isBrand: true },
+  { name: "600", hex: "#4e4f4f" },
+  { name: "700", hex: "#3d3e3e" },
+  { name: "800", hex: "#2b2c2c" },
+  { name: "900", hex: "#1a1a1a" },
 ];
 
 const neutralScale = [
@@ -58,7 +71,7 @@ const gradients = [
     name: "gradient-brand",
     label: "gradient-brand",
     description: "Primary → Secondary · 135deg · Hero sections & primary CTAs",
-    style: "linear-gradient(135deg, #2E3192 0%, #27AAE2 100%)",
+    style: "linear-gradient(135deg, #2E3191 0%, #27AAE1 100%)",
     textColor: "#ffffff",
   },
   {
@@ -243,9 +256,17 @@ export default function DesignSystemPage() {
         background: "#F7F9FC",
         minHeight: "100vh",
         padding: "0 0 80px",
+        WebkitPrintColorAdjust: "exact",
+        printColorAdjust: "exact",
       }}
     >
       <div style={{ maxWidth: "1200px", margin: "0 auto", padding: "56px 40px 0" }}>
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src="/logo.png"
+          alt="Y&Now"
+          style={{ height: "44px", width: "auto", display: "block", marginBottom: "28px" }}
+        />
         <p
           style={{
             fontFamily: "var(--font-body)",
@@ -257,7 +278,7 @@ export default function DesignSystemPage() {
             margin: "0 0 12px",
           }}
         >
-          YandNow · Design System
+          Y&Now · Design System
         </p>
         <h1
           style={{
@@ -287,17 +308,23 @@ export default function DesignSystemPage() {
         {/* ============ SECTION 1: COLORS ============ */}
         <Section id="colors" title="Color Tokens">
           {/* Primary */}
-          <SwatchGroup label="Primary Scale — #2E3192 (deep indigo-blue)" swatches={primaryScale} />
+          <SwatchGroup label="Primary Scale — #2E3191 (deep indigo-blue)" swatches={primaryScale} />
 
           {/* Secondary */}
           <SwatchGroup
-            label="Secondary Scale — #27AAE2 (sky blue)"
+            label="Secondary Scale — #27AAE1 (sky blue)"
             swatches={secondaryScale}
+          />
+
+          {/* Brand Gray */}
+          <SwatchGroup
+            label="Brand Gray Scale — #606161 (the 3rd Brand Book colour)"
+            swatches={grayScale}
           />
 
           {/* Neutral */}
           <SwatchGroup
-            label="Neutral Scale — cool blue-undertone grays"
+            label="Neutral Scale — cool blue-undertone grays (UI)"
             swatches={neutralScale}
           />
 
@@ -347,7 +374,7 @@ export default function DesignSystemPage() {
                   position: "relative",
                   ...(g.showOnImage
                     ? {
-                        backgroundImage: `${g.style}, url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='120'%3E%3Crect fill='%2327AAE2' width='400' height='120'/%3E%3Ccircle cx='200' cy='60' r='80' fill='%232E3192' opacity='.5'/%3E%3C/svg%3E")`,
+                        backgroundImage: `${g.style}, url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='120'%3E%3Crect fill='%2327AAE1' width='400' height='120'/%3E%3Ccircle cx='200' cy='60' r='80' fill='%232E3191' opacity='.5'/%3E%3C/svg%3E")`,
                         backgroundSize: "cover, cover",
                       }
                     : {}),
@@ -405,7 +432,7 @@ export default function DesignSystemPage() {
                       fontWeight: 600,
                       letterSpacing: "0.08em",
                       textTransform: "uppercase",
-                      color: "#27AAE2",
+                      color: "#27AAE1",
                       margin: "0 0 6px",
                     }}
                   >
@@ -488,7 +515,7 @@ export default function DesignSystemPage() {
                       fontFamily: "var(--font-body)",
                       fontSize: "0.8rem",
                       fontWeight: 600,
-                      color: "#2E3192",
+                      color: "#2E3191",
                       margin: "0 0 4px",
                       letterSpacing: "0.05em",
                       textTransform: "uppercase",
@@ -581,7 +608,7 @@ export default function DesignSystemPage() {
                           fontWeight: 600,
                           letterSpacing: "0.1em",
                           textTransform: "uppercase" as const,
-                          color: "#27AAE2",
+                          color: "#27AAE1",
                         }
                   }
                 >
@@ -610,7 +637,7 @@ export default function DesignSystemPage() {
                   style={{
                     width: "120px",
                     height: "80px",
-                    background: "linear-gradient(135deg, #2E3192 0%, #27AAE2 100%)",
+                    background: "linear-gradient(135deg, #2E3191 0%, #27AAE1 100%)",
                     ...r.style,
                     marginBottom: "10px",
                   }}
@@ -751,7 +778,7 @@ function Section({
           gap: "16px",
           marginBottom: "32px",
           paddingBottom: "16px",
-          borderBottom: "2px solid #2E3192",
+          borderBottom: "2px solid #2E3191",
         }}
       >
         <h2
@@ -793,7 +820,7 @@ function SwatchGroup({
                   height: "80px",
                   borderRadius: "10px",
                   background: s.hex,
-                  border: s.isBrand ? "3px solid #27AAE2" : "none",
+                  border: s.isBrand ? "3px solid #27AAE1" : "none",
                   display: "flex",
                   flexDirection: "column",
                   alignItems: "center",
@@ -807,7 +834,7 @@ function SwatchGroup({
                       position: "absolute",
                       top: "-10px",
                       right: "-4px",
-                      background: "#27AAE2",
+                      background: "#27AAE1",
                       color: "white",
                       fontSize: "9px",
                       fontWeight: 700,

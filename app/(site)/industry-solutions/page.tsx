@@ -8,6 +8,7 @@ import PageHero from "@/components/ui/PageHero";
 import SectionHeading from "@/components/ui/SectionHeading";
 import CtaBand from "@/components/ui/CtaBand";
 import FaqAccordion, { type FaqItemData } from "@/components/ui/FaqAccordion";
+import HoverWashCard from "@/components/ui/HoverWashCard";
 import { CtaButton } from "@/components/ui/CtaButton";
 import { Reveal, Stagger, StaggerItem } from "@/components/ui/motion-primitives";
 
@@ -119,10 +120,9 @@ export default function IndustrySolutionsPage() {
     <>
       <PageHero
         eyebrow="Industry Solutions"
-        title="Industry-Specific Workforce Training Built for"
+        title="Workforce Training Built for"
         highlight="Technical Environments"
-        subtitle="Y&Now designs sector-specific training for industrial workforces — combining blended learning, AR/VR simulation, and on-the-job evidence capture. Each programme is calibrated to the technical, safety, and compliance requirements of the specific sector, with traceable competency outcomes and NSDC/NCVET/DGT co-badging where applicable. We deliver to manufacturing plants, precision engineering facilities, and regulated industrial sites across India."
-        crumbs={[{ label: "Home", href: "/" }, { label: "Industry Solutions" }]}
+        subtitle="Sector-specific training with blended learning, AR/VR simulation, and on-the-job evidence for safety and compliance standards."
       >
         <CtaButton href="/contact-us?type=industry" variant="primary" className="px-7 py-3.5">
           Request a Sector Pilot
@@ -147,9 +147,9 @@ export default function IndustrySolutionsPage() {
               const Icon = c.icon;
               return (
                 <StaggerItem key={c.title} className="h-full">
-                  <div className="group flex h-full flex-col gap-5 rounded-2xl border border-[#e8ecf2] bg-white p-7 transition-all duration-300 hover:-translate-y-1 hover:border-primary-200 hover:shadow-[0_18px_44px_rgba(20,21,46,0.09)]">
+                  <HoverWashCard>
                     <div
-                      className="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-xl transition-transform duration-300 group-hover:scale-105"
+                      className="mb-5 flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-xl transition-transform duration-300 group-hover:scale-105"
                       style={{ color: `rgb(${c.tint})`, backgroundColor: `rgba(${c.tint},0.08)` }}
                     >
                       <Icon size={22} strokeWidth={2} />
@@ -158,7 +158,7 @@ export default function IndustrySolutionsPage() {
                       <h3 className="mb-2 font-heading text-lg font-700 text-ink">{c.title}</h3>
                       <p className="text-sm leading-relaxed text-neutral-600">{c.body}</p>
                     </div>
-                  </div>
+                  </HoverWashCard>
                 </StaggerItem>
               );
             })}
@@ -184,8 +184,8 @@ export default function IndustrySolutionsPage() {
                   <Factory size={22} />
                 </div>
                 <blockquote className="font-heading text-xl font-600 leading-snug text-ink lg:text-2xl">
-                  "A pilot at an automotive components manufacturer in [state, India] reduced
-                  first-pass yield defects by 18% within 8 weeks."
+                  &ldquo;A pilot at an automotive components manufacturer in India reduced
+                  first-pass yield defects by 18% within 8 weeks.&rdquo;
                 </blockquote>
                 <figcaption className="mt-5 text-sm text-neutral-500">
                   Anonymised pilot outcome — approved client reference pending verification.
@@ -211,13 +211,13 @@ export default function IndustrySolutionsPage() {
               const Icon = a.icon;
               return (
                 <StaggerItem key={a.title} className="h-full">
-                  <div className="flex h-full flex-col rounded-2xl border border-[#e8ecf2] bg-white p-7">
-                    <div className="mb-5 flex h-11 w-11 items-center justify-center rounded-xl bg-primary-50 text-primary-600">
+                  <HoverWashCard>
+                    <div className="mb-5 flex h-11 w-11 items-center justify-center rounded-xl bg-primary-50 text-primary-600 transition-transform duration-300 group-hover:scale-105">
                       <Icon size={20} />
                     </div>
                     <h3 className="mb-2 font-heading text-base font-700 text-ink">{a.title}</h3>
                     <p className="text-sm leading-relaxed text-neutral-600">{a.body}</p>
-                  </div>
+                  </HoverWashCard>
                 </StaggerItem>
               );
             })}

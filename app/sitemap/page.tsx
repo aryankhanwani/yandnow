@@ -374,6 +374,8 @@ export default function SitemapPage() {
         color: "#14152E",
         background: "#F7F9FC",
         minHeight: "100vh",
+        WebkitPrintColorAdjust: "exact",
+        printColorAdjust: "exact",
         paddingBottom: "80px",
       }}
     >

@@ -1,13 +1,18 @@
 import type { Metadata } from "next";
 import {
   Gauge, MonitorSmartphone, Users2, Sparkles,
-  Target, Plug, Layers, Check, type LucideIcon,
+  Target, Plug, Layers,
+  ClipboardCheck, GraduationCap, Wrench, TrendingUp, RefreshCw,
 } from "lucide-react";
 import Container from "@/components/ui/Container";
 import PageHero from "@/components/ui/PageHero";
 import SectionHeading from "@/components/ui/SectionHeading";
 import CtaBand from "@/components/ui/CtaBand";
 import FaqAccordion, { type FaqItemData } from "@/components/ui/FaqAccordion";
+import { type StepItem } from "@/components/ui/StepExplorer";
+import StepScroller from "@/components/ui/StepScroller";
+import StackingCards, { type StackCardItem } from "@/components/ui/StackingCards";
+import SpotlightCard from "@/components/ui/SpotlightCard";
 import { CtaButton } from "@/components/ui/CtaButton";
 import { Reveal, Stagger, StaggerItem } from "@/components/ui/motion-primitives";
 
@@ -17,35 +22,36 @@ export const metadata: Metadata = {
     "Y&Now builds enterprise workforce capability across operational performance, digital adoption, leadership, and customer excellence. Trusted by Tata Group, JSW, Castrol India, BPCL, and Jaquar.",
 };
 
-interface Category {
-  icon: LucideIcon;
-  tint: string;
-  title: string;
-  body: string;
-}
-
-const CATEGORIES: Category[] = [
+const CATEGORIES: StackCardItem[] = [
   {
-    icon: Gauge,
+    num: "01",
+    icon: <Gauge size={26} strokeWidth={2} />,
     tint: "46,49,146",
+    image: "/images/corporate/programme-categories/operational-performance.jpg",
     title: "Operational Performance",
     body: "Role-specific behavioural skills, SOPs, and frontline execution standards that directly reduce operational error rates.",
   },
   {
-    icon: MonitorSmartphone,
+    num: "02",
+    icon: <MonitorSmartphone size={26} strokeWidth={2} />,
     tint: "39,170,226",
+    image: "/images/corporate/programme-categories/digital-workflow-adoption.jpg",
     title: "Digital & Workflow Adoption",
     body: "Technology onboarding, digital POS, and ERP/HRMS user capability — so your workforce works with the systems you already run.",
   },
   {
-    icon: Users2,
+    num: "03",
+    icon: <Users2 size={26} strokeWidth={2} />,
     tint: "31,34,103",
+    image: "/images/corporate/programme-categories/leadership-management.jpg",
     title: "Leadership & Management",
     body: "First-line manager effectiveness and performance conversation frameworks for mid-to-senior leadership cohorts.",
   },
   {
-    icon: Sparkles,
+    num: "04",
+    icon: <Sparkles size={26} strokeWidth={2} />,
     tint: "32,180,232",
+    image: "/images/corporate/programme-categories/customer-excellence.jpg",
     title: "Customer Excellence",
     body: "Showroom interaction, service recovery, and brand experience programmes for customer-facing roles.",
   },
@@ -69,15 +75,50 @@ const DIFFERENTIATORS = [
   },
 ];
 
-const DELIVERY = ["Assess", "Train", "Apply", "Perform", "Improve"];
-
-const CLIENT_RESULTS = [
-  { name: "Tata Group", focus: "Behavioural skills transformation across diverse teams." },
-  { name: "JSW", focus: "Digital transformation and SCADA literacy for plant operations." },
-  { name: "Castrol India", focus: "Sales force capability across dealer networks." },
-  { name: "BPCL", focus: "Digital POS adoption and customer experience." },
-  { name: "Jaquar", focus: "Showroom customer engagement and brand excellence." },
+const DELIVERY: StepItem[] = [
+  {
+    label: "Assess",
+    kicker: "Stage 01",
+    icon: <ClipboardCheck size={24} strokeWidth={2} />,
+    tint: "46,49,146",
+    image: "/images/corporate/delivery-model/assess.jpg",
+    body: "We map current competency across roles, functions, and levels to pinpoint the exact gaps between where your workforce is and where it needs to be.",
+  },
+  {
+    label: "Train",
+    kicker: "Stage 02",
+    icon: <GraduationCap size={24} strokeWidth={2} />,
+    tint: "39,170,226",
+    image: "/images/corporate/delivery-model/train.jpg",
+    body: "Personalised learning paths — instructor-led, digital, AR/VR simulation, and microlearning — close identified skill gaps at individual and team level.",
+  },
+  {
+    label: "Apply",
+    kicker: "Stage 03",
+    icon: <Wrench size={24} strokeWidth={2} />,
+    tint: "31,34,103",
+    image: "/images/corporate/delivery-model/apply.jpg",
+    body: "On-the-job tasks, manager check-ins, and live scenario assessments verify that learning is transferring from training into the workplace.",
+  },
+  {
+    label: "Perform",
+    kicker: "Stage 04",
+    icon: <TrendingUp size={24} strokeWidth={2} />,
+    tint: "23,25,80",
+    image: "/images/corporate/delivery-model/perform.jpg",
+    body: "OKR tracking and performance signals measure whether capability improvements show up in actual job performance and operational KPIs.",
+  },
+  {
+    label: "Improve",
+    kicker: "Stage 05",
+    icon: <RefreshCw size={24} strokeWidth={2} />,
+    tint: "32,180,232",
+    image: "/images/corporate/delivery-model/improve.jpg",
+    body: "Analytics from each cycle inform the next — a continuous loop between learning investment, performance data, and workforce planning.",
+  },
 ];
+
+const CLIENTS = ["Tata Group", "JSW", "Castrol India", "BPCL", "Jaquar"];
 
 const FAQS: FaqItemData[] = [
   {
@@ -107,10 +148,9 @@ export default function CorporatePage() {
     <>
       <PageHero
         eyebrow="Corporate Training"
-        title="Build a High-Performance Workforce with"
-        highlight="Industry-Aligned L&D"
-        subtitle="Y&Now partners with enterprise organisations to build workforce proficiency across roles, functions, and levels. Our programmes connect learning directly to operational performance — with outcomes measured through OKRs, supervisor sign-offs, and operational KPIs your leadership team can track."
-        crumbs={[{ label: "Home", href: "/" }, { label: "Corporate" }]}
+        title="Build a High-Performance"
+        highlight="Workforce with L&D"
+        subtitle="We build proficiency at every level, tying learning to performance measured through OKRs and KPIs."
       >
         <CtaButton href="/contact-us?type=corporate" variant="primary" className="px-7 py-3.5">
           Design a Corporate Programme
@@ -120,72 +160,45 @@ export default function CorporatePage() {
         </CtaButton>
       </PageHero>
 
-      {/* Programme categories */}
-      <section className="bg-surface py-20 lg:py-28">
+      {/* Programme categories — scroll-stacked deck */}
+      <section className="bg-surface pt-20 lg:pt-28">
         <Container>
           <SectionHeading
             eyebrow="Programme Categories"
             title="Four categories of corporate"
             highlight="capability"
-            subtitle="Y&Now delivers enterprise capability where it moves the business — from the frontline to the leadership bench."
-            className="mb-14"
+            subtitle="Y&Now delivers enterprise capability where it moves the business — from the frontline to the leadership bench. Scroll to step through each."
           />
-          <Stagger className="grid grid-cols-1 gap-6 md:grid-cols-2" stagger={0.08}>
-            {CATEGORIES.map((c) => {
-              const Icon = c.icon;
-              return (
-                <StaggerItem key={c.title} className="h-full">
-                  <div className="group flex h-full gap-5 rounded-2xl border border-[#e8ecf2] bg-white p-7 transition-all duration-300 hover:-translate-y-1 hover:border-primary-200 hover:shadow-[0_18px_44px_rgba(20,21,46,0.09)]">
-                    <div
-                      className="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-xl transition-transform duration-300 group-hover:scale-105"
-                      style={{ color: `rgb(${c.tint})`, backgroundColor: `rgba(${c.tint},0.08)` }}
-                    >
-                      <Icon size={22} strokeWidth={2} />
-                    </div>
-                    <div>
-                      <h3 className="mb-2 font-heading text-lg font-700 text-ink">{c.title}</h3>
-                      <p className="text-sm leading-relaxed text-neutral-600">{c.body}</p>
-                    </div>
-                  </div>
-                </StaggerItem>
-              );
-            })}
-          </Stagger>
         </Container>
+        <StackingCards cards={CATEGORIES} className="mt-8" />
       </section>
 
       {/* Why choose */}
       <section className="bg-white py-20 lg:py-28">
         <Container>
-          <div className="grid grid-cols-1 gap-12 lg:grid-cols-[0.9fr_1.1fr] lg:gap-16">
-            <div className="lg:sticky lg:top-28 lg:self-start">
-              <SectionHeading
-                eyebrow="Why Enterprises Choose Y&Now"
-                title="L&D that shows up in"
-                highlight="business results"
-                subtitle="Built around operational performance signals, not course-completion metrics — embedded into workflow and integrated with your HRMS."
-                align="left"
-              />
-            </div>
-            <Stagger className="flex flex-col gap-4" stagger={0.1}>
-              {DIFFERENTIATORS.map((d) => {
-                const Icon = d.icon;
-                return (
-                  <StaggerItem key={d.title}>
-                    <div className="flex gap-5 rounded-2xl border border-[#e8ecf2] bg-surface p-6">
-                      <div className="flex h-11 w-11 flex-shrink-0 items-center justify-center rounded-xl bg-white text-primary-600 shadow-sm ring-1 ring-neutral-100">
-                        <Icon size={20} />
-                      </div>
-                      <div>
-                        <h3 className="mb-1.5 font-heading text-base font-700 text-ink">{d.title}</h3>
-                        <p className="text-sm leading-relaxed text-neutral-600">{d.body}</p>
-                      </div>
+          <SectionHeading
+            eyebrow="Why Enterprises Choose Y&Now"
+            title="L&D that shows up in"
+            highlight="business results"
+            subtitle="Built around operational performance signals, not course-completion metrics — embedded into workflow and integrated with your HRMS."
+            className="mb-14"
+          />
+          <Stagger className="grid grid-cols-1 gap-6 md:grid-cols-3" stagger={0.1}>
+            {DIFFERENTIATORS.map((d) => {
+              const Icon = d.icon;
+              return (
+                <StaggerItem key={d.title} className="h-full">
+                  <SpotlightCard>
+                    <div className="mb-6 flex h-14 w-14 items-center justify-center rounded-2xl bg-primary-50 text-primary-600 ring-1 ring-primary-100 transition-transform duration-300 group-hover:scale-105">
+                      <Icon size={24} strokeWidth={2} />
                     </div>
-                  </StaggerItem>
-                );
-              })}
-            </Stagger>
-          </div>
+                    <h3 className="mb-2.5 font-heading text-xl font-700 leading-tight text-ink">{d.title}</h3>
+                    <p className="text-[15px] leading-relaxed text-neutral-600">{d.body}</p>
+                  </SpotlightCard>
+                </StaggerItem>
+              );
+            })}
+          </Stagger>
         </Container>
       </section>
 
@@ -194,23 +207,12 @@ export default function CorporatePage() {
         <Container>
           <SectionHeading
             eyebrow="The 5-Stage Delivery Model"
-            title="Assess → Train → Apply → Perform → Improve"
-            subtitle="For corporate engagements, the cycle typically runs across a 12–16 week delivery period with quarterly review touchpoints."
+            title="Assess → Train → Apply → Perform →"
+            highlight="Improve"
+            subtitle="Step through the corporate delivery cycle — which typically runs across a 12–16 week period with quarterly review touchpoints."
             className="mb-12"
           />
-          <Reveal className="mx-auto flex max-w-4xl flex-wrap items-center justify-center gap-3">
-            {DELIVERY.map((step, i) => (
-              <div key={step} className="flex items-center gap-3">
-                <div className="flex items-center gap-3 rounded-full border border-[#e8ecf2] bg-white px-5 py-3 shadow-sm">
-                  <span className="flex h-7 w-7 items-center justify-center rounded-full bg-primary-500 text-xs font-bold text-white">
-                    {i + 1}
-                  </span>
-                  <span className="text-sm font-semibold text-ink">{step}</span>
-                </div>
-                {i < DELIVERY.length - 1 && <span className="hidden text-neutral-300 sm:inline">→</span>}
-              </div>
-            ))}
-          </Reveal>
+          <StepScroller steps={DELIVERY} className="mx-auto max-w-6xl" />
         </Container>
       </section>
 
@@ -223,22 +225,25 @@ export default function CorporatePage() {
             highlight="with"
             className="mb-14"
           />
-          <Stagger className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3" stagger={0.07}>
-            {CLIENT_RESULTS.map((c) => (
-              <StaggerItem key={c.name} className="h-full">
-                <div className="flex h-full flex-col rounded-2xl border border-[#e8ecf2] bg-surface p-6">
-                  <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-white text-sm font-bold text-primary-600 shadow-sm ring-1 ring-neutral-100">
-                    {c.name.split(" ").map((w) => w[0]).join("").slice(0, 2)}
-                  </div>
-                  <h3 className="mb-1.5 font-heading text-base font-700 text-ink">{c.name}</h3>
-                  <p className="flex items-start gap-2 text-sm leading-relaxed text-neutral-600">
-                    <Check size={15} className="mt-0.5 flex-shrink-0 text-secondary-500" />
-                    {c.focus}
-                  </p>
+          {/* Logo wall — one unified grid (3 over 2), hairline
+              dividers via a 1px gap over the border colour. Logos
+              to be dropped into each cell. */}
+          <Reveal className="mx-auto max-w-5xl overflow-hidden rounded-3xl border border-[#e8ecf2] bg-[#e8ecf2]">
+            <div className="grid grid-cols-6 gap-px">
+              {CLIENTS.map((name, i) => (
+                <div
+                  key={name}
+                  className={`group flex h-24 items-center justify-center bg-white px-4 transition-colors duration-300 hover:bg-primary-50/50 lg:h-28 ${
+                    i < 3 ? "col-span-2" : "col-span-3"
+                  }`}
+                >
+                  <span className="text-center font-heading text-base font-700 text-neutral-400 transition-colors duration-300 group-hover:text-primary-600 lg:text-lg">
+                    {name}
+                  </span>
                 </div>
-              </StaggerItem>
-            ))}
-          </Stagger>
+              ))}
+            </div>
+          </Reveal>
         </Container>
       </section>
 

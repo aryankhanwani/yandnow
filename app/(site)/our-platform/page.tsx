@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import {
   GraduationCap, ClipboardCheck, TrendingUp, Users2, Boxes, KeyRound,
-  FileCode2, Webhook, Database, Check, type LucideIcon,
+  FileCode2, Webhook, Database, Handshake, BarChart3, type LucideIcon,
 } from "lucide-react";
 import Container from "@/components/ui/Container";
 import PageHero from "@/components/ui/PageHero";
@@ -9,6 +9,9 @@ import SectionHeading from "@/components/ui/SectionHeading";
 import CtaBand from "@/components/ui/CtaBand";
 import FaqAccordion, { type FaqItemData } from "@/components/ui/FaqAccordion";
 import CountUp from "@/components/ui/CountUp";
+import HoverWashCard from "@/components/ui/HoverWashCard";
+import StepExplorer, { type StepItem } from "@/components/ui/StepExplorer";
+import ModuleTabs, { type ModuleTab } from "@/components/ui/ModuleTabs";
 import { CtaButton } from "@/components/ui/CtaButton";
 import { Reveal, Stagger, StaggerItem } from "@/components/ui/motion-primitives";
 
@@ -18,18 +21,9 @@ export const metadata: Metadata = {
     "Y&Now's capability platform connects learning, role-based assessment, and OKR performance reviews in one system — integrating with HRMS and ERP via REST APIs, SSO, and SCIM. Built for enterprise and industrial workforces.",
 };
 
-interface Module {
-  icon: LucideIcon;
-  tint: string;
-  tag: string;
-  title: string;
-  features: string[];
-  note?: string;
-}
-
-const MODULES: Module[] = [
+const MODULES: ModuleTab[] = [
   {
-    icon: ClipboardCheck,
+    icon: <ClipboardCheck size={24} strokeWidth={2} />,
     tint: "39,170,226",
     tag: "Assess",
     title: "Assessments",
@@ -44,7 +38,7 @@ const MODULES: Module[] = [
     note: "Proctored delivery available.",
   },
   {
-    icon: GraduationCap,
+    icon: <GraduationCap size={24} strokeWidth={2} />,
     tint: "46,49,146",
     tag: "Learn",
     title: "LMS",
@@ -59,7 +53,7 @@ const MODULES: Module[] = [
     ],
   },
   {
-    icon: TrendingUp,
+    icon: <TrendingUp size={24} strokeWidth={2} />,
     tint: "31,34,103",
     tag: "Perform",
     title: "Performance Management",
@@ -120,30 +114,48 @@ const INTEGRATIONS: Integration[] = [
   },
 ];
 
-const STEPS = [
+const STEPS: StepItem[] = [
   {
-    title: "Client Onboarding & Alignment",
-    body: "We begin with a structured discovery session covering your workforce structure, role requirements, SOPs, safety mandates, and existing capability gaps. Outputs: role profiles, a competency framework, and a deployment roadmap aligned to your business priorities. This stage typically requires 2–3 working days of your L&D lead's time.",
+    icon: <Handshake size={24} strokeWidth={2} />,
+    tint: "46,49,146",
+    kicker: "Step 01",
+    label: "Client Onboarding & Alignment",
+    body: "A structured discovery session covers your workforce structure, role requirements, SOPs, safety mandates, and existing gaps. Outputs: role profiles, a competency framework, and a deployment roadmap — typically 2–3 working days of your L&D lead's time.",
   },
   {
-    title: "Talent Assessment & Baseline Mapping",
-    body: "Role-based assessments establish a competency baseline for each employee. We combine scenario-based evaluations, technical checks, and compliance audits to map current skill levels against job requirements. Outputs: individual skill heatmaps, team-level gap reports, and a prioritised intervention plan.",
+    icon: <ClipboardCheck size={24} strokeWidth={2} />,
+    tint: "39,170,226",
+    kicker: "Step 02",
+    label: "Talent Assessment & Baseline Mapping",
+    body: "Role-based assessments establish a competency baseline for each employee, combining scenario-based evaluations, technical checks, and compliance audits. Outputs: individual skill heatmaps, team-level gap reports, and a prioritised intervention plan.",
   },
   {
-    title: "Personalised Learning Path Creation",
-    body: "Learning paths are built per role and per individual, drawing from Y&Now's content library, client-specific SCORM/xAPI modules, AR/VR simulations, and microlearning assets. Each path is sequenced to move learners from baseline to role-proficient in the shortest effective time, with manager visibility at each milestone.",
+    icon: <GraduationCap size={24} strokeWidth={2} />,
+    tint: "31,34,103",
+    kicker: "Step 03",
+    label: "Personalised Learning Path Creation",
+    body: "Learning paths are built per role and per individual — drawing from Y&Now's library, client-specific SCORM/xAPI modules, AR/VR simulations, and microlearning. Each path moves learners from baseline to role-proficient in the shortest effective time.",
   },
   {
-    title: "Continuous Performance Monitoring",
-    body: "As learning progresses, OKRs and performance milestones are tracked through the PMS. Supervisor check-ins and on-the-job evaluations validate whether learning is translating into workplace execution. Data flows into your HRMS for consolidated reporting, and alerts flag learners who are falling behind schedule.",
+    icon: <TrendingUp size={24} strokeWidth={2} />,
+    tint: "23,25,80",
+    kicker: "Step 04",
+    label: "Continuous Performance Monitoring",
+    body: "OKRs and performance milestones are tracked through the PMS as learning progresses. Supervisor check-ins and on-the-job evaluations validate transfer to the workplace, data flows into your HRMS, and alerts flag learners falling behind.",
   },
   {
-    title: "Engagement & Retention Programmes",
-    body: "Beyond initial capability building, Y&Now supports ongoing engagement through refresher modules, peer cohorts, recognition frameworks, and career development pathways. This reduces post-training attrition and sustains performance improvement over time by connecting learning to visible career progression.",
+    icon: <Users2 size={24} strokeWidth={2} />,
+    tint: "32,180,232",
+    kicker: "Step 05",
+    label: "Engagement & Retention Programmes",
+    body: "Refresher modules, peer cohorts, recognition frameworks, and career development pathways sustain performance over time — reducing post-training attrition by connecting learning to visible career progression.",
   },
   {
-    title: "Analytics & ROI Reporting",
-    body: "Real-time dashboards show completion rates, competency progression, assessment scores, OKR achievement, and time-to-competence. Monthly or quarterly impact reports are shared with L&D leadership, aligned to agreed KPIs and business objectives. Data is exportable to your BI tools or HRMS reporting layer.",
+    icon: <BarChart3 size={24} strokeWidth={2} />,
+    tint: "46,49,146",
+    kicker: "Step 06",
+    label: "Analytics & ROI Reporting",
+    body: "Real-time dashboards show completion, competency progression, assessment scores, OKR achievement, and time-to-competence. Monthly or quarterly impact reports align to agreed KPIs and export to your BI tools or HRMS reporting layer.",
   },
 ];
 
@@ -188,10 +200,9 @@ export default function OurPlatformPage() {
     <>
       <PageHero
         eyebrow="Capability Platform"
-        title="Assess, Learn, and Track Performance in"
+        title="Assess, Learn, Track Performance in"
         highlight="One System"
-        subtitle="Y&Now's capability platform connects digital learning, role-based assessments, and OKR-aligned performance reviews into a single system. It integrates with existing HRMS and ERP platforms via REST APIs, SSO/SAML, and SCIM provisioning — enabling organisations to identify skill gaps, deliver targeted learning, and measure on-the-job performance without requiring your workforce to manage yet another system."
-        crumbs={[{ label: "Home", href: "/" }, { label: "Our Platform" }]}
+        subtitle="One system uniting digital learning, role-based assessment, and OKR-aligned performance, integrated with HRMS and ERP."
       >
         <CtaButton href="/contact-us?type=platform" variant="primary" className="px-7 py-3.5">
           Request a Platform Demo
@@ -208,46 +219,12 @@ export default function OurPlatformPage() {
             eyebrow="Three Integrated Modules"
             title="Assess → Learn → Perform. Three modules, one"
             highlight="data set"
-            subtitle="One platform. One data set. Every module feeds the next, so skill gaps, learning, and on-the-job performance stay connected end to end."
-            className="mb-14"
+            subtitle="Every module feeds the next, so skill gaps, learning, and on-the-job performance stay connected end to end. Switch between them below."
+            className="mb-12"
           />
-          <Stagger className="grid grid-cols-1 gap-6 lg:grid-cols-3" stagger={0.1}>
-            {MODULES.map((m) => {
-              const Icon = m.icon;
-              return (
-                <StaggerItem key={m.title} className="h-full">
-                  <div className="group flex h-full flex-col rounded-2xl border border-[#e8ecf2] bg-white p-7 transition-all duration-300 hover:-translate-y-1 hover:border-primary-200 hover:shadow-[0_18px_44px_rgba(20,21,46,0.09)]">
-                    <div className="mb-5 flex items-center gap-3">
-                      <div
-                        className="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-xl transition-transform duration-300 group-hover:scale-105"
-                        style={{ color: `rgb(${m.tint})`, backgroundColor: `rgba(${m.tint},0.08)` }}
-                      >
-                        <Icon size={22} strokeWidth={2} />
-                      </div>
-                      <span
-                        className="rounded-full px-2.5 py-1 text-[11px] font-700 uppercase tracking-[0.12em]"
-                        style={{ color: `rgb(${m.tint})`, backgroundColor: `rgba(${m.tint},0.08)` }}
-                      >
-                        {m.tag}
-                      </span>
-                    </div>
-                    <h3 className="mb-4 font-heading text-lg font-700 text-ink">{m.title}</h3>
-                    <ul className="flex flex-col gap-2.5">
-                      {m.features.map((f) => (
-                        <li key={f} className="flex items-start gap-2.5 text-sm leading-relaxed text-neutral-600">
-                          <Check size={15} className="mt-0.5 flex-shrink-0 text-secondary-500" />
-                          {f}
-                        </li>
-                      ))}
-                    </ul>
-                    {m.note && (
-                      <p className="mt-4 rounded-lg bg-surface px-3 py-2 text-xs font-500 text-neutral-500">{m.note}</p>
-                    )}
-                  </div>
-                </StaggerItem>
-              );
-            })}
-          </Stagger>
+          <Reveal y={20}>
+            <ModuleTabs modules={MODULES} />
+          </Reveal>
 
           {/* Stat row */}
           <Reveal y={20} className="mt-14 grid grid-cols-1 gap-6 rounded-2xl border border-[#e8ecf2] bg-white p-8 sm:grid-cols-3">
@@ -280,8 +257,8 @@ export default function OurPlatformPage() {
               const Icon = it.icon;
               return (
                 <StaggerItem key={it.type} className="h-full">
-                  <div className="flex h-full flex-col rounded-2xl border border-[#e8ecf2] bg-surface p-7">
-                    <div className="mb-4 flex h-11 w-11 items-center justify-center rounded-xl bg-white text-primary-600 shadow-sm ring-1 ring-neutral-100">
+                  <HoverWashCard className="bg-surface">
+                    <div className="mb-4 flex h-11 w-11 items-center justify-center rounded-xl bg-white text-primary-600 shadow-sm ring-1 ring-neutral-100 transition-transform duration-300 group-hover:scale-105">
                       <Icon size={20} />
                     </div>
                     <h3 className="mb-4 font-heading text-base font-700 text-ink">{it.type}</h3>
@@ -295,7 +272,7 @@ export default function OurPlatformPage() {
                         </span>
                       ))}
                     </div>
-                  </div>
+                  </HoverWashCard>
                 </StaggerItem>
               );
             })}
@@ -310,27 +287,10 @@ export default function OurPlatformPage() {
             eyebrow="Talent Management Suite"
             title="From onboarding to ROI in"
             highlight="six steps"
-            subtitle="A structured lifecycle that takes your workforce from baseline assessment through targeted learning to measurable, reportable performance."
+            subtitle="A structured lifecycle from baseline assessment through targeted learning to measurable, reportable performance. Walk through each step."
             className="mb-14"
           />
-          <Stagger className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3" stagger={0.08}>
-            {STEPS.map((s, i) => (
-              <StaggerItem key={s.title} className="h-full">
-                <div className="group flex h-full flex-col rounded-2xl border border-[#e8ecf2] bg-white p-7 transition-all duration-300 hover:-translate-y-1 hover:border-primary-200 hover:shadow-[0_18px_44px_rgba(20,21,46,0.09)]">
-                  <div className="mb-4 flex items-center gap-3">
-                    <span className="flex h-9 w-9 items-center justify-center rounded-full bg-primary-500 text-sm font-bold text-white">
-                      {i + 1}
-                    </span>
-                    <span className="text-[11px] font-semibold uppercase tracking-[0.14em] text-secondary-500">
-                      Step {i + 1}
-                    </span>
-                  </div>
-                  <h3 className="mb-2.5 font-heading text-lg font-700 text-ink">{s.title}</h3>
-                  <p className="text-sm leading-relaxed text-neutral-600">{s.body}</p>
-                </div>
-              </StaggerItem>
-            ))}
-          </Stagger>
+          <StepExplorer steps={STEPS} className="mx-auto max-w-5xl" />
         </Container>
       </section>
 

@@ -9,6 +9,8 @@ import PageHero from "@/components/ui/PageHero";
 import SectionHeading from "@/components/ui/SectionHeading";
 import CtaBand from "@/components/ui/CtaBand";
 import FaqAccordion, { type FaqItemData } from "@/components/ui/FaqAccordion";
+import HoverWashCard from "@/components/ui/HoverWashCard";
+import StepExplorer, { type StepItem } from "@/components/ui/StepExplorer";
 import { CtaButton } from "@/components/ui/CtaButton";
 import { Stagger, StaggerItem } from "@/components/ui/motion-primitives";
 
@@ -18,46 +20,42 @@ export const metadata: Metadata = {
     "Y&Now supports armed forces veterans in civilian employment transition through structured, industry-aligned resettlement programmes — co-designed with defence welfare organisations and delivered across India.",
 };
 
-interface ProgrammeStep {
-  icon: LucideIcon;
-  tint: string;
-  title: string;
-  body: string;
-  pending?: boolean;
-}
-
-const PROGRAMME_DESIGN: ProgrammeStep[] = [
+const PROGRAMME_DESIGN: StepItem[] = [
   {
-    icon: ClipboardCheck,
+    icon: <ClipboardCheck size={24} strokeWidth={2} />,
     tint: "46,49,146",
-    title: "Skills assessment",
-    body: "Mapping transferable capabilities from service roles to civilian job families.",
+    kicker: "Step 01",
+    label: "Skills assessment",
+    body: "We map transferable capabilities from service roles — leadership, technical skills, discipline, and operational decision-making — onto civilian job families, so the programme focuses on genuine gaps rather than retraining existing strengths.",
   },
   {
-    icon: HardHat,
+    icon: <HardHat size={24} strokeWidth={2} />,
     tint: "39,170,226",
-    title: "Sector-specific vocational training",
-    body: "Manufacturing operations, security management, logistics, facilities management, and other sectors with strong demand for veterans.",
+    kicker: "Step 02",
+    label: "Sector-specific vocational training",
+    body: "Vocational retraining for manufacturing operations, security management, logistics, facilities management, and other sectors with strong, stated demand for veteran hires.",
   },
   {
-    icon: MessagesSquare,
+    icon: <MessagesSquare size={24} strokeWidth={2} />,
     tint: "31,34,103",
-    title: "Soft skills for civilian environments",
-    body: "Communication adaption, team dynamics, and commercial awareness.",
+    kicker: "Step 03",
+    label: "Soft skills for civilian environments",
+    body: "Communication adaption, team dynamics, and commercial awareness — bridging the gap between a service environment and a commercial workplace.",
   },
   {
-    icon: Handshake,
+    icon: <Handshake size={24} strokeWidth={2} />,
     tint: "32,180,232",
-    title: "Employer linkage",
-    body: "Direct connections to companies with stated preference for veteran hires.",
+    kicker: "Step 04",
+    label: "Employer linkage",
+    body: "Direct connections to companies with a stated preference for veteran hires, so training leads to placement rather than ending at certification.",
   },
   // [VERIFY] Specific programmes and delivery formats — awaiting Defence programme lead
   {
-    icon: Sparkles,
+    icon: <Sparkles size={24} strokeWidth={2} />,
     tint: "46,49,146",
-    title: "Programme formats",
-    body: "Specific programmes and delivery formats to be confirmed with the Defence programme lead.",
-    pending: true,
+    kicker: "Step 05",
+    label: "Programme formats",
+    body: "Specific programme formats and delivery schedules are confirmed with the Defence programme lead at scope definition.",
   },
 ];
 
@@ -128,10 +126,9 @@ export default function DefenceProgramsPage() {
     <>
       <PageHero
         eyebrow="Veteran Transition & Defence Upskilling"
-        title="Structured Transition Programmes for"
+        title="New Careers for"
         highlight="Armed Forces Veterans"
-        subtitle="Y&Now supports armed forces veterans in transitioning to civilian employment through structured, industry-aligned programmes. We combine skills assessment, vocational training, and employer connections to ensure post-service personnel enter civilian roles where their discipline, capability, and leadership experience translate directly into productive employment."
-        crumbs={[{ label: "Home", href: "/" }, { label: "Defence Programmes" }]}
+        subtitle="We help veterans train, build new skills, and find good civilian jobs after service."
       >
         <CtaButton href="/contact-us?type=defence" variant="primary" className="px-7 py-3.5">
           Explore Veteran Transition Programmes
@@ -148,37 +145,10 @@ export default function DefenceProgramsPage() {
             eyebrow="Programme Design"
             title="How the transition programme is"
             highlight="built"
-            subtitle="A structured path from service to civilian employment — assessing what veterans already bring, closing genuine gaps, and connecting them to employers who value the hire."
+            subtitle="A structured path from service to civilian employment — assessing what veterans already bring, closing genuine gaps, and connecting them to employers who value the hire. Step through each stage."
             className="mb-14"
           />
-          <Stagger className="grid grid-cols-1 gap-6 md:grid-cols-2" stagger={0.08}>
-            {PROGRAMME_DESIGN.map((s) => {
-              const Icon = s.icon;
-              return (
-                <StaggerItem key={s.title} className="h-full">
-                  <div className="group flex h-full gap-5 rounded-2xl border border-[#e8ecf2] bg-white p-7 transition-all duration-300 hover:-translate-y-1 hover:border-primary-200 hover:shadow-[0_18px_44px_rgba(20,21,46,0.09)]">
-                    <div
-                      className="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-xl transition-transform duration-300 group-hover:scale-105"
-                      style={{ color: `rgb(${s.tint})`, backgroundColor: `rgba(${s.tint},0.08)` }}
-                    >
-                      <Icon size={22} strokeWidth={2} />
-                    </div>
-                    <div>
-                      <h3 className="mb-2 flex items-center gap-2 font-heading text-lg font-700 text-ink">
-                        {s.title}
-                        {s.pending && (
-                          <span className="rounded-full bg-neutral-100 px-2 py-0.5 text-[10px] font-600 uppercase tracking-wide text-neutral-500">
-                            Coming soon
-                          </span>
-                        )}
-                      </h3>
-                      <p className="text-sm leading-relaxed text-neutral-600">{s.body}</p>
-                    </div>
-                  </div>
-                </StaggerItem>
-              );
-            })}
-          </Stagger>
+          <StepExplorer steps={PROGRAMME_DESIGN} className="mx-auto max-w-5xl" />
         </Container>
       </section>
 
@@ -197,22 +167,24 @@ export default function DefenceProgramsPage() {
               const Icon = p.icon;
               return (
                 <StaggerItem key={p.name} className="h-full">
-                  <div className="flex h-full gap-5 rounded-2xl border border-[#e8ecf2] bg-surface p-7">
-                    <div className="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-xl bg-white text-primary-600 shadow-sm ring-1 ring-neutral-100">
-                      <Icon size={22} strokeWidth={2} />
+                  <HoverWashCard noLift className="bg-surface">
+                    <div className="flex gap-5">
+                      <div className="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-xl bg-white text-primary-600 shadow-sm ring-1 ring-neutral-100 transition-transform duration-300 group-hover:scale-105">
+                        <Icon size={22} strokeWidth={2} />
+                      </div>
+                      <div>
+                        <h3 className="mb-1.5 flex items-center gap-2 font-heading text-base font-700 text-ink">
+                          {p.name}
+                          {p.pending && (
+                            <span className="rounded-full bg-neutral-100 px-2 py-0.5 text-[10px] font-600 uppercase tracking-wide text-neutral-500">
+                              To confirm
+                            </span>
+                          )}
+                        </h3>
+                        <p className="text-sm leading-relaxed text-neutral-600">{p.scope}</p>
+                      </div>
                     </div>
-                    <div>
-                      <h3 className="mb-1.5 flex items-center gap-2 font-heading text-base font-700 text-ink">
-                        {p.name}
-                        {p.pending && (
-                          <span className="rounded-full bg-neutral-100 px-2 py-0.5 text-[10px] font-600 uppercase tracking-wide text-neutral-500">
-                            To confirm
-                          </span>
-                        )}
-                      </h3>
-                      <p className="text-sm leading-relaxed text-neutral-600">{p.scope}</p>
-                    </div>
-                  </div>
+                  </HoverWashCard>
                 </StaggerItem>
               );
             })}
@@ -236,13 +208,13 @@ export default function DefenceProgramsPage() {
               return (
                 <StaggerItem key={s.label} className="h-full">
                   {/* [VERIFY] Metric value pending M&E team — placeholder shown, no fabricated number */}
-                  <div className="flex h-full flex-col items-center rounded-2xl border border-[#e8ecf2] bg-white p-8 text-center">
-                    <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-primary-50 text-primary-600">
+                  <HoverWashCard noLift className="items-center p-8 text-center">
+                    <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-primary-50 text-primary-600 transition-transform duration-300 group-hover:scale-105">
                       <Icon size={22} strokeWidth={2} />
                     </div>
                     <div className="mb-2 font-heading text-3xl font-800 text-neutral-300">—</div>
                     <p className="text-sm leading-relaxed text-neutral-600">{s.label}</p>
-                  </div>
+                  </HoverWashCard>
                 </StaggerItem>
               );
             })}

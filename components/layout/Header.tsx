@@ -13,7 +13,7 @@ import { CtaButton } from "@/components/ui/CtaButton";
 import { cn } from "@/lib/utils";
 
 /* ============================================================
-   NAV DATA — each solution carries an icon, gradient art,
+   NAV DATA — each solution carries an icon, contextual photo,
    and a one-line description for the mega-menu preview.
    ============================================================ */
 interface SubLink {
@@ -21,8 +21,8 @@ interface SubLink {
   href: string;
   description: string;
   icon: LucideIcon;
-  /** Tailwind gradient classes used for the preview "art" panel. */
-  gradient: string;
+  /** Project-hosted photography used in the desktop preview and mobile thumbnail. */
+  image: string;
   tag?: string;
 }
 
@@ -38,7 +38,7 @@ const SOLUTIONS: SubLink[] = [
     href: "/corporate",
     description: "Enterprise L&D built around operational outcomes, tied to OKRs and your HRMS.",
     icon: Building2,
-    gradient: "from-primary-500 via-primary-600 to-primary-800",
+    image: "/images/solutions-navbar/corporate-training.jpg",
     tag: "Popular",
   },
   {
@@ -46,42 +46,42 @@ const SOLUTIONS: SubLink[] = [
     href: "/csr-programs",
     description: "Schedule VII-aligned skilling & livelihood initiatives with transparent impact reporting.",
     icon: Heart,
-    gradient: "from-secondary-500 via-secondary-600 to-primary-600",
+    image: "/images/solutions-navbar/csr-programs.jpg",
   },
   {
     label: "Industry Solutions",
     href: "/industry-solutions",
     description: "Sector-specific capability for manufacturing, energy & regulated environments.",
     icon: Factory,
-    gradient: "from-primary-600 via-primary-700 to-secondary-700",
+    image: "/images/solutions-navbar/industry-solutions.jpg",
   },
   {
     label: "Defence Programs",
     href: "/defence-programs",
     description: "Structured resettlement & transition programmes for veterans and PSUs.",
     icon: Shield,
-    gradient: "from-primary-700 via-primary-800 to-primary-950",
+    image: "/images/solutions-navbar/defence-programs.jpg",
   },
   {
     label: "School Solutions",
     href: "/school-solutions",
     description: "NSQF-aligned industry-readiness programmes co-designed with employers.",
     icon: School,
-    gradient: "from-secondary-400 via-secondary-500 to-secondary-700",
+    image: "/images/solutions-navbar/school-solutions.jpg",
   },
   {
     label: "Micro-Entrepreneurship",
     href: "/micro-entrepreneurship",
     description: "Livelihood, SHG & market-linkage programmes that turn skills into income.",
     icon: Store,
-    gradient: "from-secondary-500 via-primary-500 to-primary-700",
+    image: "/images/solutions-navbar/micro-entrepreneurship.jpg",
   },
   {
     label: "For Learners",
     href: "/learners-b2c",
     description: "Individual upskilling journeys with placement support and employer connections.",
     icon: GraduationCap,
-    gradient: "from-primary-500 via-secondary-500 to-secondary-600",
+    image: "/images/solutions-navbar/for-learners.jpg",
   },
 ];
 
@@ -90,45 +90,30 @@ const NAV_ITEMS: NavItem[] = [
   { label: "Solutions", href: "#", children: SOLUTIONS },
   { label: "Our Platform", href: "/our-platform" },
   { label: "About Us", href: "/about-us" },
-  { label: "FAQ", href: "/resources/faq" },
+  { label: "Blog", href: "/blog" },
 ];
 
 const CTA_LABEL = "Talk to Our Team";
 const CTA_HREF = "/contact-us";
 
 /* ============================================================
-   PREVIEW ART — gradient tile with a soft icon watermark.
-   Stands in for photography while keeping the brand palette.
+   PREVIEW ART — contextual photography with a brand-toned text
+   scrim. Each image is project-hosted and solution-specific.
    ============================================================ */
 function PreviewArt({ item }: { item: SubLink }) {
-  const Icon = item.icon;
   return (
-    <div className={cn("relative h-full w-full overflow-hidden bg-gradient-to-br", item.gradient)}>
-      {/* Soft grid texture */}
-      <div
-        className="absolute inset-0 opacity-[0.12]"
-        style={{
-          backgroundImage:
-            "linear-gradient(rgba(255,255,255,0.6) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.6) 1px, transparent 1px)",
-          backgroundSize: "22px 22px",
-        }}
+    <div className="relative h-full w-full overflow-hidden bg-primary-900">
+      <Image
+        src={item.image}
+        alt=""
+        fill
+        sizes="240px"
+        className="object-cover transition-transform duration-700 ease-out hover:scale-[1.025]"
       />
-      {/* Glow */}
-      <div className="absolute -right-8 -top-8 h-32 w-32 rounded-full bg-white/20 blur-2xl" />
-      {/* Oversized watermark icon with subtle zoom-in */}
-      <motion.div
-        initial={{ scale: 1.15, opacity: 0 }}
-        animate={{ scale: 1, opacity: 1 }}
-        transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-        className="absolute -bottom-6 -right-4"
-      >
-        <Icon className="h-32 w-32 text-white/25" strokeWidth={1.25} />
-      </motion.div>
+      <div className="absolute inset-0 bg-gradient-to-b from-primary-950/15 via-primary-950/20 to-primary-950/95" />
+      <div className="absolute inset-0 bg-primary-900/10 mix-blend-multiply" />
       {/* Foreground content */}
-      <div className="relative flex h-full flex-col justify-between p-5">
-        <span className="inline-flex h-10 w-10 items-center justify-center rounded-xl bg-white/15 backdrop-blur-sm ring-1 ring-white/25">
-          <Icon className="h-5 w-5 text-white" strokeWidth={2} />
-        </span>
+      <div className="relative flex h-full items-end p-5">
         <div>
           <p className="font-heading text-lg font-700 leading-tight text-white">{item.label}</p>
           <p className="mt-1.5 text-[13px] leading-snug text-white/85">{item.description}</p>
@@ -353,8 +338,10 @@ function MobileAccordion({ item, onLinkClick }: { item: NavItem; onLinkClick: ()
                 className="flex items-center gap-3 rounded-xl px-3 py-2.5 transition-colors hover:bg-primary-50"
                 onClick={onLinkClick}
               >
-                <span className={cn("flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-lg bg-gradient-to-br text-white", child.gradient)}>
-                  <Icon size={16} strokeWidth={2} />
+                <span className="relative flex h-10 w-10 flex-shrink-0 items-center justify-center overflow-hidden rounded-lg bg-primary-800 text-white">
+                  <Image src={child.image} alt="" fill sizes="40px" className="object-cover" />
+                  <span className="absolute inset-0 bg-primary-950/35" />
+                  <Icon className="relative" size={16} strokeWidth={2} />
                 </span>
                 <span className="min-w-0">
                   <span className="block text-sm font-semibold text-ink">{child.label}</span>
@@ -429,12 +416,9 @@ function MobileDrawer({ open, onClose }: { open: boolean; onClose: () => void })
           )}
         </nav>
 
-        <div className="space-y-3 border-t border-neutral-100 px-5 py-5">
+        <div className="border-t border-neutral-100 px-5 py-5">
           <CtaButton href={CTA_HREF} id="mobile-nav-cta" variant="primary" className="w-full justify-center px-6 py-3" onClick={onClose}>
             {CTA_LABEL}
-          </CtaButton>
-          <CtaButton href="/contact-us" variant="secondary" className="w-full justify-center px-6 py-3" onClick={onClose}>
-            Contact Us
           </CtaButton>
         </div>
       </div>
@@ -479,13 +463,6 @@ function NavRow({ idPrefix, onOpenMobile }: { idPrefix: string; onOpenMobile: ()
       </nav>
 
       <div className="hidden items-center gap-2 lg:flex">
-        <Link
-          href="/contact-us"
-          id={`${idPrefix}-header-cta-contact`}
-          className="group rounded-lg px-3 py-2 text-sm font-semibold text-neutral-600 transition-colors duration-300 hover:bg-black/5 hover:text-primary-600"
-        >
-          <HoverSlideLabel>Contact Us</HoverSlideLabel>
-        </Link>
         <CtaButton href={CTA_HREF} id={`${idPrefix}-header-cta-primary`} variant="primary" className="px-5 py-2">
           {CTA_LABEL}
         </CtaButton>

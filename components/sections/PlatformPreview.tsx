@@ -178,17 +178,17 @@ export default function PlatformPreview() {
         <Stagger className="grid grid-cols-1 gap-6 md:grid-cols-3" stagger={0.1}>
           {PLATFORM_CARDS.map((card) => (
             <StaggerItem key={card.title}>
-              <div className="group relative flex h-full min-h-[440px] flex-col rounded-3xl border border-neutral-100 bg-white p-5 shadow-card transition-transform duration-300 ease-out hover:-translate-y-1.5">
-                {/* Animated border reveal on hover — no glow, just an outline that draws in */}
+              <div className="group relative flex h-full min-h-[440px] flex-col overflow-hidden rounded-3xl border border-neutral-100 bg-white p-5 shadow-card transition-[border-color,box-shadow] duration-500 ease-out hover:border-primary-200/70 hover:shadow-[0_24px_60px_-28px_rgba(46,49,146,0.30)]">
+                {/* Calm blue-brand gradient wash that eases in on hover — no lift */}
                 <span
                   aria-hidden
-                  className="pointer-events-none absolute -inset-px rounded-3xl border-2 border-primary-300 opacity-0 transition-opacity duration-500 ease-out group-hover:opacity-100"
+                  className="pointer-events-none absolute inset-0 rounded-3xl bg-gradient-to-br from-primary-50 via-secondary-50/60 to-white opacity-0 transition-opacity duration-700 ease-out group-hover:opacity-100"
                 />
 
-                <div className="flex flex-1 flex-col justify-center rounded-2xl bg-surface p-6">
+                <div className="relative z-10 flex flex-1 flex-col justify-center rounded-2xl bg-surface p-6 transition-colors duration-500 ease-out group-hover:bg-white/60">
                   {card.mock}
                 </div>
-                <div className="mt-6">
+                <div className="relative z-10 mt-6">
                   <h3 className="font-heading text-lg font-700 text-ink">{card.title}</h3>
                   <p className="mt-2 line-clamp-2 text-[13.5px] leading-relaxed text-neutral-600">
                     {card.description}

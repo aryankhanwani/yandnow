@@ -198,8 +198,7 @@ export default function FaqPage() {
         eyebrow="Resources · FAQ"
         title="Frequently Asked Questions —"
         highlight="Y&Now"
-        subtitle="Answers to common questions about Y&Now's workforce skilling programmes, capability platform, CSR implementation, defence transition, and enterprise onboarding. Still have a question? Contact us at info@broadarks.com."
-        crumbs={[{ label: "Home", href: "/" }, { label: "Resources" }, { label: "FAQ" }]}
+        subtitle="Clear answers on our skilling programmes, capability platform, CSR implementation, defence transition, and enterprise onboarding."
       >
         <CtaButton href="/contact-us" variant="primary" className="px-7 py-3.5">
           Contact Us

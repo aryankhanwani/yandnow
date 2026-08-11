@@ -43,7 +43,7 @@ const STEPS: Step[] = [
     num: "02",
     label: "Train",
     icon: GraduationCap,
-    tint: "39,170,226",
+    tint: "46,49,146",
     description:
       "Personalised learning paths — combining instructor-led training, digital modules, AR/VR simulation, and microlearning — close identified skill gaps at individual and team level.",
   },
@@ -52,7 +52,7 @@ const STEPS: Step[] = [
     num: "03",
     label: "Apply",
     icon: Wrench,
-    tint: "31,34,103",
+    tint: "46,49,146",
     description:
       "On-the-job tasks, manager check-ins, and live scenario assessments verify that learning is transferring from the training environment to the workplace.",
   },
@@ -61,7 +61,7 @@ const STEPS: Step[] = [
     num: "04",
     label: "Perform",
     icon: TrendingUp,
-    tint: "23,25,80",
+    tint: "46,49,146",
     description:
       "OKR tracking and performance signals measure whether capability improvements are showing up in actual job performance and operational KPIs.",
   },
@@ -70,7 +70,7 @@ const STEPS: Step[] = [
     num: "05",
     label: "Improve",
     icon: RefreshCw,
-    tint: "32,180,232",
+    tint: "46,49,146",
     description:
       "Analytics from each cycle inform the next — creating a continuous improvement loop between learning investment, performance data, and workforce planning.",
   },
@@ -182,15 +182,20 @@ export default function HowWeWork() {
                       onClick={() => setActive(isActive ? null : step.id)}
                       aria-pressed={isActive}
                       className={cn(
-                        "w-full rounded-2xl border bg-white p-6 text-left transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_18px_40px_rgba(20,21,46,0.08)]",
+                        "group relative w-full overflow-hidden rounded-2xl border bg-white p-6 text-left transition-[border-color,box-shadow] duration-300 hover:border-primary-200/70 hover:shadow-[0_18px_44px_-20px_rgba(46,49,146,0.28)]",
                         isActive ? "shadow-[0_18px_40px_rgba(20,21,46,0.10)]" : "border-[#e8ecf2]",
                         even && "lg:text-right",
                       )}
                       style={{ borderColor: isActive ? `rgb(${step.tint})` : undefined }}
                     >
+                      {/* Calm blue-brand gradient wash that eases in on hover — no lift */}
+                      <span
+                        aria-hidden
+                        className="pointer-events-none absolute inset-0 rounded-2xl bg-gradient-to-br from-primary-50 via-secondary-50/50 to-white opacity-0 transition-opacity duration-500 ease-out group-hover:opacity-100"
+                      />
                       <div
                         className={cn(
-                          "mb-2 flex items-center gap-2",
+                          "relative z-10 mb-2 flex items-center gap-2",
                           even && "lg:flex-row-reverse",
                         )}
                       >
@@ -202,7 +207,7 @@ export default function HowWeWork() {
                           {step.label}
                         </span>
                       </div>
-                      <p className="text-[15px] leading-relaxed text-neutral-600">
+                      <p className="relative z-10 text-[15px] leading-relaxed text-neutral-600">
                         {step.description}
                       </p>
                     </button>

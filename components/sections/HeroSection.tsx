@@ -210,9 +210,8 @@ export default function HeroSection() {
             }`}
             style={{ fontSize: "clamp(0.9rem, 1.5vw, 1rem)", maxWidth: "520px" }}
           >
-            Industry-aligned capability programmes for enterprises, CSR sponsors,
-            defence, and individual learners — measured end-to-end and integrated
-            with your HRMS and ERP.
+            Industry-aligned programmes for enterprises, CSR sponsors, defence, and
+            learners — measured and integrated with your systems.
           </p>
 
           {/* CTAs */}
