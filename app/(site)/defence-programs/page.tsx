@@ -7,6 +7,7 @@ import FaqAccordion, { type FaqItemData } from "@/components/ui/FaqAccordion";
 import HorizontalCapabilityScroller, { type HorizontalCapability } from "@/components/ui/HorizontalCapabilityScroller";
 import ImpactStatGrid from "@/components/ui/ImpactStatGrid";
 import OrganisationGrid, { type OrganisationItem } from "@/components/ui/OrganisationGrid";
+import EditorialProofSection from "@/components/ui/EditorialProofSection";
 import { CtaButton } from "@/components/ui/CtaButton";
 
 export const metadata: Metadata = {
@@ -119,6 +120,16 @@ export default function DefenceProgramsPage() {
         title="How the transition programme is"
         highlight="built"
         subtitle="A structured path from service to civilian employment — assessing what veterans already bring, closing genuine gaps, and connecting them to employers who value the hire."
+      />
+
+      <EditorialProofSection
+        eyebrow="Transition in Practice"
+        title="Service experience, translated for"
+        highlight="civilian work"
+        body="Practical, instructor-led environments help veterans connect existing operational strengths with the expectations, tools, and language of civilian roles."
+        image="/images/defence/proof/veteran-transition-training.jpg"
+        imageAlt="Veterans collaborating with an instructor during civilian technical training"
+        note="Assessment → training → employer linkage"
       />
 
       {/* Partner Organisations */}

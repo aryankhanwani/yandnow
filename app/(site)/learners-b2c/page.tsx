@@ -6,6 +6,7 @@ import SectionHeading from "@/components/ui/SectionHeading";
 import CtaBand from "@/components/ui/CtaBand";
 import FaqAccordion, { type FaqItemData } from "@/components/ui/FaqAccordion";
 import HorizontalCapabilityScroller, { type HorizontalCapability } from "@/components/ui/HorizontalCapabilityScroller";
+import EditorialProofSection from "@/components/ui/EditorialProofSection";
 import { CtaButton } from "@/components/ui/CtaButton";
 import AnimIcon from "@/components/ui/AnimIcon";
 import { Stagger, StaggerItem } from "@/components/ui/motion-primitives";
@@ -107,6 +108,16 @@ export default function LearnersB2cPage() {
         title="Real skills. Real"
         highlight="jobs."
         subtitle="Everything about a Y&Now course is built around getting you hired — from what you learn to who's hiring."
+      />
+
+      <EditorialProofSection
+        eyebrow="Learning Built Around Work"
+        title="Practise what employers"
+        highlight="actually assess"
+        body="Blended learning combines digital guidance with practical tasks and mentor feedback, helping learners build evidence they can carry into interviews and the workplace."
+        image="/images/learners/proof/practical-employability-training.jpg"
+        imageAlt="Young adult learners completing a practical technical task with an industry mentor"
+        note="Practical learning · mentor feedback · job readiness"
       />
 
       {/* Available Courses */}

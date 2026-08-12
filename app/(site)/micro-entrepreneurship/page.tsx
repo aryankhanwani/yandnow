@@ -6,6 +6,7 @@ import CtaBand from "@/components/ui/CtaBand";
 import FaqAccordion, { type FaqItemData } from "@/components/ui/FaqAccordion";
 import HorizontalCapabilityScroller, { type HorizontalCapability } from "@/components/ui/HorizontalCapabilityScroller";
 import ImpactStatGrid from "@/components/ui/ImpactStatGrid";
+import EditorialProofSection from "@/components/ui/EditorialProofSection";
 import { CtaButton } from "@/components/ui/CtaButton";
 
 export const metadata: Metadata = {
@@ -104,6 +105,16 @@ export default function MicroEntrepreneurshipPage() {
         title="What makes up a Y&Now"
         highlight="livelihood programme"
         subtitle="Five integrated components that move participants from skills to sustainable, market-linked income."
+      />
+
+      <EditorialProofSection
+        eyebrow="Market-Linked Livelihoods"
+        title="From practical skills to"
+        highlight="sustainable income"
+        body="Participants develop products, understand pricing, and connect with buyers together—so training moves beyond completion into a working local enterprise."
+        image="/images/micro-entrepreneurship/proof/women-enterprise-market-linkage.jpg"
+        imageAlt="Women entrepreneurs reviewing packaged products and market information together"
+        note="Skills · enterprise support · market linkage"
       />
 
       {/* Impact measurement */}

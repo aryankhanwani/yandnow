@@ -137,25 +137,37 @@ export default function IndustrySolutionsPage() {
           />
           {/* [VERIFY] Replace anonymised placeholder with an approved client reference (named with permission, or anonymised) — Account team */}
           <Reveal y={20} className="w-full">
-            <figure className="grid w-full rounded-3xl border border-[#e1e7ef] bg-surface p-8 md:grid-cols-[0.62fr_1.38fr] md:p-12 lg:p-16">
-              <div className="pb-8 md:pb-0 md:pr-10">
-                <CountUp
-                  to={18}
-                  suffix="%"
-                  className="block font-heading text-[clamp(3.75rem,7vw,5.5rem)] font-800 leading-none tracking-[-0.055em] text-primary-600"
+            <figure className="w-full overflow-hidden rounded-3xl border border-[#e1e7ef] bg-surface">
+              <div className="relative aspect-[16/7] min-h-64 w-full">
+                <Image
+                  src="/images/industry/proof/plant-floor-training.jpg"
+                  alt="Technical trainer guiding plant operators through machined-component quality inspection"
+                  fill
+                  sizes="(max-width: 1280px) 100vw, 1200px"
+                  className="object-cover"
                 />
-                <p className="mt-3 max-w-[12rem] text-sm leading-relaxed text-neutral-600">
-                  fewer first-pass yield defects in an 8-week pilot
-                </p>
+                <span aria-hidden className="absolute inset-0 bg-gradient-to-t from-primary-950/25 to-transparent" />
               </div>
+              <div className="grid p-8 md:grid-cols-[0.62fr_1.38fr] md:p-12 lg:p-16">
+                <div className="pb-8 md:pb-0 md:pr-10">
+                  <CountUp
+                    to={18}
+                    suffix="%"
+                    className="block font-heading text-[clamp(3.75rem,7vw,5.5rem)] font-800 leading-none tracking-[-0.055em] text-primary-600"
+                  />
+                  <p className="mt-3 max-w-[12rem] text-sm leading-relaxed text-neutral-600">
+                    fewer first-pass yield defects in an 8-week pilot
+                  </p>
+                </div>
 
-              <div className="border-t border-neutral-200 pt-8 md:border-l md:border-t-0 md:pl-10 md:pt-0">
-                <blockquote className="font-heading text-[clamp(1.35rem,2.4vw,1.85rem)] font-600 leading-[1.35] tracking-tight text-ink">
-                  An automotive components manufacturer translated focused workforce training into a measurable production-floor improvement.
-                </blockquote>
-                <figcaption className="mt-6 text-xs leading-relaxed text-neutral-500">
-                  Anonymised pilot outcome — approved client reference pending verification.
-                </figcaption>
+                <div className="border-t border-neutral-200 pt-8 md:border-l md:border-t-0 md:pl-10 md:pt-0">
+                  <blockquote className="font-heading text-[clamp(1.35rem,2.4vw,1.85rem)] font-600 leading-[1.35] tracking-tight text-ink">
+                    An automotive components manufacturer translated focused workforce training into a measurable production-floor improvement.
+                  </blockquote>
+                  <figcaption className="mt-6 text-xs leading-relaxed text-neutral-500">
+                    Anonymised pilot outcome — approved client reference pending verification.
+                  </figcaption>
+                </div>
               </div>
             </figure>
           </Reveal>

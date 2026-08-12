@@ -5,6 +5,7 @@ import SectionHeading from "@/components/ui/SectionHeading";
 import CtaBand from "@/components/ui/CtaBand";
 import FaqAccordion, { type FaqItemData } from "@/components/ui/FaqAccordion";
 import HorizontalCapabilityScroller, { type HorizontalCapability } from "@/components/ui/HorizontalCapabilityScroller";
+import EditorialProofSection from "@/components/ui/EditorialProofSection";
 import { CtaButton } from "@/components/ui/CtaButton";
 import { Stagger, StaggerItem } from "@/components/ui/motion-primitives";
 
@@ -113,6 +114,16 @@ export default function SchoolSolutionsPage() {
         title="A complete school-to-work"
         highlight="programme"
         subtitle="From industry co-designed curriculum through certification and placement — everything a school needs to make its students industry-ready."
+      />
+
+      <EditorialProofSection
+        eyebrow="Applied Learning"
+        title="Skills become real when students"
+        highlight="build and practise"
+        body="Hands-on projects connect classroom concepts with practical problem-solving, teamwork, and the confidence to explore technical career pathways."
+        image="/images/school/proof/applied-robotics-learning.jpg"
+        imageAlt="School students building a small robot with guidance from their teacher"
+        note="Practical projects · guided assessment"
       />
 
       {/* Student Outcomes */}
