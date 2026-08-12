@@ -140,7 +140,7 @@ function CardBody({ card, imageOnRight = false }: { card: StackCardItem; imageOn
       </div>
 
       {/* Content panel */}
-      <div className={cn("flex min-h-0 flex-col justify-center overflow-y-auto p-8 md:p-12", imageOnRight && "md:order-1")}>
+      <div className={cn("flex min-h-0 flex-col justify-center p-8 md:p-12", imageOnRight && "md:order-1")}>
         <h3 className="font-heading text-2xl font-700 leading-tight text-ink md:text-[2rem]">
           {card.title}
         </h3>

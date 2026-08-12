@@ -2,6 +2,7 @@
 
 import { useEffect, type ReactNode } from "react";
 import Lenis from "lenis";
+import { usePathname } from "next/navigation";
 
 let activeLenisController: Lenis | null = null;
 
@@ -28,6 +29,8 @@ export default function LenisProvider({
 }: {
   children: ReactNode;
 }) {
+  const pathname = usePathname();
+
   useEffect(() => {
     const lenis = new Lenis({
       duration: 1.3,
@@ -51,6 +54,13 @@ export default function LenisProvider({
       if (activeLenisController === lenis) activeLenisController = null;
     };
   }, []);
+
+  useEffect(() => {
+    // Interactive sections may temporarily pause Lenis while pinned. Always
+    // recover the global controller on route changes so a destination page
+    // can never inherit a stopped scroll state from the previous route.
+    activeLenisController?.start();
+  }, [pathname]);
 
   return <>{children}</>;
 }
