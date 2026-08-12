@@ -79,20 +79,26 @@ function Card({
       }}
       className="absolute inset-x-0 top-0 h-full origin-top"
     >
-      <CardBody card={card} />
+      <CardBody card={card} imageOnRight={Boolean(card.image) && i % 2 === 1} />
     </motion.div>
   );
 }
 
-function CardBody({ card }: { card: StackCardItem }) {
+function CardBody({ card, imageOnRight = false }: { card: StackCardItem; imageOnRight?: boolean }) {
   const { tint } = card;
   return (
     <div
-      className="grid h-full min-h-[300px] grid-cols-1 overflow-hidden rounded-[28px] border border-[#e8ecf2] bg-white md:min-h-[360px] md:grid-cols-[0.85fr_1.4fr]"
+      className={cn(
+        "grid h-full min-h-[300px] grid-cols-1 overflow-hidden rounded-[28px] border border-[#e8ecf2] bg-white md:min-h-[360px]",
+        imageOnRight ? "md:grid-cols-[1.4fr_0.85fr]" : "md:grid-cols-[0.85fr_1.4fr]",
+      )}
     >
-      {/* Left — tinted panel with watermark number + icon */}
+      {/* Visual panel — alternates left/right on image-backed cards. */}
       <div
-        className="relative flex min-h-[190px] flex-col justify-between overflow-hidden p-8 md:min-h-0 md:p-10"
+        className={cn(
+          "relative flex min-h-[190px] flex-col justify-between overflow-hidden p-8 md:min-h-0 md:p-10",
+          imageOnRight && "md:order-2",
+        )}
         style={{
           background: card.image
             ? "#ffffff"
@@ -100,7 +106,12 @@ function CardBody({ card }: { card: StackCardItem }) {
         }}
       >
         {card.image ? (
-          <div className="absolute bottom-0 left-5 right-0 top-5 overflow-hidden rounded-t-[22px]">
+          <div
+            className={cn(
+              "absolute bottom-0 top-5 overflow-hidden rounded-t-[22px]",
+              imageOnRight ? "left-0 right-5" : "left-5 right-0",
+            )}
+          >
             <Image src={card.image} alt="" fill sizes="(max-width: 768px) 100vw, 36vw" className="object-cover" />
           </div>
         ) : (
@@ -128,8 +139,8 @@ function CardBody({ card }: { card: StackCardItem }) {
         )}
       </div>
 
-      {/* Right — title + body */}
-      <div className="flex min-h-0 flex-col justify-center overflow-y-auto p-8 md:p-12">
+      {/* Content panel */}
+      <div className={cn("flex min-h-0 flex-col justify-center overflow-y-auto p-8 md:p-12", imageOnRight && "md:order-1")}>
         <h3 className="font-heading text-2xl font-700 leading-tight text-ink md:text-[2rem]">
           {card.title}
         </h3>
@@ -206,8 +217,8 @@ export default function StackingCards({
     return (
       <div className={cn("mx-auto flex max-w-5xl flex-col gap-8 px-4", className)}>
         {heading && <div className="mx-auto max-w-3xl">{heading}</div>}
-        {cards.map((card) => (
-          <CardBody key={card.num} card={card} />
+        {cards.map((card, index) => (
+          <CardBody key={card.num} card={card} imageOnRight={Boolean(card.image) && index % 2 === 1} />
         ))}
       </div>
     );
