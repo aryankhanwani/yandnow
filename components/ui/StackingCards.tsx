@@ -95,12 +95,12 @@ function CardBody({ card }: { card: StackCardItem }) {
         className="relative flex min-h-[190px] flex-col justify-between overflow-hidden p-8 md:min-h-0 md:p-10"
         style={{
           background: card.image
-            ? `rgb(${tint})`
+            ? "#ffffff"
             : `linear-gradient(155deg, rgba(${tint},0.14) 0%, rgba(${tint},0.04) 55%, rgba(255,255,255,0) 100%)`,
         }}
       >
         {card.image ? (
-          <div className="absolute bottom-0 left-5 right-5 top-5 overflow-hidden rounded-t-[22px] md:right-0">
+          <div className="absolute bottom-0 left-5 right-0 top-5 overflow-hidden rounded-t-[22px]">
             <Image src={card.image} alt="" fill sizes="(max-width: 768px) 100vw, 36vw" className="object-cover" />
           </div>
         ) : (
