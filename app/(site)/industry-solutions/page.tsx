@@ -1,11 +1,12 @@
 import type { Metadata } from "next";
-import AnimIcon from "@/components/ui/AnimIcon";
+import Image from "next/image";
 import Container from "@/components/ui/Container";
 import PageHero from "@/components/ui/PageHero";
 import SectionHeading from "@/components/ui/SectionHeading";
 import CtaBand from "@/components/ui/CtaBand";
 import FaqAccordion, { type FaqItemData } from "@/components/ui/FaqAccordion";
 import HorizontalCapabilityScroller, { type HorizontalCapability } from "@/components/ui/HorizontalCapabilityScroller";
+import CountUp from "@/components/ui/CountUp";
 import { CtaButton } from "@/components/ui/CtaButton";
 import { Reveal, Stagger, StaggerItem } from "@/components/ui/motion-primitives";
 
@@ -55,25 +56,25 @@ const CAPABILITIES: HorizontalCapability[] = [
 ];
 
 interface Accreditation {
-  icon: string;
+  logo: string;
   title: string;
   body: string;
 }
 
 const ACCREDITATIONS: Accreditation[] = [
   {
-    icon: "Award",
+    logo: "/images/industry/accreditation/nsdc-training-partnership.png",
     title: "NSDC Training Partnership",
     body: "Co-badged certifications for eligible programmes under our NSDC training partnership.",
   },
   {
-    icon: "BadgeCheck",
+    logo: "/images/industry/accreditation/ncvet-dgt-alignment.png",
     title: "NCVET & DGT Alignment",
     /* [VERIFY] confirm specific qualifications — Accreditation team */
     body: "NCVET and DGT qualification alignment. [Specific qualifications to be confirmed.]",
   },
   {
-    icon: "FileCheck",
+    logo: "/images/industry/accreditation/iso-9001-2015.png",
     title: "ISO 9001:2015 Certified",
     body: "ISO 9001:2015 certified delivery process (BroadArks Technology Pvt. Ltd.).",
   },
@@ -135,12 +136,14 @@ export default function IndustrySolutionsPage() {
             className="mb-12"
           />
           {/* [VERIFY] Replace anonymised placeholder with an approved client reference (named with permission, or anonymised) — Account team */}
-          <Reveal y={20} className="mx-auto max-w-4xl">
-            <figure className="grid rounded-3xl border border-[#e1e7ef] bg-surface p-8 md:grid-cols-[0.62fr_1.38fr] md:p-10 lg:p-12">
+          <Reveal y={20} className="w-full">
+            <figure className="grid w-full rounded-3xl border border-[#e1e7ef] bg-surface p-8 md:grid-cols-[0.62fr_1.38fr] md:p-12 lg:p-16">
               <div className="pb-8 md:pb-0 md:pr-10">
-                <div className="font-heading text-[clamp(3.75rem,7vw,5.5rem)] font-800 leading-none tracking-[-0.055em] text-primary-600">
-                  18%
-                </div>
+                <CountUp
+                  to={18}
+                  suffix="%"
+                  className="block font-heading text-[clamp(3.75rem,7vw,5.5rem)] font-800 leading-none tracking-[-0.055em] text-primary-600"
+                />
                 <p className="mt-3 max-w-[12rem] text-sm leading-relaxed text-neutral-600">
                   fewer first-pass yield defects in an 8-week pilot
                 </p>
@@ -174,12 +177,11 @@ export default function IndustrySolutionsPage() {
             stagger={0.1}
           >
             {ACCREDITATIONS.map((a) => {
-              const iconName = a.icon;
               return (
                 <StaggerItem key={a.title} className="h-full bg-white">
                   <article className="flex h-full flex-col p-7 lg:p-8">
-                    <div className="mb-8 flex h-9 w-9 items-center justify-center rounded-lg border border-primary-100 text-primary-600">
-                      <AnimIcon name={iconName} size={18} />
+                    <div className="relative mb-7 h-28 w-28 overflow-hidden rounded-2xl border border-primary-100 bg-white">
+                      <Image src={a.logo} alt="" fill sizes="112px" className="object-contain" />
                     </div>
                     <h3 className="font-heading text-lg font-700 leading-tight text-ink">{a.title}</h3>
                     <p className="mt-3 text-sm leading-relaxed text-neutral-600">{a.body}</p>

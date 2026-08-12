@@ -65,8 +65,8 @@ function Card({
     [enterStart, enterEnd],
     i === 0 ? [0, 0] : [entryDistance, 0],
   );
-  const stackOffset = i * 8;
-  const maxStackOffset = (total - 1) * 8;
+  const stackOffset = i * 14;
+  const maxStackOffset = (total - 1) * 14;
 
   return (
     <motion.div
@@ -92,7 +92,7 @@ function CardBody({ card }: { card: StackCardItem }) {
     >
       {/* Left — tinted panel with watermark number + icon */}
       <div
-        className="relative flex flex-col justify-between overflow-hidden p-8 md:p-10"
+        className="relative flex min-h-[190px] flex-col justify-between overflow-hidden p-8 md:min-h-0 md:p-10"
         style={{
           background: card.image
             ? `rgb(${tint})`
@@ -100,7 +100,9 @@ function CardBody({ card }: { card: StackCardItem }) {
         }}
       >
         {card.image ? (
-          <Image src={card.image} alt="" fill sizes="(max-width: 768px) 100vw, 36vw" className="object-cover" />
+          <div className="absolute bottom-0 left-5 right-5 top-5 overflow-hidden rounded-t-[22px] md:right-0">
+            <Image src={card.image} alt="" fill sizes="(max-width: 768px) 100vw, 36vw" className="object-cover" />
+          </div>
         ) : (
           <>
             <span

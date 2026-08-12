@@ -2,12 +2,11 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
-import AnimIcon from "@/components/ui/AnimIcon";
 import Container from "@/components/ui/Container";
 import PageHero from "@/components/ui/PageHero";
 import SectionHeading from "@/components/ui/SectionHeading";
 import FaqAccordion, { type FaqItemData } from "@/components/ui/FaqAccordion";
-import HoverWashCard from "@/components/ui/HoverWashCard";
+import OrganisationGrid from "@/components/ui/OrganisationGrid";
 import ScrollTextReveal from "@/components/ui/ScrollTextReveal";
 import WhoWeServeExplorer, { type AudienceItem } from "@/components/sections/WhoWeServeExplorer";
 import { Reveal, Stagger, StaggerItem } from "@/components/ui/motion-primitives";
@@ -65,21 +64,21 @@ const SERVE: AudienceItem[] = [
 
 const CREDENTIALS = [
   {
-    icon: "BadgeCheck",
+    logo: "/images/industry/accreditation/iso-9001-2015.png",
     title: "ISO 9001:2015",
     body: "Certified quality management systems under BroadArks Technology Pvt. Ltd.",
     // [VERIFY] Certificate number and validity — Legal/Compliance to supply.
     meta: "Certificate number and validity available on request",
   },
   {
-    icon: "Award",
+    logo: "/images/industry/accreditation/nsdc-training-partnership.png",
     title: "NSDC Training Partnership",
     body: "Partner for training and implementation across eligible programmes.",
     // [VERIFY] Current partnership scope — Accreditation team to confirm.
     meta: "Partnership scope confirmed at scoping",
   },
   {
-    icon: "FileCheck2",
+    logo: "/images/industry/accreditation/ncvet-dgt-alignment.png",
     title: "NCVET / DGT Qualification Alignment",
     body: "Qualification alignment to national skilling standards where applicable.",
     // [VERIFY] Applicable qualifications — Accreditation team to confirm.
@@ -214,8 +213,8 @@ export default function AboutPage() {
       {/* Parent company */}
       <section className="bg-surface py-20 lg:py-28">
         <Container>
-          <div className="grid grid-cols-1 gap-10 lg:grid-cols-2 lg:gap-16">
-            <div>
+          <div className="grid grid-cols-1 items-center gap-12 lg:grid-cols-[0.92fr_1.08fr] lg:gap-16">
+            <div className="max-w-xl">
               <SectionHeading
                 eyebrow="Our Parent Company"
                 title="Operated by BroadArks Technology Pvt. Ltd."
@@ -241,39 +240,53 @@ export default function AboutPage() {
                 </Link>
               </Reveal>
             </div>
-
-            <div>
-              <SectionHeading eyebrow="Certifications & Credentials" title="Built on verified standards" align="left" />
-              <Stagger className="mt-6 flex flex-col gap-4" stagger={0.09}>
-                {CREDENTIALS.map((c) => {
-                  const iconName = c.icon;
-                  return (
-                    <StaggerItem key={c.title}>
-                      <HoverWashCard noLift className="p-5">
-                        <div className="flex gap-4">
-                          <div className="flex h-11 w-11 flex-shrink-0 items-center justify-center rounded-xl bg-primary-50 text-primary-600 transition-transform duration-300 group-hover:scale-105">
-                            <AnimIcon name={iconName} size={20} />
-                          </div>
-                          <div>
-                            <h3 className="mb-1 font-heading text-base font-700 text-ink">{c.title}</h3>
-                            <p className="text-sm leading-relaxed text-neutral-600">{c.body}</p>
-                            <p className="mt-2 inline-flex rounded-md border border-dashed border-[#d5dbe6] bg-surface px-2 py-1 text-xs font-medium text-neutral-500">
-                              {c.meta}
-                            </p>
-                          </div>
-                        </div>
-                      </HoverWashCard>
-                    </StaggerItem>
-                  );
-                })}
-              </Stagger>
-            </div>
+            <Reveal delay={0.12} y={20} className="relative flex min-h-[360px] items-center justify-center overflow-hidden rounded-3xl border border-[#e1e7ef] bg-white p-8 sm:min-h-[440px] lg:p-12">
+              <div aria-hidden className="absolute inset-0 bg-[radial-gradient(circle_at_85%_15%,rgba(39,170,225,0.13),transparent_42%),radial-gradient(circle_at_10%_90%,rgba(46,49,146,0.1),transparent_42%)]" />
+              <Image
+                src="/about/broadarks-technology.png"
+                alt="BroadArks Technology — Innovation and Beyond"
+                width={1200}
+                height={1170}
+                sizes="(max-width: 1024px) 82vw, 42vw"
+                className="relative mx-auto h-auto max-h-[340px] w-[88%] object-contain object-center"
+              />
+            </Reveal>
           </div>
         </Container>
       </section>
 
-      {/* Strategic partners */}
+      {/* Certifications and credentials */}
       <section className="bg-white py-20 lg:py-28">
+        <Container>
+          <SectionHeading
+            eyebrow="Certifications & Credentials"
+            title="Built on verified"
+            highlight="standards"
+            subtitle="National qualification alignment and quality-management credentials that support consistent, accountable programme delivery."
+            className="mb-14"
+          />
+          <Stagger
+            className="grid grid-cols-1 gap-px overflow-hidden rounded-2xl border border-[#e1e7ef] bg-[#e1e7ef] md:grid-cols-3"
+            stagger={0.1}
+          >
+            {CREDENTIALS.map((credential) => (
+              <StaggerItem key={credential.title} className="h-full bg-white">
+                <article className="flex h-full flex-col p-7 text-left lg:p-8">
+                  <div className="relative mb-7 h-28 w-28 overflow-hidden rounded-2xl border border-primary-100 bg-white">
+                    <Image src={credential.logo} alt="" fill sizes="112px" className="object-contain" />
+                  </div>
+                  <h3 className="font-heading text-lg font-700 leading-tight text-ink">{credential.title}</h3>
+                  <p className="mt-3 text-sm leading-relaxed text-neutral-600">{credential.body}</p>
+                  <p className="mt-4 text-xs font-medium leading-relaxed text-neutral-500">{credential.meta}</p>
+                </article>
+              </StaggerItem>
+            ))}
+          </Stagger>
+        </Container>
+      </section>
+
+      {/* Strategic partners */}
+      <section className="bg-surface py-20 lg:py-28">
         <Container>
           <SectionHeading
             eyebrow="Strategic Partners"
@@ -281,21 +294,12 @@ export default function AboutPage() {
             highlight="partners"
             className="mb-12"
           />
-          <Stagger className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3" stagger={0.06}>
-            {PARTNERS.map((p) => (
-              <StaggerItem key={p.name} className="h-full">
-                <HoverWashCard noLift className="justify-center bg-surface p-5">
-                  <h3 className="font-heading text-base font-700 text-ink">{p.name}</h3>
-                  <p className="mt-1 text-sm leading-relaxed text-neutral-600">{p.full}</p>
-                </HoverWashCard>
-              </StaggerItem>
-            ))}
-          </Stagger>
+          <OrganisationGrid items={PARTNERS.map(({ name }) => ({ name }))} />
         </Container>
       </section>
 
       {/* FAQ */}
-      <section className="bg-surface py-20 lg:py-28">
+      <section className="bg-white py-20 lg:py-28">
         <Container>
           <div className="grid grid-cols-1 gap-10 lg:grid-cols-[0.85fr_1.15fr] lg:gap-16">
             <div className="lg:sticky lg:top-28 lg:self-start">

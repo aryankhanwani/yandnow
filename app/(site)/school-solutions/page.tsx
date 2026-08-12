@@ -1,11 +1,10 @@
 import type { Metadata } from "next";
-import AnimIcon from "@/components/ui/AnimIcon";
 import Container from "@/components/ui/Container";
 import PageHero from "@/components/ui/PageHero";
 import SectionHeading from "@/components/ui/SectionHeading";
 import CtaBand from "@/components/ui/CtaBand";
 import FaqAccordion, { type FaqItemData } from "@/components/ui/FaqAccordion";
-import HoverWashCard from "@/components/ui/HoverWashCard";
+import HorizontalCapabilityScroller, { type HorizontalCapability } from "@/components/ui/HorizontalCapabilityScroller";
 import { CtaButton } from "@/components/ui/CtaButton";
 import { Stagger, StaggerItem } from "@/components/ui/motion-primitives";
 
@@ -15,14 +14,7 @@ export const metadata: Metadata = {
     "Y&Now delivers NSQF-aligned vocational and applied skills programmes for schools — preparing students for industry entry through practical training, industry co-designed curriculum, and placement connections.",
 };
 
-interface Deliverable {
-  icon: string;
-  tint: string;
-  title: string;
-  body: string;
-}
-
-const DELIVERABLES: Deliverable[] = [
+const DELIVERABLES: HorizontalCapability[] = [
   {
     icon: "GraduationCap",
     tint: "46,49,146",
@@ -115,38 +107,13 @@ export default function SchoolSolutionsPage() {
       </PageHero>
 
       {/* What We Deliver for Schools */}
-      <section className="bg-surface py-20 lg:py-28">
-        <Container>
-          <SectionHeading
-            eyebrow="What We Deliver for Schools"
-            title="A complete school-to-work"
-            highlight="programme"
-            subtitle="From industry co-designed curriculum through certification and placement — everything a school needs to make its students industry-ready."
-            className="mb-14"
-          />
-          <Stagger className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3" stagger={0.08}>
-            {DELIVERABLES.map((d) => {
-              const iconName = d.icon;
-              return (
-                <StaggerItem key={d.title} className="h-full">
-                  <HoverWashCard>
-                    <div
-                      className="mb-4 flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-xl transition-transform duration-300 group-hover:scale-105"
-                      style={{ color: `rgb(${d.tint})`, backgroundColor: `rgba(${d.tint},0.08)` }}
-                    >
-                      <AnimIcon name={iconName} size={22} />
-                    </div>
-                    <div>
-                      <h3 className="mb-2 font-heading text-lg font-700 text-ink">{d.title}</h3>
-                      <p className="text-sm leading-relaxed text-neutral-600">{d.body}</p>
-                    </div>
-                  </HoverWashCard>
-                </StaggerItem>
-              );
-            })}
-          </Stagger>
-        </Container>
-      </section>
+      <HorizontalCapabilityScroller
+        items={DELIVERABLES}
+        eyebrow="What We Deliver for Schools"
+        title="A complete school-to-work"
+        highlight="programme"
+        subtitle="From industry co-designed curriculum through certification and placement — everything a school needs to make its students industry-ready."
+      />
 
       {/* Student Outcomes */}
       <section className="bg-white py-20 lg:py-28">
@@ -161,7 +128,7 @@ export default function SchoolSolutionsPage() {
           <Stagger className="grid grid-cols-1 gap-6 sm:grid-cols-3" stagger={0.1}>
             {OUTCOMES.map((o) => (
               <StaggerItem key={o.label} className="h-full">
-                <div className="flex h-full flex-col items-center rounded-2xl border border-dashed border-[#d5dbe6] bg-surface p-8 text-center">
+                <div className="flex h-full flex-col items-start rounded-2xl border border-dashed border-[#d5dbe6] bg-surface p-8 text-left">
                   {/* [VERIFY] Metric value pending — M&E team */}
                   <span className="font-heading text-4xl font-800 text-neutral-300">—</span>
                   <h3 className="mt-3 font-heading text-base font-700 text-ink">{o.label}</h3>

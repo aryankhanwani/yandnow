@@ -9,8 +9,9 @@ import { type StepItem } from "@/components/ui/StepExplorer";
 import StepScroller from "@/components/ui/StepScroller";
 import StackingCards, { type StackCardItem } from "@/components/ui/StackingCards";
 import SpotlightCard from "@/components/ui/SpotlightCard";
+import OrganisationGrid from "@/components/ui/OrganisationGrid";
 import { CtaButton } from "@/components/ui/CtaButton";
-import { Reveal, Stagger, StaggerItem } from "@/components/ui/motion-primitives";
+import { Stagger, StaggerItem } from "@/components/ui/motion-primitives";
 
 export const metadata: Metadata = {
   title: "Corporate Workforce Training & L&D Solutions",
@@ -225,22 +226,7 @@ export default function CorporatePage() {
           {/* Logo wall — one unified grid (3 over 2), hairline
               dividers via a 1px gap over the border colour. Logos
               to be dropped into each cell. */}
-          <Reveal className="mx-auto max-w-5xl overflow-hidden rounded-3xl border border-[#e8ecf2] bg-[#e8ecf2]">
-            <div className="grid grid-cols-6 gap-px">
-              {CLIENTS.map((name, i) => (
-                <div
-                  key={name}
-                  className={`group flex h-24 items-center justify-center bg-white px-4 transition-colors duration-300 hover:bg-primary-50/50 lg:h-28 ${
-                    i < 3 ? "col-span-2" : "col-span-3"
-                  }`}
-                >
-                  <span className="text-center font-heading text-base font-700 text-neutral-400 transition-colors duration-300 group-hover:text-primary-600 lg:text-lg">
-                    {name}
-                  </span>
-                </div>
-              ))}
-            </div>
-          </Reveal>
+          <OrganisationGrid items={CLIENTS.map((name) => ({ name }))} />
         </Container>
       </section>
 

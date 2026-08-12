@@ -354,7 +354,7 @@ function Impact() {
         />
         <Stagger className="grid grid-cols-2 gap-4 lg:grid-cols-4 lg:gap-6" stagger={0.1}>
           {STATS.map((s) => (
-            <StaggerItem key={s.title} className="rounded-2xl bg-surface p-6 shadow-card lg:p-8">
+            <StaggerItem key={s.title} className="rounded-2xl bg-surface p-6 text-left shadow-card lg:p-8">
               <div className="text-[13px] font-600 text-neutral-500">{s.title}</div>
               <CountUp
                 to={s.to}

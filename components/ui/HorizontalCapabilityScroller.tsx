@@ -2,6 +2,7 @@
 
 import { useEffect, useLayoutEffect, useRef, useState, type RefObject } from "react";
 import { motion, useReducedMotion } from "motion/react";
+import { usePathname } from "next/navigation";
 import Container from "@/components/ui/Container";
 import SectionHeading from "@/components/ui/SectionHeading";
 import { getLenisController } from "@/components/ui/LenisProvider";
@@ -11,6 +12,14 @@ export interface HorizontalCapability {
   tint: string;
   title: string;
   body: string;
+}
+
+interface HorizontalCapabilityScrollerProps {
+  items: HorizontalCapability[];
+  eyebrow?: string;
+  title?: string;
+  highlight?: string;
+  subtitle?: string;
 }
 
 function CapabilityTrack({
@@ -65,7 +74,7 @@ function CapabilityTrack({
                   transition={{ type: "spring", stiffness: 180, damping: 24 }}
                   className="max-w-[13rem] font-heading text-2xl font-700 leading-tight text-white"
                 >
-                    {item.title}
+                  {item.title}
                 </motion.h3>
 
                 <motion.p
@@ -98,25 +107,26 @@ function CapabilityTrack({
   );
 }
 
-export default function HorizontalCapabilityScroller({
+function HorizontalCapabilityScrollerInner({
   items,
-}: {
-  items: HorizontalCapability[];
-}) {
+  eyebrow = "Manufacturing & Precision Engineering",
+  title = "What our manufacturing programmes",
+  highlight = "cover",
+  subtitle = "Y&Now's manufacturing training programmes span the full technical stack — from machine operation and certification through maintenance, safety, and quality.",
+}: HorizontalCapabilityScrollerProps) {
   const section = useRef<HTMLElement>(null);
   const viewport = useRef<HTMLDivElement>(null);
   const track = useRef<HTMLDivElement>(null);
   const activeIndexRef = useRef(0);
-  const wheelLocked = useRef(false);
-  const wheelUnlockTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const gestureLocked = useRef(false);
+  const gestureTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const exiting = useRef(false);
+  const exitTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const sectionLocked = useRef(false);
   const lockedScrollY = useRef(0);
-  const exitingSection = useRef(false);
-  const exitTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const [travel, setTravel] = useState(0);
   const [activeIndex, setActiveIndex] = useState(0);
   const reduceMotion = useReducedMotion();
-
   const snappedX = items.length > 1 ? -(travel / (items.length - 1)) * activeIndex : 0;
 
   useEffect(() => {
@@ -127,21 +137,23 @@ export default function HorizontalCapabilityScroller({
     if (reduceMotion) return;
 
     const unlockAfterGesture = () => {
-      if (wheelUnlockTimer.current) clearTimeout(wheelUnlockTimer.current);
-      wheelUnlockTimer.current = setTimeout(() => {
-        wheelLocked.current = false;
-      }, 180);
+      if (gestureTimer.current) clearTimeout(gestureTimer.current);
+      gestureTimer.current = setTimeout(() => {
+        gestureLocked.current = false;
+      }, 80);
     };
 
     const onWheel = (event: WheelEvent) => {
       const node = section.current;
-      if (!node || event.deltaY === 0 || exitingSection.current) return;
+      if (!node || exiting.current || event.deltaY === 0 || Math.abs(event.deltaY) < Math.abs(event.deltaX)) return;
 
       const rect = node.getBoundingClientRect();
-      const sectionIsPinned = rect.top <= 1 && rect.bottom >= window.innerHeight - 1;
-      if (!sectionIsPinned) return;
-
+      const pinned = rect.top <= 2 && rect.bottom >= window.innerHeight - 2;
+      if (!pinned) return;
       const sectionTop = window.scrollY + rect.top;
+
+      event.preventDefault();
+
       if (!sectionLocked.current) {
         const lenis = getLenisController();
         sectionLocked.current = true;
@@ -154,60 +166,90 @@ export default function HorizontalCapabilityScroller({
         }
       }
 
-      if (wheelLocked.current) {
-        event.preventDefault();
+      if (gestureLocked.current) {
         unlockAfterGesture();
         return;
       }
 
       const direction = event.deltaY > 0 ? 1 : -1;
-      const current = activeIndexRef.current;
-      const next = current + direction;
-
-      event.preventDefault();
-      wheelLocked.current = true;
+      const next = activeIndexRef.current + direction;
+      gestureLocked.current = true;
       unlockAfterGesture();
 
       if (next >= 0 && next < items.length) {
         activeIndexRef.current = next;
         setActiveIndex(next);
+
+        if (direction > 0 && next === items.length - 1) {
+          // Reaching the final card completes the sequence. Release the pin
+          // and continue into the following section without another gesture.
+          sectionLocked.current = false;
+          exiting.current = true;
+          const lenis = getLenisController();
+          lenis?.start();
+
+          if (exitTimer.current) clearTimeout(exitTimer.current);
+          exitTimer.current = setTimeout(() => {
+            const target = sectionTop + travel + 2;
+            if (lenis) {
+              lenis.scrollTo(target, { duration: 0.75, force: true });
+            } else {
+              window.scrollTo({ top: target, behavior: "smooth" });
+            }
+
+            exitTimer.current = setTimeout(() => {
+              exiting.current = false;
+              gestureLocked.current = false;
+            }, 800);
+          }, 180);
+        }
         return;
       }
 
+      // The gesture after the final/first card exits the pinned section.
+      exiting.current = true;
       sectionLocked.current = false;
-      exitingSection.current = true;
-      const exitTarget = direction > 0 ? sectionTop + travel + 2 : Math.max(sectionTop - 2, 0);
+      const target = direction > 0 ? sectionTop + travel + 2 : Math.max(sectionTop - 2, 0);
       const lenis = getLenisController();
       lenis?.start();
       if (lenis) {
-        lenis.scrollTo(exitTarget, { duration: 0.8, force: true });
+        lenis.scrollTo(target, { duration: 0.75, force: true });
       } else {
-        window.scrollTo({ top: exitTarget, behavior: "smooth" });
+        window.scrollTo({ top: target, behavior: "smooth" });
       }
+
       if (exitTimer.current) clearTimeout(exitTimer.current);
       exitTimer.current = setTimeout(() => {
-        exitingSection.current = false;
+        exiting.current = false;
+        gestureLocked.current = false;
       }, 800);
     };
 
-    const holdPinnedPosition = () => {
-      if (
-        sectionLocked.current &&
-        !exitingSection.current &&
-        Math.abs(window.scrollY - lockedScrollY.current) > 1
-      ) {
+    const holdSectionPosition = () => {
+      if (!sectionLocked.current || exiting.current) return;
+      if (Math.abs(window.scrollY - lockedScrollY.current) <= 1) return;
+
+      const lenis = getLenisController();
+      if (lenis) {
+        lenis.scrollTo(lockedScrollY.current, { immediate: true, force: true });
+      } else {
         window.scrollTo({ top: lockedScrollY.current, behavior: "auto" });
       }
     };
 
-    window.addEventListener("wheel", onWheel, { passive: false });
-    window.addEventListener("scroll", holdPinnedPosition, { passive: true });
+    // Capture runs before Lenis' wheel listener, so prevented gestures cannot
+    // leak a large trackpad delta into the page position.
+    window.addEventListener("wheel", onWheel, { passive: false, capture: true });
+    window.addEventListener("scroll", holdSectionPosition, { passive: true });
     return () => {
-      window.removeEventListener("wheel", onWheel);
-      window.removeEventListener("scroll", holdPinnedPosition);
-      if (wheelUnlockTimer.current) clearTimeout(wheelUnlockTimer.current);
+      window.removeEventListener("wheel", onWheel, { capture: true });
+      window.removeEventListener("scroll", holdSectionPosition);
+      if (gestureTimer.current) clearTimeout(gestureTimer.current);
       if (exitTimer.current) clearTimeout(exitTimer.current);
-      if (sectionLocked.current) getLenisController()?.start();
+      if (sectionLocked.current) {
+        sectionLocked.current = false;
+        getLenisController()?.start();
+      }
     };
   }, [items.length, reduceMotion, travel]);
 
@@ -216,8 +258,7 @@ export default function HorizontalCapabilityScroller({
       if (!track.current) return;
 
       const cards = Array.from(track.current.children) as HTMLElement[];
-      const stepWidth =
-        cards.length > 1 ? cards[1].offsetLeft - cards[0].offsetLeft : 0;
+      const stepWidth = cards.length > 1 ? cards[1].offsetLeft - cards[0].offsetLeft : 0;
       setTravel(stepWidth * Math.max(items.length - 1, 0));
     };
 
@@ -235,10 +276,10 @@ export default function HorizontalCapabilityScroller({
 
   const heading = (
     <SectionHeading
-      eyebrow="Manufacturing & Precision Engineering"
-      title="What our manufacturing programmes"
-      highlight="cover"
-      subtitle="Y&Now's manufacturing training programmes span the full technical stack — from machine operation and certification through maintenance, safety, and quality."
+      eyebrow={eyebrow}
+      title={title}
+      highlight={highlight}
+      subtitle={subtitle}
       align="left"
     />
   );
@@ -257,11 +298,7 @@ export default function HorizontalCapabilityScroller({
   }
 
   return (
-    <section
-      ref={section}
-      className="relative bg-surface"
-      style={{ height: `calc(100vh + ${travel}px)` }}
-    >
+    <section ref={section} className="relative bg-surface" style={{ height: `calc(100vh + ${travel}px)` }}>
       <div className="sticky top-0 h-screen overflow-hidden pt-16 lg:pt-20">
         <div className="flex h-full flex-col justify-center pb-6">
           <Container className="grid items-center gap-9 lg:grid-cols-[minmax(280px,0.72fr)_minmax(0,1.4fr)] lg:gap-8">
@@ -283,4 +320,13 @@ export default function HorizontalCapabilityScroller({
       </div>
     </section>
   );
+}
+
+export default function HorizontalCapabilityScroller(props: HorizontalCapabilityScrollerProps) {
+  const pathname = usePathname();
+
+  // Next.js can retain client component state in its route cache. Keying the
+  // interactive section by pathname guarantees every newly opened page starts
+  // on card 01 with a fresh gesture/lock state.
+  return <HorizontalCapabilityScrollerInner key={pathname} {...props} />;
 }

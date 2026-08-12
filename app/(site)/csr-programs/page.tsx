@@ -10,8 +10,9 @@ import CtaBand from "@/components/ui/CtaBand";
 import FaqAccordion, { type FaqItemData } from "@/components/ui/FaqAccordion";
 import StackingCards, { type StackCardItem } from "@/components/ui/StackingCards";
 import ProcessSteps, { type ProcessStep } from "@/components/ui/ProcessSteps";
+import ImpactStatGrid from "@/components/ui/ImpactStatGrid";
 import { CtaButton } from "@/components/ui/CtaButton";
-import { Reveal, Stagger, StaggerItem } from "@/components/ui/motion-primitives";
+import { Reveal } from "@/components/ui/motion-primitives";
 
 export const metadata: Metadata = {
   title: "CSR Skilling & Livelihood Programmes India | Y&Now",
@@ -180,18 +181,8 @@ export default function CsrProgramsPage() {
             className="mb-14"
           />
           {/* Same stat-card UI as the homepage Impact section. */}
-          <Stagger className="grid grid-cols-2 gap-4 lg:grid-cols-4 lg:gap-6" stagger={0.1}>
-            {IMPACT_METRICS.map((s) => (
-              <StaggerItem key={s.title} className="rounded-2xl bg-white p-6 shadow-card lg:p-8">
-                <div className="text-[13px] font-600 text-neutral-500">{s.title}</div>
-                {/* [VERIFY] Metric value pending — verified CSR metrics from M&E team. */}
-                <span className="mt-3 block font-heading text-[clamp(1.9rem,4vw,2.75rem)] font-800 leading-none text-neutral-300">
-                  —
-                </span>
-                <p className="mt-3 text-[13.5px] leading-relaxed text-neutral-600">{s.sub}</p>
-              </StaggerItem>
-            ))}
-          </Stagger>
+          {/* [VERIFY] Metric values remain pending verified CSR metrics from the M&E team. */}
+          <ImpactStatGrid items={IMPACT_METRICS} />
           {/* [VERIFY] Client testimonial removed — awaiting a confirmed CSR client name,
               designation and outcome from the BD team. CEAT logo placeholder removed
               until confirmed. Do not reinstate the 'Peter Watson, CEO' placeholder. */}
