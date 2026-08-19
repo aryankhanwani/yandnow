@@ -87,9 +87,10 @@ export default function Testimonials() {
         <SectionHeading
           id="testimonials-heading"
           eyebrow="Client Voices"
-          title="Trusted by the teams who"
+          title="Trusted by teams that"
           highlight="measure results"
           className="mb-14"
+          titleClassName="max-w-none whitespace-nowrap text-[clamp(0.875rem,4.15vw,2.6rem)]"
         />
 
         <div

@@ -1,5 +1,8 @@
 "use client";
 
+import { useState } from "react";
+import Link from "next/link";
+import { AnimatePresence, motion } from "motion/react";
 import Container from "@/components/ui/Container";
 import { CtaButton } from "@/components/ui/CtaButton";
 import { AnimatedHeading, Reveal, Stagger, StaggerItem } from "@/components/ui/motion-primitives";
@@ -21,6 +24,32 @@ function StatPill({ label, tone = "neutral" }: { label: string; tone?: "neutral"
     >
       {label}
     </span>
+  );
+}
+
+function ControlPill({
+  label,
+  active = false,
+  onClick,
+}: {
+  label: string;
+  active?: boolean;
+  onClick: () => void;
+}) {
+  return (
+    <button
+      type="button"
+      onClick={onClick}
+      aria-pressed={active}
+      className={cn(
+        "rounded-full px-2.5 py-1 text-[11px] font-semibold whitespace-nowrap transition-all duration-200 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-500",
+        active
+          ? "bg-primary-500 text-white shadow-sm"
+          : "bg-white text-neutral-600 hover:bg-primary-50 hover:text-primary-600",
+      )}
+    >
+      {label}
+    </button>
   );
 }
 
@@ -71,69 +100,164 @@ function LearningMock() {
 
 /* ---- Card 2 — Role-based assessment ---- */
 function AssessmentMock() {
+  const people = [
+    {
+      name: "Priya Nair",
+      initials: "PN",
+      score: 82,
+      details: {
+        "View report": ["Strongest skill", "Safety & Compliance"],
+        Compare: ["Team average", "74% · 8 points ahead"],
+        History: ["Last assessment", "Machine Operations · Level 3"],
+      },
+    },
+    {
+      name: "Aman Kapoor",
+      initials: "AK",
+      score: 76,
+      details: {
+        "View report": ["Strongest skill", "Quality Standards"],
+        Compare: ["Team average", "74% · 2 points ahead"],
+        History: ["Last assessment", "Quality Control · Level 2"],
+      },
+    },
+    {
+      name: "Meera Patel",
+      initials: "MP",
+      score: 91,
+      details: {
+        "View report": ["Strongest skill", "Machine Operations"],
+        Compare: ["Team average", "74% · 17 points ahead"],
+        History: ["Last assessment", "Plant Safety · Level 4"],
+      },
+    },
+  ] as const;
+  const controls = ["View report", "Compare", "History"] as const;
+  const [personIndex, setPersonIndex] = useState(0);
+  const [view, setView] = useState<(typeof controls)[number]>("View report");
+  const person = people[personIndex];
+  const detail = person.details[view];
+
   return (
     <div className="space-y-4">
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-2.5">
-          <Avatar initials="PN" className="bg-primary-500 text-white" />
-          <span className="text-[13px] font-semibold text-ink">Priya Nair</span>
+          <Avatar initials={person.initials} className="bg-primary-500 text-white" />
+          <span className="text-[13px] font-semibold text-ink">{person.name}</span>
         </div>
-        <StatPill label="Switch role" />
+        <button
+          type="button"
+          onClick={() => setPersonIndex((current) => (current + 1) % people.length)}
+          className="rounded-full bg-neutral-100 px-2.5 py-1 text-[11px] font-semibold text-neutral-600 transition-colors hover:bg-primary-50 hover:text-primary-600 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-500"
+          aria-label={`Switch learner. Currently showing ${person.name}`}
+        >
+          Switch learner
+        </button>
       </div>
       <div>
         <div className="text-[11px] font-medium text-neutral-500">Skill score</div>
-        <div className="font-heading text-3xl font-800 text-ink transition-transform duration-300 ease-out group-hover:scale-105 origin-left">
-          82%
-        </div>
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={person.name}
+            initial={{ opacity: 0, y: 6 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -6 }}
+            transition={{ duration: 0.2 }}
+            className="origin-left font-heading text-3xl font-800 text-ink"
+          >
+            {person.score}%
+          </motion.div>
+        </AnimatePresence>
       </div>
-      <div className="flex flex-wrap gap-2 transition-transform duration-300 ease-out group-hover:translate-x-1">
-        <StatPill label="View report" tone="primary" />
-        <StatPill label="Compare" />
-        <StatPill label="History" />
+      <div className="flex flex-wrap gap-2" role="group" aria-label="Assessment details">
+        {controls.map((control) => (
+          <ControlPill
+            key={control}
+            label={control}
+            active={view === control}
+            onClick={() => setView(control)}
+          />
+        ))}
       </div>
-      <div
-        className="rounded-xl bg-navy px-4 py-3 transition-transform duration-300 ease-out group-hover:-translate-y-0.5"
-        style={{ transitionDelay: "80ms" }}
-      >
-        <div className="flex items-center justify-between text-[11px] font-semibold text-white/50">
-          <span>Last assessment</span>
-          <span>See all</span>
-        </div>
-        <div className="mt-1.5 flex items-center justify-between">
-          <span className="text-[13px] font-medium text-white">Machine Operations</span>
-          <span className="text-[13px] font-bold text-secondary-300">Level 3</span>
-        </div>
-      </div>
+      <AnimatePresence mode="wait">
+        <motion.div
+          key={`${person.name}-${view}`}
+          initial={{ opacity: 0, y: 8 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: -8 }}
+          transition={{ duration: 0.22 }}
+          className="rounded-xl bg-navy px-4 py-3"
+        >
+          <div className="text-[11px] font-semibold text-white/50">{detail[0]}</div>
+          <div className="mt-1.5 text-[13px] font-semibold text-white">{detail[1]}</div>
+        </motion.div>
+      </AnimatePresence>
     </div>
   );
 }
 
 /* ---- Card 3 — OKR performance ---- */
 function PerformanceMock() {
-  const tabs = ["This month", "Quarter", "Year"];
+  const periods = {
+    "This month": { initials: "KR", name: "Kiran Rao", okrs: 142 },
+    Quarter: { initials: "MP", name: "Meera Patel", okrs: 387 },
+    Year: { initials: "AS", name: "Aarav Singh", okrs: 1248 },
+  } as const;
+  const tabs = Object.keys(periods) as Array<keyof typeof periods>;
+  const [period, setPeriod] = useState<keyof typeof periods>("This month");
+  const data = periods[period];
+
   return (
     <div className="space-y-4">
       <span className="text-[13px] font-semibold text-ink">Performance</span>
       <div className="flex gap-1.5 transition-transform duration-300 ease-out group-hover:translate-x-1">
-        {tabs.map((tab, i) => (
-          <StatPill key={tab} label={tab} tone={i === 0 ? "primary" : "neutral"} />
+        {tabs.map((tab) => (
+          <ControlPill
+            key={tab}
+            label={tab}
+            active={period === tab}
+            onClick={() => setPeriod(tab)}
+          />
         ))}
       </div>
-      <div className="flex items-center gap-3 rounded-xl bg-white px-3.5 py-3 transition-transform duration-300 ease-out group-hover:-translate-y-0.5">
-        <Avatar initials="KR" className="bg-secondary-500 text-white" />
-        <div>
-          <div className="text-[11px] text-neutral-500">Top performer</div>
-          <div className="text-[13px] font-semibold text-ink">Kiran Rao</div>
-        </div>
-      </div>
+      <AnimatePresence mode="wait">
+        <motion.div
+          key={period}
+          initial={{ opacity: 0, x: 10 }}
+          animate={{ opacity: 1, x: 0 }}
+          exit={{ opacity: 0, x: -10 }}
+          transition={{ duration: 0.22 }}
+          className="flex items-center gap-3 rounded-xl bg-white px-3.5 py-3"
+        >
+          <Avatar initials={data.initials} className="bg-secondary-500 text-white" />
+          <div>
+            <div className="text-[11px] text-neutral-500">Top performer · {period.toLowerCase()}</div>
+            <div className="text-[13px] font-semibold text-ink">{data.name}</div>
+          </div>
+        </motion.div>
+      </AnimatePresence>
       <div className="flex items-center justify-between border-t border-neutral-200/70 pt-4">
         <div>
           <div className="text-[11px] font-medium text-neutral-500">OKRs achieved</div>
-          <div className="font-heading text-2xl font-800 text-ink transition-transform duration-300 ease-out group-hover:scale-105 origin-left">
-            142
-          </div>
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={period}
+              initial={{ opacity: 0, y: 6 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -6 }}
+              transition={{ duration: 0.2 }}
+              className="font-heading text-2xl font-800 text-ink"
+            >
+              {data.okrs.toLocaleString("en-IN")}
+            </motion.div>
+          </AnimatePresence>
         </div>
-        <span className="text-[12px] font-semibold text-primary-600">View all →</span>
+        <Link
+          href="/our-platform"
+          className="rounded-md px-1 py-1 text-[12px] font-semibold text-primary-600 transition-colors hover:text-primary-800 focus-visible:outline-2 focus-visible:outline-primary-500"
+        >
+          View all →
+        </Link>
       </div>
     </div>
   );

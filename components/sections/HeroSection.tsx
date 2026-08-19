@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { ChevronDown } from "lucide-react";
 import { CtaButton } from "@/components/ui/CtaButton";
 
 /* ============================================================
@@ -208,10 +207,10 @@ export default function HeroSection() {
             className={`mt-5 text-neutral-500 leading-relaxed font-body font-400 transition-all duration-700 delay-[650ms] ease-out ${
               visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"
             }`}
-            style={{ fontSize: "clamp(0.9rem, 1.5vw, 1rem)", maxWidth: "520px" }}
+            style={{ fontSize: "clamp(0.75rem, 2.8vw, 1rem)", maxWidth: "640px" }}
           >
-            Industry-aligned programmes for enterprises, CSR sponsors, defence, and
-            learners — measured and integrated with your systems.
+            <span className="block whitespace-nowrap">Industry-aligned programmes for every workforce.</span>
+            <span className="block whitespace-nowrap">Measured outcomes, integrated with your systems.</span>
           </p>
 
           {/* CTAs */}

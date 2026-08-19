@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import HeroSection from "@/components/sections/HeroSection";
-import LogoSection from "@/components/sections/LogoSection";
 import WhoWeServe from "@/components/sections/WhoWeServeScrollReveal";
 import PlatformPreview from "@/components/sections/PlatformPreview";
 import HowWeWork from "@/components/sections/HowWeWork";

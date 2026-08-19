@@ -57,15 +57,15 @@ const COMPANY_LINKS = [
 ];
 
 const SOCIAL_LINKS = [
-  { label: "LinkedIn", href: "https://linkedin.com/company/yandnow", Icon: IconLinkedIn },
-  { label: "Instagram", href: "https://instagram.com/yandnow", Icon: IconInstagram },
-  { label: "Facebook", href: "https://facebook.com/yandnow", Icon: IconFacebook },
-  { label: "X", href: "https://x.com/yandnow", Icon: IconX },
+  { label: "LinkedIn", href: "https://www.linkedin.com", Icon: IconLinkedIn },
+  { label: "Instagram", href: "https://www.instagram.com", Icon: IconInstagram },
+  { label: "Facebook", href: "https://www.facebook.com", Icon: IconFacebook },
+  { label: "X", href: "https://x.com", Icon: IconX },
 ];
 
 function ColHeading({ children }: { children: React.ReactNode }) {
   return (
-    <h3 className="mb-5 text-[11px] font-600 uppercase tracking-[0.14em] text-secondary-400">
+    <h3 className="mb-5 text-[11px] font-600 uppercase tracking-[0.14em] text-primary-600">
       {children}
     </h3>
   );
@@ -79,7 +79,7 @@ function FooterLink({ href, children }: { href: string; children: React.ReactNod
         href={href}
         target={isExternal ? "_blank" : undefined}
         rel={isExternal ? "noopener noreferrer" : undefined}
-        className="group inline-flex items-center gap-1.5 text-sm text-neutral-400 transition-colors duration-200 hover:text-white"
+        className="group inline-flex items-center gap-1.5 text-sm text-neutral-600 transition-colors duration-200 hover:text-primary-600"
       >
         <span className="h-px w-0 bg-secondary-400 transition-all duration-300 group-hover:w-3" aria-hidden />
         {children}
@@ -92,12 +92,15 @@ export default function Footer() {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer id="site-footer" aria-label="Site footer" className="relative overflow-hidden rounded-t-[2.25rem] bg-primary-800 text-white">
-      {/* Subtle top halo — soft light, not a brand gradient */}
+    <footer id="site-footer" aria-label="Site footer" className="relative overflow-hidden rounded-t-[2.25rem] border-t border-primary-100 bg-white text-ink">
+      {/* Soft brand-colour wash over a clean white base. */}
       <div
         aria-hidden
-        className="pointer-events-none absolute inset-x-0 top-0 h-64"
-        style={{ background: "radial-gradient(60% 100% at 50% 0%, rgba(39,170,226,0.14) 0%, transparent 70%)" }}
+        className="pointer-events-none absolute inset-0"
+        style={{
+          background:
+            "radial-gradient(55% 80% at 4% 8%, rgba(46,49,146,0.10) 0%, transparent 68%), radial-gradient(50% 75% at 96% 18%, rgba(39,170,226,0.13) 0%, transparent 70%)",
+        }}
       />
 
       {/* Main grid */}
@@ -106,9 +109,9 @@ export default function Footer() {
           {/* Brand */}
           <div>
             <Link href="/" aria-label="Y&Now — home" className="mb-5 inline-block">
-              <Image src="/logo.png" alt="Y&Now" width={110} height={36} className="h-9 w-auto object-contain brightness-0 invert" />
+              <Image src="/logo.png" alt="Y&Now" width={110} height={36} className="h-9 w-auto object-contain" />
             </Link>
-            <p className="mb-6 max-w-xs text-sm leading-relaxed text-neutral-400">
+            <p className="mb-6 max-w-xs text-sm leading-relaxed text-neutral-600">
               Y&Now is the future-skills EdTech division of BroadArks Technology Pvt. Ltd. We design, deliver, and measure industry-aligned capability programmes across India.
             </p>
             <div className="flex items-center gap-2">
@@ -120,7 +123,7 @@ export default function Footer() {
                   rel="noopener noreferrer"
                   aria-label={label}
                   id={`footer-social-${label.toLowerCase()}`}
-                  className="flex h-9 w-9 items-center justify-center rounded-lg border border-white/10 bg-white/5 text-neutral-400 transition-all duration-200 hover:bg-secondary-500 hover:text-white"
+                  className="flex h-9 w-9 items-center justify-center rounded-lg border border-primary-100 bg-white/75 text-primary-600 shadow-sm transition-all duration-200 hover:border-secondary-500 hover:bg-secondary-500 hover:text-white"
                 >
                   <Icon />
                 </a>
@@ -153,19 +156,19 @@ export default function Footer() {
             <ColHeading>Get in Touch</ColHeading>
             <ul className="space-y-4">
               <li>
-                <a href="mailto:info@broadarks.com" id="footer-email" className="flex items-start gap-3 text-sm text-neutral-400 transition-colors duration-200 hover:text-white">
+                <a href="mailto:info@broadarks.com" id="footer-email" className="flex items-start gap-3 text-sm text-neutral-600 transition-colors duration-200 hover:text-primary-600">
                   <Mail size={15} className="mt-0.5 flex-shrink-0 text-secondary-500" />
                   info@broadarks.com
                 </a>
               </li>
               <li>
-                <a href="tel:+917553553372" id="footer-phone" className="flex items-start gap-3 text-sm text-neutral-400 transition-colors duration-200 hover:text-white">
+                <a href="tel:+917553553372" id="footer-phone" className="flex items-start gap-3 text-sm text-neutral-600 transition-colors duration-200 hover:text-primary-600">
                   <Phone size={15} className="mt-0.5 flex-shrink-0 text-secondary-500" />
                   +91 75535 53372
                 </a>
               </li>
               <li>
-                <address className="flex items-start gap-3 text-sm not-italic leading-relaxed text-neutral-400">
+                <address className="flex items-start gap-3 text-sm not-italic leading-relaxed text-neutral-600">
                   <MapPin size={15} className="mt-0.5 flex-shrink-0 text-secondary-500" />
                   <span>
                     Sagar Premium Tower, Phase I,<br />
@@ -180,12 +183,12 @@ export default function Footer() {
       </Container>
 
       {/* Bottom bar */}
-      <div className="relative border-t border-white/10">
+      <div className="relative border-t border-primary-100/80 bg-white/35">
         <Container>
-          <div className="flex flex-col items-center justify-between gap-3 py-6 text-xs text-neutral-500 sm:flex-row">
+          <div className="flex flex-col items-center justify-between gap-3 py-6 text-xs text-neutral-600 sm:flex-row">
             <p>© {currentYear} BroadArks Technology Pvt. Ltd. All rights reserved.</p>
             <div className="flex items-center gap-4">
-              <span className="inline-flex items-center gap-1.5 rounded-md border border-white/10 px-3 py-1 font-medium text-neutral-400">
+              <span className="inline-flex items-center gap-1.5 rounded-md border border-primary-100 bg-white/60 px-3 py-1 font-medium text-neutral-600">
                 <span className="h-1.5 w-1.5 rounded-sm bg-secondary-500" />
                 ISO 9001:2015 Certified
               </span>
@@ -194,7 +197,7 @@ export default function Footer() {
                 target="_blank"
                 rel="noopener noreferrer"
                 id="footer-parent-link"
-                className="inline-flex items-center gap-1 font-medium text-neutral-400 transition-colors hover:text-white"
+                className="inline-flex items-center gap-1 font-medium text-neutral-600 transition-colors hover:text-primary-600"
               >
                 BroadArks Technology
                 <ExternalLink size={11} />

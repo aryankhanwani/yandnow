@@ -16,6 +16,7 @@ interface SectionHeadingProps {
   subtitle?: string;
   align?: "center" | "left";
   className?: string;
+  titleClassName?: string;
   /** Constrain the subtitle width. */
   subtitleClassName?: string;
   id?: string;
@@ -28,6 +29,7 @@ export default function SectionHeading({
   subtitle,
   align = "center",
   className,
+  titleClassName,
   subtitleClassName,
   id,
 }: SectionHeadingProps) {
@@ -67,6 +69,7 @@ export default function SectionHeading({
           "font-heading font-700 leading-[1.15] tracking-tight text-ink",
           "text-[clamp(1.75rem,3.2vw,2.6rem)]",
           isCenter ? "max-w-3xl" : "max-w-2xl",
+          titleClassName,
         )}
       />
 
