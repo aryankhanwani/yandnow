@@ -20,8 +20,16 @@ import { cn } from "@/lib/utils";
    while each new card rises into the deck as the page scrolls.
 
    Driven entirely by the page's own scroll (no inner scroll box),
-   which is why it never traps the wheel. Falls back to a plain
-   vertical list under prefers-reduced-motion.
+   which is why it never traps the wheel.
+
+   Pinning is desktop-only (md and up). A stacked card is a two-column
+   layout that fits a landscape viewport; below md it collapses to one
+   column and needs roughly 500px of its own, so pinning it inside a
+   single viewport clipped the card AND asked for one screen-height of
+   swiping per card with almost nothing moving — which reads as the page
+   having stopped scrolling. On small screens the deck is therefore laid
+   out as a plain vertical list, the same fallback used under
+   prefers-reduced-motion.
    ============================================================ */
 
 export interface StackCardItem {
@@ -186,6 +194,20 @@ export default function StackingCards({
   const deck = useRef<HTMLDivElement>(null);
   const [entryDistance, setEntryDistance] = useState(0);
   const reduce = useReducedMotion();
+  // Default to the pinned layout so server-rendered desktop HTML matches
+  // what desktop paints; phones flip to the list before first paint.
+  const [pinned, setPinned] = useState(true);
+
+  // useLayoutEffect, not useEffect: this resolves before the hydrated frame
+  // is painted, so a phone does not flash the pinned layout on its way to
+  // the list.
+  useLayoutEffect(() => {
+    const mq = window.matchMedia("(min-width: 768px)");
+    const apply = () => setPinned(mq.matches);
+    apply();
+    mq.addEventListener("change", apply);
+    return () => mq.removeEventListener("change", apply);
+  }, []);
 
   useLayoutEffect(() => {
     const measure = () => {
@@ -213,10 +235,10 @@ export default function StackingCards({
     offset: ["start start", "end end"],
   });
 
-  if (reduce) {
+  if (reduce || !pinned) {
     return (
-      <div className={cn("mx-auto flex max-w-5xl flex-col gap-8 px-4", className)}>
-        {heading && <div className="mx-auto max-w-3xl">{heading}</div>}
+      <div className={cn("mx-auto flex max-w-5xl flex-col gap-6 px-4 py-16 md:gap-8 md:py-20", className)}>
+        {heading && <div className="mx-auto mb-2 max-w-3xl">{heading}</div>}
         {cards.map((card, index) => (
           <CardBody key={card.num} card={card} imageOnRight={Boolean(card.image) && index % 2 === 1} />
         ))}
@@ -230,7 +252,11 @@ export default function StackingCards({
       className={cn("relative", className)}
       style={{ height: `${Math.max(cards.length, 1) * 100}vh` }}
     >
-      <div ref={stage} className="sticky top-0 h-screen overflow-hidden px-4 pt-16 lg:pt-20">
+      {/* svh, not vh: on a phone/tablet with a retractable browser bar 100vh is
+          the *large* viewport, so a 100vh sticky stage hangs below the visible
+          area and overflow-hidden clips the bottom of the deck. svh === vh on
+          desktop, so nothing changes there. */}
+      <div ref={stage} className="sticky top-0 h-[100svh] overflow-hidden px-4 pt-16 lg:pt-20">
         <div className="mx-auto flex h-full w-full max-w-5xl flex-col justify-center pb-4 lg:pb-6">
           {heading && (
             <div className="relative z-20 mx-auto mb-5 w-full max-w-3xl shrink-0 lg:mb-7">

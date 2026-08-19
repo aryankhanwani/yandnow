@@ -253,7 +253,7 @@ export default function HeroSection() {
           >
             <video
               ref={videoRef}
-              src="/hero-video.mp4"
+              src="/hero-video-clean.mp4"
               className="aspect-video w-full object-cover"
               autoPlay
               muted

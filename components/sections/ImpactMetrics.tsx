@@ -30,7 +30,7 @@ export default function ImpactMetrics() {
           title="Impact you can put in a board report"
           align="left"
           className="mb-14"
-          titleClassName="max-w-none whitespace-nowrap text-[clamp(0.875rem,4.15vw,2.6rem)]"
+          titleClassName="max-w-none text-balance text-[clamp(1.75rem,3.2vw,2.6rem)] md:whitespace-nowrap md:text-[clamp(0.875rem,4.15vw,2.6rem)]"
         />
         <Stagger className="grid grid-cols-2 gap-4 lg:grid-cols-4 lg:gap-6" stagger={0.1}>
           {STATS.map((s) => (

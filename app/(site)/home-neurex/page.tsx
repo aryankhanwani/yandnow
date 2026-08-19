@@ -149,9 +149,9 @@ function Hero() {
               loop
               playsInline
               preload="metadata"
-              poster="/image.png"
+              poster="/hero-poster.jpg"
             >
-              <source src="/hero-video.mp4" type="video/mp4" />
+              <source src="/hero-video-clean.mp4" type="video/mp4" />
             </video>
           </div>
         </Reveal>

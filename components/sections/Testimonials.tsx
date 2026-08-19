@@ -90,7 +90,7 @@ export default function Testimonials() {
           title="Trusted by teams that"
           highlight="measure results"
           className="mb-14"
-          titleClassName="max-w-none whitespace-nowrap text-[clamp(0.875rem,4.15vw,2.6rem)]"
+          titleClassName="max-w-none text-balance text-[clamp(1.75rem,3.2vw,2.6rem)] md:whitespace-nowrap md:text-[clamp(0.875rem,4.15vw,2.6rem)]"
         />
 
         <div

@@ -37,12 +37,19 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  // NOTE: <html> must NOT be height-constrained (no `h-full`). Lenis watches
+  // document.documentElement with a ResizeObserver to recompute its scroll
+  // limit; pinning the root to 100% freezes that box at the viewport height,
+  // so the observer never fires when the page grows (font swap, an FAQ
+  // opening) and Lenis clamps scrolling to a stale, too-short limit — the
+  // page stops dead part-way down. Sticky-footer height comes from
+  // `min-h-screen` on <body> instead.
   return (
     <html
       lang="en"
-      className={`${manrope.variable} ${inter.variable} h-full antialiased`}
+      className={`${manrope.variable} ${inter.variable} antialiased`}
     >
-      <body className="min-h-full flex flex-col text-ink bg-white font-body">
+      <body className="min-h-screen flex flex-col text-ink bg-white font-body">
         {children}
       </body>
     </html>

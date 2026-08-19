@@ -48,8 +48,32 @@ export default function LenisProvider({
     }
     rafId = requestAnimationFrame(raf);
 
+    // Lenis clamps every scroll target to a cached limit and only refreshes
+    // it from its own (250 ms debounced) ResizeObserver on <html>. Anything
+    // that changes the page height after boot — a web font swapping in, an
+    // FAQ accordion opening, a tab panel exchanging content — would
+    // otherwise leave the limit short and make the page stop dead before
+    // the footer. Observing <body> catches those directly and re-measures
+    // on the next frame.
+    let resizeFrame = 0;
+    const remeasure = () => {
+      if (resizeFrame) return;
+      resizeFrame = requestAnimationFrame(() => {
+        resizeFrame = 0;
+        lenis.resize();
+      });
+    };
+    const bodyObserver = new ResizeObserver(remeasure);
+    bodyObserver.observe(document.body);
+    // Late-loading fonts reflow text without resizing <body> on every browser.
+    document.fonts?.ready.then(remeasure).catch(() => {});
+    window.addEventListener("load", remeasure);
+
     return () => {
       cancelAnimationFrame(rafId);
+      if (resizeFrame) cancelAnimationFrame(resizeFrame);
+      bodyObserver.disconnect();
+      window.removeEventListener("load", remeasure);
       lenis.destroy();
       if (activeLenisController === lenis) activeLenisController = null;
     };
@@ -60,6 +84,9 @@ export default function LenisProvider({
     // recover the global controller on route changes so a destination page
     // can never inherit a stopped scroll state from the previous route.
     activeLenisController?.start();
+    // A new route means a new document height; re-measure so the first
+    // scroll on the destination page is not clamped to the old page's limit.
+    activeLenisController?.resize();
   }, [pathname]);
 
   return <>{children}</>;

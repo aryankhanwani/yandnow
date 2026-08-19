@@ -414,7 +414,10 @@ function MobileDrawer({ open, onClose }: { open: boolean; onClose: () => void })
           </button>
         </div>
 
-        <nav className="flex-1 overflow-y-auto px-5 py-4">
+        {/* data-lenis-prevent: Lenis owns the wheel globally and would
+            otherwise swallow scroll gestures made over the open drawer
+            instead of scrolling this panel. */}
+        <nav data-lenis-prevent className="flex-1 overflow-y-auto px-5 py-4">
           {NAV_ITEMS.map((item) =>
             item.children ? (
               <MobileAccordion key={item.label} item={item} onLinkClick={onClose} />
