@@ -1,12 +1,11 @@
 import type { Metadata } from "next";
 import Container from "@/components/ui/Container";
 import PageHero from "@/components/ui/PageHero";
-import CtaBand from "@/components/ui/CtaBand";
 import BlogIndex, { type BlogCardData } from "@/components/blog/BlogIndex";
 import { getAllPosts } from "@/lib/blog";
 
 export const metadata: Metadata = {
-  title: "Blog — Insights on Workforce Capability | Y&Now",
+  title: "Blog: Insights on Workforce Capability | Y&Now",
   description:
     "Practical thinking on workforce capability, L&D measurement, CSR skilling, and industry training from the Y&Now team.",
 };
@@ -45,22 +44,11 @@ export default async function BlogPage() {
             <BlogIndex posts={cards} />
           ) : (
             <p className="py-16 text-center text-neutral-500">
-              No articles published yet — check back soon.
+              No articles published yet. Check back soon.
             </p>
           )}
         </Container>
       </section>
-
-      <CtaBand
-        eyebrow="Work With Y&Now"
-        title="Ready to build capability that"
-        highlight="shows up in results?"
-        subtitle="Tell us about your workforce and the outcomes you're targeting — we'll map a programme around them."
-        primaryLabel="Talk to Our Team"
-        primaryHref="/contact-us"
-        secondaryLabel="Explore Solutions"
-        secondaryHref="/corporate"
-      />
     </>
   );
 }

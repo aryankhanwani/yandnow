@@ -15,17 +15,17 @@ import SectionHeading from "@/components/ui/SectionHeading";
 import { SERVE_IMAGES } from "@/lib/demo-images";
 
 /* ============================================================
-   WHO WE SERVE — scroll-choreographed intro variant.
+   WHO WE SERVE - scroll-choreographed intro variant.
    ------------------------------------------------------------
    Standalone duplicate of WhoWeServe.tsx (that file is untouched
-   — this is the "on top of" variant, not a replacement in place).
+   - this is the "on top of" variant, not a replacement in place).
 
    Desktop only: the section pins while the user scrolls. Only the
    first panel is shown at first; each further scroll tick brings
    the next audience panel in (growing to full width) while the
    previous one collapses to the thin icon+label column. After the
    final panel (Learners) has been revealed, one last scroll tick
-   hands the spotlight back to the first panel — landing on the
+   hands the spotlight back to the first panel - landing on the
    exact same layout/behaviour as the production WhoWeServe
    gallery (panel 0 expanded, hover-to-expand from there on).
    Mobile keeps the plain stacked image list, no GSAP involved.
@@ -71,7 +71,7 @@ const AUDIENCES: Audience[] = [
     category: "Industries",
     headline: "Train Industrial Workforces at Scale",
     description:
-      "Sector-specific training for manufacturing and regulated environments — with AR/VR simulation and NSDC/NCVET co-badging.",
+      "Sector-specific training for manufacturing and regulated environments, with AR/VR simulation and NSDC/NCVET co-badging.",
     cta: "Request a Sector Pilot",
     href: "/industry-solutions",
     image: SERVE_IMAGES.industries,
@@ -115,7 +115,7 @@ const EASE = [0.16, 1, 0.3, 1] as const;
 
 /* ---- Desktop: scroll-driven spotlight, then hover-expand -----
    The scroll position ONLY selects which panel is "active" (a
-   discrete, snapped index) — it never scrubs the panel widths.
+   discrete, snapped index) - it never scrubs the panel widths.
    Each panel animates between exactly two states (collapsed /
    expanded) via a fixed-duration motion transition, so it is
    always heading to one clean state and can never rest half-open.
@@ -149,7 +149,7 @@ function HorizontalGallery({ rowRef }: { rowRef: RefObject<HTMLDivElement | null
         pin: true,
         anticipatePin: 1,
         // Snap so a released scroll always settles exactly on one
-        // panel — never between two.
+        // panel - never between two.
         snap: {
           snapTo: (value: number) => Math.round(value * steps) / steps,
           duration: { min: 0.15, max: 0.4 },
@@ -184,7 +184,7 @@ function HorizontalGallery({ rowRef }: { rowRef: RefObject<HTMLDivElement | null
         const Icon = a.icon;
         const isActive = active === idx;
         // During the scroll intro, panels past the active index haven't
-        // been "revealed" yet — collapse them to zero width + fade so the
+        // been "revealed" yet - collapse them to zero width + fade so the
         // section starts as a single full card and each one grows in on
         // scroll. After the intro (hover phase) every panel stays visible.
         const hidden = !introDone && idx > active;
@@ -197,7 +197,7 @@ function HorizontalGallery({ rowRef }: { rowRef: RefObject<HTMLDivElement | null
               flexGrow: hidden ? 0 : isActive ? 6 : 1,
               opacity: hidden ? 0 : 1,
               // Spacing lives on the panels (not a flex gap) so hidden
-              // panels collapse to truly zero width — no leftover gaps.
+              // panels collapse to truly zero width - no leftover gaps.
               marginLeft: idx === 0 || hidden ? 0 : 10,
             }}
             transition={{ duration: 0.6, ease: EASE }}
@@ -244,7 +244,7 @@ function HorizontalGallery({ rowRef }: { rowRef: RefObject<HTMLDivElement | null
                   exit={{ opacity: 0, y: 16 }}
                   transition={{ duration: 0.35, delay: 0.12, ease: EASE }}
                   /* Fixed width so the copy lays out at its final size and is
-                     simply clipped by the panel while it grows — never reflows. */
+                     simply clipped by the panel while it grows - never reflows. */
                   className="absolute inset-y-0 left-0 flex w-[34rem] max-w-none flex-col justify-between p-7"
                 >
                   <span className="inline-flex w-fit items-center gap-2 rounded-full bg-white/15 px-3 py-1 text-[11px] font-bold uppercase tracking-[0.12em] text-white backdrop-blur-sm">
@@ -318,7 +318,7 @@ export default function WhoWeServeScrollReveal() {
       aria-labelledby="who-we-serve-heading"
       className="bg-surface py-20 lg:py-0"
     >
-      {/* Pin target — during the scroll-choreographed intro, the whole
+      {/* Pin target - during the scroll-choreographed intro, the whole
           heading + gallery block is centred in the viewport. Only the
           lg breakpoint is ever pinned (see gsap.matchMedia above). */}
       <div data-pin-target className="lg:flex lg:min-h-screen lg:flex-col lg:justify-center">

@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import Container from "@/components/ui/Container";
 import PageHero from "@/components/ui/PageHero";
 import SectionHeading from "@/components/ui/SectionHeading";
-import CtaBand from "@/components/ui/CtaBand";
 import FaqAccordion, { type FaqItemData } from "@/components/ui/FaqAccordion";
 import HorizontalCapabilityScroller, { type HorizontalCapability } from "@/components/ui/HorizontalCapabilityScroller";
 import ImpactStatGrid from "@/components/ui/ImpactStatGrid";
@@ -12,7 +11,7 @@ import { CtaButton } from "@/components/ui/CtaButton";
 export const metadata: Metadata = {
   title: "Micro-Entrepreneurship & Livelihood Programmes India | Y&Now",
   description:
-    "Y&Now designs and delivers micro-entrepreneurship and livelihood programmes for women, SHGs, and marginalised communities — with vocational training, market linkage, and income generation measurement.",
+    "Y&Now designs and delivers micro-entrepreneurship and livelihood programmes for women, SHGs, and marginalised communities, with vocational training, market linkage, and income generation measurement.",
 };
 
 const COMPONENTS: HorizontalCapability[] = [
@@ -48,24 +47,24 @@ const COMPONENTS: HorizontalCapability[] = [
   },
 ];
 
-/* [VERIFY] Impact figures are pending M&E team sign-off — rendered as a neutral
-   placeholder ("—"), never fabricated numbers. */
+/* [VERIFY] Impact figures are pending M&E team sign-off - rendered as a neutral
+   placeholder ("-"), never fabricated numbers. */
 const IMPACT = [
-  { title: "Women Trained", sub: "women completing livelihood and enterprise training" },
-  { title: "Income Generation", sub: "participants reporting income generation within 6 months" },
-  { title: "Income Uplift", sub: "average increase in participant income" },
-  { title: "SHGs Strengthened", sub: "self-help groups strengthened or formed" },
+  { title: "Women Trained", sub: "Women completing livelihood and enterprise training" },
+  { title: "Income Generation", sub: "Participants reporting income generation within 6 months" },
+  { title: "Income Uplift", sub: "Average increase in participant income" },
+  { title: "SHGs Strengthened", sub: "Self-help groups strengthened or formed" },
 ];
 
 const FAQS: FaqItemData[] = [
   {
     q: "Does Y&Now's livelihood programme qualify under CSR Schedule VII?",
-    a: "Yes. Livelihood and micro-entrepreneurship programmes for women qualify under Schedule VII item (iii) — Promoting gender equality and empowering women. Programmes targeting poverty alleviation may also qualify under item (i). Consult your legal team on the specific applicable head.",
+    a: "Yes. Livelihood and micro-entrepreneurship programmes for women qualify under Schedule VII item (iii): Promoting gender equality and empowering women. Programmes targeting poverty alleviation may also qualify under item (i). Consult your legal team on the specific applicable head.",
   },
   {
     q: "What sectors do participants typically train in?",
     /* [VERIFY] active livelihood sectors pending Programme team confirmation */
-    a: "Participants train in sectors matched to local market demand — for example food processing, tailoring, handicrafts, retail, beauty and wellness, and digital services. The active list for a given programme is confirmed during the community needs assessment.",
+    a: "Participants train in sectors matched to local market demand, for example food processing, tailoring, handicrafts, retail, beauty and wellness, and digital services. The active list for a given programme is confirmed during the community needs assessment.",
   },
   {
     q: "How does Y&Now ensure income generation actually happens?",
@@ -77,7 +76,7 @@ const FAQS: FaqItemData[] = [
   },
   {
     q: "Does Y&Now provide market linkage as part of the programme?",
-    a: "Yes. Market linkage is an integrated component of Y&Now's livelihood model — not an optional add-on. We connect participants to buyers, aggregators, and trade networks during the programme, not after it ends.",
+    a: "Yes. Market linkage is an integrated component of Y&Now's livelihood model, not an optional add-on. We connect participants to buyers, aggregators, and trade networks during the programme, not after it ends.",
   },
 ];
 
@@ -111,7 +110,7 @@ export default function MicroEntrepreneurshipPage() {
         eyebrow="Market-Linked Livelihoods"
         title="From practical skills to"
         highlight="sustainable income"
-        body="Participants develop products, understand pricing, and connect with buyers together—so training moves beyond completion into a working local enterprise."
+        body="Participants develop products, understand pricing, and connect with buyers together, so training moves beyond completion into a working local enterprise."
         image="/images/micro-entrepreneurship/proof/women-enterprise-market-linkage.jpg"
         imageAlt="Women entrepreneurs reviewing packaged products and market information together"
         note="Skills · enterprise support · market linkage"
@@ -148,17 +147,6 @@ export default function MicroEntrepreneurshipPage() {
           </div>
         </Container>
       </section>
-
-      <CtaBand
-        eyebrow="Micro-Entrepreneurship & Livelihood"
-        title="Ready to design a"
-        highlight="livelihood programme?"
-        subtitle="Tell us about the community you want to reach and the income outcomes you're targeting — we'll design a market-linked programme around them."
-        primaryLabel="Design a Livelihood Programme"
-        primaryHref="/contact-us?type=livelihood"
-        secondaryLabel="Talk to Our Team"
-        secondaryHref="/contact-us"
-      />
     </>
   );
 }

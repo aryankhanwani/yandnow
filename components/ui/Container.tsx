@@ -8,7 +8,7 @@ interface ContainerProps {
 }
 
 /**
- * Container — the canonical width-limiting wrapper used on every page.
+ * Container - the canonical width-limiting wrapper used on every page.
  * max-w-7xl (1280px), horizontally padded, centered.
  * Use `size="narrow"` for prose sections, `size="wide"` for edge-to-edge panels.
  */

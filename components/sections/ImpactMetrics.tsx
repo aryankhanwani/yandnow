@@ -6,7 +6,7 @@ import CountUp from "@/components/ui/CountUp";
 import { Stagger, StaggerItem } from "@/components/ui/motion-primitives";
 
 /* ============================================================
-   IMPACT METRICS — animated outcome counters.
+   IMPACT METRICS - animated outcome counters.
    ------------------------------------------------------------
    ⚠️  [VERIFY BEFORE PUBLISHING] The figures below are
    placeholders. The content doc (Section 6) requires these to
@@ -16,10 +16,10 @@ import { Stagger, StaggerItem } from "@/components/ui/motion-primitives";
    ============================================================ */
 
 const STATS = [
-  { title: "Organisations", to: 3800, suffix: "+", sub: "served across India" },
-  { title: "Learners", to: 250000, suffix: "+", sub: "trained and assessed" },
-  { title: "Facilitators", to: 1200, suffix: "+", sub: "instructors & mentors" },
-  { title: "Completion", to: 92, suffix: "%", sub: "average programme rate" },
+  { title: "Organisations", to: 3800, suffix: "+", sub: "Served across India" },
+  { title: "Learners", to: 250000, suffix: "+", sub: "Trained and assessed" },
+  { title: "Facilitators", to: 1200, suffix: "+", sub: "Instructors & mentors" },
+  { title: "Completion", to: 92, suffix: "%", sub: "Average programme rate" },
 ];
 
 export default function ImpactMetrics() {

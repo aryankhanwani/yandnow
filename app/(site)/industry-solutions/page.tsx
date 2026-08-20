@@ -3,7 +3,6 @@ import Image from "next/image";
 import Container from "@/components/ui/Container";
 import PageHero from "@/components/ui/PageHero";
 import SectionHeading from "@/components/ui/SectionHeading";
-import CtaBand from "@/components/ui/CtaBand";
 import FaqAccordion, { type FaqItemData } from "@/components/ui/FaqAccordion";
 import HorizontalCapabilityScroller, { type HorizontalCapability } from "@/components/ui/HorizontalCapabilityScroller";
 import CountUp from "@/components/ui/CountUp";
@@ -11,9 +10,9 @@ import { CtaButton } from "@/components/ui/CtaButton";
 import { Reveal, Stagger, StaggerItem } from "@/components/ui/motion-primitives";
 
 export const metadata: Metadata = {
-  title: "Industrial Workforce Training — Manufacturing, EHS & Precision Engineering",
+  title: "Industrial Workforce Training: Manufacturing, EHS & Precision Engineering",
   description:
-    "Y&Now delivers sector-specific workforce training for industrial environments — combining AR/VR simulation, NSDC/NCVET co-badging, EHS compliance, and traceable competency outcomes for manufacturing and precision engineering.",
+    "Y&Now delivers sector-specific workforce training for industrial environments, combining AR/VR simulation, NSDC/NCVET co-badging, EHS compliance, and traceable competency outcomes for manufacturing and precision engineering.",
 };
 
 const CAPABILITIES: HorizontalCapability[] = [
@@ -51,7 +50,7 @@ const CAPABILITIES: HorizontalCapability[] = [
     icon: "Glasses",
     tint: "39,170,226",
     title: "AR/VR Simulation Labs",
-    body: "Simulation for high-risk procedures — enabling practice without production risk or consumables cost.",
+    body: "Simulation for high-risk procedures, enabling practice without production risk or consumables cost.",
   },
 ];
 
@@ -70,7 +69,7 @@ const ACCREDITATIONS: Accreditation[] = [
   {
     logo: "/images/industry/accreditation/ncvet-dgt-alignment.png",
     title: "NCVET & DGT Alignment",
-    /* [VERIFY] confirm specific qualifications — Accreditation team */
+    /* [VERIFY] confirm specific qualifications - Accreditation team */
     body: "NCVET and DGT qualification alignment. [Specific qualifications to be confirmed.]",
   },
   {
@@ -83,7 +82,7 @@ const ACCREDITATIONS: Accreditation[] = [
 const FAQS: FaqItemData[] = [
   {
     q: "What sectors does Y&Now cover for industrial training?",
-    /* [VERIFY] confirm full active sector list — Programme team */
+    /* [VERIFY] confirm full active sector list - Programme team */
     a: "Y&Now currently delivers industrial training for manufacturing, precision engineering, automotive components, energy, and regulated chemical/process environments.",
   },
   {
@@ -92,7 +91,7 @@ const FAQS: FaqItemData[] = [
   },
   {
     q: "Are Y&Now industrial programmes NSDC-accredited?",
-    /* [VERIFY] current NSDC-accredited programme list — Accreditation team */
+    /* [VERIFY] current NSDC-accredited programme list - Accreditation team */
     a: "Select programmes are co-badged with NSDC. NCVET and DGT alignment is available for applicable qualifications. We confirm accreditation applicability at programme scoping.",
   },
   {
@@ -101,7 +100,7 @@ const FAQS: FaqItemData[] = [
   },
   {
     q: "How does Y&Now measure the outcome of industrial training?",
-    /* [VERIFY] confirm specific outcome measurement framework — Programme team */
+    /* [VERIFY] confirm specific outcome measurement framework - Programme team */
     a: "Outcomes are measured through post-assessment competency scores, supervisor-validated sign-offs, and operational performance signals such as FPY improvement, incident rate reduction, and OEE (Overall Equipment Effectiveness) change.",
   },
 ];
@@ -135,7 +134,7 @@ export default function IndustrySolutionsPage() {
             highlight="plant floor"
             className="mb-12"
           />
-          {/* [VERIFY] Replace anonymised placeholder with an approved client reference (named with permission, or anonymised) — Account team */}
+          {/* [VERIFY] Replace anonymised placeholder with an approved client reference (named with permission, or anonymised) - Account team */}
           <Reveal y={20} className="w-full">
             <figure className="w-full overflow-hidden rounded-3xl border border-[#e1e7ef] bg-surface">
               <div className="relative aspect-[16/7] min-h-64 w-full">
@@ -165,7 +164,7 @@ export default function IndustrySolutionsPage() {
                     An automotive components manufacturer translated focused workforce training into a measurable production-floor improvement.
                   </blockquote>
                   <figcaption className="mt-6 text-xs leading-relaxed text-neutral-500">
-                    Anonymised pilot outcome — approved client reference pending verification.
+                    Anonymised pilot outcome. Approved client reference pending verification.
                   </figcaption>
                 </div>
               </div>
@@ -221,17 +220,6 @@ export default function IndustrySolutionsPage() {
           </div>
         </Container>
       </section>
-
-      <CtaBand
-        eyebrow="Industry Solutions"
-        title="Ready to run a"
-        highlight="sector pilot?"
-        subtitle="Tell us about your plant, your workforce, and the technical outcomes you're targeting — we'll scope a sector-calibrated pilot around them."
-        primaryLabel="Request a Sector Pilot"
-        primaryHref="/contact-us?type=industry"
-        secondaryLabel="Talk to Our Team"
-        secondaryHref="/contact-us"
-      />
     </>
   );
 }

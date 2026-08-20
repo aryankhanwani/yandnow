@@ -2,12 +2,12 @@ import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 
 /* ============================================================
-   CtaButton — shared CTA component used site-wide
+   CtaButton - shared CTA component used site-wide
    Matches the hero section's button style exactly.
 
    Variants:
-     "primary"   — filled indigo (bg-primary-500), white text, shimmer sweep
-     "secondary" — outlined, ink text, subtle hover background
+     "primary"   - filled indigo (bg-primary-500), white text, shimmer sweep
+     "secondary" - outlined, ink text, subtle hover background
 
    On "glassy" nav (dark overlay), pass `glassy` prop to flip
    primary to white-on-primary and secondary to white/transparent.

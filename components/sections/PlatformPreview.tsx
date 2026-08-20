@@ -9,8 +9,8 @@ import { AnimatedHeading, Reveal, Stagger, StaggerItem } from "@/components/ui/m
 import { cn } from "@/lib/utils";
 
 /* ============================================================
-   Y&NOW PLATFORM — 3 vertical product cards in a row.
-   Each card is a plain UI mock (text, pills, initials avatars —
+   Y&NOW PLATFORM - 3 vertical product cards in a row.
+   Each card is a plain UI mock (text, pills, initials avatars -
    no icons, no description copy) with the pillar name below it.
    ============================================================ */
 
@@ -61,7 +61,7 @@ function Avatar({ initials, className }: { initials: string; className: string }
   );
 }
 
-/* ---- Card 1 — Learning management ---- */
+/* ---- Card 1 - Learning management ---- */
 function LearningMock() {
   const rows = [
     { title: "Safety & Compliance", status: "Completed" },
@@ -98,7 +98,7 @@ function LearningMock() {
   );
 }
 
-/* ---- Card 2 — Role-based assessment ---- */
+/* ---- Card 2 - Role-based assessment ---- */
 function AssessmentMock() {
   const people = [
     {
@@ -196,7 +196,7 @@ function AssessmentMock() {
   );
 }
 
-/* ---- Card 3 — OKR performance ---- */
+/* ---- Card 3 - OKR performance ---- */
 function PerformanceMock() {
   const periods = {
     "This month": { initials: "KR", name: "Kiran Rao", okrs: 142 },
@@ -303,7 +303,7 @@ export default function PlatformPreview() {
           {PLATFORM_CARDS.map((card) => (
             <StaggerItem key={card.title}>
               <div className="group relative flex h-full min-h-[440px] flex-col overflow-hidden rounded-3xl border border-neutral-100 bg-white p-5 shadow-card transition-[border-color,box-shadow] duration-500 ease-out hover:border-primary-200/70 hover:shadow-[0_24px_60px_-28px_rgba(46,49,146,0.30)]">
-                {/* Calm blue-brand gradient wash that eases in on hover — no lift */}
+                {/* Calm blue-brand gradient wash that eases in on hover - no lift */}
                 <span
                   aria-hidden
                   className="pointer-events-none absolute inset-0 rounded-3xl bg-gradient-to-br from-primary-50 via-secondary-50/60 to-white opacity-0 transition-opacity duration-700 ease-out group-hover:opacity-100"

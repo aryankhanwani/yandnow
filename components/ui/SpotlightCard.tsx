@@ -4,14 +4,14 @@ import { useRef, useState, type ReactNode } from "react";
 import { cn } from "@/lib/utils";
 
 /* ============================================================
-   SpotlightCard — a professional surface card with a soft
-   blue-brand radial glow that tracks the cursor. The glow is a
-   pointer-events-none layer whose radial-gradient centre follows
-   the mouse (via CSS custom properties), fading in on enter and
-   out on leave. Content sits above the glow at z-10.
+   SpotlightCard: a professional surface card with a soft radial
+   glow that tracks the cursor. The glow is a pointer-events-none
+   layer whose radial-gradient centre follows the mouse, fading
+   in on enter and out on leave. Content sits above it at z-10.
 
-   Matches the site's calm aesthetic: subtle secondary/primary
-   tint, no harsh colour, soft border + shadow on hover.
+   The wash stays entirely in the secondary blue family (no
+   indigo/purple), matching the site's calm aesthetic: soft
+   border + shadow on hover, no harsh colour.
    ============================================================ */
 interface SpotlightCardProps {
   children: ReactNode;
@@ -38,7 +38,7 @@ export default function SpotlightCard({ children, className }: SpotlightCardProp
       className={cn(
         "group relative flex h-full flex-col overflow-hidden rounded-2xl border border-[#e8ecf2] bg-white p-8",
         "transition-[border-color,box-shadow,transform] duration-300 ease-out",
-        "hover:-translate-y-1 hover:border-primary-200/70 hover:shadow-[0_22px_50px_-24px_rgba(46,49,146,0.32)]",
+        "hover:-translate-y-1 hover:border-secondary-200/80 hover:shadow-[0_22px_50px_-24px_rgba(39,170,226,0.38)]",
         className,
       )}
     >
@@ -48,7 +48,7 @@ export default function SpotlightCard({ children, className }: SpotlightCardProp
         className="pointer-events-none absolute inset-0 z-0 transition-opacity duration-300"
         style={{
           opacity: active ? 1 : 0,
-          background: `radial-gradient(320px circle at ${pos.x}px ${pos.y}px, rgba(39,170,226,0.14), rgba(46,49,146,0.08) 35%, transparent 65%)`,
+          background: `radial-gradient(320px circle at ${pos.x}px ${pos.y}px, rgba(39,170,226,0.16), rgba(94,192,237,0.09) 38%, transparent 68%)`,
         }}
       />
       <div className="relative z-10 flex h-full flex-col">{children}</div>

@@ -13,11 +13,11 @@ import SectionHeading from "@/components/ui/SectionHeading";
 import { SERVE_IMAGES } from "@/lib/demo-images";
 
 /* ============================================================
-   WHO WE SERVE — horizontal hover-expand gallery.
+   WHO WE SERVE - horizontal hover-expand gallery.
    Six audience panels sit side-by-side; hovering (or tapping)
    one expands it to reveal the full image, headline, and CTA.
    Collapses to a stacked image list on mobile.
-   Copy sourced from Final Copy doc — §2.
+   Copy sourced from Final Copy doc - §2.
    ============================================================ */
 
 interface Audience {
@@ -60,7 +60,7 @@ const AUDIENCES: Audience[] = [
     category: "Industries",
     headline: "Train Industrial Workforces at Scale",
     description:
-      "Sector-specific training for manufacturing and regulated environments — with AR/VR simulation and NSDC/NCVET co-badging.",
+      "Sector-specific training for manufacturing and regulated environments, with AR/VR simulation and NSDC/NCVET co-badging.",
     cta: "Request a Sector Pilot",
     href: "/industry-solutions",
     image: SERVE_IMAGES.industries,
@@ -128,7 +128,7 @@ function HorizontalGallery() {
               sizes="(max-width: 1024px) 100vw, 55vw"
               className="object-cover"
             />
-            {/* Legibility scrims — strong at the bottom, softer at the top,
+            {/* Legibility scrims - strong at the bottom, softer at the top,
                 so white text stays readable over any image */}
             <div className="absolute inset-0 bg-gradient-to-t from-ink/90 via-ink/50 to-ink/25" />
             <div className="pointer-events-none absolute inset-x-0 top-0 h-28 bg-gradient-to-b from-ink/45 to-transparent" />

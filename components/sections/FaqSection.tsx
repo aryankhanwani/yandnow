@@ -5,8 +5,8 @@ import FaqAccordion, { type FaqItemData } from "@/components/ui/FaqAccordion";
 import { CtaButton } from "@/components/ui/CtaButton";
 
 /* ============================================================
-   FAQ — required for AEO / AI-search visibility.
-   Copy sourced from Final Copy doc — Section 7.
+   FAQ - required for AEO / AI-search visibility.
+   Copy sourced from Final Copy doc - Section 7.
    (Unverified certificate placeholders intentionally omitted.)
    ============================================================ */
 
@@ -29,7 +29,7 @@ const FAQS: FaqItemData[] = [
   },
   {
     q: "How is Y&Now different from a standard training vendor?",
-    a: "Y&Now links learning to measurable performance outcomes — not just course completion. Our 5-stage framework (Assess, Train, Apply, Perform, Improve) ensures capability translates into on-the-job execution, measured through OKRs, supervisor sign-offs, and operational performance signals.",
+    a: "Y&Now links learning to measurable performance outcomes, not just course completion. Our 5-stage framework (Assess, Train, Apply, Perform, Improve) ensures capability translates into on-the-job execution, measured through OKRs, supervisor sign-offs, and operational performance signals.",
   },
 ];
 

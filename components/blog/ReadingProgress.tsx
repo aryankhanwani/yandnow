@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 
 /* A thin gradient bar pinned under the navbar that fills as the
-   reader scrolls through the article. Purely decorative — cheap
+   reader scrolls through the article. Purely decorative - cheap
    scroll listener, no layout thrash. */
 export default function ReadingProgress() {
   const [progress, setProgress] = useState(0);

@@ -10,7 +10,7 @@ import { type ReactNode } from "react";
 import { cn } from "@/lib/utils";
 
 /* ============================================================
-   MOTION PRIMITIVES — shared, scalable animation building blocks
+   MOTION PRIMITIVES - shared, scalable animation building blocks
    Built on Framer Motion (`motion/react`). Every primitive:
    • fires once when scrolled into view (viewport once:true)
    • respects prefers-reduced-motion (falls back to a plain fade
@@ -18,13 +18,13 @@ import { cn } from "@/lib/utils";
    • uses the same easing curve site-wide for a coherent feel
    ============================================================ */
 
-/** House easing — a soft, premium "quart-out". */
+/** House easing - a soft, premium "quart-out". */
 export const EASE_OUT = [0.16, 1, 0.3, 1] as const;
 
 const DEFAULT_VIEWPORT = { once: true, margin: "0px 0px -12% 0px" } as const;
 
 /* ------------------------------------------------------------
-   Reveal — fade + rise a single block into view.
+   Reveal - fade + rise a single block into view.
    ------------------------------------------------------------ */
 interface RevealProps extends Omit<HTMLMotionProps<"div">, "children"> {
   children: ReactNode;
@@ -64,7 +64,7 @@ export function Reveal({
 }
 
 /* ------------------------------------------------------------
-   Stagger + StaggerItem — orchestrate a group of children so
+   Stagger + StaggerItem - orchestrate a group of children so
    they cascade in. Wrap a list in <Stagger>, each child in
    <StaggerItem>.
    ------------------------------------------------------------ */
@@ -127,7 +127,7 @@ export function StaggerItem({
 }
 
 /* ------------------------------------------------------------
-   AnimatedHeading — reveals a heading word-by-word on scroll.
+   AnimatedHeading - reveals a heading word-by-word on scroll.
    Renders real text (SEO-safe) split into inline word spans.
    The space that follows each word is a plain text node at flow
    level so inter-word spacing survives and descenders (g, y, p)
@@ -137,7 +137,7 @@ interface AnimatedHeadingProps {
   text: string;
   className?: string;
   id?: string;
-  /** Element to render as — keeps semantic heading levels correct. */
+  /** Element to render as - keeps semantic heading levels correct. */
   as?: "h1" | "h2" | "h3";
   delay?: number;
   /** Optional trailing highlighted phrase rendered in accent colour. */

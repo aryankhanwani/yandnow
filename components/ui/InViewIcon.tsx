@@ -12,7 +12,7 @@ import { useReducedMotion } from "motion/react";
 import { cn } from "@/lib/utils";
 
 /* ============================================================
-   InViewIcon — plays an animated icon's entrance ONCE, the
+   InViewIcon - plays an animated icon's entrance ONCE, the
    first time it scrolls into view.
 
    The animated icons (from lucide-animated.com, installed into
@@ -20,7 +20,7 @@ import { cn } from "@/lib/utils";
    through their ref, and disable their own hover trigger as soon
    as a ref is attached. We attach that ref, watch a wrapper with
    an IntersectionObserver, and fire `startAnimation()` a single
-   time on first intersection — so icons animate when you reach
+   time on first intersection - so icons animate when you reach
    their section, not on hover, and never replay.
 
    Usage: <InViewIcon><SomeAnimatedIcon size={22} className="…"/></InViewIcon>

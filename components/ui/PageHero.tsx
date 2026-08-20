@@ -3,7 +3,7 @@ import { AnimatedHeading, Reveal } from "@/components/ui/motion-primitives";
 import { cn } from "@/lib/utils";
 
 /* ============================================================
-   PageHero — canonical hero for inner pages.
+   PageHero - canonical hero for inner pages.
    Centered, two-line layout: purple eyebrow chip · two-line
    title · two-line subtitle · up to two CTAs. Clears the fixed
    navbar and sits on a subtle halo + dot-grid backdrop (no
@@ -15,7 +15,7 @@ interface PageHeroProps {
   /** Trailing accent-coloured phrase appended to the title (starts line 2). */
   highlight?: string;
   subtitle?: string;
-  /** CTAs — pass up to two <CtaButton> children. */
+  /** CTAs - pass up to two <CtaButton> children. */
   children?: React.ReactNode;
   className?: string;
 }
@@ -35,7 +35,7 @@ export default function PageHero({
         className,
       )}
     >
-      {/* Backdrop — subtle, non-brand */}
+      {/* Backdrop - subtle, non-brand */}
       <div aria-hidden className="pointer-events-none absolute inset-0 bg-gradient-halo" />
       <div
         aria-hidden

@@ -11,7 +11,7 @@ import {
 } from "motion/react";
 
 /* ============================================================
-   CountUp — animates a number from 0 → `to` when scrolled into
+   CountUp - animates a number from 0 → `to` when scrolled into
    view. Formats with Indian digit grouping. Shared by the
    social-proof bar and the impact-metrics band.
    ============================================================ */

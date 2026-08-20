@@ -6,12 +6,12 @@ import { Check } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 /* ============================================================
-   ModuleTabs — tabbed product-module explorer.
+   ModuleTabs - tabbed product-module explorer.
    Built for Our Platform's Assess → Learn → Perform modules:
    a segmented tab bar with an animated active pill, and a
    feature panel that cross-fades as you switch modules.
    Deliberately different from the homepage PlatformPreview
-   (three static mock cards) — this one is one focused, driven
+   (three static mock cards) - this one is one focused, driven
    panel. Respects prefers-reduced-motion.
    ============================================================ */
 

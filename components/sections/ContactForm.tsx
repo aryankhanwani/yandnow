@@ -6,7 +6,7 @@ import { motion } from "motion/react";
 import { cn } from "@/lib/utils";
 
 /* ============================================================
-   ContactForm — client-side enquiry form.
+   ContactForm - client-side enquiry form.
    No backend is wired yet, so on submit it composes a routed
    mailto: to info@broadarks.com (subject line matches the
    doc's enquiry-routing scheme) and shows a confirmation.
@@ -52,9 +52,9 @@ export default function ContactForm() {
     const body = [
       `Name: ${data.get("name")}`,
       `Organisation: ${data.get("org")}`,
-      `Designation: ${data.get("designation") || "—"}`,
+      `Designation: ${data.get("designation") || "Not provided"}`,
       `Email: ${data.get("email")}`,
-      `Phone: ${data.get("phone") || "—"}`,
+      `Phone: ${data.get("phone") || "Not provided"}`,
       `Enquiry type: ${type}`,
       "",
       String(data.get("message") || ""),
@@ -78,7 +78,7 @@ export default function ContactForm() {
         </div>
         <h3 className="mb-2 font-heading text-xl font-700 text-ink">Your email client is opening…</h3>
         <p className="max-w-sm text-sm leading-relaxed text-neutral-600">
-          We&apos;ve pre-filled a routed message to <span className="font-semibold text-ink">info@broadarks.com</span>. If nothing opened, email us directly — we respond to all commercial enquiries within 2 working days.
+          We&apos;ve pre-filled a routed message to <span className="font-semibold text-ink">info@broadarks.com</span>. If nothing opened, email us directly. We respond to all commercial enquiries within 2 working days.
         </p>
         <button
           type="button"

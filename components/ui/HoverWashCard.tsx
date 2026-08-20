@@ -3,7 +3,7 @@ import { type ReactNode } from "react";
 import { cn } from "@/lib/utils";
 
 /* ============================================================
-   HoverWashCard — the canonical inner-page card surface.
+   HoverWashCard - the canonical inner-page card surface.
    Standardises the same hover treatment used on the homepage
    (PlatformPreview / HowWeWork): a calm indigo→sky gradient
    wash that eases in on hover, a soft lift, and a brand-tinted
@@ -36,7 +36,7 @@ export default function HoverWashCard({
 
   const inner = (
     <>
-      {/* Calm blue-brand gradient wash that eases in on hover — mirrors the homepage cards. */}
+      {/* Calm blue-brand gradient wash that eases in on hover - mirrors the homepage cards. */}
       <span
         aria-hidden
         className="pointer-events-none absolute inset-0 rounded-2xl bg-gradient-to-br from-primary-50 via-secondary-50/50 to-white opacity-0 transition-opacity duration-500 ease-out group-hover:opacity-100"

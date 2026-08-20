@@ -16,7 +16,7 @@ export default function ImpactStatGrid({ items }: { items: ImpactStatItem[] }) {
         <StaggerItem key={item.title} className="rounded-2xl bg-white p-6 text-left shadow-card lg:p-8">
           <div className="text-[13px] font-600 text-neutral-500">{item.title}</div>
           <span className="mt-3 block font-heading text-[clamp(1.9rem,4vw,2.75rem)] font-800 leading-none text-neutral-300">
-            {item.value ?? "—"}
+            {item.value ?? "-"}
           </span>
           <p className="mt-3 text-[13.5px] leading-relaxed text-neutral-600">{item.sub}</p>
         </StaggerItem>

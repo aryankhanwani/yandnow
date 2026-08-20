@@ -1,4 +1,4 @@
-/* Project-hosted Who We Serve photography — one cover per segment. */
+/* Project-hosted Who We Serve photography - one cover per segment. */
 export const SERVE_IMAGES: Record<string, string> = {
   corporate: "/images/solutions-navbar/corporate-training.jpg",
   csr: "/images/solutions-navbar/csr-programs.jpg",

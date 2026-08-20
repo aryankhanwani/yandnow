@@ -8,13 +8,13 @@ import SectionHeading from "@/components/ui/SectionHeading";
 import { cn } from "@/lib/utils";
 
 /* ============================================================
-   TESTIMONIALS — auto-rotating featured quotes.
+   TESTIMONIALS - auto-rotating featured quotes.
    ------------------------------------------------------------
    ⚠️  [REPLACE BEFORE PUBLISHING] Quotes use generic sector /
    role attributions as placeholders. The content doc (Section 5)
    requires verified, approved client testimonials (name ·
    designation · company · photo). Swap the TESTIMONIALS array
-   with confirmed copy — do not attribute unverified quotes to
+   with confirmed copy - do not attribute unverified quotes to
    named brands.
    ============================================================ */
 
@@ -28,14 +28,14 @@ interface Testimonial {
 const TESTIMONIALS: Testimonial[] = [
   {
     quote:
-      "Y&Now didn't just deliver training — they tied every programme to a performance signal our leadership could actually track. For the first time, L&D showed up in our operational numbers.",
+      "Y&Now didn't just deliver training. They tied every programme to a performance signal our leadership could actually track. For the first time, L&D showed up in our operational numbers.",
     name: "L&D Director",
     role: "Fortune 500 Manufacturing Enterprise",
     initials: "LD",
   },
   {
     quote:
-      "The impact reporting was rigorous enough for our CSR committee and our board. Independent monitoring, transparent fund utilisation, real employment outcomes — exactly what we needed.",
+      "The impact reporting was rigorous enough for our CSR committee and our board. Independent monitoring, transparent fund utilisation, real employment outcomes: exactly what we needed.",
     name: "Head of CSR",
     role: "Leading Energy Company",
     initials: "HC",
@@ -49,7 +49,7 @@ const TESTIMONIALS: Testimonial[] = [
   },
   {
     quote:
-      "From dealer networks to showroom teams, Y&Now built customer-excellence capability at a scale we couldn't have reached alone — and measured every bit of it.",
+      "From dealer networks to showroom teams, Y&Now built customer-excellence capability at a scale we couldn't have reached alone, and measured every bit of it.",
     name: "VP, Human Resources",
     role: "National Retail Brand",
     initials: "VP",

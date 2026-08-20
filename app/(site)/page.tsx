@@ -14,7 +14,7 @@ export const metadata: Metadata = {
     "Y&Now builds workforce capability through industry-aligned programmes, role-based assessment, and a digital performance platform. Trusted by Tata, JSW, Castrol, BPCL, Indian Army, and 3,800+ organisations across India.",
 };
 
-/* FAQ structured data — improves AEO / AI-search visibility.
+/* FAQ structured data - improves AEO / AI-search visibility.
    Mirrors the copy rendered in <FaqSection />. */
 const faqJsonLd = {
   "@context": "https://schema.org",
@@ -57,7 +57,7 @@ const faqJsonLd = {
       name: "How is Y&Now different from a standard training vendor?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "Y&Now links learning to measurable performance outcomes — not just course completion. Our 5-stage framework (Assess, Train, Apply, Perform, Improve) ensures capability translates into on-the-job execution, measured through OKRs, supervisor sign-offs, and operational performance signals.",
+        text: "Y&Now links learning to measurable performance outcomes, not just course completion. Our 5-stage framework (Assess, Train, Apply, Perform, Improve) ensures capability translates into on-the-job execution, measured through OKRs, supervisor sign-offs, and operational performance signals.",
       },
     },
   ],

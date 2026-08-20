@@ -4,7 +4,7 @@ import { cn } from "@/lib/utils";
 import { AnimatedHeading, Reveal } from "@/components/ui/motion-primitives";
 
 /* ============================================================
-   SectionHeading — canonical section header used site-wide.
+   SectionHeading - canonical section header used site-wide.
    Standardises the eyebrow · title · subtitle rhythm so every
    section shares the same vertical cadence and animation.
    ============================================================ */

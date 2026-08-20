@@ -6,11 +6,11 @@ import CountUp from "@/components/ui/CountUp";
 import { Marquee } from "@/components/ui/marquee";
 
 /* ============================================================
-   SOCIAL PROOF BAR — below hero.
+   SOCIAL PROOF BAR - below hero.
    Lean treatment: one-line trust statement + animated
    "3,800+ organisations" counter + dual-direction logo marquee
-   (Magic UI's Marquee component — magicui.design).
-   Source: Final Copy doc — Section 1.
+   (Magic UI's Marquee component - magicui.design).
+   Source: Final Copy doc - Section 1.
    ============================================================ */
 
 const CLIENTS_ROW_1 = [

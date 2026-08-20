@@ -112,7 +112,7 @@ function HorizontalCapabilityScrollerInner({
   eyebrow = "Manufacturing & Precision Engineering",
   title = "What our manufacturing programmes",
   highlight = "cover",
-  subtitle = "Y&Now's manufacturing training programmes span the full technical stack — from machine operation and certification through maintenance, safety, and quality.",
+  subtitle = "Y&Now's manufacturing training programmes span the full technical stack, from machine operation and certification through maintenance, safety, and quality.",
 }: HorizontalCapabilityScrollerProps) {
   const section = useRef<HTMLElement>(null);
   const viewport = useRef<HTMLDivElement>(null);

@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { Manrope, Inter } from "next/font/google";
 import "./globals.css";
 
-// Heading font: Manrope — weights 500, 600, 700, 800
+// Heading font: Manrope - weights 500, 600, 700, 800
 const manrope = Manrope({
   subsets: ["latin"],
   weight: ["500", "600", "700", "800"],
@@ -10,7 +10,7 @@ const manrope = Manrope({
   display: "swap",
 });
 
-// Body font: Inter — weights 400, 500, 600
+// Body font: Inter - weights 400, 500, 600
 const inter = Inter({
   subsets: ["latin"],
   weight: ["400", "500", "600"],
@@ -20,7 +20,7 @@ const inter = Inter({
 
 export const metadata: Metadata = {
   title: {
-    default: "Y&Now — Workforce Capability Solutions for Enterprise & CSR",
+    default: "Y&Now: Workforce Capability Solutions for Enterprise & CSR",
     template: "%s | Y&Now",
   },
   description:
@@ -41,7 +41,7 @@ export default function RootLayout({
   // document.documentElement with a ResizeObserver to recompute its scroll
   // limit; pinning the root to 100% freezes that box at the viewport height,
   // so the observer never fires when the page grows (font swap, an FAQ
-  // opening) and Lenis clamps scrolling to a stale, too-short limit — the
+  // opening) and Lenis clamps scrolling to a stale, too-short limit - the
   // page stops dead part-way down. Sticky-footer height comes from
   // `min-h-screen` on <body> instead.
   return (

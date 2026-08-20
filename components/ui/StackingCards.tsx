@@ -13,7 +13,7 @@ import {
 import { cn } from "@/lib/utils";
 
 /* ============================================================
-   StackingCards — page-scroll-native stacked-card reveal.
+   StackingCards - page-scroll-native stacked-card reveal.
 
    The section is as tall as N viewports. A single sticky stage keeps
    the optional heading and the deck in one vertically centred layout,
@@ -26,7 +26,7 @@ import { cn } from "@/lib/utils";
    layout that fits a landscape viewport; below md it collapses to one
    column and needs roughly 500px of its own, so pinning it inside a
    single viewport clipped the card AND asked for one screen-height of
-   swiping per card with almost nothing moving — which reads as the page
+   swiping per card with almost nothing moving - which reads as the page
    having stopped scrolling. On small screens the deck is therefore laid
    out as a plain vertical list, the same fallback used under
    prefers-reduced-motion.
@@ -101,7 +101,7 @@ function CardBody({ card, imageOnRight = false }: { card: StackCardItem; imageOn
         imageOnRight ? "md:grid-cols-[1.4fr_0.85fr]" : "md:grid-cols-[0.85fr_1.4fr]",
       )}
     >
-      {/* Visual panel — alternates left/right on image-backed cards. */}
+      {/* Visual panel - alternates left/right on image-backed cards. */}
       <div
         className={cn(
           "relative flex min-h-[190px] flex-col justify-between overflow-hidden p-8 md:min-h-0 md:p-10",

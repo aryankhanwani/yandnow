@@ -17,11 +17,11 @@ import { cn } from "@/lib/utils";
 type AnimatedIcon = ComponentType<{ size?: number; className?: string }>;
 
 /* ============================================================
-   HOW WE WORK — 5-step framework as an interactive vertical
+   HOW WE WORK - 5-step framework as an interactive vertical
    timeline. Alternating sides on desktop, single rail on
-   mobile, with a scroll-drawn progress line. Clicking a node
-   pins it "active" (highlighted + slightly raised) so a visitor
-   can compare steps at their own pace. Copy — Final Copy §4.
+   mobile, with a scroll-drawn progress line. The cards are
+   presentational: nodes light up as the scroll-drawn fill
+   reaches them. Copy: Final Copy, section 4.
    ============================================================ */
 
 interface Step {
@@ -50,7 +50,7 @@ const STEPS: Step[] = [
     icon: GraduationCapIcon,
     tint: "46,49,146",
     description:
-      "Personalised learning paths — instructor-led, digital, AR/VR, and microlearning — close those gaps.",
+      "Personalised learning paths (instructor-led, digital, AR/VR, and microlearning) close those gaps.",
   },
   {
     id: "apply",
@@ -77,7 +77,7 @@ const STEPS: Step[] = [
     icon: RefreshCWIcon,
     tint: "46,49,146",
     description:
-      "Analytics from each cycle feed the next — a continuous improvement loop.",
+      "Analytics from each cycle feed the next, in a continuous improvement loop.",
   },
 ];
 
@@ -113,11 +113,10 @@ function TimelineNode({ step, glow }: { step: Step; glow: boolean }) {
 
 export default function HowWeWork() {
   const reduce = useReducedMotion();
-  const [active, setActive] = useState<string | null>(null);
   const [reachedIndex, setReachedIndex] = useState(-1);
   const railRef = useRef<HTMLDivElement>(null);
 
-  /* Thresholds where the scroll-drawn fill "reaches" each node —
+  /* Thresholds where the scroll-drawn fill "reaches" each node -
      evenly spaced across the rail, since nodes sit at even intervals. */
   const thresholds = useMemo(
     () => STEPS.map((_, i) => i / (STEPS.length - 1)),
@@ -150,12 +149,12 @@ export default function HowWeWork() {
           eyebrow="Our Framework"
           title="Five steps from capability gap to"
           highlight="measurable performance"
-          subtitle="Every programme we design runs through the same rigorous cycle — ensuring your investment in L&D shows up as real business outcomes. Click a step to focus on it."
+          subtitle="Every programme we design runs through the same rigorous cycle, ensuring your investment in L&D shows up as real business outcomes."
           className="mb-16"
         />
 
         <div ref={railRef} className="relative mx-auto max-w-4xl">
-          {/* Rail — track + scroll-scrubbed fill */}
+          {/* Rail - track + scroll-scrubbed fill */}
           <div className="absolute bottom-0 left-6 top-2 w-[2px] -translate-x-1/2 bg-neutral-150 lg:left-1/2" style={{ backgroundColor: "#e8ecf2" }} />
           <motion.div
             aria-hidden
@@ -167,8 +166,7 @@ export default function HowWeWork() {
           <div className="space-y-10 lg:space-y-4">
             {STEPS.map((step, i) => {
               const even = i % 2 === 0;
-              const isActive = active === step.id;
-              const glow = isActive || reduce || i <= reachedIndex;
+              const glow = reduce || i <= reachedIndex;
               return (
                 <div
                   key={step.id}
@@ -184,18 +182,13 @@ export default function HowWeWork() {
                       even ? "lg:col-start-1" : "lg:col-start-2 lg:row-start-1",
                     )}
                   >
-                    <button
-                      type="button"
-                      onClick={() => setActive(isActive ? null : step.id)}
-                      aria-pressed={isActive}
+                    <div
                       className={cn(
-                        "group relative w-full overflow-hidden rounded-2xl border bg-white p-6 text-left transition-[border-color,box-shadow] duration-300 hover:border-primary-200/70 hover:shadow-[0_18px_44px_-20px_rgba(46,49,146,0.28)]",
-                        isActive ? "shadow-[0_18px_40px_rgba(20,21,46,0.10)]" : "border-[#e8ecf2]",
+                        "group relative w-full overflow-hidden rounded-2xl border border-[#e8ecf2] bg-white p-6 text-left transition-[border-color,box-shadow] duration-300 hover:border-primary-200/70 hover:shadow-[0_18px_44px_-20px_rgba(46,49,146,0.28)]",
                         even && "lg:text-right",
                       )}
-                      style={{ borderColor: isActive ? `rgb(${step.tint})` : undefined }}
                     >
-                      {/* Calm blue-brand gradient wash that eases in on hover — no lift */}
+                      {/* Calm blue-brand gradient wash that eases in on hover - no lift */}
                       <span
                         aria-hidden
                         className="pointer-events-none absolute inset-0 rounded-2xl bg-gradient-to-br from-primary-50 via-secondary-50/50 to-white opacity-0 transition-opacity duration-500 ease-out group-hover:opacity-100"
@@ -217,7 +210,7 @@ export default function HowWeWork() {
                       <p className="relative z-10 text-[15px] leading-relaxed text-neutral-600">
                         {step.description}
                       </p>
-                    </button>
+                    </div>
                   </Reveal>
                 </div>
               );

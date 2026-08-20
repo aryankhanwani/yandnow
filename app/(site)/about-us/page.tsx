@@ -14,7 +14,7 @@ import { Reveal, Stagger, StaggerItem } from "@/components/ui/motion-primitives"
 export const metadata: Metadata = {
   title: "About Y&Now | Future-Skills EdTech Division of BroadArks Technology, Bhopal India",
   description:
-    "Y&Now is the future-skills EdTech division of BroadArks Technology Pvt. Ltd. — ISO 9001:2015 certified, headquartered in Bhopal, MP — delivering workforce capability for enterprises, government, defence, and schools across India.",
+    "Y&Now is the future-skills EdTech division of BroadArks Technology Pvt. Ltd., ISO 9001:2015 certified and headquartered in Bhopal, MP, delivering workforce capability for enterprises, government, defence, and schools across India.",
 };
 
 const SERVE: AudienceItem[] = [
@@ -67,21 +67,21 @@ const CREDENTIALS = [
     logo: "/images/industry/accreditation/iso-9001-2015.png",
     title: "ISO 9001:2015",
     body: "Certified quality management systems under BroadArks Technology Pvt. Ltd.",
-    // [VERIFY] Certificate number and validity — Legal/Compliance to supply.
+    // [VERIFY] Certificate number and validity - Legal/Compliance to supply.
     meta: "Certificate number and validity available on request",
   },
   {
     logo: "/images/industry/accreditation/nsdc-training-partnership.png",
     title: "NSDC Training Partnership",
     body: "Partner for training and implementation across eligible programmes.",
-    // [VERIFY] Current partnership scope — Accreditation team to confirm.
+    // [VERIFY] Current partnership scope - Accreditation team to confirm.
     meta: "Partnership scope confirmed at scoping",
   },
   {
     logo: "/images/industry/accreditation/ncvet-dgt-alignment.png",
     title: "NCVET / DGT Qualification Alignment",
     body: "Qualification alignment to national skilling standards where applicable.",
-    // [VERIFY] Applicable qualifications — Accreditation team to confirm.
+    // [VERIFY] Applicable qualifications - Accreditation team to confirm.
     meta: "Aligned qualifications confirmed at scoping",
   },
 ];
@@ -90,7 +90,7 @@ const PARTNERS = [
   { name: "MPIHTTS, Bhopal", full: "Madhya Pradesh Institute of Hotel Management, Tourism, and Travel Studies" },
   { name: "CRISP, Bhopal", full: "Centre for Research and Industrial Staff Performance" },
   { name: "iACE", full: "Industry Academia Centre of Excellence" },
-  // [VERIFY] IIP full name — Business team to supply.
+  // [VERIFY] IIP full name - Business team to supply.
   { name: "IIP", full: "Full name to be confirmed" },
   { name: "Sagar Institute of Research & Technology", full: "Bhopal" },
   { name: "CVRU", full: "C.V. Raman University" },
@@ -244,7 +244,7 @@ export default function AboutPage() {
               <div aria-hidden className="absolute inset-0 bg-[radial-gradient(circle_at_85%_15%,rgba(39,170,225,0.13),transparent_42%),radial-gradient(circle_at_10%_90%,rgba(46,49,146,0.1),transparent_42%)]" />
               <Image
                 src="/about/broadarks-technology.png"
-                alt="BroadArks Technology — Innovation and Beyond"
+                alt="BroadArks Technology: Innovation and Beyond"
                 width={1200}
                 height={1170}
                 sizes="(max-width: 1024px) 82vw, 42vw"

@@ -70,11 +70,10 @@ function useTypewriter(phrases: string[]) {
    ────────────────────────────────────────────────────────────
    Calm, static hero: eyebrow / H1 / sub / CTAs, then the product
    video sits below as a plain rounded card in normal document
-   flow — no scroll-linked expansion, it just sits there.
+   flow, with no scroll-linked expansion; it just sits there.
 
-   A soft blurred colour wash sits behind the very top of the
-   section so the full-width nav (translucent while at rest)
-   blends into it instead of floating on flat white.
+   The top of the section stays flat white: no gradient wash and
+   no colour orbs, so the nav sits on a clean white ground.
    ============================================================ */
 export default function HeroSection() {
   const videoRef = useRef<HTMLVideoElement>(null);
@@ -97,37 +96,14 @@ export default function HeroSection() {
     <div style={{ background: "#ffffff" }} id="hero-section-root">
       <div
         id="hero"
-        aria-label="Hero — Y&Now Workforce Capability Solutions"
+        aria-label="Hero: Y&Now Workforce Capability Solutions"
         style={{ position: "relative", overflow: "hidden", background: "#ffffff" }}
       >
-        {/* Subtle bg orbs + top blur wash (behind the translucent nav) */}
+        {/* Flat white top: no gradient wash and no orbs behind the nav. */}
         <div
           aria-hidden="true"
           style={{ position: "absolute", inset: 0, pointerEvents: "none", zIndex: 0 }}
         >
-          <div
-            className="pointer-events-none absolute inset-x-0 -top-32 h-[460px] blur-[100px]"
-            style={{
-              background:
-                "radial-gradient(55% 100% at 50% 0%, rgba(46,49,146,0.18) 0%, rgba(39,170,226,0.13) 45%, transparent 75%)",
-            }}
-          />
-          <div
-            className="hero-orb-1"
-            style={{
-              position: "absolute", top: "-12rem", left: "-10rem",
-              width: "700px", height: "700px", borderRadius: "50%",
-              background: "radial-gradient(circle, rgba(46,49,146,0.055) 0%, transparent 65%)",
-            }}
-          />
-          <div
-            className="hero-orb-2"
-            style={{
-              position: "absolute", top: "-6rem", right: "-6rem",
-              width: "600px", height: "600px", borderRadius: "50%",
-              background: "radial-gradient(circle, rgba(39,170,226,0.065) 0%, transparent 65%)",
-            }}
-          />
           <svg
             style={{ position: "absolute", inset: 0, width: "100%", height: "100%", opacity: 0.018 }}
             xmlns="http://www.w3.org/2000/svg"
@@ -238,7 +214,7 @@ export default function HeroSection() {
           </div>
         </div>
 
-        {/* ══ PRODUCT VIDEO — static card, no scroll-linked effect ══ */}
+        {/* ══ PRODUCT VIDEO - static card, no scroll-linked effect ══ */}
         <div
           className={`relative z-[1] mx-auto max-w-6xl px-4 pb-20 transition-all duration-700 delay-[950ms] ease-out sm:px-6 ${
             visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"

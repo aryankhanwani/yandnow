@@ -3,7 +3,7 @@ import remarkGfm from "remark-gfm";
 import type { Components } from "react-markdown";
 
 /* ============================================================
-   Markdown — renders authored article Markdown into styled,
+   Markdown - renders authored article Markdown into styled,
    reader-friendly typography. Safe by default: react-markdown
    does NOT execute raw HTML (no rehype-raw), so admin content
    can't inject scripts. Every element is hand-styled to match
@@ -22,7 +22,7 @@ function textOf(children: React.ReactNode): string {
   if (typeof children === "string") return children;
   if (Array.isArray(children)) return children.map(textOf).join("");
   if (children && typeof children === "object" && "props" in children) {
-    // @ts-expect-error — narrowing a React element's children
+    // @ts-expect-error - narrowing a React element's children
     return textOf(children.props.children);
   }
   return "";

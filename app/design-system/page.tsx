@@ -1,5 +1,5 @@
 /* ===============================================================
-   Design System Verification Page — YandNow
+   Design System Verification Page - YandNow
    Temporary page to visually verify all design tokens.
    Delete this route once approved.
    =============================================================== */
@@ -60,9 +60,9 @@ const neutralScale = [
 ];
 
 const singletons = [
-  { name: "ink",     hex: "#14152E", label: "Ink — near-black navy, high-contrast body text" },
-  { name: "surface", hex: "#F7F9FC", label: "Surface — light cool-white section background" },
-  { name: "white",   hex: "#FFFFFF", label: "White — pure white, use sparingly" },
+  { name: "ink",     hex: "#14152E", label: "Ink: near-black navy, high-contrast body text" },
+  { name: "surface", hex: "#F7F9FC", label: "Surface: light cool-white section background" },
+  { name: "white",   hex: "#FFFFFF", label: "White: pure white, use sparingly" },
 ];
 
 /* ---- Gradient data -------------------------------------------- */
@@ -227,7 +227,7 @@ const shadowExamples = [
   },
   {
     name: "glow",
-    description: "Secondary color halo — hover states",
+    description: "Secondary color halo, hover states",
     style: {
       boxShadow: "0 0 32px 8px rgba(39,170,226,0.18)",
       borderRadius: "16px",
@@ -235,7 +235,7 @@ const shadowExamples = [
   },
   {
     name: "none",
-    description: "No shadow — flat",
+    description: "No shadow, flat",
     style: {
       boxShadow: "none",
       border: "1px solid #e8ecf2",
@@ -302,29 +302,29 @@ export default function DesignSystemPage() {
             maxWidth: "600px",
           }}
         >
-          Visual proof of every design token — colors, gradients, typography,
+          Visual proof of every design token: colors, gradients, typography,
           radii, and shadows. Approve this page before building real components.
         </p>
         {/* ============ SECTION 1: COLORS ============ */}
         <Section id="colors" title="Color Tokens">
           {/* Primary */}
-          <SwatchGroup label="Primary Scale — #2E3191 (deep indigo-blue)" swatches={primaryScale} />
+          <SwatchGroup label="Primary Scale · #2E3191 (deep indigo-blue)" swatches={primaryScale} />
 
           {/* Secondary */}
           <SwatchGroup
-            label="Secondary Scale — #27AAE1 (sky blue)"
+            label="Secondary Scale · #27AAE1 (sky blue)"
             swatches={secondaryScale}
           />
 
           {/* Brand Gray */}
           <SwatchGroup
-            label="Brand Gray Scale — #606161 (the 3rd Brand Book colour)"
+            label="Brand Gray Scale · #606161 (the 3rd Brand Book colour)"
             swatches={grayScale}
           />
 
           {/* Neutral */}
           <SwatchGroup
-            label="Neutral Scale — cool blue-undertone grays (UI)"
+            label="Neutral Scale · cool blue-undertone grays (UI)"
             swatches={neutralScale}
           />
 
@@ -347,7 +347,7 @@ export default function DesignSystemPage() {
                   />
                   <div>
                     <p style={{ ...monoStyle, color: "#14152E", margin: "0 0 2px" }}>
-                      <strong>{s.name}</strong> — {s.hex}
+                      <strong>{s.name}</strong> · {s.hex}
                     </p>
                     <p style={{ ...captionStyle, color: "#6b7a98" }}>{s.label}</p>
                   </div>

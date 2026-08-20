@@ -1,13 +1,13 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Site Map — Full Page Architecture | Y&Now",
+  title: "Site Map: Full Page Architecture | Y&Now",
   description:
-    "Complete site map for Y&Now — every page, route, and information architecture layer for the Y&Now workforce capability platform.",
+    "Complete site map for Y&Now: every page, route, and information architecture layer for the Y&Now workforce capability platform.",
 };
 
 /* ================================================================
-   DATA — Full site architecture from the master revamp document
+   DATA - Full site architecture from the master revamp document
    ================================================================ */
 
 interface SitemapPage {
@@ -22,7 +22,7 @@ const SITEMAP: SitemapPage[] = [
   {
     label: "Home",
     href: "/",
-    audience: "All — primary routing page",
+    audience: "All, primary routing page",
     description:
       "Commercial positioning, proof, and six audience routes. Hero + social proof bar + Who We Serve cards + platform preview + 5-step framework + testimonials + FAQ.",
   },
@@ -31,7 +31,7 @@ const SITEMAP: SitemapPage[] = [
     href: "#solutions",
     audience: "Nav group",
     description:
-      "Dropdown holding all delivery verticals — Corporate, CSR, Industries, Defence, Schools, Learners.",
+      "Dropdown holding all delivery verticals: Corporate, CSR, Industries, Defence, Schools, Learners.",
     children: [
       {
         label: "Corporate Training",
@@ -81,7 +81,7 @@ const SITEMAP: SitemapPage[] = [
     href: "/learners-b2c",
     audience: "Individual learners, job seekers",
     description:
-      "Individual B2C learning paths — upskilling, placement support, and certified programmes.",
+      "Individual B2C learning paths: upskilling, placement support, and certified programmes.",
   },
   {
     label: "Our Platform",
@@ -108,14 +108,14 @@ const SITEMAP: SitemapPage[] = [
         href: "/case-studies",
         audience: "Procurement teams, L&D heads",
         description:
-          "Structured per-client case studies — Tata, JSW, Castrol, BPCL, Jaquar, Indian Army.",
+          "Structured per-client case studies: Tata, JSW, Castrol, BPCL, Jaquar, Indian Army.",
       },
       {
         label: "Insights / Blog",
         href: "/blog",
         audience: "L&D professionals, HR leaders",
         description:
-          "Refresh with current content — remove outdated 2020 posts from homepage feed.",
+          "Refresh with current content; remove outdated 2020 posts from homepage feed.",
       },
     ],
   },
@@ -128,26 +128,26 @@ const SITEMAP: SitemapPage[] = [
   {
     label: "Contact Us",
     href: "/contact-us",
-    audience: "All — primary conversion page",
+    audience: "All, primary conversion page",
     description:
-      "Add audience-specific routing — enterprise, CSR, individual learner.",
+      "Add audience-specific routing: enterprise, CSR, individual learner.",
   },
   {
     label: "Privacy Policy",
     href: "/privacy-policy",
     audience: "Legal / compliance",
-    description: "Privacy policy — linked from footer.",
+    description: "Privacy policy, linked from footer.",
   },
   {
     label: "Terms",
     href: "/terms",
     audience: "Legal / compliance",
-    description: "Terms of service — linked from footer.",
+    description: "Terms of service, linked from footer.",
   },
 ];
 
 /* ================================================================
-   PAGE ROW — single page entry
+   PAGE ROW - single page entry
    ================================================================ */
 function PageRow({
   page,
@@ -267,7 +267,7 @@ function PageRow({
             </p>
           ) : (
             <>
-              {/* Row top — label + URL */}
+              {/* Row top - label + URL */}
               <div
                 style={{
                   display: "flex",
@@ -409,7 +409,7 @@ export default function SitemapPage() {
           }}
         >
           Complete page architecture drawn from the Website Revamp Master brief.
-          Every route, audience target, and section intent — in one place.
+          Every route, audience target, and section intent, in one place.
         </p>
 
         {/* Page count note */}
@@ -462,7 +462,7 @@ export default function SitemapPage() {
               margin: "0 0 24px",
             }}
           >
-            From the master revamp brief — current URL audit and recommended actions.
+            From the master revamp brief: current URL audit and recommended actions.
           </p>
 
           <div

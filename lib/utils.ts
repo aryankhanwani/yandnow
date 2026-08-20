@@ -2,7 +2,7 @@ import { clsx, type ClassValue } from "clsx";
 import { twMerge } from "tailwind-merge";
 
 /**
- * cn — the canonical className combiner used across the design system.
+ * cn - the canonical className combiner used across the design system.
  * Merges conditional clsx output and de-dupes conflicting Tailwind
  * utilities via tailwind-merge (e.g. `px-2 px-4` → `px-4`).
  */

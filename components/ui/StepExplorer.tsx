@@ -6,11 +6,11 @@ import { ArrowRight } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 /* ============================================================
-   StepExplorer — interactive process walk-through.
+   StepExplorer - interactive process walk-through.
    A vertical rail of numbered, clickable steps on the left;
    an animated detail panel on the right that swaps as you
    select a step. Distinct from the homepage HowWeWork timeline
-   (which shows every description at once) — here the visitor
+   (which shows every description at once) - here the visitor
    drives the reveal one step at a time.
 
    Desktop: rail (left) + detail panel (right).

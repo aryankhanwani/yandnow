@@ -7,7 +7,7 @@ import { cn } from "@/lib/utils";
 import { type StepItem } from "@/components/ui/StepExplorer";
 
 /* ============================================================
-   StepScroller — scroll-driven process walk-through.
+   StepScroller - scroll-driven process walk-through.
 
    Left: a sticky visual panel that CROSS-FADES between steps.
    Right: the steps laid out vertically; each one activates as it
@@ -74,7 +74,7 @@ function Visual({
         {String(index + 1).padStart(2, "0")}
       </span>
 
-      {/* Top — stage chip + counter */}
+      {/* Top - stage chip + counter */}
       <div className="relative flex items-center justify-between">
         <span
           className="rounded-full bg-white/85 px-3 py-1 text-[11px] font-700 uppercase tracking-[0.16em] backdrop-blur-sm"
@@ -87,7 +87,7 @@ function Visual({
         </span>
       </div>
 
-      {/* Middle — large icon badge */}
+      {/* Middle - large icon badge */}
       <div className="relative flex flex-1 items-center justify-center py-8">
         <span
           className="flex h-24 w-24 items-center justify-center rounded-[28px] bg-white/85 shadow-[0_18px_44px_-18px_rgba(20,21,46,0.4)] ring-1 ring-white/30 backdrop-blur-sm [&_svg]:h-11 [&_svg]:w-11"
@@ -97,7 +97,7 @@ function Visual({
         </span>
       </div>
 
-      {/* Bottom — label + progress segments */}
+      {/* Bottom - label + progress segments */}
       <div className="relative">
         <h3 className="font-heading text-2xl font-700 leading-tight text-ink">
           {step.label}
@@ -167,7 +167,7 @@ export default function StepScroller({
 
   return (
     <div className={cn("grid grid-cols-1 gap-8 lg:grid-cols-[0.95fr_1.05fr] lg:gap-14", className)}>
-      {/* LEFT — visual pinned to the vertical centre of the viewport
+      {/* LEFT - visual pinned to the vertical centre of the viewport
           (only the right column scrolls). The sliding reel stacks the
           panels and springs up to the active one. */}
       <div className="relative">
@@ -197,7 +197,7 @@ export default function StepScroller({
         </div>
       </div>
 
-      {/* RIGHT — steps that activate on scroll */}
+      {/* RIGHT - steps that activate on scroll */}
       <ol className="relative">
         {/* Connecting rail */}
         <span

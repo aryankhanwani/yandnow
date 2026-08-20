@@ -3,7 +3,6 @@ import AnimIcon from "@/components/ui/AnimIcon";
 import Container from "@/components/ui/Container";
 import PageHero from "@/components/ui/PageHero";
 import SectionHeading from "@/components/ui/SectionHeading";
-import CtaBand from "@/components/ui/CtaBand";
 import FaqAccordion, { type FaqItemData } from "@/components/ui/FaqAccordion";
 import { type StepItem } from "@/components/ui/StepExplorer";
 import StepScroller from "@/components/ui/StepScroller";
@@ -34,7 +33,7 @@ const CATEGORIES: StackCardItem[] = [
     tint: "39,170,226",
     image: "/images/corporate/programme-categories/digital-workflow-adoption.jpg",
     title: "Digital & Workflow Adoption",
-    body: "Technology onboarding, digital POS, and ERP/HRMS user capability — so your workforce works with the systems you already run.",
+    body: "Technology onboarding, digital POS, and ERP/HRMS user capability, so your workforce works with the systems you already run.",
   },
   {
     num: "03",
@@ -63,7 +62,7 @@ const DIFFERENTIATORS = [
   {
     icon: "Plug",
     title: "Platform integration",
-    body: "Connects with SAP, SuccessFactors, Darwinbox, and other HRMS via REST APIs and SSO — no extra system to manage.",
+    body: "Connects with SAP, SuccessFactors, Darwinbox, and other HRMS via REST APIs and SSO, with no extra system to manage.",
   },
   {
     icon: "Layers",
@@ -87,7 +86,7 @@ const DELIVERY: StepItem[] = [
     icon: <AnimIcon name="GraduationCap" size={24} />,
     tint: "39,170,226",
     image: "/images/corporate/delivery-model/train.jpg",
-    body: "Personalised learning paths — instructor-led, digital, AR/VR simulation, and microlearning — close identified skill gaps at individual and team level.",
+    body: "Personalised learning paths (instructor-led, digital, AR/VR simulation, and microlearning) close identified skill gaps at individual and team level.",
   },
   {
     label: "Apply",
@@ -111,7 +110,7 @@ const DELIVERY: StepItem[] = [
     icon: <AnimIcon name="RefreshCw" size={24} />,
     tint: "32,180,232",
     image: "/images/corporate/delivery-model/improve.jpg",
-    body: "Analytics from each cycle inform the next — a continuous loop between learning investment, performance data, and workforce planning.",
+    body: "Analytics from each cycle inform the next, creating a continuous loop between learning investment, performance data, and workforce planning.",
   },
 ];
 
@@ -132,7 +131,7 @@ const FAQS: FaqItemData[] = [
   },
   {
     q: "How long does a typical corporate programme take?",
-    a: "A standard corporate capability programme — from training needs analysis through delivery and outcome review — runs across 12–16 weeks. Shorter engagements (4–6 weeks) are available for specific skill interventions. Timelines are confirmed at scope definition.",
+    a: "A standard corporate capability programme, from training needs analysis through delivery and outcome review, runs across 12–16 weeks. Shorter engagements (4–6 weeks) are available for specific skill interventions. Timelines are confirmed at scope definition.",
   },
   {
     q: "Can Y&Now deliver training at multiple locations simultaneously?",
@@ -157,7 +156,7 @@ export default function CorporatePage() {
         </CtaButton>
       </PageHero>
 
-      {/* Programme categories — scroll-stacked deck with a pinned title */}
+      {/* Programme categories - scroll-stacked deck with a pinned title */}
       <section className="bg-surface">
         <StackingCards
           cards={CATEGORIES}
@@ -166,7 +165,7 @@ export default function CorporatePage() {
               eyebrow="Programme Categories"
               title="Four categories of corporate"
               highlight="capability"
-              subtitle="Y&Now delivers enterprise capability where it moves the business — from the frontline to the leadership bench. Scroll to step through each."
+              subtitle="Y&Now delivers enterprise capability where it moves the business, from the frontline to the leadership bench. Scroll to step through each."
             />
           }
         />
@@ -179,7 +178,7 @@ export default function CorporatePage() {
             eyebrow="Why Enterprises Choose Y&Now"
             title="L&D that shows up in"
             highlight="business results"
-            subtitle="Built around operational performance signals, not course-completion metrics — embedded into workflow and integrated with your HRMS."
+            subtitle="Built around operational performance signals, not course-completion metrics, embedded into workflow and integrated with your HRMS."
             className="mb-14"
           />
           <Stagger className="grid grid-cols-1 gap-6 md:grid-cols-3" stagger={0.1}>
@@ -205,10 +204,11 @@ export default function CorporatePage() {
         <Container>
           <SectionHeading
             eyebrow="The 5-Stage Delivery Model"
-            title="Assess → Train → Apply → Perform →"
+            title="Assess · Train · Apply · Perform ·"
             highlight="Improve"
-            subtitle="Step through the corporate delivery cycle — which typically runs across a 12–16 week period with quarterly review touchpoints."
+            subtitle="Step through the corporate delivery cycle, which typically runs across a 12–16 week period with quarterly review touchpoints."
             className="mb-12"
+            titleClassName="max-w-none whitespace-nowrap text-[clamp(1.05rem,4.2vw,2.6rem)]"
           />
           <StepScroller steps={DELIVERY} className="mx-auto max-w-6xl" />
         </Container>
@@ -223,7 +223,7 @@ export default function CorporatePage() {
             highlight="with"
             className="mb-14"
           />
-          {/* Logo wall — one unified grid (3 over 2), hairline
+          {/* Logo wall - one unified grid (3 over 2), hairline
               dividers via a 1px gap over the border colour. Logos
               to be dropped into each cell. */}
           <OrganisationGrid items={CLIENTS.map((name) => ({ name }))} />
@@ -246,17 +246,6 @@ export default function CorporatePage() {
           </div>
         </Container>
       </section>
-
-      <CtaBand
-        eyebrow="Corporate Training"
-        title="Ready to design a"
-        highlight="corporate programme?"
-        subtitle="Tell us about your workforce and the outcomes you're targeting — we'll map a capability programme around them."
-        primaryLabel="Design a Corporate Programme"
-        primaryHref="/contact-us?type=corporate"
-        secondaryLabel="Talk to Our Team"
-        secondaryHref="/contact-us"
-      />
     </>
   );
 }

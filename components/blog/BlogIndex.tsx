@@ -6,7 +6,7 @@ import { motion, AnimatePresence, useReducedMotion } from "motion/react";
 import { ArrowRight, ArrowUpRight, Clock } from "lucide-react";
 import { formatBlogDate } from "@/lib/blog";
 
-/* Minimal shape the index needs — the article body is intentionally
+/* Minimal shape the index needs - the article body is intentionally
    omitted so the list payload stays small. */
 export interface BlogCardData {
   slug: string;

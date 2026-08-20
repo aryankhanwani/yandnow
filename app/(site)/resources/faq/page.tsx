@@ -3,18 +3,17 @@ import AnimIcon from "@/components/ui/AnimIcon";
 import Container from "@/components/ui/Container";
 import PageHero from "@/components/ui/PageHero";
 import SectionHeading from "@/components/ui/SectionHeading";
-import CtaBand from "@/components/ui/CtaBand";
 import FaqAccordion, { type FaqItemData } from "@/components/ui/FaqAccordion";
 import { CtaButton } from "@/components/ui/CtaButton";
 
 export const metadata: Metadata = {
-  title: "Y&Now FAQ — Workforce Training, Platform & CSR Programmes",
+  title: "Y&Now FAQ: Workforce Training, Platform & CSR Programmes",
   description:
     "Answers to common questions about Y&Now's workforce skilling programmes, capability platform, CSR implementation, defence transition, and enterprise onboarding.",
 };
 
 /* ============================================================
-   FAQ page — /resources/faq — NEW PAGE.
+   FAQ page - /resources/faq - NEW PAGE.
    Critical for AEO / AI-search visibility (ChatGPT, Perplexity,
    Google AI Overviews). Aggregates the verified Q&As already
    shipped on the homepage (<FaqSection />) and /corporate, then
@@ -62,7 +61,7 @@ const CATEGORIES: FaqCategory[] = [
       },
       {
         q: "How is Y&Now different from a standard training vendor?",
-        a: "Y&Now links learning to measurable performance outcomes — not just course completion. Our 5-stage framework (Assess, Train, Apply, Perform, Improve) ensures capability translates into on-the-job execution, measured through OKRs, supervisor sign-offs, and operational performance signals.",
+        a: "Y&Now links learning to measurable performance outcomes, not just course completion. Our 5-stage framework (Assess, Train, Apply, Perform, Improve) ensures capability translates into on-the-job execution, measured through OKRs, supervisor sign-offs, and operational performance signals.",
       },
     ],
   },
@@ -87,7 +86,7 @@ const CATEGORIES: FaqCategory[] = [
       },
       {
         q: "How long does onboarding take?",
-        a: "A standard corporate capability programme — from training needs analysis through delivery and outcome review — runs across 12–16 weeks. Shorter engagements (4–6 weeks) are available for specific skill interventions. Timelines are confirmed at scope definition.",
+        a: "A standard corporate capability programme, from training needs analysis through delivery and outcome review, runs across 12–16 weeks. Shorter engagements (4–6 weeks) are available for specific skill interventions. Timelines are confirmed at scope definition.",
       },
       {
         q: "Can Y&Now deliver training at multiple locations simultaneously?",
@@ -104,17 +103,17 @@ const CATEGORIES: FaqCategory[] = [
     items: [
       {
         q: "What CSR programmes does Y&Now offer?",
-        a: "Y&Now designs and implements CSR skilling programmes on behalf of corporate sponsors — including youth employability, vocational skilling, defence and veteran transition, and school-level capability initiatives — delivered as measurable, outcome-linked interventions.",
+        a: "Y&Now designs and implements CSR skilling programmes on behalf of corporate sponsors, including youth employability, vocational skilling, defence and veteran transition, and school-level capability initiatives, delivered as measurable, outcome-linked interventions.",
         // [VERIFY] Confirm the exact CSR programme catalogue/named initiatives before publishing.
       },
       {
         q: "How does Y&Now report CSR outcomes?",
-        a: "CSR sponsors receive structured impact reporting through the Y&Now platform — beneficiary tracking, assessment and completion data, and outcome dashboards — packaged into periodic reports suitable for board and statutory CSR disclosure.",
+        a: "CSR sponsors receive structured impact reporting through the Y&Now platform (beneficiary tracking, assessment and completion data, and outcome dashboards), packaged into periodic reports suitable for board and statutory CSR disclosure.",
         // [VERIFY] Confirm reporting cadence and specific disclosure formats provided.
       },
       {
         q: "Which Schedule VII categories apply?",
-        a: "Y&Now's skilling and employability programmes map primarily to Schedule VII (ii) of the Companies Act — promotion of education and employment-enhancing vocational skills — and can be structured to align with related categories depending on the sponsor's CSR policy.",
+        a: "Y&Now's skilling and employability programmes map primarily to Schedule VII (ii) of the Companies Act, covering promotion of education and employment-enhancing vocational skills, and can be structured to align with related categories depending on the sponsor's CSR policy.",
         // [VERIFY] Confirm the full list of Schedule VII categories Y&Now programmes qualify under.
       },
     ],
@@ -163,13 +162,13 @@ const CATEGORIES: FaqCategory[] = [
       },
       {
         q: "Who do I contact?",
-        a: "Contact the Y&Now team at info@broadarks.com, or use the contact form on this site. We'll route your enquiry to the right programme lead — corporate, CSR, platform, or defence transition.",
+        a: "Contact the Y&Now team at info@broadarks.com, or use the contact form on this site. We'll route your enquiry to the right programme lead: corporate, CSR, platform, or defence transition.",
       },
     ],
   },
 ];
 
-/* FAQPage structured data — mirrors every Q&A rendered below.
+/* FAQPage structured data - mirrors every Q&A rendered below.
    Explicitly built for AEO / AI-search extraction. */
 const faqJsonLd = {
   "@context": "https://schema.org",
@@ -193,7 +192,7 @@ export default function FaqPage() {
 
       <PageHero
         eyebrow="Resources · FAQ"
-        title="Frequently Asked Questions —"
+        title="Frequently Asked Questions about"
         highlight="Y&Now"
         subtitle="Clear answers on our skilling programmes, capability platform, CSR implementation, defence transition, and enterprise onboarding."
       >
@@ -235,17 +234,6 @@ export default function FaqPage() {
           </section>
         );
       })}
-
-      <CtaBand
-        eyebrow="Resources"
-        title="Still have a"
-        highlight="question?"
-        subtitle="Contact us at info@broadarks.com and our team will point you to the right programme lead — corporate, CSR, platform, or defence transition."
-        primaryLabel="Contact Us"
-        primaryHref="/contact-us"
-        secondaryLabel="Explore the Platform"
-        secondaryHref="/our-platform"
-      />
     </>
   );
 }

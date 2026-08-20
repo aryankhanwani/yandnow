@@ -7,7 +7,7 @@ import { CtaButton } from "@/components/ui/CtaButton";
 import { Reveal } from "@/components/ui/motion-primitives";
 
 export const metadata: Metadata = {
-  title: "Contact Y&Now — Workforce Training, CSR & Platform Enquiries",
+  title: "Contact Y&Now: Workforce Training, CSR & Platform Enquiries",
   description:
     "Contact Y&Now to explore corporate workforce training, CSR skilling partnerships, platform demos, or school and defence programmes. Email: info@broadarks.com · +91 75535 53372 · Bhopal, MP.",
 };
@@ -32,7 +32,7 @@ export default function ContactPage() {
         eyebrow="Contact Us"
         title="Talk to the"
         highlight="Y&Now team"
-        subtitle="Use the form or contact details to reach us — tell us what you're enquiring about."
+        subtitle="Use the form or contact details to reach us and tell us what you're enquiring about."
       >
         <CtaButton href="mailto:info@broadarks.com" variant="primary" className="px-7 py-3.5">
           Email the Team
@@ -45,7 +45,7 @@ export default function ContactPage() {
       <section className="bg-surface py-20 lg:py-28">
         <Container>
           <div className="grid grid-cols-1 gap-10 lg:grid-cols-[0.9fr_1.1fr] lg:gap-14">
-            {/* Left — details */}
+            {/* Left - details */}
             <div>
               <Reveal>
                 <h2 className="font-heading text-xl font-700 text-ink">Contact details</h2>
@@ -73,7 +73,7 @@ export default function ContactPage() {
               </div>
             </div>
 
-            {/* Right — form */}
+            {/* Right - form */}
             <Reveal delay={0.1} y={20}>
               <ContactForm />
             </Reveal>

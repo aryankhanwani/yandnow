@@ -7,7 +7,7 @@ import { Stagger, StaggerItem } from "@/components/ui/motion-primitives";
 import { cn } from "@/lib/utils";
 
 /* ============================================================
-   FaqAccordion — reusable animated accordion.
+   FaqAccordion - reusable animated accordion.
    Shared by the homepage FAQ and per-page FAQ sections.
    ============================================================ */
 export interface FaqItemData {

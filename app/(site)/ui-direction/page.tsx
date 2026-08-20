@@ -2,13 +2,13 @@ import type { Metadata } from "next";
 import Link from "next/link";
 
 export const metadata: Metadata = {
-  title: "UI Design Direction — Visual Language Guide | Y&Now",
+  title: "UI Design Direction: Visual Language Guide | Y&Now",
   description:
-    "UI design direction and visual language guidelines for the Y&Now website revamp — component patterns, layout principles, and interaction design.",
+    "UI design direction and visual language guidelines for the Y&Now website revamp: component patterns, layout principles, and interaction design.",
 };
 
 /* ================================================================
-   DATA — UI direction principles & components
+   DATA - UI direction principles & components
    ================================================================ */
 
 const BRAND_COLORS = [
@@ -60,8 +60,8 @@ const TYPOGRAPHY = [
 ];
 
 const SPACING_SCALE = [
-  { token: "4", px: "4px", usage: "Micro gap — icon to text" },
-  { token: "8", px: "8px", usage: "Inner padding — badges, chips" },
+  { token: "4", px: "4px", usage: "Micro gap, icon to text" },
+  { token: "8", px: "8px", usage: "Inner padding, badges, chips" },
   { token: "12", px: "12px", usage: "Button padding vertical" },
   { token: "16", px: "16px", usage: "Card inner padding" },
   { token: "24", px: "24px", usage: "Card padding (desktop)" },
@@ -75,13 +75,13 @@ const SPACING_SCALE = [
 const COMPONENTS = [
   {
     name: "Primary CTA Button",
-    usage: "Main conversion action — 'Talk to Our Team', 'Request a Demo'",
+    usage: "Main conversion action: 'Talk to Our Team', 'Request a Demo'",
     specs: "bg: gradient-brand · text: white · radius: 8px · padding: 12px 24px · font-weight: 600",
     notes: "Always max 1 per viewport. Hover: brightness +10%, shadow-glow.",
   },
   {
     name: "Secondary Button",
-    usage: "Supporting actions — 'Learn More', 'Contact Us'",
+    usage: "Supporting actions: 'Learn More', 'Contact Us'",
     specs: "bg: transparent · border: 1px primary-300 · text: primary-600 · radius: 8px",
     notes: "Used alongside primary. Hover: bg primary-50.",
   },
@@ -101,7 +101,7 @@ const COMPONENTS = [
     name: "Stat Counter",
     usage: "Impact metrics, social proof bar",
     specs: "Number: display font 800 3.5rem primary-500 · Label: caption Inter 600 neutral-500",
-    notes: "Animate count-up on scroll into view. Never show 0 — use verified data only.",
+    notes: "Animate count-up on scroll into view. Never show 0; use verified data only.",
   },
   {
     name: "Testimonial Card",
@@ -111,7 +111,7 @@ const COMPONENTS = [
   },
   {
     name: "Logo Strip / Marquee",
-    usage: "Social proof bar — client logos",
+    usage: "Social proof bar, client logos",
     specs: "filter: grayscale(1) · opacity: 0.5 · hover: grayscale(0) opacity: 1",
     notes: "Auto-scroll marquee on mobile. Static grid on desktop.",
   },
@@ -494,7 +494,7 @@ export default function UIDirectionPage() {
                 margin: "0 0 4px",
               }}
             >
-              Work in Progress — Subject to Change
+              Work in Progress, Subject to Change
             </p>
             <p
               style={{
@@ -505,7 +505,7 @@ export default function UIDirectionPage() {
                 maxWidth: "760px",
               }}
             >
-              Everything on this page — colors, typography, components, motion, and page templates — is a{" "}
+              Everything on this page (colors, typography, components, motion, and page templates) is a{" "}
               <strong style={{ color: "#fb923c" }}>living draft</strong>. These directions will continue
               to evolve as we design, prototype, and develop. Do not treat any specification here as final
               until confirmed in a reviewed design handoff.
@@ -521,7 +521,7 @@ export default function UIDirectionPage() {
         <Section id="colors">
           <SectionHeader
             title="Color Palette"
-            subtitle="The Y&Now palette uses deep indigo-blue (primary) and sky blue (secondary) — never generic saturated hues. Always pair against Ink text, never pure black."
+            subtitle="The Y&Now palette uses deep indigo-blue (primary) and sky blue (secondary), never generic saturated hues. Always pair against Ink text, never pure black."
           />
           <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(160px, 1fr))", gap: "16px" }}>
             {BRAND_COLORS.map((c) => {
@@ -630,7 +630,7 @@ export default function UIDirectionPage() {
         <Section id="gradients">
           <SectionHeader
             title="Gradient Tokens"
-            subtitle="Each gradient is semantically named. Use gradient-brand for primary CTAs and hero blocks only — never for decorative accents."
+            subtitle="Each gradient is semantically named. Use gradient-brand for primary CTAs and hero blocks only, never for decorative accents."
           />
           <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(260px, 1fr))", gap: "16px" }}>
             {GRADIENTS.map((g) => (
@@ -775,7 +775,7 @@ export default function UIDirectionPage() {
               }}
             >
               From enterprise L&D to community skilling, Y&Now designs capability
-              programmes that measure performance outcomes — not just course completion.
+              programmes that measure performance outcomes, not just course completion.
             </p>
           </div>
         </Section>
@@ -912,7 +912,7 @@ export default function UIDirectionPage() {
                 margin: "0 0 16px",
               }}
             >
-              Grid — Section Pattern (Mobile → Tablet → Desktop)
+              Grid: Section Pattern (Mobile → Tablet → Desktop)
             </p>
             <div style={{ display: "flex", gap: "12px", flexWrap: "wrap", alignItems: "flex-start" }}>
               {/* Mobile */}
@@ -950,7 +950,7 @@ export default function UIDirectionPage() {
         <Section id="components">
           <SectionHeader
             title="Component Library"
-            subtitle="Core UI components and their design specifications. Every component should adhere to these specs — no ad-hoc styles."
+            subtitle="Core UI components and their design specifications. Every component should adhere to these specs, with no ad-hoc styles."
           />
           <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(340px, 1fr))", gap: "16px" }}>
             {COMPONENTS.map((c, i) => (
@@ -1010,7 +1010,7 @@ export default function UIDirectionPage() {
         <Section id="motion">
           <SectionHeader
             title="Motion & Animation"
-            subtitle="All animations should feel purposeful and premium — never decorative for its own sake. Use ease-out for entrances; linear for loops."
+            subtitle="All animations should feel purposeful and premium, never decorative for its own sake. Use ease-out for entrances; linear for loops."
           />
           <div
             style={{
@@ -1068,11 +1068,11 @@ export default function UIDirectionPage() {
               Motion rules
             </p>
             <ul style={{ margin: 0, padding: "0 0 0 20px", fontSize: "0.82rem", lineHeight: 2 }}>
-              <li>Respect <code style={{ fontFamily: "ui-monospace, monospace", color: "#92d5f4" }}>prefers-reduced-motion</code> — disable all animations if set</li>
+              <li>Respect <code style={{ fontFamily: "ui-monospace, monospace", color: "#92d5f4" }}>prefers-reduced-motion</code>: disable all animations if set</li>
               <li>No animation duration above 600ms for UI interactions</li>
-              <li>Entry animations fire once — not on every scroll revisit</li>
+              <li>Entry animations fire once, not on every scroll revisit</li>
               <li>Use <code style={{ fontFamily: "ui-monospace, monospace", color: "#92d5f4" }}>will-change: transform</code> only for elements actively animating</li>
-              <li>Hero video must autoplay, muted, loop — with a static fallback image</li>
+              <li>Hero video must autoplay, muted, loop, with a static fallback image</li>
             </ul>
           </div>
         </Section>

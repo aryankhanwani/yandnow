@@ -19,9 +19,13 @@ export default function ScrollTextReveal({ text, className, highlightWords = [] 
   const target = useRef<HTMLParagraphElement>(null);
   const reduceMotion = useReducedMotion();
   const words = text.split(" ");
+  /* Fill completes by the time the paragraph sits at the middle
+     of the viewport: it starts colouring as the first line enters
+     from the bottom and every word is ink-black once the block's
+     centre crosses the halfway mark. */
   const { scrollYProgress } = useScroll({
     target,
-    offset: ["start 0.88", "end 0.48"],
+    offset: ["start 0.95", "center 0.5"],
   });
 
   return (

@@ -3,7 +3,6 @@ import AnimIcon from "@/components/ui/AnimIcon";
 import Container from "@/components/ui/Container";
 import PageHero from "@/components/ui/PageHero";
 import SectionHeading from "@/components/ui/SectionHeading";
-import CtaBand from "@/components/ui/CtaBand";
 import FaqAccordion, { type FaqItemData } from "@/components/ui/FaqAccordion";
 import CountUp from "@/components/ui/CountUp";
 import HoverWashCard from "@/components/ui/HoverWashCard";
@@ -15,7 +14,7 @@ import { Reveal, Stagger, StaggerItem } from "@/components/ui/motion-primitives"
 export const metadata: Metadata = {
   title: "Workforce Capability Platform: LMS, Assessment & Performance Management | Y&Now",
   description:
-    "Y&Now's capability platform connects learning, role-based assessment, and OKR performance reviews in one system — integrating with HRMS and ERP via REST APIs, SSO, and SCIM. Built for enterprise and industrial workforces.",
+    "Y&Now's capability platform connects learning, role-based assessment, and OKR performance reviews in one system, integrating with HRMS and ERP via REST APIs, SSO, and SCIM. Built for enterprise and industrial workforces.",
 };
 
 const MODULES: ModuleTab[] = [
@@ -77,17 +76,17 @@ interface Integration {
   systems: string[];
 }
 
-// [VERIFY] HRMS + ERP rows contain [INSERT] placeholders from copy doc — Product team to confirm additional supported systems.
+// [VERIFY] HRMS + ERP rows contain [INSERT] placeholders from copy doc - Product team to confirm additional supported systems.
 const INTEGRATIONS: Integration[] = [
   {
     icon: "Users2",
     type: "HRMS",
-    systems: ["SAP SuccessFactors", "Darwinbox", "[additional HRMS — to be confirmed]"],
+    systems: ["SAP SuccessFactors", "Darwinbox", "[additional HRMS to be confirmed]"],
   },
   {
     icon: "Boxes",
     type: "ERP",
-    systems: ["SAP", "[additional ERP platforms — to be confirmed]"],
+    systems: ["SAP", "[additional ERP platforms to be confirmed]"],
   },
   {
     icon: "KeyRound",
@@ -117,7 +116,7 @@ const STEPS: StepItem[] = [
     tint: "46,49,146",
     kicker: "Step 01",
     label: "Client Onboarding & Alignment",
-    body: "A structured discovery session covers your workforce structure, role requirements, SOPs, safety mandates, and existing gaps. Outputs: role profiles, a competency framework, and a deployment roadmap — typically 2–3 working days of your L&D lead's time.",
+    body: "A structured discovery session covers your workforce structure, role requirements, SOPs, safety mandates, and existing gaps. Outputs: role profiles, a competency framework, and a deployment roadmap, typically 2–3 working days of your L&D lead's time.",
   },
   {
     icon: <AnimIcon name="ClipboardCheck" size={24} />,
@@ -131,7 +130,7 @@ const STEPS: StepItem[] = [
     tint: "31,34,103",
     kicker: "Step 03",
     label: "Personalised Learning Path Creation",
-    body: "Learning paths are built per role and per individual — drawing from Y&Now's library, client-specific SCORM/xAPI modules, AR/VR simulations, and microlearning. Each path moves learners from baseline to role-proficient in the shortest effective time.",
+    body: "Learning paths are built per role and per individual, drawing from Y&Now's library, client-specific SCORM/xAPI modules, AR/VR simulations, and microlearning. Each path moves learners from baseline to role-proficient in the shortest effective time.",
   },
   {
     icon: <AnimIcon name="TrendingUp" size={24} />,
@@ -145,7 +144,7 @@ const STEPS: StepItem[] = [
     tint: "32,180,232",
     kicker: "Step 05",
     label: "Engagement & Retention Programmes",
-    body: "Refresher modules, peer cohorts, recognition frameworks, and career development pathways sustain performance over time — reducing post-training attrition by connecting learning to visible career progression.",
+    body: "Refresher modules, peer cohorts, recognition frameworks, and career development pathways sustain performance over time, reducing post-training attrition by connecting learning to visible career progression.",
   },
   {
     icon: <AnimIcon name="BarChart3" size={24} />,
@@ -156,7 +155,7 @@ const STEPS: StepItem[] = [
   },
 ];
 
-// [VERIFY] FAQ answers contain [INSERT] placeholders from copy doc (hosting region, compliance certs, proctoring tools, notification timeframe) — Legal/Tech/Product teams to confirm.
+// [VERIFY] FAQ answers contain [INSERT] placeholders from copy doc (hosting region, compliance certs, proctoring tools, notification timeframe) - Legal/Tech/Product teams to confirm.
 const FAQS: FaqItemData[] = [
   {
     q: "How does Y&Now protect user data?",
@@ -168,7 +167,7 @@ const FAQS: FaqItemData[] = [
   },
   {
     q: "Does Y&Now comply with data protection regulations?",
-    a: "Y&Now operates in accordance with applicable Indian data protection legislation. Enterprise clients with cross-jurisdictional requirements — including GDPR — can request a Data Processing Agreement. [Specific compliance certifications to be confirmed.]",
+    a: "Y&Now operates in accordance with applicable Indian data protection legislation. Enterprise clients with cross-jurisdictional requirements, including GDPR, can request a Data Processing Agreement. [Specific compliance certifications to be confirmed.]",
   },
   {
     q: "Who owns the data on the platform?",
@@ -246,7 +245,7 @@ export default function OurPlatformPage() {
             eyebrow="Platform Integrations"
             title="Integrates with the systems you"
             highlight="already run"
-            subtitle="Y&Now connects to your existing HRMS, ERP, identity, and content stack — no rip-and-replace, no extra system for your workforce to manage."
+            subtitle="Y&Now connects to your existing HRMS, ERP, identity, and content stack, with no rip-and-replace and no extra system for your workforce to manage."
             className="mb-14"
           />
           <Stagger className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3" stagger={0.08}>
@@ -277,7 +276,7 @@ export default function OurPlatformPage() {
         </Container>
       </section>
 
-      {/* Talent management suite — 6 steps */}
+      {/* Talent management suite - 6 steps */}
       <section className="bg-surface py-20 lg:py-28">
         <Container>
           <SectionHeading
@@ -300,7 +299,7 @@ export default function OurPlatformPage() {
                 eyebrow="Data Security & Compliance"
                 title="How your data stays"
                 highlight="protected"
-                subtitle="Role-based access, encrypted channels, full audit logging, and client-owned data — built for enterprise governance requirements."
+                subtitle="Role-based access, encrypted channels, full audit logging, and client-owned data, all built for enterprise governance requirements."
                 align="left"
               />
             </div>
@@ -308,17 +307,6 @@ export default function OurPlatformPage() {
           </div>
         </Container>
       </section>
-
-      <CtaBand
-        eyebrow="Capability Platform"
-        title="See the platform"
-        highlight="in action"
-        subtitle="Request a demo and we'll walk your team through assessment, learning, and performance in one connected system — mapped to your HRMS and roles."
-        primaryLabel="Request a Platform Demo"
-        primaryHref="/contact-us?type=platform"
-        secondaryLabel="Talk to Our Team"
-        secondaryHref="/contact-us"
-      />
     </>
   );
 }

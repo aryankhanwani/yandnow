@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import Container from "@/components/ui/Container";
 import PageHero from "@/components/ui/PageHero";
 import SectionHeading from "@/components/ui/SectionHeading";
-import CtaBand from "@/components/ui/CtaBand";
 import FaqAccordion, { type FaqItemData } from "@/components/ui/FaqAccordion";
 import HorizontalCapabilityScroller, { type HorizontalCapability } from "@/components/ui/HorizontalCapabilityScroller";
 import ImpactStatGrid from "@/components/ui/ImpactStatGrid";
@@ -13,7 +12,7 @@ import { CtaButton } from "@/components/ui/CtaButton";
 export const metadata: Metadata = {
   title: "Veteran Transition & Defence Upskilling Programmes | Y&Now",
   description:
-    "Y&Now supports armed forces veterans in civilian employment transition through structured, industry-aligned resettlement programmes — co-designed with defence welfare organisations and delivered across India.",
+    "Y&Now supports armed forces veterans in civilian employment transition through structured, industry-aligned resettlement programmes, co-designed with defence welfare organisations and delivered across India.",
 };
 
 const PROGRAMME_DESIGN: HorizontalCapability[] = [
@@ -21,7 +20,7 @@ const PROGRAMME_DESIGN: HorizontalCapability[] = [
     icon: "ClipboardCheck",
     tint: "46,49,146",
     title: "Skills assessment",
-    body: "We map transferable capabilities from service roles — leadership, technical skills, discipline, and operational decision-making — onto civilian job families, so the programme focuses on genuine gaps rather than retraining existing strengths.",
+    body: "We map transferable capabilities from service roles (leadership, technical skills, discipline, and operational decision-making) onto civilian job families, so the programme focuses on genuine gaps rather than retraining existing strengths.",
   },
   {
     icon: "HardHat",
@@ -33,7 +32,7 @@ const PROGRAMME_DESIGN: HorizontalCapability[] = [
     icon: "MessagesSquare",
     tint: "31,34,103",
     title: "Soft skills for civilian environments",
-    body: "Communication adaption, team dynamics, and commercial awareness — bridging the gap between a service environment and a commercial workplace.",
+    body: "Communication adaption, team dynamics, and commercial awareness, bridging the gap between a service environment and a commercial workplace.",
   },
   {
     icon: "Handshake",
@@ -41,7 +40,7 @@ const PROGRAMME_DESIGN: HorizontalCapability[] = [
     title: "Employer linkage",
     body: "Direct connections to companies with a stated preference for veteran hires, so training leads to placement rather than ending at certification.",
   },
-  // [VERIFY] Specific programmes and delivery formats — awaiting Defence programme lead
+  // [VERIFY] Specific programmes and delivery formats - awaiting Defence programme lead
   {
     icon: "Sparkles",
     tint: "46,49,146",
@@ -51,29 +50,29 @@ const PROGRAMME_DESIGN: HorizontalCapability[] = [
 ];
 
 const PARTNERS: OrganisationItem[] = [
-  // [VERIFY] Indian Army — specific programme scope pending Defence programme lead
+  // [VERIFY] Indian Army - specific programme scope pending Defence programme lead
   {
     name: "Indian Army",
     note: "Specific programme scope to be confirmed with the Defence programme lead.",
   },
-  // [VERIFY] BSF / Bhartiya Vayu Sena / other armed forces partnerships — confirm with Defence team
+  // [VERIFY] BSF / Bhartiya Vayu Sena / other armed forces partnerships - confirm with Defence team
   {
     name: "Additional armed forces partners",
     note: "BSF, Bhartiya Vayu Sena, and other armed forces partnerships to be confirmed with the Defence team.",
   },
 ];
 
-// [VERIFY] All impact figures pending M&E team — rendered as placeholders, no fabricated numbers
+// [VERIFY] All impact figures pending M&E team - rendered as placeholders, no fabricated numbers
 const IMPACT_STATS = [
-  { title: "Veterans Supported", sub: "veterans supported through transition programmes" },
-  { title: "Employment Linkage", sub: "employment linkage rate for veteran participants" },
-  { title: "Time to Employment", sub: "average time from programme completion to employment" },
+  { title: "Veterans Supported", sub: "Veterans supported through transition programmes" },
+  { title: "Employment Linkage", sub: "Employment linkage rate for veteran participants" },
+  { title: "Time to Employment", sub: "Average time from programme completion to employment" },
 ];
 
 const FAQS: FaqItemData[] = [
   {
     q: "What types of roles do veterans typically transition to through Y&Now programmes?",
-    // [VERIFY] Target job families pending Defence programme lead — suggested list retained from copy
+    // [VERIFY] Target job families pending Defence programme lead - suggested list retained from copy
     a: "Target job families are being confirmed with our Defence programme lead. Suggested pathways include manufacturing supervision, security management, logistics operations, facilities management, and EHS compliance roles.",
   },
   {
@@ -92,7 +91,7 @@ const FAQS: FaqItemData[] = [
   },
   {
     q: "How does Y&Now account for the existing skills veterans bring?",
-    a: "Y&Now's assessment stage maps transferable capabilities from service roles — leadership, technical skills, discipline frameworks, and operational decision-making — onto civilian job requirements, ensuring the programme focuses on genuine gaps rather than retraining existing strengths.",
+    a: "Y&Now's assessment stage maps transferable capabilities from service roles (leadership, technical skills, discipline frameworks, and operational decision-making) onto civilian job requirements, ensuring the programme focuses on genuine gaps rather than retraining existing strengths.",
   },
 ];
 
@@ -119,7 +118,7 @@ export default function DefenceProgramsPage() {
         eyebrow="Programme Design"
         title="How the transition programme is"
         highlight="built"
-        subtitle="A structured path from service to civilian employment — assessing what veterans already bring, closing genuine gaps, and connecting them to employers who value the hire."
+        subtitle="A structured path from service to civilian employment: assessing what veterans already bring, closing genuine gaps, and connecting them to employers who value the hire."
       />
 
       <EditorialProofSection
@@ -177,17 +176,6 @@ export default function DefenceProgramsPage() {
           </div>
         </Container>
       </section>
-
-      <CtaBand
-        eyebrow="Veteran Transition & Defence Upskilling"
-        title="Ready to support"
-        highlight="veteran transition?"
-        subtitle="Whether you represent a defence welfare organisation or a corporate CSR programme, we'll design a resettlement pathway around the roles and outcomes you're targeting."
-        primaryLabel="Explore Veteran Transition Programmes"
-        primaryHref="/contact-us?type=defence"
-        secondaryLabel="Talk to Our Team"
-        secondaryHref="/contact-us"
-      />
     </>
   );
 }

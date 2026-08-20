@@ -15,12 +15,12 @@ export function getLenisController() {
    Boots Lenis smooth scrolling on the client for the entire site.
 
    Lenis v1 works by intercepting wheel/touch events and updating
-   the real scrollTop on <html> — so existing window.scrollY reads
+   the real scrollTop on <html> - so existing window.scrollY reads
    and window "scroll" event listeners work without any bridging.
 
    Config:
-   • duration      1.3 s  — leisurely, premium feel
-   • easing        expo-out — quick to engage, floaty to settle
+   • duration      1.3 s  - leisurely, premium feel
+   • easing        expo-out - quick to engage, floaty to settle
    • smoothWheel   true
    • touchMultiplier adjusted for natural mobile feel
    ============================================================ */
@@ -50,8 +50,8 @@ export default function LenisProvider({
 
     // Lenis clamps every scroll target to a cached limit and only refreshes
     // it from its own (250 ms debounced) ResizeObserver on <html>. Anything
-    // that changes the page height after boot — a web font swapping in, an
-    // FAQ accordion opening, a tab panel exchanging content — would
+    // that changes the page height after boot - a web font swapping in, an
+    // FAQ accordion opening, a tab panel exchanging content - would
     // otherwise leave the limit short and make the page stop dead before
     // the footer. Observing <body> catches those directly and re-measures
     // on the next frame.

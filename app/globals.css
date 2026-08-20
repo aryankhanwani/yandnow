@@ -3,7 +3,7 @@
 @custom-variant dark (&:is(.dark *));
 
 /* ============================================================
-   DESIGN SYSTEM — YandNow B2B Workforce Training
+   DESIGN SYSTEM - YandNow B2B Workforce Training
    Tailwind v4 CSS-first configuration via @theme
    ============================================================ */
 
@@ -30,9 +30,9 @@
      COLOR TOKENS
 
      Brand Book palette (R/G/B → hex):
-       Primary:   #2E3191 (R46  G49  B145)  — deep indigo-blue
-       Secondary: #27AAE1 (R39  G170 B225)  — sky blue
-       Brand Gray:#606161 (R96  G97  B97)   — the 3rd brand colour
+       Primary:   #2E3191 (R46  G49  B145)  - deep indigo-blue
+       Secondary: #27AAE1 (R39  G170 B225)  - sky blue
+       Brand Gray:#606161 (R96  G97  B97)   - the 3rd brand colour
        White:     #FFFFFF
 
      Ink:       #14152E (near-black navy for body text)
@@ -51,7 +51,7 @@
   --color-primary-200: #b0b2e2;
   --color-primary-300: #8b8ed5;
   --color-primary-400: #6669c4;
-  --color-primary-500: #2E3191;  /* brand exact — R46 G49 B145 */
+  --color-primary-500: #2E3191;  /* brand exact - R46 G49 B145 */
   --color-primary-600: #272a7e;
   --color-primary-700: #1f2267;
   --color-primary-800: #171950;
@@ -64,7 +64,7 @@
   --color-secondary-200: #92d5f4;
   --color-secondary-300: #5ec0ed;
   --color-secondary-400: #32b4e8;
-  --color-secondary-500: #27AAE1;  /* brand exact — R39 G170 B225 */
+  --color-secondary-500: #27AAE1;  /* brand exact - R39 G170 B225 */
   --color-secondary-600: #208fc0;
   --color-secondary-700: #19729a;
   --color-secondary-800: #125673;
@@ -77,7 +77,7 @@
   --color-gray-200: #d4d4d4;
   --color-gray-300: #b8b8b8;
   --color-gray-400: #8f9090;
-  --color-gray-500: #606161;  /* brand exact — R96 G97 B97 */
+  --color-gray-500: #606161;  /* brand exact - R96 G97 B97 */
   --color-gray-600: #4e4f4f;
   --color-gray-700: #3d3e3e;
   --color-gray-800: #2b2c2c;
@@ -106,7 +106,7 @@
      Each entry: [font-size, { lineHeight }]
      ---------------------------------------------------------- */
 
-  /* Display — large hero headline */
+  /* Display - large hero headline */
   --font-size-display:    3.5rem;   /* 56px */
   --line-height-display:  1.1;
 
@@ -133,7 +133,7 @@
   --font-size-body-sm: 0.875rem; /* 14px */
   --line-height-body-sm: 1.6;
 
-  /* Caption / eyebrow label — small-caps section labels */
+  /* Caption / eyebrow label - small-caps section labels */
   --font-size-caption: 0.75rem;  /* 12px */
   --line-height-caption: 1.5;
 
@@ -155,8 +155,8 @@
 
   /* ----------------------------------------------------------
      BOX SHADOW TOKENS
-     card  — subtle cool-toned lift, no pure black
-     glow  — secondary color halo for hover states
+     card  - subtle cool-toned lift, no pure black
+     glow  - secondary color halo for hover states
      ---------------------------------------------------------- */
   --shadow-card: 0 4px 24px 0 rgba(20, 21, 46, 0.08), 0 1px 4px 0 rgba(20, 21, 46, 0.04);
   --shadow-glow: 0 0 32px 8px rgba(39, 170, 226, 0.18);
@@ -170,10 +170,10 @@
   /* ----------------------------------------------------------
      GRADIENT TOKENS (as background-image values)
      Named semantically for their purpose:
-       gradient-brand   — hero sections, primary CTAs
-       gradient-subtle  — very-low-contrast section backgrounds
-       gradient-overlay — bottom text overlay on photos
-       gradient-glow    — decorative radial accent behind cards/stats
+       gradient-brand   - hero sections, primary CTAs
+       gradient-subtle  - very-low-contrast section backgrounds
+       gradient-overlay - bottom text overlay on photos
+       gradient-glow    - decorative radial accent behind cards/stats
      ---------------------------------------------------------- */
   --background-image-gradient-brand:
     linear-gradient(135deg, #2E3191 0%, #27AAE1 100%);
@@ -189,13 +189,13 @@
 
   /* ----------------------------------------------------------
      SUBTLE GRADIENTS (preferred going forward)
-     Lighter, lower-contrast washes — used instead of the strong
+     Lighter, lower-contrast washes - used instead of the strong
      brand gradient for section backgrounds, card covers, and
      accents. Keep these whisper-quiet.
-       soft   — near-white vertical wash for section fades
-       mist   — faint cool tint for panels/covers
-       halo   — soft top-centred glow accent (very low alpha)
-       aurora — barely-there multi-stop tint for hero-ish panels
+       soft   - near-white vertical wash for section fades
+       mist   - faint cool tint for panels/covers
+       halo   - soft top-centred glow accent (very low alpha)
+       aurora - barely-there multi-stop tint for hero-ish panels
      ---------------------------------------------------------- */
   --background-image-gradient-soft:
     linear-gradient(180deg, #ffffff 0%, #f4f6f9 100%);
@@ -218,7 +218,7 @@
   --color-navy: #0a0b1f;        /* dark section / dark cards */
   --color-navy-700: #12163a;    /* raised dark card surface */
 
-  /* Calm, light brand wash for the hero — soft indigo/sky tint
+  /* Calm, light brand wash for the hero - soft indigo/sky tint
      fading to white. Deliberately low-contrast and quiet. */
   --background-image-gradient-hero:
     linear-gradient(180deg,
@@ -364,7 +364,7 @@ body {
     font-weight: 400;
   }
 
-  /* Caption / eyebrow labels — MEASURABLE OUTCOMES style */
+  /* Caption / eyebrow labels - MEASURABLE OUTCOMES style */
   .text-caption {
     font-family: var(--font-family-body);
     font-size: var(--font-size-caption);
@@ -387,7 +387,7 @@ body {
    ANIMATION KEYFRAMES
    ============================================================ */
 
-/* Hero orbs — slow drift */
+/* Hero orbs - slow drift */
 @keyframes orb-drift-1 {
   0%, 100% { transform: translate(0, 0) scale(1); }
   33%       { transform: translate(30px, -20px) scale(1.05); }
@@ -403,13 +403,13 @@ body {
   50%       { transform: translateX(-50%) scaleX(1.1); }
 }
 
-/* Hero highlight — subtle shimmer sweep */
+/* Hero highlight - subtle shimmer sweep */
 @keyframes shimmer {
   0%   { background-position: -200% center; }
   100% { background-position: 200% center; }
 }
 
-/* Eyebrow lines — expand from centre */
+/* Eyebrow lines - expand from centre */
 @keyframes line-expand {
   from { transform: scaleX(0); opacity: 0; }
   to   { transform: scaleX(1); opacity: 1; }
@@ -436,7 +436,7 @@ body {
   animation: orb-drift-3 15s ease-in-out infinite;
 }
 
-/* Hero highlighted text — animated gradient shimmer */
+/* Hero highlighted text - animated gradient shimmer */
 .hero-highlight {
   background: linear-gradient(
     90deg,
@@ -463,7 +463,7 @@ body {
   animation: header-slide-in 0.6s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
-/* Logo hover — subtle scale */
+/* Logo hover - subtle scale */
 .logo-hover {
   transition: transform 0.25s ease, opacity 0.25s ease;
 }

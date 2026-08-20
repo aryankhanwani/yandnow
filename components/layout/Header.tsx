@@ -14,7 +14,7 @@ import { CtaButton } from "@/components/ui/CtaButton";
 import { cn } from "@/lib/utils";
 
 /* ============================================================
-   NAV DATA — each solution carries an icon, contextual photo,
+   NAV DATA - each solution carries an icon, contextual photo,
    and a one-line description for the mega-menu preview.
    ============================================================ */
 interface SubLink {
@@ -98,7 +98,7 @@ const CTA_LABEL = "Talk to Our Team";
 const CTA_HREF = "/contact-us";
 
 /* ============================================================
-   useTopNavClick — makes every navbar link land at the TOP of
+   useTopNavClick - makes every navbar link land at the TOP of
    the target page. Cross-page navigation already tops via the
    route-change effect in <Header>; this handles the same-page
    case (Next does nothing on a same-URL click), scrolling back
@@ -116,7 +116,7 @@ function useTopNavClick() {
 }
 
 /* ============================================================
-   PREVIEW ART — contextual photography with a brand-toned text
+   PREVIEW ART - contextual photography with a brand-toned text
    scrim. Each image is project-hosted and solution-specific.
    ============================================================ */
 function PreviewArt({ item }: { item: SubLink }) {
@@ -131,7 +131,7 @@ function PreviewArt({ item }: { item: SubLink }) {
       />
       <div className="absolute inset-0 bg-gradient-to-b from-primary-950/15 via-primary-950/20 to-primary-950/95" />
       <div className="absolute inset-0 bg-primary-900/10 mix-blend-multiply" />
-      {/* Foreground content — label only (no description / CTA) */}
+      {/* Foreground content - label only (no description / CTA) */}
       <div className="relative flex h-full items-end p-5">
         <p className="font-heading text-lg font-700 leading-tight text-white">{item.label}</p>
       </div>
@@ -140,7 +140,7 @@ function PreviewArt({ item }: { item: SubLink }) {
 }
 
 /* ============================================================
-   HOVER-SLIDE LABEL — on hover the current label slides up and
+   HOVER-SLIDE LABEL - on hover the current label slides up and
    out while an identical copy slides up from below to replace
    it; reverses smoothly when the hover ends. Used by every text
    nav item on both the full-width and floating navbars.
@@ -162,7 +162,7 @@ function HoverSlideLabel({ children, className }: { children: React.ReactNode; c
 }
 
 /* ============================================================
-   DESKTOP DROPDOWN — two-pane mega menu with live preview
+   DESKTOP DROPDOWN - two-pane mega menu with live preview
    ============================================================ */
 function DesktopDropdown({ item, idPrefix }: { item: NavItem; idPrefix: string }) {
   const [open, setOpen] = useState(false);
@@ -219,11 +219,11 @@ function DesktopDropdown({ item, idPrefix }: { item: NavItem; idPrefix: string }
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 8, scale: 0.98 }}
             transition={{ duration: 0.22, ease: [0.16, 1, 0.3, 1] }}
-            className="absolute left-1/2 top-full z-50 mt-3 w-[620px] -translate-x-1/2 overflow-hidden rounded-2xl border border-neutral-100 bg-white/95 backdrop-blur-xl"
+            className="absolute left-1/2 top-full z-50 mt-3 w-[620px] -translate-x-1/2 overflow-hidden rounded-2xl border border-neutral-100 bg-white backdrop-blur-xl"
             style={{ boxShadow: "0 24px 70px rgba(14,16,58,0.16), 0 4px 16px rgba(14,16,58,0.06)" }}
           >
             <div className="grid grid-cols-[1fr_240px]">
-              {/* Left — solution list */}
+              {/* Left - solution list */}
               <div className="p-2.5">
                 <p className="px-3 pb-1.5 pt-2 text-[10px] font-bold uppercase tracking-[0.16em] text-neutral-400">
                   Our Solutions
@@ -283,7 +283,7 @@ function DesktopDropdown({ item, idPrefix }: { item: NavItem; idPrefix: string }
                 })}
               </div>
 
-              {/* Right — live preview panel */}
+              {/* Right - live preview panel */}
               <div className="relative m-2.5 ml-0 overflow-hidden rounded-xl">
                 <AnimatePresence mode="wait">
                   <motion.div
@@ -303,7 +303,7 @@ function DesktopDropdown({ item, idPrefix }: { item: NavItem; idPrefix: string }
             </div>
 
             {/* Footer CTA */}
-            <div className="flex items-center justify-between border-t border-neutral-100 bg-neutral-50/70 px-4 py-2.5">
+            <div className="flex items-center justify-between border-t border-neutral-100 bg-neutral-50 px-4 py-2.5">
               <span className="text-xs font-medium text-neutral-500">Not sure which solution fits?</span>
               <Link
                 href="/contact-us"
@@ -445,7 +445,7 @@ function MobileDrawer({ open, onClose }: { open: boolean; onClose: () => void })
 }
 
 /* ============================================================
-   NAV ROW — shared logo / links / CTA / mobile-toggle markup,
+   NAV ROW - shared logo / links / CTA / mobile-toggle markup,
    rendered once per bar (idPrefix keeps element ids unique since
    both bars stay mounted so the slide transition can animate).
    ============================================================ */
@@ -453,10 +453,10 @@ function NavRow({ idPrefix, onOpenMobile }: { idPrefix: string; onOpenMobile: ()
   const onTop = useTopNavClick();
   return (
     <div className="mx-auto flex h-[64px] w-full max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
-      <Link href="/" onClick={onTop("/")} id={`${idPrefix}-site-logo`} aria-label="Y&Now — home" className="logo-hover flex-shrink-0">
+      <Link href="/" onClick={onTop("/")} id={`${idPrefix}-site-logo`} aria-label="Y&Now, home" className="logo-hover flex-shrink-0">
         <Image
           src="/logo.png"
-          alt="Y&Now — Workforce Capability Solutions"
+          alt="Y&Now, Workforce Capability Solutions"
           width={120}
           height={40}
           className="h-9 w-auto object-contain"
@@ -505,12 +505,12 @@ function NavRow({ idPrefix, onOpenMobile }: { idPrefix: string; onOpenMobile: ()
    MAIN HEADER
    ────────────────────────────────────────────────────────────
    Two physical bars, both always mounted so the swap animates:
-     • Flat bar   — full-width, flush with the viewport edge.
+     • Flat bar   - full-width, flush with the viewport edge.
                     Translucent + blurred on the homepage (the
                     colour wash behind the hero shows through),
                     solid white on inner pages. Slides straight
                     up and out once the page scrolls.
-     • Floating   — centred capsule, rounded + shadowed. Sits
+     • Floating   - centred capsule, rounded + shadowed. Sits
                     just above the viewport until the page
                     scrolls, then slides down into place.
    The inactive bar is marked `inert` so it's never focusable or
@@ -554,7 +554,7 @@ export default function Header() {
   return (
     <>
       <div className="fixed inset-x-0 top-0 z-30">
-        {/* Flat, full-width bar — slides up and out once scrolled */}
+        {/* Flat, full-width bar - slides up and out once scrolled */}
         <div
           className={cn(
             "flex justify-center transition-transform duration-500 ease-out",
@@ -565,8 +565,11 @@ export default function Header() {
           <header
             className={cn(
               "header-entrance w-full transition-colors duration-500",
+              /* Home: flat white, no border or shadow, so the bar sits
+                 seamlessly on the hero's plain white top. Inner pages
+                 keep the hairline + lift against their tinted heroes. */
               isHome
-                ? "border-b border-white/25 bg-white/20 backdrop-blur-xl"
+                ? "bg-white"
                 : "border-b border-neutral-100 bg-white shadow-sm",
             )}
           >
@@ -574,7 +577,7 @@ export default function Header() {
           </header>
         </div>
 
-        {/* Floating capsule — slides down into view once scrolled */}
+        {/* Floating capsule - slides down into view once scrolled */}
         <div
           className={cn(
             "absolute inset-x-0 top-0 flex justify-center px-4 pt-4 transition-transform duration-500 ease-out",

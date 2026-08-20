@@ -3,7 +3,6 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ArrowLeft, ArrowUpRight, Clock, Calendar } from "lucide-react";
 import Container from "@/components/ui/Container";
-import CtaBand from "@/components/ui/CtaBand";
 import Markdown from "@/components/ui/Markdown";
 import { Reveal } from "@/components/ui/motion-primitives";
 import ReadingProgress from "@/components/blog/ReadingProgress";
@@ -254,17 +253,6 @@ export default async function BlogPostPage({
           </Container>
         </section>
       )}
-
-      <CtaBand
-        eyebrow="Work With Y&Now"
-        title="Ready to build capability that"
-        highlight="shows up in results?"
-        subtitle="Tell us about your workforce and the outcomes you're targeting — we'll map a programme around them."
-        primaryLabel="Talk to Our Team"
-        primaryHref="/contact-us"
-        secondaryLabel="Explore Solutions"
-        secondaryHref="/corporate"
-      />
     </>
   );
 }

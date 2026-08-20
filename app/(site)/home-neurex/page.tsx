@@ -7,13 +7,13 @@
    a calmer, lighter feel (soft gradients only).
 
    Structure:
-     1 · Hero        — calm light wash, centred copy, video below
-     2 · WhoWeServe  — reused as-is from the production home
-     3 · OnePlatform — 3 dark step-cards (01·02·03) w/ UI mocks
-     4 · HowWeWork   — 5-step timeline, reused from home
-     5 · Impact      — home-neurex card design, home-page data
-     6 · SuccessStories — testimonial carousel
-     7 · FaqSection  — reused as-is from the production home
+     1 · Hero        - calm light wash, centred copy, video below
+     2 · WhoWeServe  - reused as-is from the production home
+     3 · OnePlatform - 3 dark step-cards (01·02·03) w/ UI mocks
+     4 · HowWeWork   - 5-step timeline, reused from home
+     5 · Impact      - home-neurex card design, home-page data
+     6 · SuccessStories - testimonial carousel
+     7 · FaqSection  - reused as-is from the production home
 
    Non-destructive: the production homepage at "/" is untouched.
    ============================================================ */
@@ -45,7 +45,7 @@ import HowWeWork from "@/components/sections/HowWeWork";
 import FaqSection from "@/components/sections/FaqSection";
 
 /* ------------------------------------------------------------
-   PhotoTile — on-brand placeholder standing in for a photo.
+   PhotoTile - on-brand placeholder standing in for a photo.
    Swap for <Image> once real imagery is available.
    ------------------------------------------------------------ */
 function PhotoTile({ className, label }: { className?: string; label?: string }) {
@@ -70,7 +70,7 @@ function PhotoTile({ className, label }: { className?: string; label?: string })
 }
 
 /* ============================================================
-   1 · HERO — calm light wash, centred copy, product video below
+   1 · HERO - calm light wash, centred copy, product video below
    ============================================================ */
 function Hero() {
   return (
@@ -100,7 +100,7 @@ function Hero() {
           className="mx-auto mt-6 max-w-2xl text-[15px] leading-relaxed text-neutral-600 sm:text-base"
         >
           Industry-aligned programmes, role-based assessment, and a digital
-          performance platform — so your people perform on the job, not just
+          performance platform, so your people perform on the job, not just
           complete courses.
         </Reveal>
 
@@ -161,7 +161,7 @@ function Hero() {
 }
 
 /* ============================================================
-   2 · ONE PLATFORM — 3 dark step-cards (01 · 02 · 03) with
+   2 · ONE PLATFORM - 3 dark step-cards (01 · 02 · 03) with
    modern UI mocks. Reference: Neurex feature-card row.
    ============================================================ */
 
@@ -287,7 +287,7 @@ function OnePlatform() {
         <SectionHeading
           eyebrow="One Platform"
           title="One platform for learning and performance"
-          subtitle="Three connected pillars — learn, assess, perform — so capability is built, verified, and measured in a single system."
+          subtitle="Three connected pillars (learn, assess, perform) so capability is built, verified, and measured in a single system."
           className="mx-auto mb-14"
         />
 
@@ -332,14 +332,14 @@ function OnePlatform() {
 }
 
 /* ============================================================
-   5 · IMPACT — home-neurex card design, production-home data.
+   5 · IMPACT - home-neurex card design, production-home data.
    (Figures mirror components/sections/ImpactMetrics.tsx.)
    ============================================================ */
 const STATS = [
-  { title: "Organisations", to: 3800, suffix: "+", sub: "served across India" },
-  { title: "Learners", to: 250000, suffix: "+", sub: "trained and assessed" },
-  { title: "Facilitators", to: 1200, suffix: "+", sub: "instructors & mentors" },
-  { title: "Completion", to: 92, suffix: "%", sub: "average programme rate" },
+  { title: "Organisations", to: 3800, suffix: "+", sub: "Served across India" },
+  { title: "Learners", to: 250000, suffix: "+", sub: "Trained and assessed" },
+  { title: "Facilitators", to: 1200, suffix: "+", sub: "Instructors & mentors" },
+  { title: "Completion", to: 92, suffix: "%", sub: "Average programme rate" },
 ];
 
 function Impact() {
@@ -349,7 +349,7 @@ function Impact() {
         <SectionHeading
           eyebrow="Measurable Outcomes"
           title="Impact you can put in a board report"
-          subtitle="We measure what matters — and report it transparently. Capability programmes delivered at national scale, with outcomes tracked end-to-end."
+          subtitle="We measure what matters and report it transparently. Capability programmes delivered at national scale, with outcomes tracked end-to-end."
           className="mx-auto mb-14"
         />
         <Stagger className="grid grid-cols-2 gap-4 lg:grid-cols-4 lg:gap-6" stagger={0.1}>
@@ -371,12 +371,12 @@ function Impact() {
 }
 
 /* ============================================================
-   6 · SUCCESS STORIES — photo + quote carousel
+   6 · SUCCESS STORIES - photo + quote carousel
    ============================================================ */
 const STORIES = [
   {
     quote:
-      "Y&Now transformed how we build frontline capability — role-based assessment gave us visibility we never had, and performance followed.",
+      "Y&Now transformed how we build frontline capability: role-based assessment gave us visibility we never had, and performance followed.",
     name: "Savannah Nair",
     role: "VP People, National Logistics Group",
     org: "Logistics",

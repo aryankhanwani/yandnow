@@ -3,7 +3,6 @@ import { ArrowRight } from "lucide-react";
 import Container from "@/components/ui/Container";
 import PageHero from "@/components/ui/PageHero";
 import SectionHeading from "@/components/ui/SectionHeading";
-import CtaBand from "@/components/ui/CtaBand";
 import FaqAccordion, { type FaqItemData } from "@/components/ui/FaqAccordion";
 import HorizontalCapabilityScroller, { type HorizontalCapability } from "@/components/ui/HorizontalCapabilityScroller";
 import EditorialProofSection from "@/components/ui/EditorialProofSection";
@@ -14,7 +13,7 @@ import { Stagger, StaggerItem } from "@/components/ui/motion-primitives";
 export const metadata: Metadata = {
   title: "Industry-Ready Courses for Job Seekers | Y&Now",
   description:
-    "Y&Now offers industry-recognised courses in manufacturing, retail, financial services, and IT — with placement support and employer connections. Get job-ready with an NSQF-certified qualification.",
+    "Y&Now offers industry-recognised courses in manufacturing, retail, financial services, and IT, with placement support and employer connections. Get job-ready with an NSQF-certified qualification.",
 };
 
 const BENEFITS: HorizontalCapability[] = [
@@ -22,7 +21,7 @@ const BENEFITS: HorizontalCapability[] = [
     icon: "Handshake",
     tint: "46,49,146",
     title: "Courses co-designed with employers",
-    body: "So you learn what's actually needed on the job — not generic textbook content.",
+    body: "So you learn what's actually needed on the job, not generic textbook content.",
   },
   {
     icon: "BadgeCheck",
@@ -51,7 +50,7 @@ const BENEFITS: HorizontalCapability[] = [
 ];
 
 /* [VERIFY] Example learner sectors are placeholders from the content doc
-   ([INSERT: confirm active learner sectors]) — replace with the confirmed
+   ([INSERT: confirm active learner sectors]) - replace with the confirmed
    active sector list from the School Solutions/Learner team. */
 const SECTORS = [
   { icon: "Factory", label: "Manufacturing" },
@@ -107,7 +106,7 @@ export default function LearnersB2cPage() {
         eyebrow="Why Y&Now for Individual Learners"
         title="Real skills. Real"
         highlight="jobs."
-        subtitle="Everything about a Y&Now course is built around getting you hired — from what you learn to who's hiring."
+        subtitle="Everything about a Y&Now course is built around getting you hired, from what you learn to who's hiring."
       />
 
       <EditorialProofSection
@@ -162,7 +161,7 @@ export default function LearnersB2cPage() {
             </StaggerItem>
           </Stagger>
           {/* [VERIFY] Course catalogue (sector, duration, NSQF level, fee) is
-              [INSERT] in the content doc — the live list comes from the
+              [INSERT] in the content doc - the live list comes from the
               School Solutions/Learner team via the /learners-b2c/courses finder. */}
         </Container>
       </section>
@@ -183,17 +182,6 @@ export default function LearnersB2cPage() {
           </div>
         </Container>
       </section>
-
-      <CtaBand
-        eyebrow="For Learners"
-        title="Ready to get"
-        highlight="job-ready?"
-        subtitle="Find a course that's co-designed with employers, earn an NSQF certification, and get placement support to start your career."
-        primaryLabel="Find a Course"
-        primaryHref="/learners-b2c/courses"
-        secondaryLabel="Talk to Us"
-        secondaryHref="/contact-us"
-      />
     </>
   );
 }

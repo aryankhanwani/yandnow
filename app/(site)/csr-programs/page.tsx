@@ -6,7 +6,6 @@ import {
 import Container from "@/components/ui/Container";
 import PageHero from "@/components/ui/PageHero";
 import SectionHeading from "@/components/ui/SectionHeading";
-import CtaBand from "@/components/ui/CtaBand";
 import FaqAccordion, { type FaqItemData } from "@/components/ui/FaqAccordion";
 import StackingCards, { type StackCardItem } from "@/components/ui/StackingCards";
 import ProcessSteps, { type ProcessStep } from "@/components/ui/ProcessSteps";
@@ -17,7 +16,7 @@ import { Reveal } from "@/components/ui/motion-primitives";
 export const metadata: Metadata = {
   title: "CSR Skilling & Livelihood Programmes India | Y&Now",
   description:
-    "Y&Now delivers end-to-end CSR skilling programmes aligned to Schedule VII of the Companies Act — covering skill development, veteran transition, livelihoods, and community development with measurable impact reporting.",
+    "Y&Now delivers end-to-end CSR skilling programmes aligned to Schedule VII of the Companies Act, covering skill development, veteran transition, livelihoods, and community development with measurable impact reporting.",
 };
 
 const PROGRAMMES: StackCardItem[] = [
@@ -28,7 +27,7 @@ const PROGRAMMES: StackCardItem[] = [
     image: "/images/csr/programme-streams/skill-development-employability.jpg",
     title: "Skill Development & Employability",
     body: "NSDC-aligned vocational training and employability skilling for youth and working-age adults, with employer linkage and placement support.",
-    meta: "Schedule VII item (ii) — Promotion of education",
+    meta: "Schedule VII item (ii): Promotion of education",
   },
   {
     num: "02",
@@ -37,7 +36,7 @@ const PROGRAMMES: StackCardItem[] = [
     image: "/images/csr/programme-streams/veteran-transition.jpg",
     title: "Veteran Transition",
     body: "Post-service civilian resettlement programmes for armed forces personnel, combining skills assessment, vocational retraining, and employer connections.",
-    meta: "Schedule VII item (vi) — Training to promote nationally recognised sports, and items covering armed forces veterans",
+    meta: "Schedule VII item (vi): Training to promote nationally recognised sports, and items covering armed forces veterans",
   },
   {
     num: "03",
@@ -46,7 +45,7 @@ const PROGRAMMES: StackCardItem[] = [
     image: "/images/csr/programme-streams/livelihood-entrepreneurship.jpg",
     title: "Livelihood & Entrepreneurship",
     body: "Vocational skilling, SHG strengthening, market linkage, and micro-enterprise development for women and marginalised communities.",
-    meta: "Schedule VII item (iii) — Promoting gender equality and empowering women",
+    meta: "Schedule VII item (iii): Promoting gender equality and empowering women",
   },
   {
     num: "04",
@@ -55,7 +54,7 @@ const PROGRAMMES: StackCardItem[] = [
     image: "/images/csr/programme-streams/community-development.jpg",
     title: "Community Development",
     body: "Broader social infrastructure capacity-building, including health awareness, digital literacy, and community governance.",
-    meta: "Schedule VII item (i) — Eradicating hunger, poverty, and malnutrition",
+    meta: "Schedule VII item (i): Eradicating hunger, poverty, and malnutrition",
   },
 ];
 
@@ -67,7 +66,7 @@ const STAGES: ProcessStep[] = [
     tint: "46,49,146",
     image: "/images/csr/delivery-model/needs-assessment.jpg",
     label: "Needs Assessment",
-    body: "Community mapping, baseline surveys, and beneficiary identification — co-created with your CSR team.",
+    body: "Community mapping, baseline surveys, and beneficiary identification, all co-created with your CSR team.",
   },
   {
     num: "02",
@@ -89,20 +88,20 @@ const STAGES: ProcessStep[] = [
   },
 ];
 
-/* [VERIFY] Impact metric VALUES are unconfirmed — awaiting verified CSR metrics
-   from the M&E team. Values render as "—" until confirmed. Do NOT publish real
+/* [VERIFY] Impact metric VALUES are unconfirmed - awaiting verified CSR metrics
+   from the M&E team. Values render as "-" until confirmed. Do NOT publish real
    numbers until confirmed. */
 const IMPACT_METRICS = [
-  { title: "Individuals Reached", sub: "total individuals reached through CSR programmes" },
-  { title: "Employment Linkage", sub: "secure employment or income within 6 months of completion" },
-  { title: "Women Participation", sub: "share of women participants across programmes" },
-  { title: "Income Uplift", sub: "households reporting an income increase" },
+  { title: "Individuals Reached", sub: "Total individuals reached through CSR programmes" },
+  { title: "Employment Linkage", sub: "Secure employment or income within 6 months of completion" },
+  { title: "Women Participation", sub: "Share of women participants across programmes" },
+  { title: "Income Uplift", sub: "Households reporting an income increase" },
 ];
 
 const FAQS: FaqItemData[] = [
   {
     q: "Which Schedule VII categories do Y&Now's CSR programmes qualify under?",
-    a: "Y&Now's skill development and employability programmes qualify under Schedule VII item (ii) — Promotion of education. Livelihood programmes qualify under item (iii) — Promoting gender equality and empowering women. Community development programmes may qualify under item (i). We recommend confirming the specific head with your legal team before commitment.",
+    a: "Y&Now's skill development and employability programmes qualify under Schedule VII item (ii): Promotion of education. Livelihood programmes qualify under item (iii): Promoting gender equality and empowering women. Community development programmes may qualify under item (i). We recommend confirming the specific head with your legal team before commitment.",
   },
   {
     q: "How does Y&Now report CSR fund utilisation?",
@@ -110,17 +109,17 @@ const FAQS: FaqItemData[] = [
   },
   {
     q: "Can Y&Now manage the complete CSR programme lifecycle?",
-    a: "Yes. Y&Now manages the full cycle — from community needs assessment and programme design through on-ground delivery, independent monitoring, and final reporting. Corporate partners can choose full-cycle implementation or engagement at specific stages.",
+    a: "Yes. Y&Now manages the full cycle, from community needs assessment and programme design through on-ground delivery, independent monitoring, and final reporting. Corporate partners can choose full-cycle implementation or engagement at specific stages.",
   },
   {
     q: "Does Y&Now work with NSDC for CSR skilling programmes?",
     a: "Y&Now works with NSDC as a training and implementation partner for select programmes. NSDC co-badging of certifications is available for eligible programmes.",
-    // [VERIFY] Confirm current NSDC partnership scope — Accreditation team.
+    // [VERIFY] Confirm current NSDC partnership scope - Accreditation team.
   },
   {
     q: "What geographies does Y&Now operate in for CSR programmes?",
     a: "Y&Now operates across select regions in India and can expand to new geographies with a minimum 8-week mobilisation lead time.",
-    // [VERIFY] Confirm current operating geographies — Programme team.
+    // [VERIFY] Confirm current operating geographies - Programme team.
   },
 ];
 
@@ -141,7 +140,7 @@ export default function CsrProgramsPage() {
         </CtaButton>
       </PageHero>
 
-      {/* What We Deliver — scroll-stacked deck of programme streams */}
+      {/* What We Deliver - scroll-stacked deck of programme streams */}
       <section className="bg-surface">
         <StackingCards
           cards={PROGRAMMES}
@@ -150,20 +149,20 @@ export default function CsrProgramsPage() {
               eyebrow="What We Deliver"
               title="Four CSR programme"
               highlight="streams"
-              subtitle="Y&Now manages four programme streams under CSR — each mapped to a category of Schedule VII of the Companies Act, 2013. Scroll to step through each."
+              subtitle="Y&Now manages four programme streams under CSR, each mapped to a category of Schedule VII of the Companies Act, 2013. Scroll to step through each."
             />
           }
         />
       </section>
 
-      {/* Our CSR Delivery Approach — horizontal three-stage process */}
+      {/* Our CSR Delivery Approach - horizontal three-stage process */}
       <section className="bg-white py-20 lg:py-28">
         <Container>
           <SectionHeading
             eyebrow="Our CSR Delivery Approach"
             title="A structured three-stage"
             highlight="delivery model"
-            subtitle="Every Y&Now CSR programme follows the same model — from community mapping to compliance-ready reporting."
+            subtitle="Every Y&Now CSR programme follows the same model, from community mapping to compliance-ready reporting."
             className="mb-14"
           />
           <ProcessSteps steps={STAGES} className="mx-auto max-w-6xl" />
@@ -183,7 +182,7 @@ export default function CsrProgramsPage() {
           {/* Same stat-card UI as the homepage Impact section. */}
           {/* [VERIFY] Metric values remain pending verified CSR metrics from the M&E team. */}
           <ImpactStatGrid items={IMPACT_METRICS} />
-          {/* [VERIFY] Client testimonial removed — awaiting a confirmed CSR client name,
+          {/* [VERIFY] Client testimonial removed - awaiting a confirmed CSR client name,
               designation and outcome from the BD team. CEAT logo placeholder removed
               until confirmed. Do not reinstate the 'Peter Watson, CEO' placeholder. */}
           <Reveal y={20}>
@@ -211,17 +210,6 @@ export default function CsrProgramsPage() {
           </div>
         </Container>
       </section>
-
-      <CtaBand
-        eyebrow="CSR Programmes"
-        title="Ready to partner on a"
-        highlight="CSR programme?"
-        subtitle="Tell us about your CSR objectives and target communities — we'll design a Schedule VII-aligned programme with measurable, compliance-ready impact."
-        primaryLabel="Partner on a CSR Programme"
-        primaryHref="/contact-us?type=csr"
-        secondaryLabel="Talk to Our Team"
-        secondaryHref="/contact-us"
-      />
     </>
   );
 }

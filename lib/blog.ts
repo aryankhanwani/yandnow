@@ -24,7 +24,7 @@ export interface BlogPost {
   author: { name: string; role: string };
   /** "r,g,b" brand tint used for the gradient cover. */
   tint: string;
-  /** Optional cover image URL — takes precedence over the tint gradient. */
+  /** Optional cover image URL - takes precedence over the tint gradient. */
   coverImage?: string;
   featured?: boolean;
   /** Article body as Markdown. */
@@ -94,7 +94,7 @@ const POST_COLUMNS =
   "slug,title,excerpt,category,content,cover_tint,cover_image,author_name,author_role,read_minutes,featured,meta_title,meta_description,og_image,canonical_url,keywords,published_at,created_at";
 
 /* ----------------------------------------------------------------
-   Public API — all async so the source can be a DB or the seed.
+   Public API - all async so the source can be a DB or the seed.
    ---------------------------------------------------------------- */
 export async function getAllPosts(): Promise<BlogPost[]> {
   if (supabase) {
@@ -122,7 +122,7 @@ export async function getPostBySlug(slug: string): Promise<BlogPost | undefined>
   return SEED_POSTS.find((p) => p.slug === slug);
 }
 
-/** Related posts — same category first, then most recent, excluding `slug`. */
+/** Related posts - same category first, then most recent, excluding `slug`. */
 export async function getRelatedPosts(slug: string, limit = 3): Promise<BlogPost[]> {
   const all = await getAllPosts();
   const current = all.find((p) => p.slug === slug);
@@ -145,7 +145,7 @@ export function estimateReadMinutes(markdown: string): number {
 }
 
 /* ================================================================
-   SEED CONTENT — fallback + reference shape for the Supabase seed.
+   SEED CONTENT - fallback + reference shape for the Supabase seed.
    Keep in sync with supabase/seed.sql in yandnow-backend.
    ================================================================ */
 export const SEED_POSTS: BlogPost[] = [
@@ -160,7 +160,7 @@ export const SEED_POSTS: BlogPost[] = [
     author: { name: "Y&Now Editorial", role: "Capability Practice" },
     tint: "46,49,146",
     featured: true,
-    content: `Most workforce training is still measured by the wrong number. Completion rates, hours logged, and satisfaction scores describe what happened inside the classroom — not whether anything changed at the workplace. If an L&D investment cannot be traced to a business signal, it is almost impossible to defend at budget time.
+    content: `Most workforce training is still measured by the wrong number. Completion rates, hours logged, and satisfaction scores describe what happened inside the classroom, not whether anything changed at the workplace. If an L&D investment cannot be traced to a business signal, it is almost impossible to defend at budget time.
 
 ## Start from the performance signal, not the course
 
@@ -173,13 +173,13 @@ A useful programme design begins with the outcome the business already watches: 
 
 ## Make the measurement continuous
 
-A single post-training test is a snapshot. Capability shows up over weeks, through manager check-ins, live scenarios, and real tasks. Treat measurement as a loop — each cycle informs the next intervention and the next round of workforce planning.
+A single post-training test is a snapshot. Capability shows up over weeks, through manager check-ins, live scenarios, and real tasks. Treat measurement as a loop: each cycle informs the next intervention and the next round of workforce planning.
 
-> If you cannot point to the number that moved, you did not measure the training — you measured the event.`,
+> If you cannot point to the number that moved, you did not measure the training; you measured the event.`,
     seo: {
       metaTitle: "Measuring L&D That Shows Up in Performance | Y&Now",
       metaDescription:
-        "Tie every learning programme to a performance signal your leadership already tracks — a practical framework for measuring workforce capability.",
+        "Tie every learning programme to a performance signal your leadership already tracks: a practical framework for measuring workforce capability.",
       keywords: "L&D measurement, workforce capability, training ROI, learning analytics",
     },
   },
@@ -193,11 +193,11 @@ A single post-training test is a snapshot. Capability shows up over weeks, throu
     readMinutes: 7,
     author: { name: "Y&Now Editorial", role: "CSR Practice" },
     tint: "39,170,226",
-    content: `CSR skilling has matured past good intentions. Boards now expect the same rigour from a livelihood programme that they expect from any other spend — a defined objective, a mapped Schedule VII head, and evidence that stands up to independent review.
+    content: `CSR skilling has matured past good intentions. Boards now expect the same rigour from a livelihood programme that they expect from any other spend: a defined objective, a mapped Schedule VII head, and evidence that stands up to independent review.
 
 ## Anchor the design to a Schedule VII head
 
-Before a single beneficiary is enrolled, the programme should be mapped to a specific category of Schedule VII of the Companies Act, 2013 — and confirmed with your legal team. That mapping shapes eligibility, reporting format, and the documentation you must retain.
+Before a single beneficiary is enrolled, the programme should be mapped to a specific category of Schedule VII of the Companies Act, 2013, and confirmed with your legal team. That mapping shapes eligibility, reporting format, and the documentation you must retain.
 
 ## Build the evidence trail as you go
 
@@ -208,7 +208,7 @@ Before a single beneficiary is enrolled, the programme should be mapped to a spe
 
 Reconstructing this evidence after the fact is where most programmes stumble. Captured continuously, it becomes the impact report almost automatically.
 
-> The strongest impact reports are not written at the end — they are assembled from the first week onward.`,
+> The strongest impact reports are not written at the end; they are assembled from the first week onward.`,
     seo: {
       metaTitle: "CSR Skilling Programmes That Survive an Audit | Y&Now",
       metaDescription:
@@ -226,7 +226,7 @@ Reconstructing this evidence after the fact is where most programmes stumble. Ca
     readMinutes: 5,
     author: { name: "Y&Now Editorial", role: "Industry Practice" },
     tint: "31,34,103",
-    content: `Simulation is easy to oversell. But in regulated, high-consequence environments, letting people practise a dangerous or expensive task safely — as many times as they need — is exactly where immersive training pays back.
+    content: `Simulation is easy to oversell. But in regulated, high-consequence environments, letting people practise a dangerous or expensive task safely, as many times as they need, is exactly where immersive training pays back.
 
 ## Use it where reality is costly or risky
 

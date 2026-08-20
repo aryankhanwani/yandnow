@@ -45,10 +45,10 @@ import { WorkflowIcon } from "@/components/ui/workflow";
 import { WrenchIcon } from "@/components/ui/wrench";
 
 /* ============================================================
-   AnimIcon — the single entry point for animated content icons.
+   AnimIcon - the single entry point for animated content icons.
 
    Takes a STRING `name` (keyed by the original lucide icon name)
-   so it's safe to use from Server Components — no passing icon
+   so it's safe to use from Server Components - no passing icon
    components across the RSC boundary. It maps the name to the
    matching lucide-animated component and wraps it in InViewIcon
    so it animates once on first scroll-into-view.

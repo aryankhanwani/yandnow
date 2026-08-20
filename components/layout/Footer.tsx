@@ -1,10 +1,10 @@
 import Link from "next/link";
-import Image from "next/image";
 import { Mail, Phone, MapPin, ExternalLink } from "lucide-react";
 import Container from "@/components/ui/Container";
+import FooterLogo from "@/components/layout/FooterLogo";
 
 /* ============================================================
-   SOCIAL ICON SVGs — lucide-react 1.25.0 has no brand icons
+   SOCIAL ICON SVGs - lucide-react 1.25.0 has no brand icons
    ============================================================ */
 function IconLinkedIn() {
   return (
@@ -108,9 +108,7 @@ export default function Footer() {
         <div className="relative grid grid-cols-1 gap-10 py-14 sm:grid-cols-2 lg:grid-cols-[1.4fr_1fr_1fr_1.2fr] lg:gap-8">
           {/* Brand */}
           <div>
-            <Link href="/" aria-label="Y&Now — home" className="mb-5 inline-block">
-              <Image src="/logo.png" alt="Y&Now" width={110} height={36} className="h-9 w-auto object-contain" />
-            </Link>
+            <FooterLogo />
             <p className="mb-6 max-w-xs text-sm leading-relaxed text-neutral-600">
               Y&Now is the future-skills EdTech division of BroadArks Technology Pvt. Ltd. We design, deliver, and measure industry-aligned capability programmes across India.
             </p>

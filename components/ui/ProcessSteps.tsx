@@ -7,7 +7,7 @@ import { Stagger, StaggerItem } from "@/components/ui/motion-primitives";
 import { cn } from "@/lib/utils";
 
 /* ============================================================
-   ProcessSteps — a compact, horizontal row of process cards.
+   ProcessSteps - a compact, horizontal row of process cards.
    Each card carries a large watermark step number, a tinted
    icon badge, a stage kicker, a short title, and a tight body.
    Cards inherit the cursor spotlight glow from SpotlightCard.
@@ -19,7 +19,7 @@ export interface ProcessStep {
   /** Small label above the title, e.g. "Stage 01". */
   kicker?: string;
   label: string;
-  /** Keep short — one line or two. */
+  /** Keep short - one line or two. */
   body: string;
   /** Pre-rendered icon element. */
   icon: ReactNode;

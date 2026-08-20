@@ -2,7 +2,7 @@ import Container from "@/components/ui/Container";
 
 /* ============================================================
    SOCIAL PROOF BAR
-   Source: Final Copy doc — Section 1 (below hero)
+   Source: Final Copy doc - Section 1 (below hero)
    "Trusted by India's leading organisations across manufacturing,
     energy, retail, and financial services."
    Marquee: Tata Group · JSW · Castrol India · BPCL · Jaquar ·
@@ -50,7 +50,7 @@ export default function SocialProofBar() {
         </p>
       </Container>
 
-      {/* Marquee wrapper — clips overflow */}
+      {/* Marquee wrapper - clips overflow */}
       <div className="relative">
         {/* Left + right fade edges */}
         <div className="pointer-events-none absolute left-0 inset-y-0 w-20 z-10"

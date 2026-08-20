@@ -4,7 +4,7 @@ import Container from "@/components/ui/Container";
 import { AnimatedHeading, Reveal } from "@/components/ui/motion-primitives";
 
 /* ============================================================
-   CtaBand — reusable closing call-to-action for inner pages.
+   CtaBand - reusable closing call-to-action for inner pages.
    Dark "ink" panel with a soft halo (no brand gradient).
    ============================================================ */
 interface CtaBandProps {
