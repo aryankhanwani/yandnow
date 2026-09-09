@@ -49,7 +49,6 @@ const SECTIONS: LegalSection[] = [
 export default function TermsPage() {
   return (
     <LegalPage
-      eyebrow="Terms & Conditions"
       title="Terms of"
       highlight="Use"
       intro="By using this website, you agree to the terms and conditions set out on this page. These terms explain how the website may be used, what content belongs to us, and what limitations apply."

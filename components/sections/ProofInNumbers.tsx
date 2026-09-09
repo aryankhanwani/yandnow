@@ -1,37 +1,32 @@
-import Container from "@/components/ui/Container";
-import SectionHeading from "@/components/ui/SectionHeading";
-import ProofStats from "@/components/ui/ProofStats";
+import StatBand from "@/components/ui/StatBand";
 import { PROOF_STATS } from "@/lib/proof";
 
 /* ============================================================
-   PROOF IN NUMBERS - Copy deck, Home.
+   PROOF IN NUMBERS
+   ------------------------------------------------------------
+   Moved up the page: it now sits directly after Find Your Route
+   rather than near the footer. It is the page's rest stop, and a
+   rest stop belongs where the reading actually starts.
 
-   Its own band rather than a tail on the case-study section:
-   these are the published skills-gap figures the programmes are
-   built to answer, not evidence about the client work above.
+   Three figures, not six. The brief asks for six, half of them
+   Y&Now's own (learners trained, programmes delivered,
+   organisations served, cities, trainers, years) - those numbers
+   are not available and were not invented. Supply them and this
+   band widens to six with no other change.
 
-   The reports are credited once here, so each card can carry the
-   figure and a short label and nothing else.
+   The three reports are credited in one caption line at the foot
+   of the band, which is where the old attribution paragraph went.
    ============================================================ */
 
 export default function ProofInNumbers() {
   return (
-    <section
+    <StatBand
       id="proof-in-numbers"
-      aria-labelledby="proof-in-numbers-heading"
-      className="bg-white py-20 lg:py-28"
-    >
-      <Container>
-        <SectionHeading
-          id="proof-in-numbers-heading"
-          eyebrow="Proof in Numbers"
-          title="Why this work"
-          highlight="matters"
-          subtitle="Published figures from the India Skills Report 2026, the NIIT India Skills Gap Report 2026, and Economic Survey 2025-26 coverage."
-          className="mb-12 lg:mb-14"
-        />
-        <ProofStats items={PROOF_STATS} />
-      </Container>
-    </section>
+      headingId="proof-in-numbers-heading"
+      title="Why this work"
+      highlight="matters"
+      stats={PROOF_STATS}
+      caption="India Skills Report 2026 · NIIT India Skills Gap Report 2026 · Economic Survey 2025-26."
+    />
   );
 }

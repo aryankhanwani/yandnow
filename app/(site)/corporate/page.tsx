@@ -1,24 +1,27 @@
 import type { Metadata } from "next";
-import Container from "@/components/ui/Container";
-import PageHero from "@/components/ui/PageHero";
-import SectionHeading from "@/components/ui/SectionHeading";
-import ChecklistPanel from "@/components/ui/ChecklistPanel";
-import HorizontalCapabilityScroller, { type HorizontalCapability } from "@/components/ui/HorizontalCapabilityScroller";
-import EditorialProofSection from "@/components/ui/EditorialProofSection";
-import StatementSection from "@/components/ui/StatementSection";
-import BestFor from "@/components/ui/BestFor";
-import ClosingCta from "@/components/ui/ClosingCta";
-import OrganisationGrid from "@/components/ui/OrganisationGrid";
-import { CtaButton } from "@/components/ui/CtaButton";
+import SolutionPage, { type SolutionPageData } from "@/components/sections/SolutionPage";
 import { CASE_STUDIES } from "@/lib/proof";
 
 /* ============================================================
    CORPORATE TRAINING - Final Copy Deck, "CORPORATE TRAINING".
 
-   Section for section, in the deck's order and under the deck's
-   own headings: What We Support - Start With the Work - How
-   Learning Is Delivered - From Assessment to Performance - Best
-   For - Corporate Work in Practice - the closing question.
+   The deck's sections, in the deck's order, on the shared
+   template: What We Support - Start With the Work - How Learning
+   Is Delivered - Corporate Work in Practice - Best For - the
+   closing question.
+
+   Two things that were on this page are deliberately not here:
+
+     • the "Manufacturing & Precision Engineering" eyebrow and
+       its manufacturing paragraph, which sat above a heading
+       about general corporate training. They arrived as the
+       *default props* of the section component and belonged to
+       /industry-solutions, where that copy still lives.
+     • "From Assessment to Performance" as a standalone
+       paragraph. Its three sentences are the one line under Start
+       With the Work, which says the same thing in a fifth of the
+       words - and the sentence that used to sit there said only
+       what the heading above it already said.
    ============================================================ */
 
 export const metadata: Metadata = {
@@ -27,122 +30,71 @@ export const metadata: Metadata = {
     "Y&Now helps organisations strengthen workforce performance through practical learning across leadership, operations, customer experience, digital adoption, and role-specific skills.",
 };
 
-const SUPPORT: HorizontalCapability[] = [
-  {
-    icon: "Users2",
-    tint: "46,49,146",
-    title: "Leadership and people development",
-    body: "First-line managers through to senior teams.",
+const data: SolutionPageData = {
+  hero: {
+    title: "Learning that helps teams",
+    highlight: "perform better",
+    deck: "Practical, role-specific training built around the work your people actually do.",
+    ctaLabel: "Design a programme",
+    ctaHref: "/contact-us?type=corporate",
+    image: "/images/solutions-navbar/corporate-training.jpg",
+    imageAlt: "A facilitator leading a workplace training session with a corporate team",
   },
-  {
-    icon: "Gauge",
-    tint: "39,170,226",
-    title: "Operational and role-based training",
-    body: "The procedures, standards, and execution a role runs on.",
+  cover: {
+    title: "What we",
+    highlight: "support",
+    items: [
+      "Leadership and people development",
+      "Operational and role-based training",
+      "Customer and sales training",
+      "Digital adoption and workplace skills",
+      "Role-based assessment and skill-gap mapping",
+      "Performance-linked learning",
+    ],
   },
-  {
-    icon: "Sparkles",
-    tint: "31,34,103",
-    title: "Customer and sales training",
-    body: "Frontline, showroom, and dealer-facing teams.",
+  /* The deck's opening paragraph carried a four-item list inside a
+     single sentence ("job requirements, current skill gaps, business
+     priorities, and the workplace outcome"). It is a list, so it is
+     set as one. */
+  split: {
+    title: "Start with",
+    highlight: "the work",
+    deck: "Assessment finds the gaps; manager feedback shows what carried over.",
+    items: [
+      "Job requirements",
+      "Current skill gaps",
+      "Business priorities",
+      "The workplace outcome to improve",
+    ],
+    image: "/images/corporate/delivery-model/train.jpg",
+    imageAlt: "A facilitator working through a practical exercise with a workplace team",
   },
-  {
-    icon: "Laptop",
-    tint: "32,180,232",
-    title: "Digital adoption and workplace skills",
-    body: "Confidence with the systems you already run.",
+  formats: {
+    title: "How learning is",
+    highlight: "delivered",
+    items: ["Instructor-led", "Virtual", "Blended", "Digital", "Self-paced"],
+    note: "With microlearning, scenarios, practical exercises, or simulation where relevant.",
   },
-  {
-    icon: "ClipboardCheck",
-    tint: "46,49,146",
-    title: "Role-based assessment and skill-gap mapping",
-    body: "Current skills mapped against what the role requires.",
+  proof: {
+    title: "Corporate work in",
+    highlight: "practice",
+    items: CASE_STUDIES.map(({ client, work }) => ({ client, work })),
   },
-  {
-    icon: "TrendingUp",
-    tint: "39,170,226",
-    title: "Performance-linked learning",
-    body: "Workplace tasks, manager feedback, and performance measures.",
+  bestFor: [
+    "Individuals building a specific skill",
+    "Teams improving a shared area",
+    "Business units with a capability gap",
+    "Enterprises scaling workforce learning",
+  ],
+  cta: {
+    title: "Ready to discuss your workforce",
+    highlight: "need?",
+    line: "Tell us the roles, the group, or the business priority.",
+    ctaLabel: "Design a programme",
+    ctaHref: "/contact-us?type=corporate",
   },
-];
-
-/* The deck's "How Learning Is Delivered" names five formats, then
-   qualifies them in a second sentence. The formats are the list; the
-   qualifier stays prose. */
-const DELIVERY = ["Instructor-led", "Virtual", "Blended", "Digital", "Self-paced"];
-
-const BEST_FOR = [
-  "Individuals building a specific professional skill",
-  "Teams improving performance in a shared area",
-  "Business units addressing a role or capability gap",
-  "Enterprises looking for scalable workforce learning",
-];
+};
 
 export default function CorporatePage() {
-  return (
-    <>
-      <PageHero
-        eyebrow="Corporate Training"
-        title="Learning That Helps Teams"
-        highlight="Perform Better"
-        subtitle="We help organisations strengthen workforce performance through practical, role-specific learning."
-      >
-        <CtaButton href="/contact-us?type=corporate" variant="primary" className="px-7 py-3.5">
-          Design a corporate programme
-        </CtaButton>
-      </PageHero>
-
-      <HorizontalCapabilityScroller items={SUPPORT} title="What We" highlight="Support" />
-
-      <EditorialProofSection
-        title="Start With"
-        highlight="the Work"
-        body="The right learning programme starts with what people need to do in their roles. We design learning around job requirements, current skill gaps, business priorities, and the workplace outcome the organisation wants to improve."
-        image="/images/corporate/delivery-model/train.jpg"
-        imageAlt="A facilitator working through a practical exercise with a workplace team"
-      />
-
-      <ChecklistPanel
-        title="How Learning Is"
-        highlight="Delivered"
-        subtitle="Depending on the role and programme, we use microlearning, scenario-based activities, practical exercises, or simulation where relevant."
-        items={DELIVERY}
-        image="/images/corporate/delivery-model/apply.jpg"
-        imageAlt="A trainer guiding an operator through a task at the machine"
-        imageFirst
-        className="bg-surface"
-      />
-
-      <StatementSection
-        items={[
-          {
-            title: "From Assessment to",
-            highlight: "Performance",
-            body: "Role-based assessment identifies learning gaps. Targeted learning addresses those gaps. Workplace tasks, manager feedback, and performance measures help show whether learning is being applied.",
-          },
-        ]}
-      />
-
-      <BestFor items={BEST_FOR} className="bg-surface" />
-
-      <section className="bg-white py-20 lg:py-24">
-        <Container>
-          <SectionHeading title="Corporate Work in" highlight="Practice" className="mb-12" />
-          <OrganisationGrid
-            items={CASE_STUDIES.map(({ client, work }) => ({ name: client, note: work }))}
-          />
-        </Container>
-      </section>
-
-      <ClosingCta
-        title="Ready to Discuss Your Workforce"
-        highlight="Need?"
-        body="Tell us the roles, workforce group, or business priority you are working on. We can discuss the learning approach that fits your requirement."
-      >
-        <CtaButton href="/contact-us?type=corporate" variant="primary" className="px-7 py-3.5">
-          Design a corporate programme
-        </CtaButton>
-      </ClosingCta>
-    </>
-  );
+  return <SolutionPage data={data} />;
 }

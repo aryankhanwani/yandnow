@@ -4,7 +4,6 @@ import Container from "@/components/ui/Container";
 import PageHero from "@/components/ui/PageHero";
 import SectionHeading from "@/components/ui/SectionHeading";
 import FaqAccordion, { type FaqItemData } from "@/components/ui/FaqAccordion";
-import { CtaButton } from "@/components/ui/CtaButton";
 
 export const metadata: Metadata = {
   title: "FAQ | Questions About Y&Now",
@@ -173,18 +172,12 @@ export default function FaqPage() {
       />
 
       <PageHero
-        eyebrow="Resources · FAQ"
         title="Questions about"
         highlight="Y&Now"
-        subtitle="Clear answers on our learning programmes, community and CSR work, the platform, and how to get started."
-      >
-        <CtaButton href="/contact-us" variant="primary" className="px-7 py-3.5">
-          Talk to Y&amp;Now
-        </CtaButton>
-        <CtaButton href="/our-platform" variant="secondary" className="px-7 py-3.5">
-          Explore the platform
-        </CtaButton>
-      </PageHero>
+        deck="Clear answers on our learning programmes, community and CSR work, the platform, and how to get started."
+        ctaLabel="Talk to Y&amp;Now"
+        ctaHref="/contact-us"
+      />
 
       {CATEGORIES.map((cat, i) => {
         const iconName = cat.icon;
@@ -203,14 +196,13 @@ export default function FaqPage() {
                     <AnimIcon name={iconName} size={22} />
                   </div>
                   <SectionHeading
-                    eyebrow={cat.eyebrow}
                     title={cat.title}
                     highlight={cat.highlight}
                     align="center"
                     className="mb-10"
                   />
                 </div>
-                <FaqAccordion items={cat.items} defaultOpen={i === 0 ? 0 : null} />
+                <FaqAccordion items={cat.items} />
               </div>
             </Container>
           </section>

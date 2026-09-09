@@ -7,7 +7,7 @@ import PageHero from "@/components/ui/PageHero";
 import SectionHeading from "@/components/ui/SectionHeading";
 import FaqAccordion, { type FaqItemData } from "@/components/ui/FaqAccordion";
 import ScrollTextReveal from "@/components/ui/ScrollTextReveal";
-import ChecklistPanel from "@/components/ui/ChecklistPanel";
+import SplitSection from "@/components/ui/SplitSection";
 import TeamGrid, { type TeamMember } from "@/components/sections/TeamGrid";
 import { Reveal } from "@/components/ui/motion-primitives";
 
@@ -115,11 +115,9 @@ export default function AboutPage() {
   return (
     <>
       <PageHero
-        eyebrow="About Y&Now"
         title="Practical Learning with a"
         highlight="Clear Purpose"
-        subtitle="We help people and organisations build useful skills, grow with confidence, and stay ready for what comes next."
-        className="border-b-0"
+        deck="We help people and organisations build useful skills and stay ready for what comes next."
       />
 
       {/* Team collage */}
@@ -150,7 +148,7 @@ export default function AboutPage() {
       <section className="bg-surface py-20 lg:py-28">
         <Container>
           <div className="max-w-5xl text-left">
-            <p className="mb-6 text-[11px] font-semibold uppercase tracking-[0.16em] text-secondary-500">Who We Are</p>
+            <span aria-hidden className="route-rule mb-8" />
             <ScrollTextReveal
               text="Y&Now is a learning brand focused on practical outcomes. We design programmes that help learners become job-ready, teams perform better, and organisations build capability that lasts."
               highlightWords={["practical", "job-ready", "perform", "capability"]}
@@ -165,14 +163,14 @@ export default function AboutPage() {
         <Container>
           <div className="grid gap-px overflow-hidden rounded-3xl border border-[#e8ecf2] bg-[#e8ecf2] lg:grid-cols-2">
             <Reveal y={18} className="bg-white p-8 lg:p-12">
-              <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-secondary-500">Our Mission</p>
+              <h2 className="text-h4 text-ink">Our mission</h2>
               <p className="mt-5 font-heading text-[clamp(1.25rem,2.2vw,1.65rem)] font-600 leading-snug text-ink">
                 To make practical learning easier to access, easier to apply, and
                 more useful for real work and real life.
               </p>
             </Reveal>
             <Reveal y={18} delay={0.1} className="bg-white p-8 lg:p-12">
-              <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-secondary-500">Our Vision</p>
+              <h2 className="text-h4 text-ink">Our vision</h2>
               <p className="mt-5 font-heading text-[clamp(1.25rem,2.2vw,1.65rem)] font-600 leading-snug text-ink">
                 A future where more people can turn learning into opportunity,
                 confidence, and better work.
@@ -183,22 +181,21 @@ export default function AboutPage() {
       </section>
 
       {/* What we believe */}
-      <ChecklistPanel
-        eyebrow="What We Believe"
+      <SplitSection
         title="Why our work"
         highlight="matters"
-        subtitle="The gap between learning and doing is still too wide. We help people close it."
+        deck="The gap between learning and doing is still too wide."
         items={BELIEFS}
         image="/about/training-review.png"
         imageAlt="Programme managers reviewing digital training material together"
-        className="bg-surface"
+        bg="tint"
+        headingId="beliefs-heading"
       />
 
       {/* Team */}
       <section className="bg-white py-20 lg:py-28">
         <Container>
           <SectionHeading
-            eyebrow="Meet the Team"
             title="The people behind the"
             highlight="programmes"
             className="mb-14"
@@ -206,7 +203,7 @@ export default function AboutPage() {
           <TeamGrid members={TEAM} />
 
           <div className="mt-16">
-            <SectionHeading eyebrow="Advisers" title="Guidance from the wider field" align="left" className="mb-8" />
+            <SectionHeading title="Guidance from the wider field" align="left" className="mb-8" />
             <TeamGrid members={ADVISERS} columns={2} />
           </div>
         </Container>
@@ -217,7 +214,7 @@ export default function AboutPage() {
         <Container>
           <div className="grid items-center gap-12 lg:grid-cols-[1.05fr_0.95fr] lg:gap-16">
             <div className="max-w-xl">
-              <SectionHeading eyebrow="Credentials" title="How Y&Now is registered" align="left" />
+              <SectionHeading title="How Y&Now is registered" align="left" />
               <Reveal delay={0.1} className="mt-5 space-y-4 text-[15px] leading-relaxed text-neutral-600">
                 <p>
                   Y&Now is presented as a registered trademark associated with
@@ -262,7 +259,7 @@ export default function AboutPage() {
         <Container>
           <div className="grid grid-cols-1 gap-10 lg:grid-cols-[0.85fr_1.15fr] lg:gap-16">
             <div className="lg:sticky lg:top-28 lg:self-start">
-              <SectionHeading eyebrow="About FAQ" title="Get to know" highlight="Y&Now" align="left" />
+              <SectionHeading title="Get to know" highlight="Y&Now" align="left" />
             </div>
             <FaqAccordion items={FAQS} />
           </div>

@@ -1,120 +1,47 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
-import { AnimatePresence, motion } from "motion/react";
-import {
-  ChevronDown, Menu, X, ArrowRight, ArrowUpRight,
-  Building2, Heart, Factory, Shield, School, GraduationCap, Store,
-  BriefcaseBusiness, Images, Newspaper, UserRoundPlus,
-  type LucideIcon,
-} from "lucide-react";
 import { CtaButton } from "@/components/ui/CtaButton";
 import { cn } from "@/lib/utils";
 
 /* ============================================================
-   NAV DATA - each solution carries an icon, contextual photo,
-   and a one-line description for the mega-menu preview.
+   NAV DATA - links, and nothing else.
+
+   The dropdowns used to carry a one-line description and a
+   photograph per entry, which meant opening the Solutions menu
+   fetched seven images and asked the visitor to read seven
+   sentences to pick one of seven links. The names are the
+   information; the pages do the explaining.
    ============================================================ */
-interface SubLink {
+
+interface NavLink {
   label: string;
   href: string;
-  description: string;
-  icon: LucideIcon;
-  /** Project-hosted photography used in the desktop preview and mobile thumbnail. */
-  image: string;
-  tag?: string;
 }
 
 interface NavItem {
   label: string;
   href: string;
-  children?: SubLink[];
+  children?: NavLink[];
 }
 
-/** "dark" = the bar is sitting on a dark ground (the hero video), so
-    its own contents invert to white. */
-type NavTone = "light" | "dark";
-
-const SOLUTIONS: SubLink[] = [
-  {
-    label: "Corporate Training",
-    href: "/corporate",
-    description: "Learning that helps teams perform better.",
-    icon: Building2,
-    image: "/images/solutions-navbar/corporate-training.jpg",
-    tag: "Popular",
-  },
-  {
-    label: "CSR Programmes",
-    href: "/csr-programs",
-    description: "Community programmes you can report on.",
-    icon: Heart,
-    image: "/images/solutions-navbar/csr-programs.jpg",
-  },
-  {
-    label: "Industry Solutions",
-    href: "/industry-solutions",
-    description: "Learning built around the work.",
-    icon: Factory,
-    image: "/images/solutions-navbar/industry-solutions.jpg",
-  },
-  {
-    label: "Defence Programmes",
-    href: "/defence-programs",
-    description: "Experience that moves forward.",
-    icon: Shield,
-    image: "/images/solutions-navbar/defence-programs.jpg",
-  },
-  {
-    label: "School Solutions",
-    href: "/school-solutions",
-    description: "Practical skills for what comes next.",
-    icon: School,
-    image: "/images/solutions-navbar/school-solutions.jpg",
-  },
-  {
-    label: "Micro-Entrepreneurship",
-    href: "/micro-entrepreneurship",
-    description: "Skills for livelihoods and small businesses.",
-    icon: Store,
-    image: "/images/solutions-navbar/micro-entrepreneurship.jpg",
-  },
-  {
-    label: "For Learners",
-    href: "/learners-b2c",
-    description: "Learn skills. Build your next step.",
-    icon: GraduationCap,
-    image: "/images/solutions-navbar/for-learners.jpg",
-  },
+const SOLUTIONS: NavLink[] = [
+  { label: "Corporate Training", href: "/corporate" },
+  { label: "CSR Programmes", href: "/csr-programs" },
+  { label: "Industry Solutions", href: "/industry-solutions" },
+  { label: "Defence Programmes", href: "/defence-programs" },
+  { label: "School Solutions", href: "/school-solutions" },
+  { label: "Micro-Entrepreneurship", href: "/micro-entrepreneurship" },
+  { label: "For Learners", href: "/learners-b2c" },
 ];
 
-/* The proof-and-people pages the copy deck defines. They sit behind
-   one nav item so the primary bar keeps its five entries. */
-const RESOURCES: SubLink[] = [
-  {
-    label: "Gallery",
-    href: "/gallery",
-    description: "See Y&Now in action.",
-    icon: Images,
-    image: "/images/csr/delivery-model/programme-execution.jpg",
-  },
-  {
-    label: "Blog",
-    href: "/blog",
-    description: "Ideas, updates, and useful thinking.",
-    icon: Newspaper,
-    image: "/images/corporate/delivery-model/improve.jpg",
-  },
-  {
-    label: "Careers",
-    href: "/careers",
-    description: "Build work that helps people grow.",
-    icon: UserRoundPlus,
-    image: "/about/team-collaboration.png",
-  },
+const RESOURCES: NavLink[] = [
+  { label: "Gallery", href: "/gallery" },
+  { label: "Blog", href: "/blog" },
+  { label: "Careers", href: "/careers" },
 ];
 
 const NAV_ITEMS: NavItem[] = [
@@ -128,13 +55,7 @@ const NAV_ITEMS: NavItem[] = [
 const CTA_LABEL = "Talk to Y&Now";
 const CTA_HREF = "/contact-us";
 
-/* ============================================================
-   useTopNavClick - makes every navbar link land at the TOP of
-   the target page. Cross-page navigation already tops via the
-   route-change effect in <Header>; this handles the same-page
-   case (Next does nothing on a same-URL click), scrolling back
-   up smoothly instead of leaving the visitor where they were.
-   ============================================================ */
+/** Same-URL clicks return to the top; Next does nothing by default. */
 function useTopNavClick() {
   const pathname = usePathname();
   return (href: string) => (e: React.MouseEvent) => {
@@ -146,447 +67,303 @@ function useTopNavClick() {
   };
 }
 
-/* ============================================================
-   PREVIEW ART - contextual photography with a brand-toned text
-   scrim. Each image is project-hosted and solution-specific.
-   ============================================================ */
-function PreviewArt({ item }: { item: SubLink }) {
+function Chevron({ open }: { open: boolean }) {
   return (
-    <div className="relative h-full w-full overflow-hidden bg-primary-900">
-      <Image
-        src={item.image}
-        alt=""
-        fill
-        sizes="240px"
-        className="object-cover transition-transform duration-700 ease-out hover:scale-[1.025]"
-      />
-      <div className="absolute inset-0 bg-gradient-to-b from-primary-950/15 via-primary-950/20 to-primary-950/95" />
-      <div className="absolute inset-0 bg-primary-900/10 mix-blend-multiply" />
-      {/* Foreground content - label only (no description / CTA) */}
-      <div className="relative flex h-full items-end p-5">
-        <p className="font-heading text-lg font-700 leading-tight text-white">{item.label}</p>
-      </div>
-    </div>
+    <svg
+      viewBox="0 0 16 16"
+      width="14"
+      height="14"
+      fill="none"
+      aria-hidden
+      className={cn("transition-transform transition-house", open && "rotate-180")}
+    >
+      <path d="M3 6l5 5 5-5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="square" />
+    </svg>
   );
 }
 
 /* ============================================================
-   HOVER-SLIDE LABEL - on hover the current label slides up and
-   out while an identical copy slides up from below to replace
-   it; reverses smoothly when the hover ends. Used by every text
-   nav item on both the full-width and floating navbars.
-   ============================================================ */
-function HoverSlideLabel({ children, className }: { children: React.ReactNode; className?: string }) {
-  return (
-    <span className={cn("relative inline-flex h-[1.2em] items-center justify-center overflow-hidden align-middle", className)}>
-      <span className="flex h-full items-center justify-center transition-transform duration-300 ease-out group-hover:-translate-y-full">
-        {children}
-      </span>
-      <span
-        aria-hidden="true"
-        className="absolute inset-0 flex items-center justify-center translate-y-full transition-transform duration-300 ease-out group-hover:translate-y-0"
-      >
-        {children}
-      </span>
-    </span>
-  );
-}
+   DESKTOP DROPDOWN - a two-column list of links.
 
-/* ============================================================
-   DESKTOP DROPDOWN - two-pane mega menu with live preview
+   Opens on hover *and* on click or keyboard focus. Hover alone
+   is inaccessible and dead on a touch screen, so the button is a
+   real button with aria-expanded and the panel closes on Escape
+   and on outside click.
    ============================================================ */
-function DesktopDropdown({ item, idPrefix, tone = "light" }: { item: NavItem; idPrefix: string; tone?: NavTone }) {
+function DesktopDropdown({
+  item,
+  onDark,
+  align = "left",
+}: {
+  item: NavItem;
+  onDark: boolean;
+  /** The rightmost menu opens to the left so a 1024px viewport can hold it. */
+  align?: "left" | "right";
+}) {
+  const twoUp = item.children!.length > 4;
   const [open, setOpen] = useState(false);
-  const [activeIndex, setActiveIndex] = useState(0);
-  const ref = useRef<HTMLDivElement>(null);
-  const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const wrapper = useRef<HTMLDivElement>(null);
+  const closeTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const onTop = useTopNavClick();
-
-  const handleMouseEnter = () => {
-    if (timeoutRef.current) clearTimeout(timeoutRef.current);
-    setOpen(true);
-  };
-  const handleMouseLeave = () => {
-    timeoutRef.current = setTimeout(() => setOpen(false), 140);
-  };
+  const panelId = `nav-panel-${item.label.toLowerCase().replace(/\s+/g, "-")}`;
 
   useEffect(() => {
-    function handleClickOutside(e: MouseEvent) {
-      if (ref.current && !ref.current.contains(e.target as Node)) setOpen(false);
-    }
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => document.removeEventListener("mousedown", handleClickOutside);
+    const onPointerDown = (e: MouseEvent) => {
+      if (wrapper.current && !wrapper.current.contains(e.target as Node)) setOpen(false);
+    };
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setOpen(false);
+    };
+    document.addEventListener("mousedown", onPointerDown);
+    document.addEventListener("keydown", onKey);
+    return () => {
+      document.removeEventListener("mousedown", onPointerDown);
+      document.removeEventListener("keydown", onKey);
+    };
   }, []);
 
-  const active = item.children![activeIndex];
+  useEffect(() => () => {
+    if (closeTimer.current) clearTimeout(closeTimer.current);
+  }, []);
 
   return (
     <div
-      ref={ref}
+      ref={wrapper}
       className="relative"
-      onMouseEnter={handleMouseEnter}
-      onMouseLeave={handleMouseLeave}
+      onMouseEnter={() => {
+        if (closeTimer.current) clearTimeout(closeTimer.current);
+        setOpen(true);
+      }}
+      onMouseLeave={() => {
+        closeTimer.current = setTimeout(() => setOpen(false), 140);
+      }}
+      onBlur={(e) => {
+        if (!e.currentTarget.contains(e.relatedTarget as Node)) setOpen(false);
+      }}
     >
       <button
-        id={`${idPrefix}-nav-dropdown-${item.label.toLowerCase().replace(/\s+/g, "-")}`}
+        type="button"
         aria-expanded={open}
-        aria-haspopup="true"
+        aria-controls={panelId}
         onClick={() => setOpen((v) => !v)}
         className={cn(
-          "group flex items-center gap-1 rounded-lg px-3 py-2 text-sm font-semibold outline-none transition-colors duration-300 focus-visible:ring-2 focus-visible:ring-primary-300",
-          tone === "dark"
-            ? "text-white/85 hover:bg-white/10 hover:text-white"
-            : "text-neutral-700 hover:bg-black/5 hover:text-primary-600",
+          "flex h-11 items-center gap-1.5 px-3 text-body-sm transition-colors transition-house",
+          onDark ? "text-white hover:text-white/70" : "text-ink hover:text-brand",
         )}
-      >
-        <HoverSlideLabel>{item.label}</HoverSlideLabel>
-        <ChevronDown
-          size={13}
-          strokeWidth={2.5}
-          className={cn("transition-transform duration-300", open && "rotate-180")}
-        />
-      </button>
-
-      <AnimatePresence>
-        {open && (
-          <motion.div
-            role="menu"
-            initial={{ opacity: 0, y: 10, scale: 0.98 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: 8, scale: 0.98 }}
-            transition={{ duration: 0.22, ease: [0.16, 1, 0.3, 1] }}
-            className="absolute left-1/2 top-full z-50 mt-3 w-[620px] -translate-x-1/2 overflow-hidden rounded-2xl border border-neutral-100 bg-white backdrop-blur-xl"
-            style={{ boxShadow: "0 24px 70px rgba(14,16,58,0.16), 0 4px 16px rgba(14,16,58,0.06)" }}
-          >
-            <div className="grid grid-cols-[1fr_240px]">
-              {/* Left - solution list */}
-              <div className="p-2.5">
-                <p className="px-3 pb-1.5 pt-2 text-[10px] font-bold uppercase tracking-[0.16em] text-neutral-400">
-                  {item.label === "Solutions" ? "Our Solutions" : item.label}
-                </p>
-                {item.children!.map((child, idx) => {
-                  const Icon = child.icon;
-                  const isActive = activeIndex === idx;
-                  return (
-                    <Link
-                      key={child.href}
-                      href={child.href}
-                      role="menuitem"
-                      onMouseEnter={() => setActiveIndex(idx)}
-                      onFocus={() => setActiveIndex(idx)}
-                      onClick={(e) => { onTop(child.href)(e); setOpen(false); }}
-                      className="group/item relative flex items-center gap-3 rounded-xl px-3 py-2.5"
-                    >
-                      {isActive && (
-                        <motion.span
-                          layoutId="nav-active-pill"
-                          transition={{ type: "spring", stiffness: 400, damping: 32 }}
-                          className="absolute inset-0 rounded-xl bg-primary-50"
-                        />
-                      )}
-                      <span
-                        className={cn(
-                          "relative z-10 flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-lg transition-colors duration-200",
-                          isActive ? "bg-primary-500 text-white" : "bg-neutral-100 text-neutral-500",
-                        )}
-                      >
-                        <Icon size={17} strokeWidth={2} />
-                      </span>
-                      <span className="relative z-10 flex min-w-0 flex-1 items-center gap-2">
-                        <span
-                          className={cn(
-                            "text-[13.5px] font-semibold leading-tight transition-colors duration-200",
-                            isActive ? "text-primary-700" : "text-ink",
-                          )}
-                        >
-                          {child.label}
-                        </span>
-                        {child.tag && (
-                          <span className="rounded-full bg-secondary-500 px-1.5 py-0.5 text-[9px] font-bold uppercase leading-none tracking-wide text-white">
-                            {child.tag}
-                          </span>
-                        )}
-                      </span>
-                      <ArrowRight
-                        size={14}
-                        className={cn(
-                          "relative z-10 flex-shrink-0 text-primary-500 transition-all duration-200",
-                          isActive ? "translate-x-0 opacity-100" : "-translate-x-1 opacity-0",
-                        )}
-                      />
-                    </Link>
-                  );
-                })}
-              </div>
-
-              {/* Right - live preview panel */}
-              <div className="relative m-2.5 ml-0 overflow-hidden rounded-xl">
-                <AnimatePresence mode="wait">
-                  <motion.div
-                    key={active.href}
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    exit={{ opacity: 0 }}
-                    transition={{ duration: 0.25 }}
-                    className="absolute inset-0"
-                  >
-                    <Link href={active.href} onClick={() => setOpen(false)} className="block h-full">
-                      <PreviewArt item={active} />
-                    </Link>
-                  </motion.div>
-                </AnimatePresence>
-              </div>
-            </div>
-
-            {/* Footer CTA */}
-            <div className="flex items-center justify-between border-t border-neutral-100 bg-neutral-50 px-4 py-2.5">
-              <span className="text-xs font-medium text-neutral-500">Not sure which route fits?</span>
-              <Link
-                href="/contact-us"
-                onClick={() => setOpen(false)}
-                className="group inline-flex items-center gap-1 text-xs font-semibold text-primary-600 hover:text-primary-700"
-              >
-                Talk to Y&Now
-                <ArrowUpRight size={12} className="transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-              </Link>
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
-    </div>
-  );
-}
-
-/* ============================================================
-   MOBILE ACCORDION ITEM
-   ============================================================ */
-function MobileAccordion({ item, onLinkClick }: { item: NavItem; onLinkClick: () => void }) {
-  const [open, setOpen] = useState(false);
-  const onTop = useTopNavClick();
-
-  return (
-    <div className="border-b border-neutral-100 last:border-0">
-      <button
-        className="flex w-full items-center justify-between py-3.5 text-base font-semibold text-ink"
-        onClick={() => setOpen((v) => !v)}
-        aria-expanded={open}
       >
         {item.label}
-        <ChevronDown
-          size={18}
-          className={cn("text-neutral-400 transition-transform duration-250", open && "rotate-180")}
-        />
+        <Chevron open={open} />
       </button>
-      <div className={cn("overflow-hidden transition-all duration-300", open ? "max-h-[640px] opacity-100" : "max-h-0 opacity-0")}>
-        <div className="space-y-1 pb-3">
-          {item.children!.map((child) => {
-            const Icon = child.icon;
-            return (
+
+      <div
+        id={panelId}
+        hidden={!open}
+        className={cn(
+          "absolute top-full z-50 rounded-lg border border-hairline bg-surface p-3 shadow-lg",
+          twoUp ? "w-[28rem]" : "w-56",
+          align === "right" ? "right-0" : "left-0",
+        )}
+      >
+        <ul className={cn("grid gap-x-4", twoUp && "grid-cols-2")}>
+          {item.children!.map((child) => (
+            <li key={child.href}>
               <Link
-                key={child.href}
                 href={child.href}
-                className="flex items-center gap-3 rounded-xl px-3 py-2.5 transition-colors hover:bg-primary-50"
-                onClick={(e) => { onTop(child.href)(e); onLinkClick(); }}
+                onClick={(e) => {
+                  onTop(child.href)(e);
+                  setOpen(false);
+                }}
+                className="flex min-h-11 items-center rounded-lg px-3 text-body-sm text-ink transition-colors transition-house hover:bg-surface-alt hover:text-brand"
               >
-                <span className="relative flex h-10 w-10 flex-shrink-0 items-center justify-center overflow-hidden rounded-lg bg-primary-800 text-white">
-                  <Image src={child.image} alt="" fill sizes="40px" className="object-cover" />
-                  <span className="absolute inset-0 bg-primary-950/35" />
-                  <Icon className="relative" size={16} strokeWidth={2} />
-                </span>
-                <span className="min-w-0">
-                  <span className="block text-sm font-semibold text-ink">{child.label}</span>
-                  <span className="mt-0.5 block truncate text-xs text-neutral-500">{child.description}</span>
-                </span>
+                {child.label}
               </Link>
-            );
-          })}
-        </div>
+            </li>
+          ))}
+        </ul>
       </div>
     </div>
   );
 }
 
 /* ============================================================
-   MOBILE MENU DRAWER
+   MOBILE MENU - a full-screen overlay, not a cramped drawer.
+
+   Body scroll is locked while it is open, focus is trapped
+   inside it, Escape closes it, and it closes on route change.
+   Solutions and Resources are accordion groups, closed by
+   default. The CTA sits at the bottom, where a thumb is.
    ============================================================ */
-function MobileDrawer({ open, onClose }: { open: boolean; onClose: () => void }) {
+function MobileMenu({ open, onClose }: { open: boolean; onClose: () => void }) {
+  const panel = useRef<HTMLDivElement>(null);
+  const [openGroup, setOpenGroup] = useState<string | null>(null);
   const onTop = useTopNavClick();
+
   useEffect(() => {
-    document.body.style.overflow = open ? "hidden" : "";
-    return () => { document.body.style.overflow = ""; };
-  }, [open]);
+    if (!open) return;
+
+    const { overflow } = document.body.style;
+    document.body.style.overflow = "hidden";
+
+    const node = panel.current;
+    const focusables = () =>
+      Array.from(
+        node?.querySelectorAll<HTMLElement>(
+          'a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])',
+        ) ?? [],
+      ).filter((el) => el.offsetParent !== null);
+
+    focusables()[0]?.focus();
+
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        onClose();
+        return;
+      }
+      if (e.key !== "Tab") return;
+
+      const items = focusables();
+      if (items.length === 0) return;
+      const first = items[0];
+      const last = items[items.length - 1];
+
+      if (e.shiftKey && document.activeElement === first) {
+        e.preventDefault();
+        last.focus();
+      } else if (!e.shiftKey && document.activeElement === last) {
+        e.preventDefault();
+        first.focus();
+      }
+    };
+
+    document.addEventListener("keydown", onKey);
+    return () => {
+      document.body.style.overflow = overflow;
+      document.removeEventListener("keydown", onKey);
+    };
+  }, [open, onClose]);
+
+  if (!open) return null;
 
   return (
-    <>
-      <div
-        className={cn(
-          "fixed inset-0 z-40 bg-ink/50 backdrop-blur-sm transition-opacity duration-300",
-          open ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none",
-        )}
-        onClick={onClose}
-        aria-hidden="true"
-      />
-      <div
-        id="mobile-nav-drawer"
-        role="dialog"
-        aria-modal="true"
-        aria-label="Navigation menu"
-        className={cn(
-          "fixed inset-y-0 right-0 z-50 flex w-[min(340px,100vw)] flex-col bg-white shadow-lg transition-transform duration-300 ease-out",
-          open ? "translate-x-0" : "translate-x-full",
-        )}
-      >
-        <div className="flex items-center justify-between border-b border-neutral-100 px-5 py-4">
-          <Link href="/" onClick={onClose}>
-            <Image src="/logo.png" alt="Y&Now" width={96} height={32} className="h-8 w-auto object-contain" />
-          </Link>
-          <button
-            id="mobile-nav-close"
-            onClick={onClose}
-            aria-label="Close navigation"
-            className="rounded-lg p-2 text-neutral-600 transition-colors hover:bg-neutral-100"
-          >
-            <X size={20} />
-          </button>
-        </div>
+    <div
+      ref={panel}
+      role="dialog"
+      aria-modal="true"
+      aria-label="Navigation menu"
+      id="mobile-nav"
+      className="safe-top safe-bottom fixed inset-0 z-50 flex flex-col bg-surface lg:hidden"
+    >
+      <div className="flex h-16 items-center justify-between px-5">
+        <Link href="/" onClick={onClose} aria-label="Y&Now, home">
+          <Image src="/logo.png" alt="Y&Now" width={96} height={32} className="h-8 w-auto" />
+        </Link>
+        <button
+          type="button"
+          onClick={onClose}
+          aria-label="Close navigation"
+          className="flex h-11 w-11 items-center justify-center text-ink"
+        >
+          <svg viewBox="0 0 20 20" width="20" height="20" fill="none" aria-hidden>
+            <path d="M4 4l12 12M16 4L4 16" stroke="currentColor" strokeWidth="1.5" />
+          </svg>
+        </button>
+      </div>
 
-        {/* data-lenis-prevent: Lenis owns the wheel globally and would
-            otherwise swallow scroll gestures made over the open drawer
-            instead of scrolling this panel. */}
-        <nav data-lenis-prevent className="flex-1 overflow-y-auto px-5 py-4">
+      {/* data-lenis-prevent: Lenis owns the wheel globally and would
+          otherwise swallow gestures made over the open menu. */}
+      <nav data-lenis-prevent className="flex-1 overflow-y-auto px-5 pb-8">
+        <ul className="border-t border-hairline">
           {NAV_ITEMS.map((item) =>
             item.children ? (
-              <MobileAccordion key={item.label} item={item} onLinkClick={onClose} />
+              <li key={item.label} className="border-b border-hairline">
+                <button
+                  type="button"
+                  aria-expanded={openGroup === item.label}
+                  aria-controls={`mobile-group-${item.label}`}
+                  onClick={() =>
+                    setOpenGroup(openGroup === item.label ? null : item.label)
+                  }
+                  className="flex min-h-14 w-full items-center justify-between py-3 text-h4 text-ink"
+                >
+                  {item.label}
+                  <Chevron open={openGroup === item.label} />
+                </button>
+                <ul id={`mobile-group-${item.label}`} hidden={openGroup !== item.label} className="pb-3">
+                  {item.children.map((child) => (
+                    <li key={child.href}>
+                      <Link
+                        href={child.href}
+                        onClick={(e) => {
+                          onTop(child.href)(e);
+                          onClose();
+                        }}
+                        className="flex min-h-11 items-center py-1 text-body text-ink-muted"
+                      >
+                        {child.label}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </li>
             ) : (
-              <Link
-                key={item.href}
-                href={item.href}
-                className="flex items-center border-b border-neutral-100 py-3.5 text-base font-semibold text-ink transition-colors last:border-0 hover:text-primary-600"
-                onClick={(e) => { onTop(item.href)(e); onClose(); }}
-              >
-                {item.label}
-              </Link>
+              <li key={item.href} className="border-b border-hairline">
+                <Link
+                  href={item.href}
+                  onClick={(e) => {
+                    onTop(item.href)(e);
+                    onClose();
+                  }}
+                  className="flex min-h-14 items-center py-3 text-h4 text-ink"
+                >
+                  {item.label}
+                </Link>
+              </li>
             ),
           )}
-        </nav>
+        </ul>
 
-        <div className="border-t border-neutral-100 px-5 py-5">
-          <CtaButton href={CTA_HREF} id="mobile-nav-cta" variant="primary" className="w-full justify-center px-6 py-3" onClick={onClose}>
-            {CTA_LABEL}
-          </CtaButton>
-        </div>
-      </div>
-    </>
-  );
-}
-
-/* ============================================================
-   NAV ROW - shared logo / links / CTA / mobile-toggle markup,
-   rendered once per bar (idPrefix keeps element ids unique since
-   both bars stay mounted so the slide transition can animate).
-   ============================================================ */
-function NavRow({
-  idPrefix,
-  onOpenMobile,
-  tone = "light",
-}: {
-  idPrefix: string;
-  onOpenMobile: () => void;
-  tone?: NavTone;
-}) {
-  const onTop = useTopNavClick();
-  const onDark = tone === "dark";
-  return (
-    <div className="mx-auto flex h-[64px] w-full max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
-      <Link href="/" onClick={onTop("/")} id={`${idPrefix}-site-logo`} aria-label="Y&Now, home" className="logo-hover flex-shrink-0">
-        <Image
-          /* Over the hero video the wordmark's grey letterforms would
-             disappear, so the bar swaps to the knocked-out variant. */
-          src={onDark ? "/logo-light.png" : "/logo.png"}
-          alt="Y&Now, Workforce Capability Solutions"
-          width={120}
-          height={40}
-          className="h-9 w-auto object-contain"
-          priority
-        />
-      </Link>
-
-      <nav aria-label="Primary navigation" className="hidden items-center gap-0.5 lg:flex">
-        {NAV_ITEMS.map((item) =>
-          item.children ? (
-            <DesktopDropdown key={item.label} item={item} idPrefix={idPrefix} tone={tone} />
-          ) : (
-            <Link
-              key={item.href}
-              href={item.href}
-              onClick={onTop(item.href)}
-              id={`${idPrefix}-nav-${item.label.toLowerCase().replace(/\s+/g, "-")}`}
-              className={cn(
-                "group rounded-lg px-3 py-2 text-sm font-semibold transition-colors duration-300",
-                onDark
-                  ? "text-white/85 hover:bg-white/10 hover:text-white"
-                  : "text-neutral-700 hover:bg-black/5 hover:text-primary-600",
-              )}
-            >
-              <HoverSlideLabel>{item.label}</HoverSlideLabel>
-            </Link>
-          ),
-        )}
-      </nav>
-
-      <div className="hidden items-center gap-2 lg:flex">
-        <CtaButton
-          href={CTA_HREF}
-          id={`${idPrefix}-header-cta-primary`}
-          variant="primary"
-          glassy={onDark}
-          className="px-5 py-2"
-        >
+        <CtaButton href={CTA_HREF} onClick={onClose} className="mt-8 w-full">
           {CTA_LABEL}
         </CtaButton>
-      </div>
-
-      <button
-        id={`${idPrefix}-mobile-nav-toggle`}
-        onClick={onOpenMobile}
-        aria-label="Open navigation"
-        aria-controls="mobile-nav-drawer"
-        className={cn(
-          "rounded-lg p-2 transition-colors lg:hidden",
-          onDark ? "text-white hover:bg-white/10" : "text-neutral-700 hover:bg-neutral-100",
-        )}
-      >
-        <Menu size={22} />
-      </button>
+      </nav>
     </div>
   );
 }
 
 /* ============================================================
-   MAIN HEADER
-   ────────────────────────────────────────────────────────────
-   Two physical bars, both always mounted so the swap animates:
-     • Flat bar   - full-width, flush with the viewport edge.
-                    Translucent + blurred on the homepage (the
-                    colour wash behind the hero shows through),
-                    solid white on inner pages. Slides straight
-                    up and out once the page scrolls.
-     • Floating   - centred capsule, rounded + shadowed. Sits
-                    just above the viewport until the page
-                    scrolls, then slides down into place.
-   The inactive bar is marked `inert` so it's never focusable or
-   exposed to assistive tech while it's off-screen.
-   ============================================================ */
-type NavPhase = "top" | "scrolled";
+   HEADER
 
+   One bar. The previous version kept two full navbars mounted at
+   once - a flat one and a floating capsule - so every link label
+   appeared twice in the DOM ("HomeHome", "SolutionsSolutions").
+   `inert` hid the spare from the keyboard but the duplicate text
+   was still there to be read. There is now one bar, and it
+   changes ground rather than being replaced.
+
+   64px tall below lg, 72px from lg, sticky at every size, and it
+   respects the iOS safe area at the top.
+   ============================================================ */
 export default function Header() {
-  const [navPhase, setNavPhase] = useState<NavPhase>("top");
-  const [mobileOpen, setMobileOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
   const pathname = usePathname();
+  const onTop = useTopNavClick();
   const isHome = pathname === "/";
 
-  /* Land at the top of every page on cross-page navigation
-     (skip when the URL carries a hash, so in-page anchors work). */
+  const closeMenu = useCallback(() => setMenuOpen(false), []);
+
+  /* Never leave the mobile menu open across a route change. Adjusted
+     during render rather than in an effect, so the menu is already
+     closed on the first frame of the new page instead of flashing
+     open for one. */
+  const [lastPath, setLastPath] = useState(pathname);
+  if (lastPath !== pathname) {
+    setLastPath(pathname);
+    setMenuOpen(false);
+  }
+
+  /* Land at the top of every page on cross-page navigation (skip when
+     the URL carries a hash, so in-page anchors still work). */
   useEffect(() => {
     if (typeof window !== "undefined" && !window.location.hash) {
       window.scrollTo({ top: 0 });
@@ -594,62 +371,95 @@ export default function Header() {
   }, [pathname]);
 
   useEffect(() => {
-    const update = () => setNavPhase(window.scrollY <= 24 ? "top" : "scrolled");
+    const update = () => setScrolled(window.scrollY > 24);
     update();
     window.addEventListener("scroll", update, { passive: true });
     return () => window.removeEventListener("scroll", update);
   }, []);
 
-  useEffect(() => {
-    const onKey = (e: KeyboardEvent) => { if (e.key === "Escape") setMobileOpen(false); };
-    document.addEventListener("keydown", onKey);
-    return () => document.removeEventListener("keydown", onKey);
-  }, []);
-
-  const scrolled = navPhase === "scrolled";
-  const openMobile = () => setMobileOpen(true);
-
-  /* The flat, full-width bar is only ever used at the top of the
-     homepage, where it sits clear on the hero video. Inner pages open
-     on a white hero, and a white full-width bar simply disappeared into
-     it - so they get the floating capsule from the first frame, which
-     has its own border and shadow and always reads as a separate
-     element. */
-  const showFlatBar = isHome && !scrolled;
+  /* Over the hero video the bar is transparent and its contents are
+     white; everywhere else it is a solid surface. */
+  const onDark = isHome && !scrolled;
 
   return (
     <>
-      <div className="fixed inset-x-0 top-0 z-30">
-        {/* Flat, full-width bar - slides up and out once scrolled */}
-        <div
-          className={cn(
-            "flex justify-center transition-transform duration-500 ease-out",
-            showFlatBar ? "translate-y-0" : "-translate-y-full",
-          )}
-          inert={!showFlatBar}
-        >
-          {/* Fully clear, so the bar sits directly on the hero video and
-              the footage runs to the top of the viewport. */}
-          <header className="header-entrance w-full bg-transparent">
-            <NavRow idPrefix="flat" onOpenMobile={openMobile} tone="dark" />
-          </header>
-        </div>
+      <header
+        className={cn(
+          "safe-top fixed inset-x-0 top-0 z-40 transition-colors transition-house-slow",
+          onDark ? "bg-transparent" : "border-b border-hairline bg-surface",
+        )}
+      >
+        <div className="mx-auto flex h-16 w-full max-w-[1200px] items-center justify-between px-5 md:px-8 lg:h-[72px] lg:px-12">
+          <Link
+            href="/"
+            onClick={onTop("/")}
+            aria-label="Y&Now, home"
+            className="flex-shrink-0"
+          >
+            <Image
+              /* Over the video the grey wordmark disappears, so the bar
+                 swaps to the knocked-out variant. */
+              src={onDark ? "/logo-light.png" : "/logo.png"}
+              alt="Y&Now, Workforce Capability Solutions"
+              width={120}
+              height={40}
+              className="h-9 w-auto object-contain"
+            />
+          </Link>
 
-        {/* Floating capsule - slides down into view once scrolled */}
-        <div
-          className={cn(
-            "absolute inset-x-0 top-0 flex justify-center px-4 pt-4 transition-transform duration-500 ease-out",
-            showFlatBar ? "-translate-y-[calc(100%+1rem)]" : "translate-y-0",
-          )}
-          inert={showFlatBar}
-        >
-          <header className="header-entrance w-full max-w-7xl rounded-xl border border-neutral-200 bg-white/95 shadow-lg backdrop-blur-md">
-            <NavRow idPrefix="floating" onOpenMobile={openMobile} />
-          </header>
-        </div>
-      </div>
+          <nav aria-label="Primary" className="hidden items-center gap-1 lg:flex">
+            {NAV_ITEMS.map((item) =>
+              item.children ? (
+                <DesktopDropdown
+                  key={item.label}
+                  item={item}
+                  onDark={onDark}
+                  align={item.label === "Resources" ? "right" : "left"}
+                />
+              ) : (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  onClick={onTop(item.href)}
+                  className={cn(
+                    "flex h-11 items-center px-3 text-body-sm transition-colors transition-house",
+                    onDark ? "text-white hover:text-white/70" : "text-ink hover:text-brand",
+                  )}
+                >
+                  {item.label}
+                </Link>
+              ),
+            )}
+          </nav>
 
-      <MobileDrawer open={mobileOpen} onClose={() => setMobileOpen(false)} />
+          <CtaButton
+            href={CTA_HREF}
+            id="header-cta"
+            onDark={onDark}
+            className="hidden lg:inline-flex"
+          >
+            {CTA_LABEL}
+          </CtaButton>
+
+          <button
+            type="button"
+            onClick={() => setMenuOpen(true)}
+            aria-label="Open navigation"
+            aria-controls="mobile-nav"
+            aria-expanded={menuOpen}
+            className={cn(
+              "-mr-2 flex h-11 w-11 items-center justify-center lg:hidden",
+              onDark ? "text-white" : "text-ink",
+            )}
+          >
+            <svg viewBox="0 0 20 20" width="20" height="20" fill="none" aria-hidden>
+              <path d="M3 6h14M3 10h14M3 14h14" stroke="currentColor" strokeWidth="1.5" />
+            </svg>
+          </button>
+        </div>
+      </header>
+
+      <MobileMenu open={menuOpen} onClose={closeMenu} />
     </>
   );
 }

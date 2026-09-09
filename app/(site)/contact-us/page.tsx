@@ -3,7 +3,6 @@ import AnimIcon from "@/components/ui/AnimIcon";
 import Container from "@/components/ui/Container";
 import PageHero from "@/components/ui/PageHero";
 import ContactForm from "@/components/sections/ContactForm";
-import { CtaButton } from "@/components/ui/CtaButton";
 import { Reveal } from "@/components/ui/motion-primitives";
 
 export const metadata: Metadata = {
@@ -29,18 +28,12 @@ export default function ContactPage() {
   return (
     <>
       <PageHero
-        eyebrow="Contact Us"
         title="Let's Build the Right Learning"
         highlight="Route"
-        subtitle="Tell us what you are trying to solve, and we will help you identify the right next step."
-      >
-        <CtaButton href="mailto:info@broadarks.com" variant="primary" className="px-7 py-3.5">
-          Email the team
-        </CtaButton>
-        <CtaButton href="tel:+917553553372" variant="secondary" className="px-7 py-3.5">
-          Call +91 75535 53372
-        </CtaButton>
-      </PageHero>
+        deck="Tell us what you are trying to solve, and we will help you identify the right next step."
+        ctaLabel="Email the team"
+        ctaHref="mailto:info@broadarks.com"
+      />
 
       <section className="bg-surface py-20 lg:py-28">
         <Container>
@@ -64,7 +57,7 @@ export default function ContactPage() {
                           <AnimIcon name={d.icon} size={17} />
                         </div>
                         <div className="min-w-0">
-                          <p className="text-[11px] font-semibold uppercase tracking-wider text-neutral-400">{d.label}</p>
+                          <p className="text-caption">{d.label}</p>
                           <p className="mt-0.5 text-sm leading-relaxed text-ink">{d.value}</p>
                         </div>
                       </div>

@@ -1,21 +1,16 @@
 import type { Metadata } from "next";
-import { Manrope, Inter } from "next/font/google";
+import { Manrope } from "next/font/google";
 import "./globals.css";
 
-// Heading font: Manrope - weights 500, 600, 700, 800
+/* One family, two weights - 400 for body, 700 for headings. The
+   second sans (Inter) is gone: two similar sans-serifs read as
+   visual mush and cost a second font download for nothing. */
 const manrope = Manrope({
   subsets: ["latin"],
-  weight: ["500", "600", "700", "800"],
+  weight: ["400", "700"],
   variable: "--font-heading",
   display: "swap",
-});
-
-// Body font: Inter - weights 400, 500, 600
-const inter = Inter({
-  subsets: ["latin"],
-  weight: ["400", "500", "600"],
-  variable: "--font-body",
-  display: "swap",
+  preload: true,
 });
 
 export const metadata: Metadata = {
@@ -45,11 +40,8 @@ export default function RootLayout({
   // page stops dead part-way down. Sticky-footer height comes from
   // `min-h-screen` on <body> instead.
   return (
-    <html
-      lang="en"
-      className={`${manrope.variable} ${inter.variable} antialiased`}
-    >
-      <body className="min-h-screen flex flex-col text-ink bg-white font-body">
+    <html lang="en" className={`${manrope.variable} antialiased`}>
+      <body className="flex min-h-screen flex-col bg-surface font-body text-ink">
         {children}
       </body>
     </html>

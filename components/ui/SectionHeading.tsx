@@ -1,91 +1,86 @@
-"use client";
-
 import { cn } from "@/lib/utils";
-import { AnimatedHeading, Reveal } from "@/components/ui/motion-primitives";
+import { balanceTitle } from "@/lib/typography";
 
 /* ============================================================
-   SectionHeading - canonical section header used site-wide.
-   Standardises the eyebrow · title · subtitle rhythm so every
-   section shares the same vertical cadence and animation.
+   SectionHeading - a route rule, a heading, and at most one line.
+
+   There is no eyebrow prop. Every eyebrow label on the site was
+   restating the heading below it in more words, so they are gone
+   and the 40px brand route rule stands in their place: the
+   heading keeps a visual anchor without costing a single word.
+
+   `deck` is optional by design - it belongs on about half the
+   sections, never on all of them, and is capped at one sentence
+   by the copy budget and at 62 characters of measure by the CSS.
    ============================================================ */
+
 interface SectionHeadingProps {
-  eyebrow?: string;
   title: string;
   /** Trailing accent-coloured phrase appended to the title. */
   highlight?: string;
-  subtitle?: string;
-  align?: "center" | "left";
+  /** One sentence, 18 words maximum. Use on half the sections. */
+  deck?: string;
+  align?: "left" | "center";
+  as?: "h2" | "h3";
+  id?: string;
   className?: string;
   titleClassName?: string;
-  /** Constrain the subtitle width. */
-  subtitleClassName?: string;
-  id?: string;
+  /** Inverts the rule and text for brand / ink grounds. */
+  tone?: "default" | "inverse";
 }
 
 export default function SectionHeading({
-  eyebrow,
   title,
   highlight,
-  subtitle,
-  align = "center",
+  deck,
+  align = "left",
+  as: Tag = "h2",
+  id,
   className,
   titleClassName,
-  subtitleClassName,
-  id,
+  tone = "default",
 }: SectionHeadingProps) {
   const isCenter = align === "center";
+  const inverse = tone === "inverse";
+  const { lead, carry, tail, hold } = balanceTitle(title, highlight);
 
   return (
-    <div
-      className={cn(
-        "flex flex-col",
-        isCenter ? "items-center text-center" : "items-start text-left",
-        className,
-      )}
-    >
-      {eyebrow && (
-        <Reveal
-          y={12}
-          duration={0.6}
-          className={cn(
-            "mb-3 inline-flex items-center gap-2",
-            isCenter ? "justify-center" : "",
-          )}
-        >
-          <span className="h-px w-6 bg-secondary-400/70" aria-hidden />
-          <span className="text-[11px] font-semibold uppercase tracking-[0.18em] text-secondary-500">
-            {eyebrow}
-          </span>
-          {isCenter && <span className="h-px w-6 bg-secondary-400/70" aria-hidden />}
-        </Reveal>
-      )}
+    <div className={cn("flex flex-col", isCenter && "items-center text-center", className)}>
+      <span
+        aria-hidden
+        className={cn("route-rule mb-6", inverse && "route-rule-inverse")}
+      />
 
-      <AnimatedHeading
+      <Tag
         id={id}
-        as="h2"
-        text={title}
-        highlight={highlight}
         className={cn(
-          "font-heading font-700 leading-[1.15] tracking-tight text-ink",
-          "text-[clamp(1.75rem,3.2vw,2.6rem)]",
+          "text-h2 balance-text",
+          inverse ? "text-white" : "text-ink",
           isCenter ? "max-w-3xl" : "max-w-2xl",
           titleClassName,
         )}
-      />
+      >
+        {lead}
+        {tail && (
+          <>
+            {lead ? " " : ""}
+            <span className={cn(hold && "whitespace-nowrap")}>
+              {carry ? `${carry} ` : ""}
+              <span className={inverse ? "text-white/70" : "text-brand"}>{tail}</span>
+            </span>
+          </>
+        )}
+      </Tag>
 
-      {subtitle && (
-        <Reveal
-          delay={0.15}
-          y={16}
+      {deck && (
+        <p
           className={cn(
-            "mt-4 text-[15px] leading-relaxed text-neutral-600",
-            isCenter ? "max-w-2xl" : "max-w-xl",
-            subtitleClassName,
+            "gap-heading measure text-body",
+            inverse ? "text-white/80" : "text-ink-muted",
           )}
-          as="div"
         >
-          {subtitle}
-        </Reveal>
+          {deck}
+        </p>
       )}
     </div>
   );

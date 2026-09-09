@@ -55,7 +55,6 @@ const SECTIONS: LegalSection[] = [
 export default function PrivacyPolicyPage() {
   return (
     <LegalPage
-      eyebrow="Privacy Policy"
       title="How We Handle Your"
       highlight="Information"
       intro="We respect the privacy of visitors and users. This page explains what information may be collected, how it may be used, and how it is protected."

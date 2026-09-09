@@ -1,49 +1,75 @@
 "use client";
 
-import { type ReactNode, useState } from "react";
+import { useId, useRef, useState } from "react";
 import Image from "next/image";
-import { AnimatePresence, motion, useReducedMotion } from "motion/react";
-import { Check } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 /* ============================================================
-   ModuleTabs - tabbed product-module explorer.
-   Built for Our Platform's Assess → Learn → Perform modules:
-   a segmented tab bar with an animated active pill, and a
-   feature panel that cross-fades as you switch modules.
-   Deliberately different from the homepage PlatformPreview
-   (three static mock cards) - this one is one focused, driven
-   panel. Respects prefers-reduced-motion.
+   ModuleTabs - the platform's three modules, one at a time.
+
+   A tab set is its own layout shape, which is why the platform
+   page can carry Assess / Learn / Perform here without three
+   near-identical split sections running back to back.
+
+   Rebuilt for the density pass: no cross-fade on switch, no
+   per-item entrance on the feature list, no capitals, no card
+   shadow, no tint gradient. Switching tabs is interaction
+   feedback, so the only thing that moves is the active fill.
+
+   Keyboard: arrow keys move between tabs and select as they go,
+   Home and End jump to the ends - the standard tabs pattern.
    ============================================================ */
 
 export interface ModuleTab {
   tag: string;
   title: string;
-  /** Pre-rendered icon element (pass e.g. <ClipboardCheck size={24} />). */
-  icon: ReactNode;
-  /** "r,g,b" accent tint. */
-  tint: string;
   features: string[];
   note?: string;
-  /** Contextual photograph shown beside the module's feature list. */
   image: string;
   imageAlt: string;
 }
 
-const EASE = [0.16, 1, 0.3, 1] as const;
-
 export default function ModuleTabs({ modules }: { modules: ModuleTab[] }) {
-  const reduce = useReducedMotion();
   const [active, setActive] = useState(0);
-  const mod = modules[active];
+  const baseId = useId();
+  const tabsRef = useRef<(HTMLButtonElement | null)[]>([]);
+
+  const focusTab = (index: number) => {
+    const next = (index + modules.length) % modules.length;
+    setActive(next);
+    tabsRef.current[next]?.focus();
+  };
+
+  const onKeyDown = (event: React.KeyboardEvent) => {
+    switch (event.key) {
+      case "ArrowRight":
+      case "ArrowDown":
+        event.preventDefault();
+        focusTab(active + 1);
+        break;
+      case "ArrowLeft":
+      case "ArrowUp":
+        event.preventDefault();
+        focusTab(active - 1);
+        break;
+      case "Home":
+        event.preventDefault();
+        focusTab(0);
+        break;
+      case "End":
+        event.preventDefault();
+        focusTab(modules.length - 1);
+        break;
+    }
+  };
 
   return (
     <div>
-      {/* Tab bar */}
       <div
         role="tablist"
         aria-label="Platform modules"
-        className="mx-auto mb-8 flex w-full max-w-xl gap-1.5 rounded-2xl border border-[#e8ecf2] bg-white p-1.5 shadow-sm"
+        onKeyDown={onKeyDown}
+        className="flex flex-wrap gap-2"
       >
         {modules.map((m, i) => {
           const isActive = i === active;
@@ -52,116 +78,63 @@ export default function ModuleTabs({ modules }: { modules: ModuleTab[] }) {
               key={m.tag}
               type="button"
               role="tab"
+              id={`${baseId}-tab-${i}`}
               aria-selected={isActive}
+              aria-controls={`${baseId}-panel-${i}`}
+              tabIndex={isActive ? 0 : -1}
+              ref={(node) => {
+                tabsRef.current[i] = node;
+              }}
               onClick={() => setActive(i)}
               className={cn(
-                "relative flex-1 rounded-xl px-3 py-2.5 text-sm font-700 transition-colors duration-300",
-                isActive ? "text-white" : "text-neutral-600 hover:text-ink",
+                "h-12 rounded-lg px-6 text-body-sm font-700 transition-colors transition-house",
+                isActive
+                  ? "bg-brand text-white"
+                  : "bg-surface-alt text-ink hover:bg-brand-soft",
               )}
             >
-              {isActive && (
-                <motion.span
-                  layoutId="module-tab-pill"
-                  aria-hidden
-                  className="absolute inset-0 rounded-xl"
-                  style={{ backgroundColor: `rgb(${m.tint})` }}
-                  transition={{ duration: reduce ? 0 : 0.35, ease: EASE }}
-                />
-              )}
-              <span className="relative">{m.tag}</span>
+              {m.tag}
             </button>
           );
         })}
       </div>
 
-      {/* Panel */}
-      <div className="relative overflow-hidden rounded-3xl border border-[#e8ecf2] bg-white p-8 shadow-[0_18px_50px_-30px_rgba(20,21,46,0.4)] lg:p-10">
-        <span
-          aria-hidden
-          className="pointer-events-none absolute inset-0"
-          style={{
-            background: `radial-gradient(70% 60% at 0% 0%, rgba(${mod.tint},0.08) 0%, transparent 55%)`,
-          }}
-        />
-        <AnimatePresence mode="wait">
-          <motion.div
-            key={active}
-            initial={reduce ? { opacity: 0 } : { opacity: 0, y: 14 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={reduce ? { opacity: 0 } : { opacity: 0, y: -10 }}
-            transition={{ duration: 0.4, ease: EASE }}
-            className="relative grid items-center gap-8 lg:grid-cols-[1.05fr_0.95fr] lg:gap-12"
-          >
-            <div className="flex flex-col justify-center">
-              <div className="mb-6 flex items-center gap-4">
-                <span
-                  className="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-2xl [&_svg]:h-6 [&_svg]:w-6"
-                  style={{ color: `rgb(${mod.tint})`, backgroundColor: `rgba(${mod.tint},0.1)` }}
+      {modules.map((m, i) => (
+        <div
+          key={m.tag}
+          role="tabpanel"
+          id={`${baseId}-panel-${i}`}
+          aria-labelledby={`${baseId}-tab-${i}`}
+          hidden={i !== active}
+          tabIndex={0}
+          className="gap-heading grid items-start gap-10 lg:grid-cols-2 lg:gap-16"
+        >
+          <div className="relative aspect-[4/3] overflow-hidden rounded-lg bg-surface-alt lg:aspect-video">
+            <Image
+              src={m.image}
+              alt={m.imageAlt}
+              fill
+              sizes="(max-width: 1023px) 100vw, 50vw"
+              className="object-cover"
+            />
+          </div>
+
+          <div>
+            <h3 className="text-h3 text-ink">{m.title}</h3>
+            <ul className="mt-6 border-t border-hairline">
+              {m.features.map((feature) => (
+                <li
+                  key={feature}
+                  className="border-b border-hairline py-4 text-body text-ink"
                 >
-                  {mod.icon}
-                </span>
-                <div>
-                  <span
-                    className="block text-[11px] font-700 uppercase tracking-[0.16em]"
-                    style={{ color: `rgb(${mod.tint})` }}
-                  >
-                    {mod.tag}
-                  </span>
-                  <h3 className="font-heading text-xl font-700 leading-tight text-ink lg:text-2xl">
-                    {mod.title}
-                  </h3>
-                </div>
-              </div>
-
-              <ul className="grid grid-cols-1 gap-y-3">
-                {mod.features.map((f, i) => (
-                  <motion.li
-                    key={f}
-                    initial={reduce ? false : { opacity: 0, x: -8 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ duration: 0.4, delay: reduce ? 0 : 0.05 + i * 0.04, ease: EASE }}
-                    className="flex items-start gap-2.5 text-sm leading-relaxed text-neutral-700"
-                  >
-                    <Check size={16} className="mt-0.5 flex-shrink-0 text-secondary-500" />
-                    {f}
-                  </motion.li>
-                ))}
-              </ul>
-
-              {mod.note && (
-                <p className="mt-6 inline-flex rounded-lg bg-surface px-3 py-2 text-xs font-500 text-neutral-500">
-                  {mod.note}
-                </p>
-              )}
-            </div>
-
-            {/* The module in the field - what the outputs on the left are
-                actually describing. */}
-            <div className="relative aspect-[4/3] overflow-hidden rounded-2xl border border-[#e1e7ef] bg-surface lg:aspect-[5/4]">
-              <Image
-                src={mod.image}
-                alt={mod.imageAlt}
-                fill
-                sizes="(max-width: 1024px) 100vw, 40vw"
-                className="object-cover"
-              />
-              <span
-                aria-hidden
-                className="pointer-events-none absolute inset-0"
-                style={{
-                  background: `linear-gradient(180deg, rgba(15,17,58,0) 45%, rgba(15,17,58,0.78) 100%)`,
-                }}
-              />
-              <span
-                className="absolute bottom-4 left-4 inline-flex items-center gap-2 rounded-full px-3 py-1.5 text-[11px] font-700 uppercase tracking-[0.14em] text-white backdrop-blur-md"
-                style={{ backgroundColor: `rgba(${mod.tint},0.72)` }}
-              >
-                {mod.tag}
-              </span>
-            </div>
-          </motion.div>
-        </AnimatePresence>
-      </div>
+                  {feature}
+                </li>
+              ))}
+            </ul>
+            {m.note && <p className="mt-6 text-caption">{m.note}</p>}
+          </div>
+        </div>
+      ))}
     </div>
   );
 }

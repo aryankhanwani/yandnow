@@ -1,21 +1,26 @@
 import type { Metadata } from "next";
-import AnimIcon from "@/components/ui/AnimIcon";
-import Container from "@/components/ui/Container";
+import Section from "@/components/ui/Section";
 import PageHero from "@/components/ui/PageHero";
-import SectionHeading from "@/components/ui/SectionHeading";
 import ModuleTabs, { type ModuleTab } from "@/components/ui/ModuleTabs";
-import SupportGrid, { type SupportItem } from "@/components/ui/SupportGrid";
-import ChecklistPanel from "@/components/ui/ChecklistPanel";
+import CoverList from "@/components/ui/CoverList";
+import SplitSection from "@/components/ui/SplitSection";
 import BestFor from "@/components/ui/BestFor";
-import ClosingCta from "@/components/ui/ClosingCta";
-import { CtaButton } from "@/components/ui/CtaButton";
-import { Reveal } from "@/components/ui/motion-primitives";
+import CTABand from "@/components/ui/CTABand";
 
 /* ============================================================
    Y&NOW PLATFORM - Final Copy Deck, "Y&NOW PLATFORM", in the
-   deck's order: Assess / Learn / Perform (the three tabs) -
-   Connect With Existing Systems - Data and Security - Best For -
-   Request a Platform Demo.
+   deck's order: Assess / Learn / Perform - Connect With Existing
+   Systems - Data and Security - Best For - Request a Demo.
+
+   Built from the same primitives as the seven solution pages,
+   with the tab set standing in for the "what we cover" block:
+   three modules, each with its own list, is more than a
+   titles-only list can hold and less than three split sections
+   in a row should be allowed to take.
+
+   The integrations grid keeps four entries at the stakeholder's
+   explicit request; what changed is that each is now a name
+   rather than a name and a sentence.
    ============================================================ */
 
 export const metadata: Metadata = {
@@ -26,27 +31,23 @@ export const metadata: Metadata = {
 
 const MODULES: ModuleTab[] = [
   {
-    icon: <AnimIcon name="ClipboardCheck" size={24} />,
-    tint: "39,170,226",
     tag: "Assess",
+    title: "Role-based assessment",
     image: "/images/corporate/delivery-model/assess.jpg",
     imageAlt: "Supervisors assessing an operator against the requirements of their role",
-    title: "Role-based assessment",
     features: [
       "Competency assessments built around the role",
       "Current skills mapped against job requirements",
       "Individual skill heatmaps",
       "Team and role-level gap reports",
     ],
-    note: "Outputs may include heatmaps and gap reports where enabled in the relevant product environment.",
+    note: "Where enabled in the product environment.",
   },
   {
-    icon: <AnimIcon name="GraduationCap" size={24} />,
-    tint: "46,49,146",
     tag: "Learn",
+    title: "Personalised learning paths",
     image: "/images/corporate/delivery-model/train.jpg",
     imageAlt: "A facilitator working through a practical exercise with a workplace team",
-    title: "Personalised learning paths",
     features: [
       "Digital modules and microlearning",
       "Standard e-learning content formats",
@@ -55,12 +56,10 @@ const MODULES: ModuleTab[] = [
     ],
   },
   {
-    icon: <AnimIcon name="TrendingUp" size={24} />,
-    tint: "31,34,103",
     tag: "Perform",
+    title: "Performance tracking",
     image: "/images/corporate/delivery-model/perform.jpg",
     imageAlt: "A team reviewing performance measures on a dashboard",
-    title: "Performance tracking",
     features: [
       "Objective and key results tracking",
       "Supervisor check-ins",
@@ -70,27 +69,11 @@ const MODULES: ModuleTab[] = [
   },
 ];
 
-const INTEGRATIONS: SupportItem[] = [
-  {
-    icon: "Users2",
-    title: "HRMS and ERP",
-    body: "The platform may connect with your existing HRMS and ERP environments through agreed integrations.",
-  },
-  {
-    icon: "KeyRound",
-    title: "Identity and access",
-    body: "Single sign-on and user provisioning, configured with your IT team as part of the deployment.",
-  },
-  {
-    icon: "FileCode2",
-    title: "Learning content",
-    body: "Standard e-learning content formats, so material you already own can be brought across.",
-  },
-  {
-    icon: "Webhook",
-    title: "Data exchange",
-    body: "Reporting into the systems you already use, agreed as part of the integration scope.",
-  },
+const INTEGRATIONS = [
+  "HRMS and ERP",
+  "Identity and access",
+  "Learning content",
+  "Data exchange",
 ];
 
 const DATA_AND_SECURITY = [
@@ -102,70 +85,59 @@ const DATA_AND_SECURITY = [
 ];
 
 const BEST_FOR = [
-  "Learning and Development teams",
+  "Learning and development teams",
   "Human resources teams",
   "Information technology teams",
-  "Enterprise buyers evaluating learning and performance systems",
+  "Enterprise buyers evaluating systems",
 ];
 
 export default function OurPlatformPage() {
   return (
     <>
       <PageHero
-        eyebrow="Y&Now Platform"
-        title="One System for Learning, Assessment, and"
-        highlight="Performance"
-        subtitle="The Y&Now platform helps organisations connect digital learning, role-based assessment, and performance in one place."
-      >
-        <CtaButton href="/contact-us?type=platform" variant="primary" className="px-7 py-3.5">
-          Request a platform demo
-        </CtaButton>
-      </PageHero>
+        title="One system for learning, assessment, and"
+        highlight="performance"
+        deck="Digital learning, role-based assessment, and performance in one place."
+        ctaLabel="Request a demo"
+        ctaHref="/contact-us?type=platform"
+      />
 
-      {/* Assess / Learn / Perform - the deck's three module headings are
+      {/* Assess / Learn / Perform - the deck's three module names are
           the tabs, so the section needs no heading of its own. */}
-      <section className="bg-surface py-20 lg:py-24">
-        <Container>
-          <Reveal y={20} className="mx-auto max-w-6xl">
-            <ModuleTabs modules={MODULES} />
-          </Reveal>
-        </Container>
-      </section>
+      <Section bg="surface" aria-label="Platform modules">
+        <ModuleTabs modules={MODULES} />
+      </Section>
 
-      <section className="bg-white py-20 lg:py-24">
-        <Container>
-          <SectionHeading
-            title="Connect With Existing"
-            highlight="Systems"
-            subtitle="The platform may connect with existing HRMS and ERP environments through agreed integrations. The current integration list is confirmed before a deployment begins."
-            className="mb-12"
-          />
-          <SupportGrid items={INTEGRATIONS} />
-        </Container>
-      </section>
+      <CoverList
+        title="Connect with existing"
+        highlight="systems"
+        items={INTEGRATIONS}
+        bg="tint"
+        headingId="integrations-heading"
+      />
 
-      <ChecklistPanel
+      <SplitSection
         title="Data and"
-        highlight="Security"
-        subtitle="Information on the following is provided for enterprise deployments."
+        highlight="security"
+        deck="For enterprise deployments."
         items={DATA_AND_SECURITY}
         image="/about/learning-team.png"
         imageAlt="A technical team reviewing platform configuration together"
-        imageFirst
-        className="bg-surface"
+        bg="surface"
+        headingId="data-security-heading"
+        imageRight
       />
 
-      <BestFor items={BEST_FOR} />
+      <BestFor items={BEST_FOR} bg="tint" />
 
-      <ClosingCta
-        title="Request a Platform"
-        highlight="Demo"
-        body="Tell us what your current environment looks like and what you need the system to do."
-      >
-        <CtaButton href="/contact-us?type=platform" variant="primary" className="px-7 py-3.5">
-          Request a platform demo
-        </CtaButton>
-      </ClosingCta>
+      <CTABand
+        id="platform-cta"
+        title="Request a platform"
+        highlight="demo"
+        line="Tell us what your environment looks like and what it needs to do."
+        ctaLabel="Request a demo"
+        ctaHref="/contact-us?type=platform"
+      />
     </>
   );
 }
