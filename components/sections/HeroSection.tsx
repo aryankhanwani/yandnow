@@ -6,13 +6,14 @@ import { CtaButton } from "@/components/ui/CtaButton";
 /* ============================================================
    ROTATING TYPEWRITER
    ============================================================ */
+/* One phrase per audience the site routes to, so the headline
+   itself previews the "Find Your Route" section below it. */
 const ROTATING_PHRASES = [
-  "for Enterprises",
-  "at Scale",
-  "with Outcomes",
-  "for Industry",
-  "That Deliver",
-  "with Impact",
+  "for Your Team",
+  "for Your Workforce",
+  "for Your Community",
+  "for Your School",
+  "for Your Career",
 ];
 
 const TYPING_SPEED      = 60;
@@ -68,12 +69,14 @@ function useTypewriter(phrases: string[]) {
 /* ============================================================
    HERO SECTION
    ────────────────────────────────────────────────────────────
-   Calm, static hero: eyebrow / H1 / sub / CTAs, then the product
-   video sits below as a plain rounded card in normal document
-   flow, with no scroll-linked expansion; it just sits there.
+   Full-screen video hero. The programme footage fills the
+   viewport rather than sitting in a card under the copy, so the
+   page opens on the work itself instead of on white space.
 
-   The top of the section stays flat white: no gradient wash and
-   no colour orbs, so the nav sits on a clean white ground.
+   Legibility comes from two neutral scrims over the video: a
+   vertical wash and a left-weighted gradient behind the column of
+   text. Neither is tinted, so the footage reads as footage rather
+   than as a blue-washed background plate.
    ============================================================ */
 export default function HeroSection() {
   const videoRef = useRef<HTMLVideoElement>(null);
@@ -93,156 +96,135 @@ export default function HeroSection() {
   }, []);
 
   return (
-    <div style={{ background: "#ffffff" }} id="hero-section-root">
-      <div
+    <div className="bg-ink">
+      <section
         id="hero"
-        aria-label="Hero: Y&Now Workforce Capability Solutions"
-        style={{ position: "relative", overflow: "hidden", background: "#ffffff" }}
+        aria-label="Hero: Discover the right route to grow with Y&Now"
+        className="relative isolate flex min-h-[100svh] flex-col justify-center overflow-hidden bg-ink pb-20 pt-28 sm:pt-32"
       >
-        {/* Flat white top: no gradient wash and no orbs behind the nav. */}
-        <div
+        {/* ══ BACKGROUND VIDEO ══════════════════════════════════ */}
+        <video
+          ref={videoRef}
+          className="hero-video-zoom absolute inset-0 -z-10 h-full w-full object-cover"
+          src="/hero-video-clean.mp4"
+          poster="/hero-bg-poster.jpg"
+          autoPlay
+          muted
+          loop
+          playsInline
+          preload="auto"
           aria-hidden="true"
-          style={{ position: "absolute", inset: 0, pointerEvents: "none", zIndex: 0 }}
-        >
-          <svg
-            style={{ position: "absolute", inset: 0, width: "100%", height: "100%", opacity: 0.018 }}
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <defs>
-              <pattern id="hero-grid" x="0" y="0" width="60" height="60" patternUnits="userSpaceOnUse">
-                <path d="M 60 0 L 0 0 0 60" fill="none" stroke="#2E3192" strokeWidth="1" />
-              </pattern>
-            </defs>
-            <rect width="100%" height="100%" fill="url(#hero-grid)" />
-          </svg>
-        </div>
+          tabIndex={-1}
+        />
 
-        {/* Text content */}
+        {/* Scrims - neutral, not tinted. The footage keeps its own
+            colour; the overlays only buy back the contrast the white
+            copy needs, weighted to the left column where it sits. */}
         <div
+          aria-hidden
+          className="absolute inset-0 -z-10"
           style={{
-            position: "relative",
-            zIndex: 1,
-            width: "100%",
-            maxWidth: "1152px",
-            margin: "0 auto",
-            padding: "9.5rem 1.5rem 3.5rem",
-            textAlign: "center",
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
+            background:
+              "linear-gradient(180deg, rgba(10,10,14,0.62) 0%, rgba(10,10,14,0.34) 38%, rgba(10,10,14,0.46) 72%, rgba(10,10,14,0.72) 100%)",
           }}
-        >
-          {/* Eyebrow */}
-          <div
-            className={`inline-flex items-center gap-2 mb-6 transition-all duration-700 delay-[100ms] ease-out ${
-              visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
-            }`}
-          >
-            <span className="block w-8 h-px bg-secondary-400 hero-line-expand" />
-            <span className="text-secondary-500 text-xs font-semibold tracking-[0.18em] uppercase">
-              Future-Skills EdTech · BroadArks Technology Pvt. Ltd.
-            </span>
-            <span className="block w-8 h-px bg-secondary-400 hero-line-expand" />
-          </div>
+        />
+        <div
+          aria-hidden
+          className="absolute inset-0 -z-10"
+          style={{
+            background:
+              "linear-gradient(100deg, rgba(10,10,14,0.62) 0%, rgba(10,10,14,0.30) 45%, transparent 80%)",
+          }}
+        />
+        {/* ══ CONTENT ═══════════════════════════════════════════ */}
+        <div className="relative mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div className="max-w-4xl">
+            {/* Eyebrow */}
+            <div
+              className={`mb-6 inline-flex items-center gap-2.5 rounded-full border border-white/20 bg-white/10 px-4 py-1.5 backdrop-blur-md transition-all duration-700 delay-[100ms] ease-out ${
+                visible ? "translate-y-0 opacity-100" : "translate-y-4 opacity-0"
+              }`}
+            >
+              <span className="relative flex h-1.5 w-1.5">
+                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-secondary-400 opacity-75" />
+                <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-secondary-400" />
+              </span>
+              <span className="text-[10px] font-semibold uppercase tracking-[0.16em] text-white/85 sm:text-[11px] sm:tracking-[0.18em]">
+                Practical Learning · Real Outcomes
+              </span>
+            </div>
 
-          {/* H1 */}
-          <h1
-            className="font-heading font-800 text-ink leading-[1.13] tracking-tight"
-            style={{ fontSize: "clamp(2.25rem, 5vw, 4rem)", maxWidth: "1220px" }}
-          >
-            <span
-              className={`block transition-all duration-700 delay-[200ms] ease-out ${
-                visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-3"
-              }`}
+            {/* H1 - the rotating phrase is held on one line so the
+                typewriter never reflows mid-word. */}
+            {/* Each line is its own block so the balancer works on it
+                alone, and neither line can leave a single word behind. */}
+            <h1
+              className="font-heading font-800 leading-[1.08] tracking-tight text-white"
+              style={{ fontSize: "clamp(1.95rem, 4.4vw, 3.5rem)" }}
             >
-              Workforce Capability Solutions
-            </span>
-            <span
-              className={`block transition-all duration-700 delay-[380ms] ease-out ${
-                visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-3"
-              }`}
-            >
-              <span className="hero-highlight whitespace-nowrap">{displayed}</span>
               <span
-                className={`inline-block w-[2px] h-[0.82em] bg-secondary-400 ml-[2px] align-middle rounded-sm ${
-                  isTyping ? "animate-blink" : "opacity-0"
-                }`}
-              />
-              <span
-                className={`text-ink transition-all duration-700 delay-[500ms] ease-out ${
-                  visible ? "opacity-100" : "opacity-0"
+                className={`block balance-text transition-all duration-700 delay-[200ms] ease-out ${
+                  visible ? "translate-y-0 opacity-100" : "translate-y-3 opacity-0"
                 }`}
               >
-                {" "}Across India
+                Discover the Right Route
               </span>
-            </span>
-          </h1>
+              <span
+                className={`block balance-text transition-all duration-700 delay-[380ms] ease-out ${
+                  visible ? "translate-y-0 opacity-100" : "translate-y-3 opacity-0"
+                }`}
+              >
+                to Grow{" "}
+                <span className="hero-highlight whitespace-nowrap">{displayed}</span>
+                <span
+                  className={`ml-[2px] inline-block h-[0.82em] w-[2px] rounded-sm bg-secondary-400 align-middle ${
+                    isTyping ? "animate-blink" : "opacity-0"
+                  }`}
+                />
+              </span>
+            </h1>
 
-          {/* Sub-heading */}
-          <p
-            className={`mt-5 text-neutral-500 leading-relaxed font-body font-400 transition-all duration-700 delay-[650ms] ease-out ${
-              visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"
-            }`}
-            style={{ fontSize: "clamp(0.75rem, 2.8vw, 1rem)", maxWidth: "640px" }}
-          >
-            <span className="block whitespace-nowrap">Industry-aligned programmes for every workforce.</span>
-            <span className="block whitespace-nowrap">Measured outcomes, integrated with your systems.</span>
-          </p>
+            {/* Sub-heading */}
+            <p
+              className={`mt-6 max-w-xl pretty-text font-body font-400 leading-relaxed text-white/75 transition-all duration-700 delay-[650ms] ease-out ${
+                visible ? "translate-y-0 opacity-100" : "translate-y-6 opacity-0"
+              }`}
+              style={{ fontSize: "clamp(0.98rem, 2.6vw, 1.125rem)" }}
+            >
+              We help people and organisations build practical skills, grow with
+              confidence, and stay ready for what comes next.
+            </p>
 
-          {/* CTAs */}
-          <div
-            className={`mt-8 flex flex-wrap items-center justify-center gap-4 transition-all duration-700 delay-[800ms] ease-out ${
-              visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"
-            }`}
-          >
-            <CtaButton
-              href="/corporate"
-              id="hero-cta-primary"
-              variant="primary"
-              className="px-7 py-3.5"
+            {/* CTAs */}
+            <div
+              className={`mt-9 flex flex-wrap items-center gap-3.5 transition-all duration-700 delay-[800ms] ease-out ${
+                visible ? "translate-y-0 opacity-100" : "translate-y-6 opacity-0"
+              }`}
             >
-              Explore Corporate Solutions
-            </CtaButton>
-            <CtaButton
-              href="/contact-us"
-              id="hero-cta-secondary"
-              variant="secondary"
-              className="px-7 py-3.5"
-            >
-              Talk to Our Team
-            </CtaButton>
+              <CtaButton
+                href="/corporate"
+                id="hero-cta-primary"
+                variant="primary"
+                glassy
+                className="px-7 py-3.5"
+              >
+                Explore corporate solutions
+              </CtaButton>
+              <CtaButton
+                href="/learners-b2c"
+                id="hero-cta-secondary"
+                variant="secondary"
+                glassy
+                className="px-7 py-3.5"
+              >
+                Explore learning
+              </CtaButton>
+            </div>
           </div>
+
         </div>
 
-        {/* ══ PRODUCT VIDEO - static card, no scroll-linked effect ══ */}
-        <div
-          className={`relative z-[1] mx-auto max-w-6xl px-4 pb-20 transition-all duration-700 delay-[950ms] ease-out sm:px-6 ${
-            visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
-          }`}
-        >
-          <div
-            className="overflow-hidden rounded-2xl border border-neutral-100 bg-white"
-            style={{
-              boxShadow:
-                "0 4px 6px rgba(20,21,46,0.04), 0 20px 48px rgba(20,21,46,0.10), 0 48px 80px rgba(46,49,146,0.06)",
-            }}
-          >
-            <video
-              ref={videoRef}
-              src="/hero-video-clean.mp4"
-              className="aspect-video w-full object-cover"
-              autoPlay
-              muted
-              loop
-              playsInline
-              preload="auto"
-              aria-hidden="true"
-            />
-          </div>
-        </div>
-      </div>
-
-
+      </section>
     </div>
   );
 }

@@ -5,5 +5,6 @@ export const SERVE_IMAGES: Record<string, string> = {
   industries: "/images/solutions-navbar/industry-solutions.jpg",
   defence: "/images/solutions-navbar/defence-programs.jpg",
   schools: "/images/solutions-navbar/school-solutions.jpg",
+  livelihoods: "/images/solutions-navbar/micro-entrepreneurship.jpg",
   learners: "/images/solutions-navbar/for-learners.jpg",
 };

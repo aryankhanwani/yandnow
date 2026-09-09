@@ -1,28 +1,48 @@
 "use client";
 
-import { useState } from "react";
-import { Send, CheckCircle2, ArrowRight } from "lucide-react";
+import { useEffect, useRef, useState } from "react";
+import { Send, CheckCircle2, ArrowRight, Loader2 } from "lucide-react";
 import { motion } from "motion/react";
 import { cn } from "@/lib/utils";
+import { supabase } from "@/lib/supabase";
 
 /* ============================================================
    ContactForm - client-side enquiry form.
-   No backend is wired yet, so on submit it composes a routed
-   mailto: to info@broadarks.com (subject line matches the
-   doc's enquiry-routing scheme) and shows a confirmation.
-   Swap `handleSubmit` for a POST to your API when ready.
+   Submissions are written straight to the `enquiries` table in
+   Supabase (anon insert-only RLS policy - see the yandnow-backend
+   supabase/schema.sql) using the public anon key, and show up in
+   the yandnow-backend admin panel under Enquiries. No mail client
+   popup - the form just submits.
    ============================================================ */
 
+/* The stored `value` is what lands in the Supabase `enquiries`
+   table and must keep matching what the admin panel expects; only
+   the label is the reader-facing wording from the copy deck. */
 const ENQUIRY_TYPES = [
-  { value: "Corporate", subject: "Corporate Training Enquiry" },
-  { value: "CSR", subject: "CSR Programme Enquiry" },
-  { value: "Platform", subject: "Platform Demo Request" },
-  { value: "Industrial", subject: "Industrial Training Enquiry" },
-  { value: "Schools", subject: "School Programme Enquiry" },
-  { value: "Defence", subject: "CSR Programme Enquiry" },
-  { value: "Learner", subject: "Corporate Training Enquiry" },
-  { value: "Other", subject: "General Enquiry" },
+  { value: "Corporate", label: "Corporate workforce training" },
+  { value: "CSR", label: "Corporate Social Responsibility programme" },
+  { value: "Industrial", label: "Industry training" },
+  { value: "Defence", label: "Defence and veteran programmes" },
+  { value: "Schools", label: "School programmes" },
+  { value: "Platform", label: "Platform demonstration" },
+  { value: "Learner", label: "Learner enquiry" },
+  { value: "Other", label: "General enquiry" },
 ];
+
+/* Every solution page links here with ?type=… so the visitor
+   lands on the form already pointed at the right team. Livelihood
+   enquiries are handled by the CSR team. */
+const TYPE_FROM_QUERY: Record<string, string> = {
+  corporate: "Corporate",
+  csr: "CSR",
+  livelihood: "CSR",
+  industry: "Industrial",
+  defence: "Defence",
+  schools: "Schools",
+  platform: "Platform",
+  learner: "Learner",
+  government: "Other",
+};
 
 const inputBase =
   "w-full rounded-xl border border-[#e8ecf2] bg-white px-4 py-3 text-sm text-ink outline-none transition-colors placeholder:text-neutral-400 focus:border-primary-400 focus:ring-2 focus:ring-primary-100";
@@ -41,27 +61,51 @@ function Field({ label, required, children }: { label: string; required?: boolea
 export default function ContactForm() {
   const [sent, setSent] = useState(false);
   const [agree, setAgree] = useState(false);
+  const [sending, setSending] = useState(false);
+  const [error, setError] = useState("");
+  const typeRef = useRef<HTMLSelectElement>(null);
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  /* Read the ?type= hint from the URL after mount rather than via
+     useSearchParams, which would opt the whole page out of static
+     rendering for what is only a nicety. The select stays uncontrolled
+     and we set its value on the node, so the server-rendered default
+     and the first client render still agree. */
+  useEffect(() => {
+    const hint = new URLSearchParams(window.location.search).get("type");
+    const matched = hint ? TYPE_FROM_QUERY[hint.toLowerCase()] : undefined;
+    if (matched && typeRef.current) typeRef.current.value = matched;
+  }, []);
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    setError("");
     const form = e.currentTarget;
     const data = new FormData(form);
-    const type = String(data.get("type") || "Other");
-    const subject = ENQUIRY_TYPES.find((t) => t.value === type)?.subject ?? "General Enquiry";
 
-    const body = [
-      `Name: ${data.get("name")}`,
-      `Organisation: ${data.get("org")}`,
-      `Designation: ${data.get("designation") || "Not provided"}`,
-      `Email: ${data.get("email")}`,
-      `Phone: ${data.get("phone") || "Not provided"}`,
-      `Enquiry type: ${type}`,
-      "",
-      String(data.get("message") || ""),
-    ].join("\n");
+    const payload = {
+      name: String(data.get("name") || "").trim(),
+      organisation: String(data.get("org") || "").trim(),
+      designation: String(data.get("designation") || "").trim() || null,
+      email: String(data.get("email") || "").trim(),
+      phone: String(data.get("phone") || "").trim() || null,
+      enquiry_type: String(data.get("type") || "Other"),
+      message: String(data.get("message") || "").trim(),
+    };
 
-    const mailto = `mailto:info@broadarks.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-    window.location.href = mailto;
+    if (!supabase) {
+      setError("Enquiries aren't set up yet. Please email us directly at info@broadarks.com.");
+      return;
+    }
+
+    setSending(true);
+    const { error: insertError } = await supabase.from("enquiries").insert(payload);
+    setSending(false);
+    if (insertError) {
+      setError("Something went wrong sending your enquiry. Please email us directly at info@broadarks.com.");
+      return;
+    }
+    form.reset();
+    setAgree(false);
     setSent(true);
   };
 
@@ -76,9 +120,9 @@ export default function ContactForm() {
         <div className="mb-5 flex h-14 w-14 items-center justify-center rounded-2xl bg-secondary-50 text-secondary-600">
           <CheckCircle2 size={28} />
         </div>
-        <h3 className="mb-2 font-heading text-xl font-700 text-ink">Your email client is opening…</h3>
+        <h3 className="mb-2 font-heading text-xl font-700 text-ink">Thanks — we&apos;ve got your enquiry.</h3>
         <p className="max-w-sm text-sm leading-relaxed text-neutral-600">
-          We&apos;ve pre-filled a routed message to <span className="font-semibold text-ink">info@broadarks.com</span>. If nothing opened, email us directly. We respond to all commercial enquiries within 2 working days.
+          Your enquiry has been routed to the right team. We will get back to you at the email address you provided.
         </p>
         <button
           type="button"
@@ -114,9 +158,15 @@ export default function ContactForm() {
           <input name="phone" type="tel" placeholder="+91 …" className={inputBase} />
         </Field>
         <Field label="Enquiry type" required>
-          <select name="type" required defaultValue="Corporate" className={cn(inputBase, "appearance-none")}>
-            {ENQUIRY_TYPES.map((t) => (
-              <option key={t.value} value={t.value}>{t.value}</option>
+          <select
+            ref={typeRef}
+            name="type"
+            required
+            defaultValue="Corporate"
+            className={cn(inputBase, "appearance-none")}
+          >
+            {ENQUIRY_TYPES.map((type) => (
+              <option key={type.value} value={type.value}>{type.label}</option>
             ))}
           </select>
         </Field>
@@ -124,7 +174,7 @@ export default function ContactForm() {
 
       <div className="mt-5">
         <Field label="Message" required>
-          <textarea name="message" required rows={5} placeholder="Tell us about your workforce and the outcomes you're targeting…" className={cn(inputBase, "resize-none")} />
+          <textarea name="message" required rows={5} placeholder="What are you trying to improve, who is the programme for, and what do you need the learning to achieve?" className={cn(inputBase, "resize-none")} />
         </Field>
       </div>
 
@@ -142,13 +192,21 @@ export default function ContactForm() {
         </span>
       </label>
 
+      {error && <p className="mt-4 text-xs font-semibold text-red-600">{error}</p>}
+
       <button
         type="submit"
-        disabled={!agree}
-        className="group mt-6 inline-flex w-full items-center justify-center gap-2 rounded-xl bg-primary-500 px-6 py-3.5 text-sm font-semibold text-white transition-all duration-200 hover:bg-primary-600 disabled:cursor-not-allowed disabled:opacity-50 sm:w-auto"
+        disabled={!agree || sending}
+        /* Matches CtaButton's primary variant - a form submit cannot be
+           a <Link>, so the styling is mirrored rather than shared. */
+        className="group relative mt-6 inline-flex w-full items-center justify-center gap-2 overflow-hidden rounded-lg bg-primary-500 px-7 py-3.5 text-sm font-semibold text-white shadow-md outline-none transition-all duration-300 hover:bg-primary-600 hover:shadow-lg focus-visible:ring-2 focus-visible:ring-primary-300 active:scale-95 disabled:cursor-not-allowed disabled:opacity-50 sm:w-auto"
       >
-        Send Enquiry
-        <Send size={15} className="transition-transform duration-200 group-hover:translate-x-0.5" />
+        {sending ? "Sending…" : "Send Enquiry"}
+        {sending ? (
+          <Loader2 size={15} className="animate-spin" />
+        ) : (
+          <Send size={15} className="transition-transform duration-200 group-hover:translate-x-0.5" />
+        )}
       </button>
     </form>
   );

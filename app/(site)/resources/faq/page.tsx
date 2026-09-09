@@ -7,9 +7,9 @@ import FaqAccordion, { type FaqItemData } from "@/components/ui/FaqAccordion";
 import { CtaButton } from "@/components/ui/CtaButton";
 
 export const metadata: Metadata = {
-  title: "Y&Now FAQ: Workforce Training, Platform & CSR Programmes",
+  title: "FAQ | Questions About Y&Now",
   description:
-    "Answers to common questions about Y&Now's workforce skilling programmes, capability platform, CSR implementation, defence transition, and enterprise onboarding.",
+    "Answers to common questions about Y&Now's learning programmes, community and CSR work, the platform, and how to get started.",
 };
 
 /* ============================================================
@@ -35,33 +35,28 @@ const CATEGORIES: FaqCategory[] = [
     icon: "Building2",
     tint: "46,49,146",
     eyebrow: "About Y&Now",
-    title: "The company and",
-    highlight: "credentials",
+    title: "The company and what it",
+    highlight: "does",
     items: [
       {
-        q: "What is Y&Now?",
-        a: "Y&Now designs and delivers workforce capability programmes for enterprises, CSR sponsors, government bodies, defence establishments, and schools across India. We also operate a proprietary digital platform that integrates learning management, role-based assessment, and OKR-aligned performance review into one system.",
+        q: "What does Y&Now do?",
+        a: "We design practical learning programmes for organisations and learners.",
       },
       {
-        q: "Who owns Y&Now?",
-        a: "Y&Now operates under BroadArks Technology Pvt. Ltd., which also anchors the group's CSR and foundation work. All enquiries are handled by the BroadArks team at info@broadarks.com.",
+        q: "Who is Y&Now for?",
+        a: "We work with corporate teams, CSR partners, industry groups, defence partners, schools, institutional partners, and individual learners.",
+      },
+      {
+        q: "How does Y&Now work?",
+        a: "We follow a simple loop: assess, learn, apply, perform, improve, and return. Each stage feeds the next, so a programme is shaped by what the previous cycle showed.",
       },
       {
         q: "Where is Y&Now based?",
-        a: "Y&Now is headquartered in India and delivers programmes nationwide through a network of in-person facilitators, virtual instructor-led sessions, and its digital platform.",
-        // [VERIFY] Confirm registered head-office city/address before publishing a specific location.
+        a: "Sagar Premium Tower, Phase I, Block C-1, CP-02, JK Hospital Road, Kolar Road, Bhopal – 462042, Madhya Pradesh, India.",
       },
       {
-        q: "Is Y&Now ISO certified?",
-        a: "Yes. Y&Now operates under BroadArks Technology Pvt. Ltd., which holds ISO 9001:2015 certification for its quality management systems.",
-      },
-      {
-        q: "Which organisations has Y&Now worked with?",
-        a: "Y&Now has partnered with Tata Group, JSW, Castrol India, BPCL, Jaquar, Indian Army, Indian Oil, Boeing, Reliance Foundation, NSDC, and thousands of other organisations across India.",
-      },
-      {
-        q: "How is Y&Now different from a standard training vendor?",
-        a: "Y&Now links learning to measurable performance outcomes, not just course completion. Our 5-stage framework (Assess, Train, Apply, Perform, Improve) ensures capability translates into on-the-job execution, measured through OKRs, supervisor sign-offs, and operational performance signals.",
+        q: "How is Y&Now registered?",
+        a: "Y&Now is presented as a registered trademark associated with BroadArks Technology Private Limited. Commercial contracts and legal agreements are executed under that entity.",
       },
     ],
   },
@@ -69,52 +64,45 @@ const CATEGORIES: FaqCategory[] = [
     icon: "Briefcase",
     tint: "39,170,226",
     eyebrow: "Corporate Programmes",
-    title: "Enterprise training and",
+    title: "Workforce training and",
     highlight: "delivery",
     items: [
       {
-        q: "What industries does Y&Now serve?",
-        a: "Y&Now delivers corporate capability programmes across manufacturing, energy, retail, financial services, FMCG, automotive, and logistics.",
+        q: "How do you decide what to train?",
+        a: "We start with the role: what people need to do, the gaps in the way, and the workplace outcome you want to improve. The programme is designed from there.",
       },
       {
-        q: "How does the 5-stage methodology work?",
-        a: "Every corporate engagement runs through Assess → Train → Apply → Perform → Improve. We assess role-level capability gaps, deliver targeted training, embed application into workflow, measure on-the-job performance, and iterate. The full cycle typically runs across a 12–16 week delivery period with quarterly review touchpoints.",
+        q: "How is learning delivered?",
+        a: "Instructor-led, virtual, blended, digital, and self-paced. Depending on the role and programme we use microlearning, scenario-based activities, practical exercises, or simulation where relevant.",
       },
       {
-        q: "How are outcomes measured?",
-        a: "Outcomes are measured through pre- and post-assessment scores, OKR achievement rates, supervisor-validated competency evidence, and operational performance signals such as incident rates, error rates, or conversion rates. Clients receive monthly impact dashboards and quarterly outcome reports.",
+        q: "How do you know the learning is being applied?",
+        a: "Role-based assessment establishes the starting point. Afterwards, workplace tasks, manager feedback, and performance measures show whether the learning is showing up in the work.",
       },
       {
-        q: "How long does onboarding take?",
-        a: "A standard corporate capability programme, from training needs analysis through delivery and outcome review, runs across 12–16 weeks. Shorter engagements (4–6 weeks) are available for specific skill interventions. Timelines are confirmed at scope definition.",
-      },
-      {
-        q: "Can Y&Now deliver training at multiple locations simultaneously?",
-        a: "Yes. Y&Now delivers across multiple sites using a combination of in-person facilitators, virtual instructor-led sessions, and self-paced digital content.",
+        q: "Can a programme run across several sites?",
+        a: "Yes, using a mix of in-person facilitation, virtual sessions, and self-paced content.",
       },
     ],
   },
   {
     icon: "HeartHandshake",
     tint: "31,34,103",
-    eyebrow: "CSR Programmes",
-    title: "Corporate social responsibility",
-    highlight: "implementation",
+    eyebrow: "CSR & Community",
+    title: "Community programmes and",
+    highlight: "reporting",
     items: [
       {
-        q: "What CSR programmes does Y&Now offer?",
-        a: "Y&Now designs and implements CSR skilling programmes on behalf of corporate sponsors, including youth employability, vocational skilling, defence and veteran transition, and school-level capability initiatives, delivered as measurable, outcome-linked interventions.",
-        // [VERIFY] Confirm the exact CSR programme catalogue/named initiatives before publishing.
+        q: "What kinds of programmes do you run?",
+        a: "Skill development and employability, livelihood and entrepreneurship, community development, and veteran transition, along with participant assessment and tracking.",
       },
       {
-        q: "How does Y&Now report CSR outcomes?",
-        a: "CSR sponsors receive structured impact reporting through the Y&Now platform (beneficiary tracking, assessment and completion data, and outcome dashboards), packaged into periodic reports suitable for board and statutory CSR disclosure.",
-        // [VERIFY] Confirm reporting cadence and specific disclosure formats provided.
+        q: "What reporting do partners receive?",
+        a: "Participation records, beneficiary information, attendance, assessment results, progress updates, and photographic evidence. Outcome reporting is included where it forms part of the agreed programme.",
       },
       {
-        q: "Which Schedule VII categories apply?",
-        a: "Y&Now's skilling and employability programmes map primarily to Schedule VII (ii) of the Companies Act, covering promotion of education and employment-enhancing vocational skills, and can be structured to align with related categories depending on the sponsor's CSR policy.",
-        // [VERIFY] Confirm the full list of Schedule VII categories Y&Now programmes qualify under.
+        q: "Will a programme qualify under our CSR obligations?",
+        a: "Skill development, livelihood, and community programmes are commonly funded through CSR budgets. We recommend confirming the applicable head with your legal team, and we provide the documentation needed for utilisation reporting.",
       },
     ],
   },
@@ -122,26 +110,20 @@ const CATEGORIES: FaqCategory[] = [
     icon: "MonitorSmartphone",
     tint: "32,180,232",
     eyebrow: "Platform",
-    title: "The digital capability",
+    title: "The Y&Now",
     highlight: "platform",
     items: [
       {
-        q: "What does the platform include?",
-        a: "The Y&Now platform connects a Learning Management System (LMS), role-based assessments, and OKR-based Performance Management into a single capability suite. It integrates with existing HRMS and ERP systems including SAP, SuccessFactors, and Darwinbox via REST APIs, SSO/SAML, and SCIM provisioning.",
+        q: "What does the platform do?",
+        a: "It helps organisations connect digital learning, role-based assessment, and performance in one place, rather than across separate systems.",
       },
       {
-        q: "Which HRMS/ERP systems does it integrate with?",
-        a: "The Y&Now platform connects with SAP, SuccessFactors, Darwinbox, and other HRMS via REST APIs, SSO/SAML, and SCIM provisioning. Our integration team conducts a technical assessment at onboarding to map the connection to your specific system configuration.",
+        q: "Does it connect to the systems we already use?",
+        a: "The platform can connect to existing HRMS and ERP environments through agreed integrations. The current integration list is confirmed before a deployment begins.",
       },
       {
-        q: "Is it mobile-accessible?",
-        a: "Yes. The platform is designed for mobile access so frontline and field workforces can complete assessments, learning, and performance tasks from their own devices.",
-        // [VERIFY] Confirm mobile support details (responsive web vs. native app) before publishing.
-      },
-      {
-        q: "How is data secured?",
-        a: "Access is controlled through SSO/SAML authentication and SCIM provisioning, and the platform operates under BroadArks Technology's ISO 9001:2015 quality management framework. A technical and security review is completed with your team at onboarding.",
-        // [VERIFY] Confirm data-security certifications (e.g. ISO 27001) and hosting/data-residency specifics.
+        q: "How is our data handled?",
+        a: "Information on hosting, access controls, data ownership, retention, and security is provided for enterprise deployments and reviewed with your team during onboarding.",
       },
     ],
   },
@@ -153,16 +135,16 @@ const CATEGORIES: FaqCategory[] = [
     highlight: "Y&Now",
     items: [
       {
-        q: "How do I request a demo?",
-        a: "Request a demo through our contact form or by emailing info@broadarks.com. A member of the team will arrange a walkthrough of the platform and discuss how a programme could be scoped for your organisation.",
+        q: "How do I request a platform demonstration?",
+        a: "Use the enquiry form and choose 'Platform demonstration', or email info@broadarks.com. Tell us what your current environment looks like and what you need the system to do.",
       },
       {
-        q: "What is the typical programme timeline?",
-        a: "A standard corporate capability programme runs across 12–16 weeks from needs analysis to outcome review, with shorter 4–6 week interventions available for specific skills. CSR and other engagements are scoped to the sponsor's objectives.",
+        q: "What happens after I get in touch?",
+        a: "Your enquiry is routed to the appropriate team, who will discuss the programme, learning route, or platform that fits your requirement.",
       },
       {
         q: "Who do I contact?",
-        a: "Contact the Y&Now team at info@broadarks.com, or use the contact form on this site. We'll route your enquiry to the right programme lead: corporate, CSR, platform, or defence transition.",
+        a: "Email info@broadarks.com or call +91 75535 53372. You can also use the enquiry form on the contact page.",
       },
     ],
   },
@@ -192,15 +174,15 @@ export default function FaqPage() {
 
       <PageHero
         eyebrow="Resources · FAQ"
-        title="Frequently Asked Questions about"
+        title="Questions about"
         highlight="Y&Now"
-        subtitle="Clear answers on our skilling programmes, capability platform, CSR implementation, defence transition, and enterprise onboarding."
+        subtitle="Clear answers on our learning programmes, community and CSR work, the platform, and how to get started."
       >
         <CtaButton href="/contact-us" variant="primary" className="px-7 py-3.5">
-          Contact Us
+          Talk to Y&amp;Now
         </CtaButton>
         <CtaButton href="/our-platform" variant="secondary" className="px-7 py-3.5">
-          Explore the Platform
+          Explore the platform
         </CtaButton>
       </PageHero>
 

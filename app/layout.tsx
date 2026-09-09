@@ -20,11 +20,11 @@ const inter = Inter({
 
 export const metadata: Metadata = {
   title: {
-    default: "Y&Now: Workforce Capability Solutions for Enterprise & CSR",
+    default: "Y&Now | Practical Learning for Organisations and Learners",
     template: "%s | Y&Now",
   },
   description:
-    "Y&Now is the future-skills EdTech division of BroadArks Technology. We design, deliver, and measure industry-aligned capability programmes for enterprises, CSR sponsors, and individual learners across India.",
+    "Y&Now designs practical learning programmes that help people and organisations build useful skills, grow with confidence, and stay ready for what comes next.",
   metadataBase: new URL("https://yandnow.com"),
   openGraph: {
     siteName: "Y&Now",

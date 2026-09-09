@@ -238,7 +238,7 @@ function PerformanceMock() {
       </AnimatePresence>
       <div className="flex items-center justify-between border-t border-neutral-200/70 pt-4">
         <div>
-          <div className="text-[11px] font-medium text-neutral-500">OKRs achieved</div>
+          <div className="text-[11px] font-medium text-neutral-500">Goals achieved</div>
           <AnimatePresence mode="wait">
             <motion.div
               key={period}
@@ -263,20 +263,22 @@ function PerformanceMock() {
   );
 }
 
+/* Ordered to match the journey on the rest of the site:
+   assess first, then learn, then perform. */
 const PLATFORM_CARDS = [
   {
-    title: "Learning management",
-    description: "Role-based learning paths blend instructor-led, digital, and AR/VR content into one path.",
-    mock: <LearningMock />,
-  },
-  {
-    title: "Role-based assessment",
-    description: "Benchmark every learner against the skills their role actually demands on the job.",
+    title: "Assess",
+    description: "Role-based assessments map current skills against what the job actually requires.",
     mock: <AssessmentMock />,
   },
   {
-    title: "OKR performance",
-    description: "Tie capability to objectives and track measurable key results after training ends.",
+    title: "Learn",
+    description: "Learning paths combine digital modules, microlearning, and instructor-led sessions.",
+    mock: <LearningMock />,
+  },
+  {
+    title: "Perform",
+    description: "Goals, check-ins, and reviews show whether learning is reaching workplace performance.",
     mock: <PerformanceMock />,
   },
 ];
@@ -285,19 +287,24 @@ export default function PlatformPreview() {
   return (
     <section id="platform-preview" aria-labelledby="platform-preview-heading" className="bg-white py-20 lg:py-28">
       <Container>
-        <div className="mb-14 flex flex-col items-start justify-between gap-6 sm:flex-row sm:items-end">
+        <div className="mb-6 flex flex-col items-start justify-between gap-6 sm:flex-row sm:items-end">
           <AnimatedHeading
             id="platform-preview-heading"
             as="h2"
-            text="One platform for learning and performance"
+            text="One system for learning, assessment, and performance"
             className="max-w-2xl font-heading text-[clamp(1.75rem,3.2vw,2.6rem)] font-700 leading-[1.15] tracking-tight text-ink"
           />
           <Reveal delay={0.15} y={12} className="flex-shrink-0">
             <CtaButton href="/our-platform" id="platform-preview-cta" variant="primary" className="px-6 py-3">
-              See the Y&Now Platform in Detail
+              See how the platform works
             </CtaButton>
           </Reveal>
         </div>
+
+        <Reveal delay={0.1} y={12} className="mb-14 max-w-2xl text-[15px] leading-relaxed text-neutral-600 sm:text-base">
+          The Y&Now platform helps organisations connect digital learning,
+          role-based assessment, and performance in one place.
+        </Reveal>
 
         <Stagger className="grid grid-cols-1 gap-6 md:grid-cols-3" stagger={0.1}>
           {PLATFORM_CARDS.map((card) => (

@@ -40,7 +40,7 @@ function CapabilityTrack({
           <article
             key={item.title}
             aria-current={activeIndex === index ? "step" : undefined}
-            className={`group relative aspect-[3/4] w-[clamp(270px,76vw,320px)] flex-none overflow-hidden rounded-2xl border p-7 transition-[border-color,background-color,transform,opacity] duration-500 ease-out sm:w-[clamp(280px,34vw,320px)] ${
+            className={`group relative aspect-[3/4] w-[clamp(270px,76vw,320px)] flex-none snap-center overflow-hidden rounded-2xl border p-7 transition-[border-color,background-color,transform,opacity] duration-500 ease-out sm:w-[clamp(280px,34vw,320px)] ${
               active
                 ? "scale-100 border-[#4e47ad] bg-[#2e3192] opacity-100"
                 : "scale-[0.955] border-[#d8e3ef] bg-white opacity-90"
@@ -81,7 +81,7 @@ function CapabilityTrack({
                   initial={{ opacity: 0, y: 12 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.4, delay: 0.12 }}
-                  className="border-t border-white/20 pt-5 text-sm leading-relaxed text-white/80"
+                  className="border-t border-white/20 pt-5 text-[13px] leading-relaxed text-white/80"
                 >
                   {item.body}
                 </motion.p>
@@ -107,6 +107,26 @@ function CapabilityTrack({
   );
 }
 
+/** True once the viewport matches `query`. Starts false so the server
+    render and the first client paint agree - which is why the query
+    below asks for the *small* viewport: the pinned desktop stage is
+    what renders first, exactly as it did before the mobile fallback
+    existed, and only a narrow screen swaps itself out for the
+    swipeable track after mount. */
+function useMediaQuery(query: string) {
+  const [matches, setMatches] = useState(false);
+
+  useEffect(() => {
+    const mql = window.matchMedia(query);
+    const update = () => setMatches(mql.matches);
+    update();
+    mql.addEventListener("change", update);
+    return () => mql.removeEventListener("change", update);
+  }, [query]);
+
+  return matches;
+}
+
 function HorizontalCapabilityScrollerInner({
   items,
   eyebrow = "Manufacturing & Precision Engineering",
@@ -127,6 +147,8 @@ function HorizontalCapabilityScrollerInner({
   const [travel, setTravel] = useState(0);
   const [activeIndex, setActiveIndex] = useState(0);
   const reduceMotion = useReducedMotion();
+  const isSmallScreen = useMediaQuery("(max-width: 1023px)");
+  const pinned = !isSmallScreen && !reduceMotion;
   const snappedX = items.length > 1 ? -(travel / (items.length - 1)) * activeIndex : 0;
 
   useEffect(() => {
@@ -134,7 +156,7 @@ function HorizontalCapabilityScrollerInner({
   }, [activeIndex]);
 
   useEffect(() => {
-    if (reduceMotion) return;
+    if (!pinned) return;
 
     const unlockAfterGesture = () => {
       if (gestureTimer.current) clearTimeout(gestureTimer.current);
@@ -148,8 +170,8 @@ function HorizontalCapabilityScrollerInner({
       if (!node || exiting.current || event.deltaY === 0 || Math.abs(event.deltaY) < Math.abs(event.deltaX)) return;
 
       const rect = node.getBoundingClientRect();
-      const pinned = rect.top <= 2 && rect.bottom >= window.innerHeight - 2;
-      if (!pinned) return;
+      const stageFillsViewport = rect.top <= 2 && rect.bottom >= window.innerHeight - 2;
+      if (!stageFillsViewport) return;
       const sectionTop = window.scrollY + rect.top;
 
       event.preventDefault();
@@ -251,7 +273,7 @@ function HorizontalCapabilityScrollerInner({
         getLenisController()?.start();
       }
     };
-  }, [items.length, reduceMotion, travel]);
+  }, [items.length, pinned, travel]);
 
   useLayoutEffect(() => {
     const measure = () => {
@@ -272,7 +294,12 @@ function HorizontalCapabilityScrollerInner({
       observer.disconnect();
       window.removeEventListener("resize", measure);
     };
-  }, [items.length]);
+    /* `pinned` starts false on every mount, because the media query
+       cannot be read until after hydration. Without it in the deps the
+       measurement taken against the mobile track is never retaken for
+       the pinned stage, travel stays 0, and the section pins the page
+       at full height with nowhere to scroll. */
+  }, [items.length, pinned]);
 
   const heading = (
     <SectionHeading
@@ -284,15 +311,20 @@ function HorizontalCapabilityScrollerInner({
     />
   );
 
-  if (reduceMotion) {
+  if (!pinned) {
     return (
-      <section className="bg-surface py-20 lg:py-28">
-        <Container className="grid items-center gap-10 lg:grid-cols-[minmax(280px,0.72fr)_minmax(0,1.4fr)] lg:gap-8">
+      <section className="relative overflow-hidden bg-surface py-20 lg:py-28">
+        <Container className="relative grid items-center gap-10 lg:grid-cols-[minmax(280px,0.72fr)_minmax(0,1.4fr)] lg:gap-8">
           <div className="max-w-md">{heading}</div>
-          <div className="overflow-x-auto pb-4">
-            <CapabilityTrack items={items} />
-          </div>
         </Container>
+        {/* Full-bleed so the track can run to the edge of the screen and
+            read as swipeable rather than as a clipped grid. */}
+        <div
+          ref={viewport}
+          className="relative mt-10 snap-x snap-mandatory overflow-x-auto pb-4 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+        >
+          <CapabilityTrack items={items} trackRef={track} />
+        </div>
       </section>
     );
   }

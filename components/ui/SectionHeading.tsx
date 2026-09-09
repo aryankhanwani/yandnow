@@ -78,7 +78,7 @@ export default function SectionHeading({
           delay={0.15}
           y={16}
           className={cn(
-            "mt-4 text-[15px] leading-relaxed text-neutral-600 sm:text-base",
+            "mt-4 text-[15px] leading-relaxed text-neutral-600",
             isCenter ? "max-w-2xl" : "max-w-xl",
             subtitleClassName,
           )}

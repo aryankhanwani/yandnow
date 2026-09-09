@@ -4,13 +4,15 @@ import SectionHeading from "@/components/ui/SectionHeading";
 import { Reveal } from "@/components/ui/motion-primitives";
 
 interface EditorialProofSectionProps {
-  eyebrow: string;
+  /** Optional: deck sections that are just a heading omit it. */
+  eyebrow?: string;
   title: string;
-  highlight: string;
+  highlight?: string;
   body: string;
   image: string;
   imageAlt: string;
-  note: string;
+  /** Optional pill under the copy. Omitted where the deck has no such line. */
+  note?: string;
 }
 
 export default function EditorialProofSection({
@@ -34,11 +36,13 @@ export default function EditorialProofSection({
               subtitle={body}
               align="left"
             />
-            <Reveal delay={0.14} y={12} className="mt-6">
-              <span className="inline-flex rounded-full border border-primary-100 bg-primary-50/60 px-3 py-1.5 text-xs font-600 text-primary-700">
-                {note}
-              </span>
-            </Reveal>
+            {note && (
+              <Reveal delay={0.14} y={12} className="mt-6">
+                <span className="inline-flex rounded-full border border-primary-100 bg-primary-50/60 px-3 py-1.5 text-xs font-600 text-primary-700">
+                  {note}
+                </span>
+              </Reveal>
+            )}
           </div>
 
           <Reveal y={20} className="relative aspect-[16/10] overflow-hidden rounded-3xl border border-[#e1e7ef] bg-surface shadow-[0_24px_60px_-34px_rgba(20,21,46,0.4)]">

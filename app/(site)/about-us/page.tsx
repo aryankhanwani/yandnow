@@ -6,95 +6,59 @@ import Container from "@/components/ui/Container";
 import PageHero from "@/components/ui/PageHero";
 import SectionHeading from "@/components/ui/SectionHeading";
 import FaqAccordion, { type FaqItemData } from "@/components/ui/FaqAccordion";
-import OrganisationGrid from "@/components/ui/OrganisationGrid";
 import ScrollTextReveal from "@/components/ui/ScrollTextReveal";
-import WhoWeServeExplorer, { type AudienceItem } from "@/components/sections/WhoWeServeExplorer";
-import { Reveal, Stagger, StaggerItem } from "@/components/ui/motion-primitives";
+import ChecklistPanel from "@/components/ui/ChecklistPanel";
+import TeamGrid, { type TeamMember } from "@/components/sections/TeamGrid";
+import { Reveal } from "@/components/ui/motion-primitives";
 
 export const metadata: Metadata = {
-  title: "About Y&Now | Future-Skills EdTech Division of BroadArks Technology, Bhopal India",
+  title: "About Y&Now | Practical Learning with a Clear Purpose",
   description:
-    "Y&Now is the future-skills EdTech division of BroadArks Technology Pvt. Ltd., ISO 9001:2015 certified and headquartered in Bhopal, MP, delivering workforce capability for enterprises, government, defence, and schools across India.",
+    "Y&Now is a learning brand focused on practical outcomes. We design programmes that help learners become job-ready, teams perform better, and organisations build capability that lasts.",
 };
 
-const SERVE: AudienceItem[] = [
+const BELIEFS = [
+  "Learning should feel useful.",
+  "Skills should help people move forward.",
+  "Good training should lead to real change.",
+  "People learn best when the path is clear.",
+  "Confidence grows when learning connects to the real world.",
+];
+
+const TEAM: TeamMember[] = [
   {
-    icon: "Building2",
-    title: "Enterprises",
-    description: "Role-based capability programmes that connect technical learning to plant, service, and business performance.",
-    image: "/about/audiences/enterprises.png",
-    imageAlt: "Manufacturing professionals learning a digital technical workflow on a factory floor",
+    name: "Mr. Pankaj Dutta",
+    role: "Founder & Chief Executive Officer",
+    bio: "Brings more than 17 years of experience across media, business, and strategy, and believes skilling is essential for employability and long-term growth.",
   },
   {
-    icon: "HeartHandshake",
-    title: "CSR Sponsors",
-    description: "Outcome-led community skilling and livelihood programmes designed for measurable, Schedule VII-aligned impact.",
-    image: "/about/audiences/csr-sponsors.png",
-    imageAlt: "CSR programme leaders visiting a community digital-skills workshop",
+    name: "Dr. Kaveri Dutta",
+    role: "Co-Founder & Chief Learning Officer",
+    bio: "Brings more than 15 years of experience in learning and development, curriculum design, and learner engagement.",
   },
   {
-    icon: "Landmark",
-    title: "Government & PSUs",
-    description: "Scalable implementation for public workforce priorities, national qualifications, and state skill missions.",
-    image: "/about/audiences/government-psus.png",
-    imageAlt: "Public-sector programme team reviewing training outcomes with vocational instructors",
+    name: "Mr. Tarun Abbhani",
+    role: "Chief Financial Officer",
+    bio: "A Chartered Accountant with more than 14 years of experience in finance leadership and operational strategy.",
   },
   {
-    icon: "Shield",
-    title: "Defence & Veterans",
-    description: "Transition-focused technical pathways that translate service experience into meaningful civilian opportunities.",
-    image: "/about/audiences/defence-veterans.png",
-    imageAlt: "Veterans participating in an advanced technical reskilling workshop",
-  },
-  {
-    icon: "School",
-    title: "Schools",
-    description: "Applied vocational exposure that helps students discover pathways and prepare confidently for industry entry.",
-    image: "/about/audiences/schools.png",
-    imageAlt: "School students collaborating with a teacher on an applied robotics project",
-  },
-  {
-    icon: "GraduationCap",
-    title: "Individual Learners",
-    description: "Industry-recognised skills, practical assessment, and clearer routes into work and career progression.",
-    image: "/about/audiences/learners.png",
-    imageAlt: "A learner practising a digital technical skill with guidance from a mentor",
+    name: "Ms. Souri Mukherjee",
+    role: "Head, Financial Planning & Analysis and IT",
+    bio: "Brings 24 years of experience across consumer and brand environments, with an analytical and problem-solving approach.",
   },
 ];
 
-const CREDENTIALS = [
+const ADVISERS: TeamMember[] = [
   {
-    logo: "/images/industry/accreditation/iso-9001-2015.png",
-    title: "ISO 9001:2015",
-    body: "Certified quality management systems under BroadArks Technology Pvt. Ltd.",
-    // [VERIFY] Certificate number and validity - Legal/Compliance to supply.
-    meta: "Certificate number and validity available on request",
+    name: "Mr. Pradeep Narayanan",
+    role: "Adviser",
+    bio: "Brings more than 26 years of experience in the development sector across health, education, child protection, and gender.",
   },
   {
-    logo: "/images/industry/accreditation/nsdc-training-partnership.png",
-    title: "NSDC Training Partnership",
-    body: "Partner for training and implementation across eligible programmes.",
-    // [VERIFY] Current partnership scope - Accreditation team to confirm.
-    meta: "Partnership scope confirmed at scoping",
+    name: "Mr. Brajendra Gupta",
+    role: "Adviser",
+    bio: "An entrepreneur who believes skill development is essential for broader opportunity.",
   },
-  {
-    logo: "/images/industry/accreditation/ncvet-dgt-alignment.png",
-    title: "NCVET / DGT Qualification Alignment",
-    body: "Qualification alignment to national skilling standards where applicable.",
-    // [VERIFY] Applicable qualifications - Accreditation team to confirm.
-    meta: "Aligned qualifications confirmed at scoping",
-  },
-];
-
-const PARTNERS = [
-  { name: "MPIHTTS, Bhopal", full: "Madhya Pradesh Institute of Hotel Management, Tourism, and Travel Studies" },
-  { name: "CRISP, Bhopal", full: "Centre for Research and Industrial Staff Performance" },
-  { name: "iACE", full: "Industry Academia Centre of Excellence" },
-  // [VERIFY] IIP full name - Business team to supply.
-  { name: "IIP", full: "Full name to be confirmed" },
-  { name: "Sagar Institute of Research & Technology", full: "Bhopal" },
-  { name: "CVRU", full: "C.V. Raman University" },
-  { name: "SGSU", full: "Sardar Gulab Singh University" },
 ];
 
 const TEAM_IMAGES = [
@@ -127,23 +91,23 @@ const TEAM_IMAGES = [
 const FAQS: FaqItemData[] = [
   {
     q: "What is Y&Now?",
-    a: "Y&Now is the future-skills EdTech division of BroadArks Technology Pvt. Ltd. We deliver workforce capability programmes and a digital capability platform for enterprises, CSR sponsors, government bodies, defence establishments, and schools across India.",
+    a: "Y&Now is a learning brand focused on practical outcomes. We design programmes that help learners become more job-ready, help teams perform better, and help organisations build capability that lasts.",
+  },
+  {
+    q: "Who does Y&Now work with?",
+    a: "Corporate teams, CSR partners, industry groups, defence partners, schools, institutional partners, and individual learners.",
   },
   {
     q: "Where is Y&Now based?",
-    a: "Y&Now is headquartered at Sagar Premium Tower, Phase I, Block C-1, CP-02, JK Hospital Road, Kolar, Bhopal – 462042, Madhya Pradesh, India.",
+    a: "Sagar Premium Tower, Phase I, Block C-1, CP-02, JK Hospital Road, Kolar Road, Bhopal – 462042, Madhya Pradesh, India.",
   },
   {
     q: "Is Y&Now the same as BroadArks Foundation?",
-    a: "No. Y&Now is a commercial EdTech division of BroadArks Technology Pvt. Ltd. BroadArks Foundation is a separate registered charitable entity operating at broadarksfoundation.org. The two entities have different legal registrations, purposes, and contact details.",
-  },
-  {
-    q: "Who owns Y&Now?",
-    a: "Y&Now operates under BroadArks Technology Pvt. Ltd. All commercial contracts and legal agreements are executed under this entity.",
+    a: "No. BroadArks Foundation is a separate registered charitable entity at broadarksfoundation.org, with its own legal registration, purpose, and contact details.",
   },
   {
     q: "How can I contact Y&Now?",
-    a: "Email: info@broadarks.com · Phone: +91 75535 53372 · Address: Sagar Premium Tower, Phase I, Block C-1, CP-02, JK Hospital Road, Kolar, Bhopal – 462042, Madhya Pradesh.",
+    a: "Email info@broadarks.com or call +91 75535 53372. You can also use the enquiry form on the contact page.",
   },
 ];
 
@@ -151,10 +115,10 @@ export default function AboutPage() {
   return (
     <>
       <PageHero
-        eyebrow="About Us"
-        title="The future-skills EdTech division of"
-        highlight="BroadArks Technology"
-        subtitle="Building workforce capability for enterprises, government, defence, communities, and schools through industry-aligned programmes and platform."
+        eyebrow="About Y&Now"
+        title="Practical Learning with a"
+        highlight="Clear Purpose"
+        subtitle="We help people and organisations build useful skills, grow with confidence, and stay ready for what comes next."
         className="border-b-0"
       />
 
@@ -182,50 +146,88 @@ export default function AboutPage() {
         </Container>
       </section>
 
-      {/* Mission */}
+      {/* Who we are */}
       <section className="bg-surface py-20 lg:py-28">
         <Container>
           <div className="max-w-5xl text-left">
-            <p className="mb-6 text-[11px] font-semibold uppercase tracking-[0.16em] text-secondary-500">Our Mission</p>
+            <p className="mb-6 text-[11px] font-semibold uppercase tracking-[0.16em] text-secondary-500">Who We Are</p>
             <ScrollTextReveal
-              text="We bridge the gap between industry needs and workforce skills, turning practical learning into stronger performance and lasting opportunity."
-              highlightWords={["industry", "skills", "performance", "opportunity"]}
+              text="Y&Now is a learning brand focused on practical outcomes. We design programmes that help learners become job-ready, teams perform better, and organisations build capability that lasts."
+              highlightWords={["practical", "job-ready", "perform", "capability"]}
               className="font-heading text-[clamp(1.65rem,3.4vw,3rem)] font-600 leading-[1.2] tracking-tight"
             />
           </div>
         </Container>
       </section>
 
-      {/* Who we serve */}
+      {/* Mission & vision */}
       <section className="bg-white py-20 lg:py-28">
         <Container>
-          <SectionHeading
-            eyebrow="Who We Serve"
-            title="Capability across every corner of"
-            highlight="India's workforce"
-            align="left"
-            className="mb-14"
-          />
-          <WhoWeServeExplorer items={SERVE} />
+          <div className="grid gap-px overflow-hidden rounded-3xl border border-[#e8ecf2] bg-[#e8ecf2] lg:grid-cols-2">
+            <Reveal y={18} className="bg-white p-8 lg:p-12">
+              <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-secondary-500">Our Mission</p>
+              <p className="mt-5 font-heading text-[clamp(1.25rem,2.2vw,1.65rem)] font-600 leading-snug text-ink">
+                To make practical learning easier to access, easier to apply, and
+                more useful for real work and real life.
+              </p>
+            </Reveal>
+            <Reveal y={18} delay={0.1} className="bg-white p-8 lg:p-12">
+              <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-secondary-500">Our Vision</p>
+              <p className="mt-5 font-heading text-[clamp(1.25rem,2.2vw,1.65rem)] font-600 leading-snug text-ink">
+                A future where more people can turn learning into opportunity,
+                confidence, and better work.
+              </p>
+            </Reveal>
+          </div>
         </Container>
       </section>
 
-      {/* Parent company */}
+      {/* What we believe */}
+      <ChecklistPanel
+        eyebrow="What We Believe"
+        title="Why our work"
+        highlight="matters"
+        subtitle="The gap between learning and doing is still too wide. We help people close it."
+        items={BELIEFS}
+        image="/about/training-review.png"
+        imageAlt="Programme managers reviewing digital training material together"
+        className="bg-surface"
+      />
+
+      {/* Team */}
+      <section className="bg-white py-20 lg:py-28">
+        <Container>
+          <SectionHeading
+            eyebrow="Meet the Team"
+            title="The people behind the"
+            highlight="programmes"
+            className="mb-14"
+          />
+          <TeamGrid members={TEAM} />
+
+          <div className="mt-16">
+            <SectionHeading eyebrow="Advisers" title="Guidance from the wider field" align="left" className="mb-8" />
+            <TeamGrid members={ADVISERS} columns={2} />
+          </div>
+        </Container>
+      </section>
+
+      {/* Credentials */}
       <section className="bg-surface py-20 lg:py-28">
         <Container>
-          <div className="grid grid-cols-1 items-center gap-12 lg:grid-cols-[0.92fr_1.08fr] lg:gap-16">
+          <div className="grid items-center gap-12 lg:grid-cols-[1.05fr_0.95fr] lg:gap-16">
             <div className="max-w-xl">
-              <SectionHeading
-                eyebrow="Our Parent Company"
-                title="Operated by BroadArks Technology Pvt. Ltd."
-                align="left"
-              />
+              <SectionHeading eyebrow="Credentials" title="How Y&Now is registered" align="left" />
               <Reveal delay={0.1} className="mt-5 space-y-4 text-[15px] leading-relaxed text-neutral-600">
                 <p>
-                  Y&Now operates as the EdTech division of BroadArks Technology Pvt. Ltd. All commercial contracts, invoicing, and legal agreements are executed under BroadArks Technology Pvt. Ltd.
+                  Y&Now is presented as a registered trademark associated with
+                  BroadArks Technology Private Limited. Commercial contracts and
+                  legal agreements are executed under that entity.
                 </p>
                 <p>
-                  BroadArks Foundation (broadarksfoundation.org) is a separate registered charitable entity. It is not part of BroadArks Technology Pvt. Ltd. and has no commercial or legal relationship with Y&Now.
+                  BroadArks Foundation (broadarksfoundation.org) is a separate
+                  registered charitable entity, with its own legal registration,
+                  purpose, and contact details.
                 </p>
               </Reveal>
               <Reveal delay={0.2} className="mt-6">
@@ -240,61 +242,18 @@ export default function AboutPage() {
                 </Link>
               </Reveal>
             </div>
-            <Reveal delay={0.12} y={20} className="relative flex min-h-[360px] items-center justify-center overflow-hidden rounded-3xl border border-[#e1e7ef] bg-white p-8 sm:min-h-[440px] lg:p-12">
+            <Reveal delay={0.12} y={20} className="relative flex min-h-[300px] items-center justify-center overflow-hidden rounded-3xl border border-[#e1e7ef] bg-white p-8 sm:min-h-[380px] lg:p-12">
               <div aria-hidden className="absolute inset-0 bg-[radial-gradient(circle_at_85%_15%,rgba(39,170,225,0.13),transparent_42%),radial-gradient(circle_at_10%_90%,rgba(46,49,146,0.1),transparent_42%)]" />
               <Image
                 src="/about/broadarks-technology.png"
-                alt="BroadArks Technology: Innovation and Beyond"
+                alt="BroadArks Technology"
                 width={1200}
                 height={1170}
                 sizes="(max-width: 1024px) 82vw, 42vw"
-                className="relative mx-auto h-auto max-h-[340px] w-[88%] object-contain object-center"
+                className="relative mx-auto h-auto max-h-[280px] w-[85%] object-contain object-center"
               />
             </Reveal>
           </div>
-        </Container>
-      </section>
-
-      {/* Certifications and credentials */}
-      <section className="bg-white py-20 lg:py-28">
-        <Container>
-          <SectionHeading
-            eyebrow="Certifications & Credentials"
-            title="Built on verified"
-            highlight="standards"
-            subtitle="National qualification alignment and quality-management credentials that support consistent, accountable programme delivery."
-            className="mb-14"
-          />
-          <Stagger
-            className="grid grid-cols-1 gap-px overflow-hidden rounded-2xl border border-[#e1e7ef] bg-[#e1e7ef] md:grid-cols-3"
-            stagger={0.1}
-          >
-            {CREDENTIALS.map((credential) => (
-              <StaggerItem key={credential.title} className="h-full bg-white">
-                <article className="flex h-full flex-col p-7 text-left lg:p-8">
-                  <div className="relative mb-7 h-28 w-28 overflow-hidden rounded-2xl border border-primary-100 bg-white">
-                    <Image src={credential.logo} alt="" fill sizes="112px" className="object-contain" />
-                  </div>
-                  <h3 className="font-heading text-lg font-700 leading-tight text-ink">{credential.title}</h3>
-                  <p className="mt-3 text-sm leading-relaxed text-neutral-600">{credential.body}</p>
-                  <p className="mt-4 text-xs font-medium leading-relaxed text-neutral-500">{credential.meta}</p>
-                </article>
-              </StaggerItem>
-            ))}
-          </Stagger>
-        </Container>
-      </section>
-
-      {/* Strategic partners */}
-      <section className="bg-surface py-20 lg:py-28">
-        <Container>
-          <SectionHeading
-            eyebrow="Strategic Partners"
-            title="A network of implementation & academic"
-            highlight="partners"
-            className="mb-12"
-          />
-          <OrganisationGrid items={PARTNERS.map(({ name }) => ({ name }))} />
         </Container>
       </section>
 
@@ -309,7 +268,6 @@ export default function AboutPage() {
           </div>
         </Container>
       </section>
-
     </>
   );
 }

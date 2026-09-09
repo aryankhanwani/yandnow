@@ -6,6 +6,7 @@ import Container from "@/components/ui/Container";
 import Markdown from "@/components/ui/Markdown";
 import { Reveal } from "@/components/ui/motion-primitives";
 import ReadingProgress from "@/components/blog/ReadingProgress";
+import { noOrphan } from "@/lib/typography";
 import {
   getAllPosts,
   getPostBySlug,
@@ -89,7 +90,7 @@ function RelatedCard({ post }: { post: BlogPost }) {
       </div>
       <div className="flex flex-1 flex-col p-5">
         <h3 className="font-heading text-base font-700 leading-snug text-ink transition-colors group-hover:text-primary-700">
-          {post.title}
+          {noOrphan(post.title)}
         </h3>
         <span className="mt-4 inline-flex items-center gap-1.5 text-sm font-600 text-primary-600">
           Read article
@@ -141,7 +142,7 @@ export default async function BlogPostPage({
             </span>
 
             <h1 className="mt-4 font-heading text-[clamp(1.95rem,4.6vw,3.1rem)] font-800 leading-[1.1] tracking-tight text-ink">
-              {post.title}
+              {noOrphan(post.title)}
             </h1>
 
             <p className="mt-5 text-[19px] font-500 leading-relaxed text-neutral-600">

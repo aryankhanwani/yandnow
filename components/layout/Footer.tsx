@@ -39,11 +39,12 @@ function IconX() {
    FOOTER DATA
    ============================================================ */
 const SOLUTION_LINKS = [
-  { label: "Corporate L&D", href: "/corporate" },
-  { label: "CSR Skill Programs", href: "/csr-programs" },
+  { label: "Corporate Training", href: "/corporate" },
+  { label: "CSR Programmes", href: "/csr-programs" },
   { label: "Industry Solutions", href: "/industry-solutions" },
-  { label: "Defence Programs", href: "/defence-programs" },
+  { label: "Defence Programmes", href: "/defence-programs" },
   { label: "School Solutions", href: "/school-solutions" },
+  { label: "Micro-Entrepreneurship", href: "/micro-entrepreneurship" },
   { label: "For Learners", href: "/learners-b2c" },
 ];
 
@@ -51,7 +52,9 @@ const COMPANY_LINKS = [
   { label: "Our Platform", href: "/our-platform" },
   { label: "About Us", href: "/about-us" },
   { label: "Contact Us", href: "/contact-us" },
+  { label: "Gallery", href: "/gallery" },
   { label: "Blog", href: "/blog" },
+  { label: "Careers", href: "/careers" },
   { label: "Privacy Policy", href: "/privacy-policy" },
   { label: "Terms", href: "/terms" },
 ];
@@ -110,7 +113,7 @@ export default function Footer() {
           <div>
             <FooterLogo />
             <p className="mb-6 max-w-xs text-sm leading-relaxed text-neutral-600">
-              Y&Now is the future-skills EdTech division of BroadArks Technology Pvt. Ltd. We design, deliver, and measure industry-aligned capability programmes across India.
+              Y&Now designs practical learning programmes that help people and organisations build useful skills, grow with confidence, and stay ready for what comes next.
             </p>
             <div className="flex items-center gap-2">
               {SOCIAL_LINKS.map(({ label, href, Icon }) => (
@@ -186,10 +189,8 @@ export default function Footer() {
           <div className="flex flex-col items-center justify-between gap-3 py-6 text-xs text-neutral-600 sm:flex-row">
             <p>© {currentYear} BroadArks Technology Pvt. Ltd. All rights reserved.</p>
             <div className="flex items-center gap-4">
-              <span className="inline-flex items-center gap-1.5 rounded-md border border-primary-100 bg-white/60 px-3 py-1 font-medium text-neutral-600">
-                <span className="h-1.5 w-1.5 rounded-sm bg-secondary-500" />
-                ISO 9001:2015 Certified
-              </span>
+              {/* The ISO badge that used to sit here is out until the
+                  certificate scope and validity are confirmed. */}
               <a
                 href="https://broadarks.com"
                 target="_blank"

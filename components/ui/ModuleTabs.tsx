@@ -1,6 +1,7 @@
 "use client";
 
 import { type ReactNode, useState } from "react";
+import Image from "next/image";
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import { Check } from "lucide-react";
 import { cn } from "@/lib/utils";
@@ -24,6 +25,9 @@ export interface ModuleTab {
   tint: string;
   features: string[];
   note?: string;
+  /** Contextual photograph shown beside the module's feature list. */
+  image: string;
+  imageAlt: string;
 }
 
 const EASE = [0.16, 1, 0.3, 1] as const;
@@ -86,48 +90,75 @@ export default function ModuleTabs({ modules }: { modules: ModuleTab[] }) {
             animate={{ opacity: 1, y: 0 }}
             exit={reduce ? { opacity: 0 } : { opacity: 0, y: -10 }}
             transition={{ duration: 0.4, ease: EASE }}
-            className="relative"
+            className="relative grid items-center gap-8 lg:grid-cols-[1.05fr_0.95fr] lg:gap-12"
           >
-            <div className="mb-6 flex items-center gap-4">
-              <span
-                className="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-2xl [&_svg]:h-6 [&_svg]:w-6"
-                style={{ color: `rgb(${mod.tint})`, backgroundColor: `rgba(${mod.tint},0.1)` }}
-              >
-                {mod.icon}
-              </span>
-              <div>
+            <div className="flex flex-col justify-center">
+              <div className="mb-6 flex items-center gap-4">
                 <span
-                  className="block text-[11px] font-700 uppercase tracking-[0.16em]"
-                  style={{ color: `rgb(${mod.tint})` }}
+                  className="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-2xl [&_svg]:h-6 [&_svg]:w-6"
+                  style={{ color: `rgb(${mod.tint})`, backgroundColor: `rgba(${mod.tint},0.1)` }}
                 >
-                  {mod.tag}
+                  {mod.icon}
                 </span>
-                <h3 className="font-heading text-xl font-700 leading-tight text-ink lg:text-2xl">
-                  {mod.title}
-                </h3>
+                <div>
+                  <span
+                    className="block text-[11px] font-700 uppercase tracking-[0.16em]"
+                    style={{ color: `rgb(${mod.tint})` }}
+                  >
+                    {mod.tag}
+                  </span>
+                  <h3 className="font-heading text-xl font-700 leading-tight text-ink lg:text-2xl">
+                    {mod.title}
+                  </h3>
+                </div>
               </div>
+
+              <ul className="grid grid-cols-1 gap-y-3">
+                {mod.features.map((f, i) => (
+                  <motion.li
+                    key={f}
+                    initial={reduce ? false : { opacity: 0, x: -8 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ duration: 0.4, delay: reduce ? 0 : 0.05 + i * 0.04, ease: EASE }}
+                    className="flex items-start gap-2.5 text-sm leading-relaxed text-neutral-700"
+                  >
+                    <Check size={16} className="mt-0.5 flex-shrink-0 text-secondary-500" />
+                    {f}
+                  </motion.li>
+                ))}
+              </ul>
+
+              {mod.note && (
+                <p className="mt-6 inline-flex rounded-lg bg-surface px-3 py-2 text-xs font-500 text-neutral-500">
+                  {mod.note}
+                </p>
+              )}
             </div>
 
-            <ul className="grid grid-cols-1 gap-x-8 gap-y-3 sm:grid-cols-2">
-              {mod.features.map((f, i) => (
-                <motion.li
-                  key={f}
-                  initial={reduce ? false : { opacity: 0, x: -8 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ duration: 0.4, delay: reduce ? 0 : 0.05 + i * 0.04, ease: EASE }}
-                  className="flex items-start gap-2.5 text-sm leading-relaxed text-neutral-700"
-                >
-                  <Check size={16} className="mt-0.5 flex-shrink-0 text-secondary-500" />
-                  {f}
-                </motion.li>
-              ))}
-            </ul>
-
-            {mod.note && (
-              <p className="mt-6 inline-flex rounded-lg bg-surface px-3 py-2 text-xs font-500 text-neutral-500">
-                {mod.note}
-              </p>
-            )}
+            {/* The module in the field - what the outputs on the left are
+                actually describing. */}
+            <div className="relative aspect-[4/3] overflow-hidden rounded-2xl border border-[#e1e7ef] bg-surface lg:aspect-[5/4]">
+              <Image
+                src={mod.image}
+                alt={mod.imageAlt}
+                fill
+                sizes="(max-width: 1024px) 100vw, 40vw"
+                className="object-cover"
+              />
+              <span
+                aria-hidden
+                className="pointer-events-none absolute inset-0"
+                style={{
+                  background: `linear-gradient(180deg, rgba(15,17,58,0) 45%, rgba(15,17,58,0.78) 100%)`,
+                }}
+              />
+              <span
+                className="absolute bottom-4 left-4 inline-flex items-center gap-2 rounded-full px-3 py-1.5 text-[11px] font-700 uppercase tracking-[0.14em] text-white backdrop-blur-md"
+                style={{ backgroundColor: `rgba(${mod.tint},0.72)` }}
+              >
+                {mod.tag}
+              </span>
+            </div>
           </motion.div>
         </AnimatePresence>
       </div>

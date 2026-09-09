@@ -5,9 +5,9 @@ import BlogIndex, { type BlogCardData } from "@/components/blog/BlogIndex";
 import { getAllPosts } from "@/lib/blog";
 
 export const metadata: Metadata = {
-  title: "Blog: Insights on Workforce Capability | Y&Now",
+  title: "Blog | Ideas, Updates, and Useful Thinking",
   description:
-    "Practical thinking on workforce capability, L&D measurement, CSR skilling, and industry training from the Y&Now team.",
+    "Practical content for learning and development leaders, human resources teams, employers, and learners who want to stay current.",
 };
 
 // Refresh from Supabase at most once a minute.
@@ -33,9 +33,9 @@ export default async function BlogPage() {
     <>
       <PageHero
         eyebrow="Blog"
-        title="Insights on building"
-        highlight="workforce capability"
-        subtitle="Practical thinking on measuring L&D, designing CSR skilling programmes, and training industrial workforces at scale."
+        title="Ideas, Updates, and"
+        highlight="Useful Thinking"
+        subtitle="Practical content for L&D leaders, HR teams, employers, and learners."
       />
 
       <section className="bg-surface py-20 lg:py-24">

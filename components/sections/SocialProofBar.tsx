@@ -1,38 +1,32 @@
 import Container from "@/components/ui/Container";
 
 /* ============================================================
-   SOCIAL PROOF BAR
-   Source: Final Copy doc - Section 1 (below hero)
-   "Trusted by India's leading organisations across manufacturing,
-    energy, retail, and financial services."
-   Marquee: Tata Group · JSW · Castrol India · BPCL · Jaquar ·
-            Indian Army · Indian Oil · Boeing · Reliance Foundation · NSDC
+   EXPERIENCE YOU CAN REVIEW
+   Copy deck - Home, "Experience You Can Review".
+
+   Only organisations named in the approved copy deck appear here.
+   Names the deck has not confirmed (and unverified counts such as
+   "3,800+ organisations") stay off the site until sign-off.
    ============================================================ */
 
 const CLIENTS = [
   "Tata Group",
-  "JSW",
+  "JSW Energy",
   "Castrol India",
-  "BPCL",
+  "Bharat Petroleum",
   "Jaquar",
-  "Indian Army",
-  "Indian Oil",
-  "Boeing",
-  "Reliance Foundation",
-  "NSDC",
-  "CRISP",
-  "MPIHTTS",
 ];
 
-/* Duplicate list so the marquee loops seamlessly */
-const MARQUEE_ITEMS = [...CLIENTS, ...CLIENTS];
+/* The track scrolls by -50%, so it holds exactly two identical
+   halves. Each half repeats the short client list twice so the
+   track is always wider than the viewport and never shows a gap. */
+const HALF = [...CLIENTS, ...CLIENTS];
+const MARQUEE_ITEMS = [...HALF, ...HALF];
 
 function ClientChip({ name }: { name: string }) {
   return (
-    <div className="flex-shrink-0 flex items-center gap-2.5 px-5 py-2.5 rounded-lg  bg-white select-none">
-      {/* Avatar tile */}
-
-      <span className="text-lg font-semibold text-neutral-700 whitespace-nowrap">{name}</span>
+    <div className="flex-shrink-0 select-none px-6 py-2.5">
+      <span className="whitespace-nowrap text-lg font-semibold text-neutral-700">{name}</span>
     </div>
   );
 }
@@ -40,22 +34,22 @@ function ClientChip({ name }: { name: string }) {
 export default function SocialProofBar() {
   return (
     <section
-      id="social-proof"
-      aria-label="Trusted clients"
-      className="bg-white border-y border-neutral-100 py-10 overflow-hidden"
+      id="experience"
+      aria-label="Organisations Y&Now has worked with"
+      className="overflow-hidden border-y border-neutral-100 bg-white py-10"
     >
       <Container>
-        <p className="text-center text-[11px] font-semibold tracking-[0.16em] uppercase text-neutral-400 mb-6">
-          Trusted by India&apos;s leading organisations across manufacturing, energy, retail &amp; financial services
+        <p className="mb-6 text-center text-[11px] font-semibold uppercase tracking-[0.16em] text-neutral-400">
+          Experience you can review · enterprise, institutional &amp; workforce learning
         </p>
       </Container>
 
       {/* Marquee wrapper - clips overflow */}
       <div className="relative">
         {/* Left + right fade edges */}
-        <div className="pointer-events-none absolute left-0 inset-y-0 w-20 z-10"
+        <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-20"
           style={{ background: "linear-gradient(to right, white, transparent)" }} />
-        <div className="pointer-events-none absolute right-0 inset-y-0 w-20 z-10"
+        <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-20"
           style={{ background: "linear-gradient(to left, white, transparent)" }} />
 
         {/* Scrolling track */}

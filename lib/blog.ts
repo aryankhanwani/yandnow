@@ -150,101 +150,107 @@ export function estimateReadMinutes(markdown: string): number {
    ================================================================ */
 export const SEED_POSTS: BlogPost[] = [
   {
-    slug: "measuring-l-and-d-that-shows-up-in-performance",
-    title: "Measuring L&D That Actually Shows Up in Performance",
+    slug: "how-role-based-assessment-improves-workforce-learning",
+    title: "How Role-Based Assessment Improves Workforce Learning",
     excerpt:
-      "Course completions tell you attendance, not capability. Here is how to tie every learning programme to a performance signal your leadership already tracks.",
+      "Training everyone on the same thing is the fastest way to waste everyone's time. Starting from the role tells you what to teach, and to whom.",
     category: "Learning & Development",
     date: "2026-07-28",
-    readMinutes: 6,
-    author: { name: "Y&Now Editorial", role: "Capability Practice" },
+    readMinutes: 5,
+    author: { name: "Y&Now Editorial", role: "Learning Practice" },
     tint: "46,49,146",
     featured: true,
-    content: `Most workforce training is still measured by the wrong number. Completion rates, hours logged, and satisfaction scores describe what happened inside the classroom, not whether anything changed at the workplace. If an L&D investment cannot be traced to a business signal, it is almost impossible to defend at budget time.
+    content: `Most workforce training starts with a course and hopes it lands. Role-based assessment starts somewhere more useful: with what a specific job actually asks of the person doing it.
 
-## Start from the performance signal, not the course
+## Start with the role, not the catalogue
 
-A useful programme design begins with the outcome the business already watches: error rates, conversion, time-to-competence, safety incidents, or OKR attainment. Work backwards from that signal to the specific behaviours that move it, and only then to the learning that builds those behaviours.
+A role has requirements you can write down. The tasks people carry out, the standards they work to, the decisions they make on their own. Assess against those requirements and you get a clear picture of where the gaps are, rather than an assumption about where they might be.
 
-- Name the business signal before designing content.
-- Map the signal to observable on-the-job behaviours.
-- Baseline the signal, then re-measure on a fixed cadence.
-- Report capability gains and the signal side by side.
+- Describe what the role has to do, in plain terms.
+- Assess current skill against that description.
+- Train against the gaps the assessment finds.
+- Re-check after the learning, not just at the end of the course.
 
-## Make the measurement continuous
+## Why it changes the programme
 
-A single post-training test is a snapshot. Capability shows up over weeks, through manager check-ins, live scenarios, and real tasks. Treat measurement as a loop: each cycle informs the next intervention and the next round of workforce planning.
+When the starting point is a real gap, the learning gets shorter and more relevant. People stop sitting through material they already know, and the time saved goes into the parts they genuinely need. Managers also get something they can act on: a view of readiness by role, not a list of who attended.
 
-> If you cannot point to the number that moved, you did not measure the training; you measured the event.`,
+> Assessment is not a test at the end. It is the thing that tells you what the programme should contain.`,
     seo: {
-      metaTitle: "Measuring L&D That Shows Up in Performance | Y&Now",
+      metaTitle: "How Role-Based Assessment Improves Workforce Learning | Y&Now",
       metaDescription:
-        "Tie every learning programme to a performance signal your leadership already tracks: a practical framework for measuring workforce capability.",
-      keywords: "L&D measurement, workforce capability, training ROI, learning analytics",
+        "Starting from the role tells you what to teach and to whom. A practical look at role-based assessment in workforce learning.",
+      keywords: "role-based assessment, skill gap mapping, workforce learning, competency",
     },
   },
   {
-    slug: "designing-schedule-vii-csr-skilling-programmes",
-    title: "Designing CSR Skilling Programmes That Survive an Audit",
+    slug: "what-makes-csr-skilling-programmes-effective",
+    title: "What Makes CSR Skilling Programmes Effective",
     excerpt:
-      "A Schedule VII-aligned programme lives or dies on documentation. A practical look at building CSR skilling initiatives with compliance-ready evidence from day one.",
+      "Community programmes need more than attendance records. They need relevance, participation, follow-through, and a clear view of what changed.",
     category: "CSR & Impact",
     date: "2026-07-15",
-    readMinutes: 7,
+    readMinutes: 6,
     author: { name: "Y&Now Editorial", role: "CSR Practice" },
     tint: "39,170,226",
-    content: `CSR skilling has matured past good intentions. Boards now expect the same rigour from a livelihood programme that they expect from any other spend: a defined objective, a mapped Schedule VII head, and evidence that stands up to independent review.
+    content: `A skilling programme can run cleanly, fill every seat, and still change very little. The difference usually shows up long before delivery starts.
 
-## Anchor the design to a Schedule VII head
+## Define the community, the need, and the outcome
 
-Before a single beneficiary is enrolled, the programme should be mapped to a specific category of Schedule VII of the Companies Act, 2013, and confirmed with your legal team. That mapping shapes eligibility, reporting format, and the documentation you must retain.
+A strong programme begins with three things written down: which community it is for, what that community actually needs, and what is supposed to be different at the end. Skip any of the three and the programme drifts towards whatever is easiest to deliver.
 
-## Build the evidence trail as you go
+## Build the record as you go
 
-- Baseline surveys and beneficiary identification with verifiable IDs.
-- Attendance registers and standardised quality-assurance checks.
-- End-line assessments and employment or income verification.
-- A final impact report in your compliance committee's format.
+- Participation records and beneficiary information.
+- Attendance across the programme, not just at the start.
+- Assessment results against what the programme set out to build.
+- Progress updates and photographic evidence.
 
-Reconstructing this evidence after the fact is where most programmes stumble. Captured continuously, it becomes the impact report almost automatically.
+Assembled from the first week, this becomes the report almost by itself. Reconstructed at the end, it is guesswork.
 
-> The strongest impact reports are not written at the end; they are assembled from the first week onward.`,
+## Follow through after the sessions end
+
+Relevance and participation get people through the programme. Follow-through is what turns it into something durable, whether that is a livelihood, a first job, or the confidence to take the next step.
+
+> Attendance tells you people came. It does not tell you anything changed.`,
     seo: {
-      metaTitle: "CSR Skilling Programmes That Survive an Audit | Y&Now",
+      metaTitle: "What Makes CSR Skilling Programmes Effective | Y&Now",
       metaDescription:
-        "Build Schedule VII-aligned CSR skilling programmes with compliance-ready evidence from day one.",
-      keywords: "CSR skilling, Schedule VII, CSR compliance, impact reporting",
+        "Relevance, participation, follow-through, and a clear view of what changed: what separates effective CSR skilling programmes from busy ones.",
+      keywords: "CSR skilling, community programmes, livelihood training, impact reporting",
     },
   },
   {
-    slug: "ar-vr-simulation-in-industrial-training",
-    title: "Where AR/VR Simulation Earns Its Place in Industrial Training",
+    slug: "how-to-design-learning-for-plant-operations",
+    title: "How to Design Learning for Plant Operations",
     excerpt:
-      "Immersive training is not a gimmick when the alternative is risk. A grounded view of where simulation outperforms the classroom on the plant floor.",
+      "On a plant floor, the gap between knowing and doing is the whole problem. Design the learning around the work and the gap closes.",
     category: "Industry",
     date: "2026-06-30",
     readMinutes: 5,
     author: { name: "Y&Now Editorial", role: "Industry Practice" },
     tint: "31,34,103",
-    content: `Simulation is easy to oversell. But in regulated, high-consequence environments, letting people practise a dangerous or expensive task safely, as many times as they need, is exactly where immersive training pays back.
+    content: `Plant environments are unforgiving of learning that stays theoretical. The equipment, the shift pattern, the noise, and the safety rules all shape what someone can actually apply, and training that ignores them tends to evaporate on contact with the job.
 
-## Use it where reality is costly or risky
+## Study the work before designing the course
 
-- High-risk procedures where mistakes carry safety consequences.
-- Expensive equipment that cannot be tied up for practice.
-- Rare events that are hard to rehearse on the job.
-- Standardising a procedure across many sites at once.
+Look at the role, the workflow, the tools, and the conditions people face. What does a shift actually look like? Where do mistakes happen, and what causes them? The answers usually reshape the programme more than any content decision.
 
-## Keep it tied to competence, not novelty
+- Build around what people need to do, not only what they need to know.
+- Use the equipment and terminology they will meet on the floor.
+- Fit the sessions to the shift, rather than the other way round.
+- Assess against the standard the role is held to.
 
-The value is not the headset. It is repeated, measured practice against a defined standard, with the results feeding the same competency framework as the rest of the programme. Blend simulation with instructor-led and on-the-job learning rather than treating it as a standalone showcase.
+## Keep learning close to the line
 
-> Immersive training earns its budget when the alternative is practising on something you cannot afford to break.`,
+Practical application matters most where the consequences are real. Workplace tasks, supervisor check-ins, and sign-off against role requirements do more for retention than any amount of classroom time, and they leave a record of who is competent at what.
+
+> If the training does not survive contact with the shift, it was designed for the wrong place.`,
     seo: {
-      metaTitle: "Where AR/VR Simulation Earns Its Place in Training | Y&Now",
+      metaTitle: "How to Design Learning for Plant Operations | Y&Now",
       metaDescription:
-        "A grounded view of where immersive AR/VR simulation outperforms the classroom in industrial training.",
-      keywords: "AR VR training, industrial simulation, immersive learning, safety training",
+        "Design workforce learning around the role, workflow, tools, and conditions people face on the plant floor.",
+      keywords: "plant operations training, industrial learning, technical skills, workforce readiness",
     },
   },
 ];

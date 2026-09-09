@@ -17,11 +17,11 @@ import { cn } from "@/lib/utils";
 type AnimatedIcon = ComponentType<{ size?: number; className?: string }>;
 
 /* ============================================================
-   HOW WE WORK - 5-step framework as an interactive vertical
-   timeline. Alternating sides on desktop, single rail on
-   mobile, with a scroll-drawn progress line. The cards are
+   THE Y&NOW JOURNEY - the five-stage loop as an interactive
+   vertical timeline. Alternating sides on desktop, single rail
+   on mobile, with a scroll-drawn progress line. The cards are
    presentational: nodes light up as the scroll-drawn fill
-   reaches them. Copy: Final Copy, section 4.
+   reaches them. Copy: Final Copy Deck, "The Y&Now Journey".
    ============================================================ */
 
 interface Step {
@@ -40,17 +40,15 @@ const STEPS: Step[] = [
     label: "Assess",
     icon: ClipboardCheckIcon,
     tint: "46,49,146",
-    description:
-      "We map competency across roles and levels to pinpoint the exact skill gaps.",
+    description: "Understand the role, audience, and current skill level.",
   },
   {
-    id: "train",
+    id: "learn",
     num: "02",
-    label: "Train",
+    label: "Learn",
     icon: GraduationCapIcon,
     tint: "46,49,146",
-    description:
-      "Personalised learning paths (instructor-led, digital, AR/VR, and microlearning) close those gaps.",
+    description: "Build relevant knowledge and practical skills.",
   },
   {
     id: "apply",
@@ -58,8 +56,7 @@ const STEPS: Step[] = [
     label: "Apply",
     icon: WrenchIcon,
     tint: "46,49,146",
-    description:
-      "On-the-job tasks and live scenarios verify learning transfers to the workplace.",
+    description: "Put learning into practice.",
   },
   {
     id: "perform",
@@ -67,8 +64,7 @@ const STEPS: Step[] = [
     label: "Perform",
     icon: TrendingUpIcon,
     tint: "46,49,146",
-    description:
-      "OKR tracking measures whether capability gains show up in real job performance.",
+    description: "Connect learning with workplace goals.",
   },
   {
     id: "improve",
@@ -76,8 +72,7 @@ const STEPS: Step[] = [
     label: "Improve",
     icon: RefreshCWIcon,
     tint: "46,49,146",
-    description:
-      "Analytics from each cycle feed the next, in a continuous improvement loop.",
+    description: "Use evidence and feedback to strengthen the next cycle.",
   },
 ];
 
@@ -141,15 +136,15 @@ export default function HowWeWork() {
     <section
       id="how-we-work"
       aria-labelledby="how-we-work-heading"
-      className="bg-surface py-20 lg:py-28"
+      className="relative overflow-hidden bg-surface py-20 lg:py-28"
     >
-      <Container>
+      <Container className="relative">
         <SectionHeading
           id="how-we-work-heading"
-          eyebrow="Our Framework"
-          title="Five steps from capability gap to"
-          highlight="measurable performance"
-          subtitle="Every programme we design runs through the same rigorous cycle, ensuring your investment in L&D shows up as real business outcomes."
+          eyebrow="The Y&Now Journey"
+          title="Learning that leads"
+          highlight="somewhere"
+          subtitle="Learning matters when people can use it. We connect assessment, learning, application, and performance."
           className="mb-16"
         />
 

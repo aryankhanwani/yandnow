@@ -35,13 +35,10 @@ export default function PageHero({
         className,
       )}
     >
-      {/* Backdrop - subtle, non-brand */}
+      {/* Backdrop - the same fine grid the rest of the site is built
+          on, faded out before it reaches the copy, plus a soft halo. */}
       <div aria-hidden className="pointer-events-none absolute inset-0 bg-gradient-halo" />
-      <div
-        aria-hidden
-        className="pointer-events-none absolute inset-0 bg-dot-grid opacity-40"
-        style={{ maskImage: "radial-gradient(70% 60% at 50% 0%, #000 0%, transparent 75%)" }}
-      />
+      {/* Pixel dissolve into the section below */}
 
       <Container>
         <div className="relative mx-auto flex max-w-4xl flex-col items-center text-center">
@@ -62,7 +59,7 @@ export default function PageHero({
           />
 
           {subtitle && (
-            <Reveal delay={0.15} y={16} className="mt-5 max-w-2xl text-[17px] leading-relaxed text-neutral-600">
+            <Reveal delay={0.15} y={16} className="mt-5 max-w-xl text-[15.5px] leading-relaxed text-neutral-600">
               {subtitle}
             </Reveal>
           )}

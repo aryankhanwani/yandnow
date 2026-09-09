@@ -5,6 +5,7 @@ import Link from "next/link";
 import { motion, AnimatePresence, useReducedMotion } from "motion/react";
 import { ArrowRight, ArrowUpRight, Clock } from "lucide-react";
 import { formatBlogDate } from "@/lib/blog";
+import { noOrphan } from "@/lib/typography";
 
 /* Minimal shape the index needs - the article body is intentionally
    omitted so the list payload stays small. */
@@ -87,7 +88,7 @@ function FeaturedCard({ post }: { post: BlogCardData }) {
       <div className="flex flex-col justify-center p-8 lg:p-11">
         <span className="text-caption text-primary-500">Featured</span>
         <h2 className="mt-3 font-heading text-[clamp(1.5rem,2.6vw,2.15rem)] font-800 leading-[1.14] tracking-tight text-ink transition-colors duration-200 group-hover:text-primary-700">
-          {post.title}
+          {noOrphan(post.title)}
         </h2>
         <p className="mt-4 max-w-xl text-[15.5px] leading-relaxed text-neutral-600">
           {post.excerpt}
@@ -121,7 +122,7 @@ function BlogCard({ post }: { post: BlogCardData }) {
       </div>
       <div className="flex flex-1 flex-col p-6">
         <h3 className="font-heading text-lg font-700 leading-snug text-ink transition-colors duration-200 group-hover:text-primary-700">
-          {post.title}
+          {noOrphan(post.title)}
         </h3>
         <p className="mt-2.5 line-clamp-3 flex-1 text-sm leading-relaxed text-neutral-600">
           {post.excerpt}

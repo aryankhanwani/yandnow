@@ -7,35 +7,35 @@ import { CtaButton } from "@/components/ui/CtaButton";
 import { Reveal } from "@/components/ui/motion-primitives";
 
 export const metadata: Metadata = {
-  title: "Contact Y&Now: Workforce Training, CSR & Platform Enquiries",
+  title: "Contact Y&Now | Let's Build the Right Learning Route",
   description:
-    "Contact Y&Now to explore corporate workforce training, CSR skilling partnerships, platform demos, or school and defence programmes. Email: info@broadarks.com · +91 75535 53372 · Bhopal, MP.",
+    "Tell us what you are trying to solve — workforce training, a CSR programme, an industry solution, a platform demonstration, a defence or school programme, or a learner enquiry.",
 };
+
+const ADDRESS =
+  "Sagar Premium Tower, Phase I, Block C-1, CP-02, JK Hospital Road, Kolar Road, Bhopal – 462042, Madhya Pradesh, India";
 
 const DETAILS = [
   { icon: "Mail", label: "Email", value: "info@broadarks.com", href: "mailto:info@broadarks.com" },
   { icon: "Phone", label: "Phone", value: "+91 75535 53372", href: "tel:+917553553372" },
-  {
-    icon: "MapPin",
-    label: "Address",
-    value: "Sagar Premium Tower, Phase I, Block C-1, CP-02, JK Hospital Road, Kolar, Bhopal – 462042, Madhya Pradesh, India",
-  },
-  { icon: "Building", label: "Legal entity", value: "BroadArks Technology Pvt. Ltd." },
-  { icon: "ShieldCheck", label: "ISO certification", value: "ISO 9001:2015 certified" },
-  { icon: "Clock", label: "Response time", value: "We respond to all commercial enquiries within 2 working days." },
+  { icon: "MapPin", label: "Address", value: ADDRESS },
 ];
+
+// Exact office pin, from Google Maps → Share → Embed a map.
+const MAPS_EMBED_SRC =
+  "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1833.816042630252!2d77.42007795791575!3d23.183624444824403!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x397c433af6de395b%3A0x6dd5492ce91aedd6!2sBroadArks%20Technology%20Pvt.%20Ltd.!5e0!3m2!1sen!2sin!4v1787568361447!5m2!1sen!2sin";
 
 export default function ContactPage() {
   return (
     <>
       <PageHero
         eyebrow="Contact Us"
-        title="Talk to the"
-        highlight="Y&Now team"
-        subtitle="Use the form or contact details to reach us and tell us what you're enquiring about."
+        title="Let's Build the Right Learning"
+        highlight="Route"
+        subtitle="Tell us what you are trying to solve, and we will help you identify the right next step."
       >
         <CtaButton href="mailto:info@broadarks.com" variant="primary" className="px-7 py-3.5">
-          Email the Team
+          Email the team
         </CtaButton>
         <CtaButton href="tel:+917553553372" variant="secondary" className="px-7 py-3.5">
           Call +91 75535 53372
@@ -48,29 +48,62 @@ export default function ContactPage() {
             {/* Left - details */}
             <div>
               <Reveal>
-                <h2 className="font-heading text-xl font-700 text-ink">Contact details</h2>
+                <h2 className="font-heading text-xl font-700 text-ink">Talk to us</h2>
+                <p className="mt-2 text-sm leading-relaxed text-neutral-500">
+                  Use the enquiry form or the contact details below to tell us what
+                  you need. Your enquiry is then routed to the appropriate team.
+                </p>
               </Reveal>
-              <div className="mt-6 space-y-4">
-                {DETAILS.map((d) => {
-                  const iconName = d.icon;
-                  const content = (
-                    <div className="flex items-start gap-4 rounded-2xl border border-[#e8ecf2] bg-white p-5 transition-colors hover:border-primary-200">
-                      <div className="flex h-11 w-11 flex-shrink-0 items-center justify-center rounded-xl bg-primary-50 text-primary-600">
-                        <AnimIcon name={iconName} size={19} />
+
+              <Reveal y={16} delay={0.05}>
+                <div className="mt-7 divide-y divide-[#e8ecf2] border-y border-[#e8ecf2]">
+                  {DETAILS.map((d) => {
+                    const content = (
+                      <div className="group flex items-center gap-4 py-4">
+                        <div className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-full bg-primary-50 text-primary-600 transition-colors group-hover:bg-primary-100">
+                          <AnimIcon name={d.icon} size={17} />
+                        </div>
+                        <div className="min-w-0">
+                          <p className="text-[11px] font-semibold uppercase tracking-wider text-neutral-400">{d.label}</p>
+                          <p className="mt-0.5 text-sm leading-relaxed text-ink">{d.value}</p>
+                        </div>
                       </div>
-                      <div className="min-w-0">
-                        <p className="text-[11px] font-semibold uppercase tracking-wider text-neutral-400">{d.label}</p>
-                        <p className="mt-0.5 text-sm leading-relaxed text-ink">{d.value}</p>
-                      </div>
-                    </div>
-                  );
-                  return (
-                    <Reveal key={d.label} y={16}>
-                      {d.href ? <a href={d.href} className="block">{content}</a> : content}
-                    </Reveal>
-                  );
-                })}
-              </div>
+                    );
+                    return d.href ? (
+                      <a key={d.label} href={d.href} className="block">
+                        {content}
+                      </a>
+                    ) : (
+                      <div key={d.label}>{content}</div>
+                    );
+                  })}
+                </div>
+              </Reveal>
+
+              <Reveal y={16} delay={0.1}>
+                <div className="mt-7 overflow-hidden rounded-3xl border border-[#e8ecf2] shadow-[0_18px_50px_rgba(20,21,46,0.06)]">
+                  <iframe
+                    src={MAPS_EMBED_SRC}
+                    className="h-64 w-full grayscale-[0.15]"
+                    style={{ border: 0 }}
+                    loading="lazy"
+                    allowFullScreen
+                    referrerPolicy="strict-origin-when-cross-origin"
+                    title="Y&Now office location"
+                  />
+                </div>
+              </Reveal>
+
+              <Reveal y={16} delay={0.15}>
+                <p className="mt-5 text-xs leading-relaxed text-neutral-400">
+                  Your information will be used only to respond to your enquiry and
+                  in line with our{" "}
+                  <a href="/privacy-policy" className="font-medium text-neutral-500 hover:text-primary-600">
+                    Privacy Policy
+                  </a>
+                  .
+                </p>
+              </Reveal>
             </div>
 
             {/* Right - form */}

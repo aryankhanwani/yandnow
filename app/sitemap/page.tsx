@@ -41,11 +41,11 @@ const SITEMAP: SitemapPage[] = [
           "Enterprise workforce capability across operational performance, digital adoption, leadership, and customer excellence. Clients: Tata, JSW, Castrol, BPCL, Jaquar.",
       },
       {
-        label: "CSR Programs",
+        label: "CSR Programmes",
         href: "/csr-programs",
-        audience: "CSR managers, foundations, Schedule VII sponsors",
+        audience: "CSR teams, foundations, corporate sponsors",
         description:
-          "Schedule VII-aligned skilling and livelihood initiatives. Parent page for all CSR sub-programmes.",
+          "Skill development, livelihood, and community programmes with clear delivery plans and reporting.",
       },
       {
         label: "Industry Solutions",
@@ -81,34 +81,34 @@ const SITEMAP: SitemapPage[] = [
     href: "/learners-b2c",
     audience: "Individual learners, job seekers",
     description:
-      "Individual B2C learning paths: upskilling, placement support, and certified programmes.",
+      "Practical, industry-relevant learning for entering the workforce, changing roles, or building new skills.",
   },
   {
     label: "Our Platform",
     href: "/our-platform",
     audience: "IT heads, L&D managers, CHROs",
     description:
-      "LMS + Role-based Assessment + OKR Performance Management in one integrated platform.",
+      "Digital learning, role-based assessment, and performance in one system.",
   },
   {
     label: "About Us",
     href: "/about-us",
     audience: "CSR partners, procurement teams, government bodies",
     description:
-      "Company, mission, leadership, strategic partners, ISO 9001:2015 certification.",
+      "Who we are, mission and vision, what we believe, the team, and how Y&Now is registered.",
   },
   {
     label: "Resources",
     href: "#resources",
     audience: "Nav group",
-    description: "Case studies, blog, and FAQ resources.",
+    description: "Case studies, gallery, blog, and careers.",
     children: [
       {
-        label: "Case Studies",
-        href: "/case-studies",
-        audience: "Procurement teams, L&D heads",
+        label: "Gallery",
+        href: "/gallery",
+        audience: "All, proof of delivery",
         description:
-          "Structured per-client case studies: Tata, JSW, Castrol, BPCL, Jaquar, Indian Army.",
+          "The work, the people, and the moments behind programmes across sectors and locations.",
       },
       {
         label: "Insights / Blog",
@@ -511,7 +511,6 @@ export default function SitemapPage() {
               ["For Learners", "/learners-b2c"],
               ["Our Platform", "/our-platform"],
               ["About Us", "/about-us"],
-              ["Case Studies", "/case-studies"],
               ["Blog", "/blog"],
               ["Careers", "/careers"],
               ["Gallery", "/gallery"],

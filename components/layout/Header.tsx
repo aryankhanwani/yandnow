@@ -8,6 +8,7 @@ import { AnimatePresence, motion } from "motion/react";
 import {
   ChevronDown, Menu, X, ArrowRight, ArrowUpRight,
   Building2, Heart, Factory, Shield, School, GraduationCap, Store,
+  BriefcaseBusiness, Images, Newspaper, UserRoundPlus,
   type LucideIcon,
 } from "lucide-react";
 import { CtaButton } from "@/components/ui/CtaButton";
@@ -33,56 +34,86 @@ interface NavItem {
   children?: SubLink[];
 }
 
+/** "dark" = the bar is sitting on a dark ground (the hero video), so
+    its own contents invert to white. */
+type NavTone = "light" | "dark";
+
 const SOLUTIONS: SubLink[] = [
   {
     label: "Corporate Training",
     href: "/corporate",
-    description: "Enterprise L&D tied to real outcomes.",
+    description: "Learning that helps teams perform better.",
     icon: Building2,
     image: "/images/solutions-navbar/corporate-training.jpg",
     tag: "Popular",
   },
   {
-    label: "CSR Programs",
+    label: "CSR Programmes",
     href: "/csr-programs",
-    description: "Schedule VII skilling with clear impact.",
+    description: "Community programmes you can report on.",
     icon: Heart,
     image: "/images/solutions-navbar/csr-programs.jpg",
   },
   {
     label: "Industry Solutions",
     href: "/industry-solutions",
-    description: "Capability for manufacturing & energy.",
+    description: "Learning built around the work.",
     icon: Factory,
     image: "/images/solutions-navbar/industry-solutions.jpg",
   },
   {
-    label: "Defence Programs",
+    label: "Defence Programmes",
     href: "/defence-programs",
-    description: "Resettlement programmes for veterans.",
+    description: "Experience that moves forward.",
     icon: Shield,
     image: "/images/solutions-navbar/defence-programs.jpg",
   },
   {
     label: "School Solutions",
     href: "/school-solutions",
-    description: "NSQF industry-readiness for students.",
+    description: "Practical skills for what comes next.",
     icon: School,
     image: "/images/solutions-navbar/school-solutions.jpg",
   },
   {
     label: "Micro-Entrepreneurship",
     href: "/micro-entrepreneurship",
-    description: "Turn skills into steady income.",
+    description: "Skills for livelihoods and small businesses.",
     icon: Store,
     image: "/images/solutions-navbar/micro-entrepreneurship.jpg",
   },
   {
     label: "For Learners",
     href: "/learners-b2c",
-    description: "Upskilling with placement support.",
+    description: "Learn skills. Build your next step.",
     icon: GraduationCap,
     image: "/images/solutions-navbar/for-learners.jpg",
+  },
+];
+
+/* The proof-and-people pages the copy deck defines. They sit behind
+   one nav item so the primary bar keeps its five entries. */
+const RESOURCES: SubLink[] = [
+  {
+    label: "Gallery",
+    href: "/gallery",
+    description: "See Y&Now in action.",
+    icon: Images,
+    image: "/images/csr/delivery-model/programme-execution.jpg",
+  },
+  {
+    label: "Blog",
+    href: "/blog",
+    description: "Ideas, updates, and useful thinking.",
+    icon: Newspaper,
+    image: "/images/corporate/delivery-model/improve.jpg",
+  },
+  {
+    label: "Careers",
+    href: "/careers",
+    description: "Build work that helps people grow.",
+    icon: UserRoundPlus,
+    image: "/about/team-collaboration.png",
   },
 ];
 
@@ -91,10 +122,10 @@ const NAV_ITEMS: NavItem[] = [
   { label: "Solutions", href: "#", children: SOLUTIONS },
   { label: "Our Platform", href: "/our-platform" },
   { label: "About Us", href: "/about-us" },
-  { label: "Blog", href: "/blog" },
+  { label: "Resources", href: "#", children: RESOURCES },
 ];
 
-const CTA_LABEL = "Talk to Our Team";
+const CTA_LABEL = "Talk to Y&Now";
 const CTA_HREF = "/contact-us";
 
 /* ============================================================
@@ -164,7 +195,7 @@ function HoverSlideLabel({ children, className }: { children: React.ReactNode; c
 /* ============================================================
    DESKTOP DROPDOWN - two-pane mega menu with live preview
    ============================================================ */
-function DesktopDropdown({ item, idPrefix }: { item: NavItem; idPrefix: string }) {
+function DesktopDropdown({ item, idPrefix, tone = "light" }: { item: NavItem; idPrefix: string; tone?: NavTone }) {
   const [open, setOpen] = useState(false);
   const [activeIndex, setActiveIndex] = useState(0);
   const ref = useRef<HTMLDivElement>(null);
@@ -201,7 +232,12 @@ function DesktopDropdown({ item, idPrefix }: { item: NavItem; idPrefix: string }
         aria-expanded={open}
         aria-haspopup="true"
         onClick={() => setOpen((v) => !v)}
-        className="group flex items-center gap-1 rounded-lg px-3 py-2 text-sm font-semibold text-neutral-700 outline-none transition-colors duration-300 hover:bg-black/5 hover:text-primary-600 focus-visible:ring-2 focus-visible:ring-primary-300"
+        className={cn(
+          "group flex items-center gap-1 rounded-lg px-3 py-2 text-sm font-semibold outline-none transition-colors duration-300 focus-visible:ring-2 focus-visible:ring-primary-300",
+          tone === "dark"
+            ? "text-white/85 hover:bg-white/10 hover:text-white"
+            : "text-neutral-700 hover:bg-black/5 hover:text-primary-600",
+        )}
       >
         <HoverSlideLabel>{item.label}</HoverSlideLabel>
         <ChevronDown
@@ -226,7 +262,7 @@ function DesktopDropdown({ item, idPrefix }: { item: NavItem; idPrefix: string }
               {/* Left - solution list */}
               <div className="p-2.5">
                 <p className="px-3 pb-1.5 pt-2 text-[10px] font-bold uppercase tracking-[0.16em] text-neutral-400">
-                  Our Solutions
+                  {item.label === "Solutions" ? "Our Solutions" : item.label}
                 </p>
                 {item.children!.map((child, idx) => {
                   const Icon = child.icon;
@@ -304,13 +340,13 @@ function DesktopDropdown({ item, idPrefix }: { item: NavItem; idPrefix: string }
 
             {/* Footer CTA */}
             <div className="flex items-center justify-between border-t border-neutral-100 bg-neutral-50 px-4 py-2.5">
-              <span className="text-xs font-medium text-neutral-500">Not sure which solution fits?</span>
+              <span className="text-xs font-medium text-neutral-500">Not sure which route fits?</span>
               <Link
                 href="/contact-us"
                 onClick={() => setOpen(false)}
                 className="group inline-flex items-center gap-1 text-xs font-semibold text-primary-600 hover:text-primary-700"
               >
-                Talk to our team
+                Talk to Y&Now
                 <ArrowUpRight size={12} className="transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
               </Link>
             </div>
@@ -449,13 +485,24 @@ function MobileDrawer({ open, onClose }: { open: boolean; onClose: () => void })
    rendered once per bar (idPrefix keeps element ids unique since
    both bars stay mounted so the slide transition can animate).
    ============================================================ */
-function NavRow({ idPrefix, onOpenMobile }: { idPrefix: string; onOpenMobile: () => void }) {
+function NavRow({
+  idPrefix,
+  onOpenMobile,
+  tone = "light",
+}: {
+  idPrefix: string;
+  onOpenMobile: () => void;
+  tone?: NavTone;
+}) {
   const onTop = useTopNavClick();
+  const onDark = tone === "dark";
   return (
     <div className="mx-auto flex h-[64px] w-full max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
       <Link href="/" onClick={onTop("/")} id={`${idPrefix}-site-logo`} aria-label="Y&Now, home" className="logo-hover flex-shrink-0">
         <Image
-          src="/logo.png"
+          /* Over the hero video the wordmark's grey letterforms would
+             disappear, so the bar swaps to the knocked-out variant. */
+          src={onDark ? "/logo-light.png" : "/logo.png"}
           alt="Y&Now, Workforce Capability Solutions"
           width={120}
           height={40}
@@ -467,14 +514,19 @@ function NavRow({ idPrefix, onOpenMobile }: { idPrefix: string; onOpenMobile: ()
       <nav aria-label="Primary navigation" className="hidden items-center gap-0.5 lg:flex">
         {NAV_ITEMS.map((item) =>
           item.children ? (
-            <DesktopDropdown key={item.label} item={item} idPrefix={idPrefix} />
+            <DesktopDropdown key={item.label} item={item} idPrefix={idPrefix} tone={tone} />
           ) : (
             <Link
               key={item.href}
               href={item.href}
               onClick={onTop(item.href)}
               id={`${idPrefix}-nav-${item.label.toLowerCase().replace(/\s+/g, "-")}`}
-              className="group rounded-lg px-3 py-2 text-sm font-semibold text-neutral-700 transition-colors duration-300 hover:bg-black/5 hover:text-primary-600"
+              className={cn(
+                "group rounded-lg px-3 py-2 text-sm font-semibold transition-colors duration-300",
+                onDark
+                  ? "text-white/85 hover:bg-white/10 hover:text-white"
+                  : "text-neutral-700 hover:bg-black/5 hover:text-primary-600",
+              )}
             >
               <HoverSlideLabel>{item.label}</HoverSlideLabel>
             </Link>
@@ -483,7 +535,13 @@ function NavRow({ idPrefix, onOpenMobile }: { idPrefix: string; onOpenMobile: ()
       </nav>
 
       <div className="hidden items-center gap-2 lg:flex">
-        <CtaButton href={CTA_HREF} id={`${idPrefix}-header-cta-primary`} variant="primary" className="px-5 py-2">
+        <CtaButton
+          href={CTA_HREF}
+          id={`${idPrefix}-header-cta-primary`}
+          variant="primary"
+          glassy={onDark}
+          className="px-5 py-2"
+        >
           {CTA_LABEL}
         </CtaButton>
       </div>
@@ -493,7 +551,10 @@ function NavRow({ idPrefix, onOpenMobile }: { idPrefix: string; onOpenMobile: ()
         onClick={onOpenMobile}
         aria-label="Open navigation"
         aria-controls="mobile-nav-drawer"
-        className="rounded-lg p-2 text-neutral-700 transition-colors hover:bg-neutral-100 lg:hidden"
+        className={cn(
+          "rounded-lg p-2 transition-colors lg:hidden",
+          onDark ? "text-white hover:bg-white/10" : "text-neutral-700 hover:bg-neutral-100",
+        )}
       >
         <Menu size={22} />
       </button>
@@ -520,9 +581,9 @@ type NavPhase = "top" | "scrolled";
 
 export default function Header() {
   const [navPhase, setNavPhase] = useState<NavPhase>("top");
-  const [isHome, setIsHome] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const pathname = usePathname();
+  const isHome = pathname === "/";
 
   /* Land at the top of every page on cross-page navigation
      (skip when the URL carries a hash, so in-page anchors work). */
@@ -533,9 +594,6 @@ export default function Header() {
   }, [pathname]);
 
   useEffect(() => {
-    const detectHome = () => setIsHome(!!document.getElementById("hero-section-root"));
-    detectHome();
-
     const update = () => setNavPhase(window.scrollY <= 24 ? "top" : "scrolled");
     update();
     window.addEventListener("scroll", update, { passive: true });
@@ -551,6 +609,14 @@ export default function Header() {
   const scrolled = navPhase === "scrolled";
   const openMobile = () => setMobileOpen(true);
 
+  /* The flat, full-width bar is only ever used at the top of the
+     homepage, where it sits clear on the hero video. Inner pages open
+     on a white hero, and a white full-width bar simply disappeared into
+     it - so they get the floating capsule from the first frame, which
+     has its own border and shadow and always reads as a separate
+     element. */
+  const showFlatBar = isHome && !scrolled;
+
   return (
     <>
       <div className="fixed inset-x-0 top-0 z-30">
@@ -558,22 +624,14 @@ export default function Header() {
         <div
           className={cn(
             "flex justify-center transition-transform duration-500 ease-out",
-            scrolled ? "-translate-y-full" : "translate-y-0",
+            showFlatBar ? "translate-y-0" : "-translate-y-full",
           )}
-          inert={scrolled}
+          inert={!showFlatBar}
         >
-          <header
-            className={cn(
-              "header-entrance w-full transition-colors duration-500",
-              /* Home: flat white, no border or shadow, so the bar sits
-                 seamlessly on the hero's plain white top. Inner pages
-                 keep the hairline + lift against their tinted heroes. */
-              isHome
-                ? "bg-white"
-                : "border-b border-neutral-100 bg-white shadow-sm",
-            )}
-          >
-            <NavRow idPrefix="flat" onOpenMobile={openMobile} />
+          {/* Fully clear, so the bar sits directly on the hero video and
+              the footage runs to the top of the viewport. */}
+          <header className="header-entrance w-full bg-transparent">
+            <NavRow idPrefix="flat" onOpenMobile={openMobile} tone="dark" />
           </header>
         </div>
 
@@ -581,11 +639,11 @@ export default function Header() {
         <div
           className={cn(
             "absolute inset-x-0 top-0 flex justify-center px-4 pt-4 transition-transform duration-500 ease-out",
-            scrolled ? "translate-y-0" : "-translate-y-[calc(100%+1rem)]",
+            showFlatBar ? "-translate-y-[calc(100%+1rem)]" : "translate-y-0",
           )}
-          inert={!scrolled}
+          inert={showFlatBar}
         >
-          <header className="w-full max-w-7xl rounded-xl border border-neutral-100 bg-white/95 shadow-lg backdrop-blur-md">
+          <header className="header-entrance w-full max-w-7xl rounded-xl border border-neutral-200 bg-white/95 shadow-lg backdrop-blur-md">
             <NavRow idPrefix="floating" onOpenMobile={openMobile} />
           </header>
         </div>

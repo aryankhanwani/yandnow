@@ -8,6 +8,7 @@ import {
 } from "motion/react";
 import { type ReactNode } from "react";
 import { cn } from "@/lib/utils";
+import { balanceTitle } from "@/lib/typography";
 
 /* ============================================================
    MOTION PRIMITIVES - shared, scalable animation building blocks
@@ -132,6 +133,12 @@ export function StaggerItem({
    The space that follows each word is a plain text node at flow
    level so inter-word spacing survives and descenders (g, y, p)
    are never clipped.
+
+   Wrapping is resolved by lib/typography before the split, so a
+   heading never strands a lone word on its last line and a short
+   highlight phrase is never broken in two. Words containing a
+   non-breaking space arrive here as a single token, which is
+   exactly what keeps them together.
    ------------------------------------------------------------ */
 interface AnimatedHeadingProps {
   text: string;
@@ -156,8 +163,9 @@ export function AnimatedHeading({
 }: AnimatedHeadingProps) {
   const reduce = useReducedMotion();
   const Tag = as;
-  const words = text.split(" ");
-  const highlightWords = highlight ? highlight.split(" ") : [];
+  const { lead, carry, tail, hold } = balanceTitle(text, highlight);
+  const words = lead ? lead.split(" ") : [];
+  const tailWords = tail ? tail.split(" ") : [];
 
   const container: Variants = {
     hidden: {},
@@ -169,7 +177,7 @@ export function AnimatedHeading({
   };
 
   return (
-    <Tag className={className} id={id}>
+    <Tag className={cn("balance-text", className)} id={id}>
       <motion.span
         variants={container}
         initial="hidden"
@@ -185,17 +193,32 @@ export function AnimatedHeading({
             {i < words.length - 1 ? " " : ""}
           </span>
         ))}
-        {highlightWords.length > 0 && (
-          <span className={cn(highlightClassName)}>
-            {highlightWords.map((w, i) => (
-              <span key={`h-${i}`}>
-                {" "}
-                <motion.span variants={word} className="inline-block will-change-transform">
-                  {w}
-                </motion.span>
+
+        {tailWords.length > 0 && (
+          <>
+            {" "}
+            {/* The accent run - and any word carried down with it -
+                live inside one box that is not allowed to break. */}
+            <span className={cn(hold && "whitespace-nowrap")}>
+              {carry && (
+                <>
+                  <motion.span variants={word} className="inline-block will-change-transform">
+                    {carry}
+                  </motion.span>{" "}
+                </>
+              )}
+              <span className={cn(highlightClassName)}>
+                {tailWords.map((w, i) => (
+                  <span key={`h-${i}`}>
+                    <motion.span variants={word} className="inline-block will-change-transform">
+                      {w}
+                    </motion.span>
+                    {i < tailWords.length - 1 ? " " : ""}
+                  </span>
+                ))}
               </span>
-            ))}
-          </span>
+            </span>
+          </>
         )}
       </motion.span>
     </Tag>
