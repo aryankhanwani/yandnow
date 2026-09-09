@@ -32,10 +32,9 @@ export default async function BlogPage() {
   return (
     <>
       <PageHero
-        eyebrow="Blog"
         title="Ideas, Updates, and"
         highlight="Useful Thinking"
-        subtitle="Practical content for L&D leaders, HR teams, employers, and learners."
+        deck="Practical content for L&D leaders, HR teams, employers, and learners."
       />
 
       <section className="bg-surface py-20 lg:py-24">

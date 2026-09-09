@@ -1,76 +1,73 @@
 import Link from "next/link";
-import { ArrowRight } from "lucide-react";
+import { cn } from "@/lib/utils";
 
 /* ============================================================
-   CtaButton - shared CTA component used site-wide
-   Matches the hero section's button style exactly.
+   CtaButton - three tiers, and there is no fourth.
 
-   Variants:
-     "primary"   - filled indigo (bg-primary-500), white text, shimmer sweep
-     "secondary" - outlined, ink text, subtle hover background
+     primary   - solid brand fill. Once per section, twice per page.
+     secondary - hairline border, transparent fill.
+     link      - text with an underline that grows on hover.
 
-   On "glassy" nav (dark overlay), pass `glassy` prop to flip
-   primary to white-on-primary and secondary to white/transparent.
+   One height (48px, on every breakpoint - touch targets do not
+   shrink on mobile), one radius, and no arrow glyph appended to
+   the label. An icon goes inside a button only when the icon
+   carries meaning the label cannot.
    ============================================================ */
+
+type Variant = "primary" | "secondary" | "link";
 
 interface CtaButtonProps {
   href: string;
   id?: string;
   children: React.ReactNode;
-  variant?: "primary" | "secondary";
-  /** When true renders the white-on-glass version for dark nav bar */
-  glassy?: boolean;
-  /** Extra class names if needed */
+  variant?: Variant;
+  /** Renders the white-on-dark set, for buttons over imagery. */
+  onDark?: boolean;
   className?: string;
   onClick?: () => void;
 }
+
+const BASE =
+  "inline-flex items-center justify-center rounded-lg text-body-sm font-700 transition-colors transition-house";
+const SOLID = "h-12 px-6";
 
 export function CtaButton({
   href,
   id,
   children,
   variant = "primary",
-  glassy = false,
-  className = "",
+  onDark = false,
+  className,
   onClick,
 }: CtaButtonProps) {
-  const baseClass =
-    "group relative inline-flex items-center justify-center rounded-lg font-semibold text-sm px-6 py-2.5 overflow-hidden transition-all duration-300 active:scale-95 outline-none focus-visible:ring-2 focus-visible:ring-primary-300";
-
-  const primaryClass = glassy
-    ? "bg-white text-primary-600 hover:bg-white/90 shadow-md"
-    : "bg-primary-500 text-white shadow-md hover:bg-primary-600 hover:shadow-lg";
-
-  const secondaryClass = glassy
-    ? "border border-white/40 text-white hover:bg-white/10"
-    : "border border-neutral-200 text-ink hover:bg-neutral-50 hover:border-neutral-300";
-
-  const variantClass = variant === "primary" ? primaryClass : secondaryClass;
+  const styles: Record<Variant, string> = {
+    primary: cn(
+      SOLID,
+      onDark
+        ? "bg-white text-brand hover:bg-brand-soft"
+        : "bg-brand text-white hover:bg-primary-600",
+    ),
+    secondary: cn(
+      SOLID,
+      "border",
+      onDark
+        ? "border-white/50 text-white hover:bg-white/10"
+        : "border-hairline text-ink hover:bg-surface-alt",
+    ),
+    link: cn(
+      "hover-underline min-h-11 items-center",
+      onDark ? "text-white" : "text-brand",
+    ),
+  };
 
   return (
     <Link
       href={href}
       id={id}
-      className={`${baseClass} ${variantClass} ${className}`}
       onClick={onClick}
+      className={cn(BASE, styles[variant], className)}
     >
-      {/* Shimmer sweep (primary only) */}
-      {variant === "primary" && (
-        <span
-          aria-hidden="true"
-          className="absolute inset-0 translate-x-[-110%] group-hover:translate-x-[110%] transition-transform duration-500 bg-white/15 skew-x-12 pointer-events-none"
-        />
-      )}
-
-      {/* Label + arrow */}
-      <span className="relative flex items-center gap-0">
-        <span className="transition-all duration-300 group-hover:mr-1.5">
-          {children}
-        </span>
-        <span className="overflow-hidden w-0 group-hover:w-[16px] transition-all duration-300 flex items-center">
-          <ArrowRight size={14} strokeWidth={2.5} />
-        </span>
-      </span>
+      {children}
     </Link>
   );
 }

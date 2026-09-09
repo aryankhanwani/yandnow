@@ -1,12 +1,19 @@
-import Container from "@/components/ui/Container";
+import Section from "@/components/ui/Section";
 
 /* ============================================================
-   EXPERIENCE YOU CAN REVIEW
-   Copy deck - Home, "Experience You Can Review".
+   CLIENT BAND
+   ------------------------------------------------------------
+   Three words and the names. The label sentence that used to sit
+   above it ("Experience you can review · enterprise,
+   institutional & workforce learning") said nothing the names
+   below it did not already say.
 
-   Only organisations named in the approved copy deck appear here.
-   Names the deck has not confirmed (and unverified counts such as
-   "3,800+ organisations") stay off the site until sign-off.
+   The set is rendered once in the markup. The visual second copy
+   that makes the loop seamless is aria-hidden, so a screen
+   reader reads five names, not twenty - the previous version
+   repeated the list four times in the DOM.
+
+   Only organisations named in the approved copy deck appear.
    ============================================================ */
 
 const CLIENTS = [
@@ -17,62 +24,28 @@ const CLIENTS = [
   "Jaquar",
 ];
 
-/* The track scrolls by -50%, so it holds exactly two identical
-   halves. Each half repeats the short client list twice so the
-   track is always wider than the viewport and never shows a gap. */
-const HALF = [...CLIENTS, ...CLIENTS];
-const MARQUEE_ITEMS = [...HALF, ...HALF];
-
-function ClientChip({ name }: { name: string }) {
+function Names({ hidden = false }: { hidden?: boolean }) {
   return (
-    <div className="flex-shrink-0 select-none px-6 py-2.5">
-      <span className="whitespace-nowrap text-lg font-semibold text-neutral-700">{name}</span>
+    <div className="marquee__copy" aria-hidden={hidden || undefined}>
+      {CLIENTS.map((name) => (
+        <span key={name} className="whitespace-nowrap text-h4 text-ink-muted">
+          {name}
+        </span>
+      ))}
     </div>
   );
 }
 
 export default function SocialProofBar() {
   return (
-    <section
-      id="experience"
-      aria-label="Organisations Y&Now has worked with"
-      className="overflow-hidden border-y border-neutral-100 bg-white py-10"
-    >
-      <Container>
-        <p className="mb-6 text-center text-[11px] font-semibold uppercase tracking-[0.16em] text-neutral-400">
-          Experience you can review · enterprise, institutional &amp; workforce learning
-        </p>
-      </Container>
-
-      {/* Marquee wrapper - clips overflow */}
-      <div className="relative">
-        {/* Left + right fade edges */}
-        <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-20"
-          style={{ background: "linear-gradient(to right, white, transparent)" }} />
-        <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-20"
-          style={{ background: "linear-gradient(to left, white, transparent)" }} />
-
-        {/* Scrolling track */}
-        <div
-          className="flex items-center"
-          style={{
-            animation: "marqueeScroll 32s linear infinite",
-            width: "max-content",
-          }}
-        >
-          {MARQUEE_ITEMS.map((name, i) => (
-            <ClientChip key={`${name}-${i}`} name={name} />
-          ))}
-        </div>
+    <Section id="experience" aria-labelledby="clients-heading" bg="surface">
+      <h2 id="clients-heading" className="text-caption">
+        Trusted by
+      </h2>
+      <div className="marquee mt-8">
+        <Names />
+        <Names hidden />
       </div>
-
-      {/* Marquee keyframe (local style tag) */}
-      <style>{`
-        @keyframes marqueeScroll {
-          from { transform: translateX(0); }
-          to   { transform: translateX(-50%); }
-        }
-      `}</style>
-    </section>
+    </Section>
   );
 }

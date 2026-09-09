@@ -1,73 +1,91 @@
+import Image from "next/image";
 import Container from "@/components/ui/Container";
-import { AnimatedHeading, Reveal } from "@/components/ui/motion-primitives";
-import { cn } from "@/lib/utils";
+import { CtaButton } from "@/components/ui/CtaButton";
+import { balanceTitle } from "@/lib/typography";
 
 /* ============================================================
-   PageHero - canonical hero for inner pages.
-   Centered, two-line layout: purple eyebrow chip · two-line
-   title · two-line subtitle · up to two CTAs. Clears the fixed
-   navbar and sits on a subtle halo + dot-grid backdrop (no
-   heavy brand gradient). No breadcrumbs by design.
+   PageHero - the opening block of every inner page.
+
+   H1, one line, one call to action. No eyebrow chip: it repeated
+   the page title in smaller capitals directly above the page
+   title.
+
+   A full-width photograph where the page has one, the brand
+   block where it does not - either way the hero is a solid
+   ground the white copy sits on, which is what stops seven
+   identical white page-tops from blurring together.
    ============================================================ */
+
 interface PageHeroProps {
-  eyebrow?: string;
   title: string;
-  /** Trailing accent-coloured phrase appended to the title (starts line 2). */
+  /** Trailing accent-coloured phrase appended to the title. */
   highlight?: string;
-  subtitle?: string;
-  /** CTAs - pass up to two <CtaButton> children. */
-  children?: React.ReactNode;
-  className?: string;
+  /** One sentence, 18 words maximum. */
+  deck?: string;
+  ctaLabel?: string;
+  ctaHref?: string;
+  image?: string;
+  imageAlt?: string;
 }
 
 export default function PageHero({
-  eyebrow,
   title,
   highlight,
-  subtitle,
-  children,
-  className,
+  deck,
+  ctaLabel,
+  ctaHref,
+  image,
+  imageAlt = "",
 }: PageHeroProps) {
+  const { lead, carry, tail, hold } = balanceTitle(title, highlight);
+
   return (
     <section
-      className={cn(
-        "relative overflow-hidden border-b border-neutral-100 bg-white pb-20 pt-32 lg:pb-24 lg:pt-40",
-        className,
-      )}
+      aria-labelledby="page-hero-heading"
+      className="relative isolate flex min-h-[62svh] flex-col justify-end overflow-hidden bg-brand pb-14 pt-32 landscape:max-h-[520px] lg:min-h-[68svh] lg:pb-20"
     >
-      {/* Backdrop - the same fine grid the rest of the site is built
-          on, faded out before it reaches the copy, plus a soft halo. */}
-      <div aria-hidden className="pointer-events-none absolute inset-0 bg-gradient-halo" />
-      {/* Pixel dissolve into the section below */}
+      {image && (
+        <>
+          <Image
+            src={image}
+            alt={imageAlt}
+            fill
+            priority
+            sizes="100vw"
+            className="-z-10 object-cover"
+          />
+          {/* The one overlay scrim, at the one set of values used
+              everywhere text sits on a photograph. */}
+          <span
+            aria-hidden
+            className="absolute inset-0 -z-10 bg-gradient-to-t from-ink/85 via-ink/60 to-ink/35"
+          />
+        </>
+      )}
 
       <Container>
-        <div className="relative mx-auto flex max-w-4xl flex-col items-center text-center">
-          {eyebrow && (
-            <Reveal y={10} duration={0.6} className="mb-5">
-              <span className="inline-flex items-center gap-2 rounded-full bg-primary-500 px-4 py-1.5 text-[11px] font-semibold uppercase tracking-[0.14em] text-white shadow-md shadow-primary-500/25 ring-1 ring-inset ring-white/15">
-                <span className="h-1.5 w-1.5 rounded-full bg-secondary-400" />
-                {eyebrow}
-              </span>
-            </Reveal>
-          )}
+        <div className="max-w-3xl">
+          <span aria-hidden className="route-rule route-rule-inverse mb-8" />
 
-          <AnimatedHeading
-            as="h1"
-            text={title}
-            highlight={highlight}
-            className="max-w-4xl font-heading text-[clamp(2.1rem,5vw,3.5rem)] font-800 leading-[1.1] tracking-tight text-ink"
-          />
+          <h1 id="page-hero-heading" className="text-h1 balance-text text-white">
+            {lead}
+            {tail && (
+              <>
+                {lead ? " " : ""}
+                <span className={hold ? "whitespace-nowrap" : undefined}>
+                  {carry ? `${carry} ` : ""}
+                  <span className="text-white/70">{tail}</span>
+                </span>
+              </>
+            )}
+          </h1>
 
-          {subtitle && (
-            <Reveal delay={0.15} y={16} className="mt-5 max-w-xl text-[15.5px] leading-relaxed text-neutral-600">
-              {subtitle}
-            </Reveal>
-          )}
+          {deck && <p className="mt-6 measure text-body-lg text-white/85">{deck}</p>}
 
-          {children && (
-            <Reveal delay={0.25} y={16} className="mt-9 flex flex-wrap items-center justify-center gap-4">
-              {children}
-            </Reveal>
+          {ctaLabel && ctaHref && (
+            <CtaButton href={ctaHref} onDark className="mt-10 w-full sm:w-auto">
+              {ctaLabel}
+            </CtaButton>
           )}
         </div>
       </Container>

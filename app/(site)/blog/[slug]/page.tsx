@@ -84,7 +84,7 @@ function RelatedCard({ post }: { post: BlogPost }) {
             }}
           />
         )}
-        <span className="absolute left-4 top-4 inline-flex items-center rounded-full bg-white/15 px-2.5 py-1 text-[10px] font-bold uppercase tracking-[0.12em] text-white backdrop-blur-sm">
+        <span className="chip absolute left-4 top-4">
           {post.category}
         </span>
       </div>
@@ -118,12 +118,6 @@ export default async function BlogPostPage({
 
       {/* Article hero */}
       <section className="relative overflow-hidden border-b border-neutral-100 bg-white pb-12 pt-32 lg:pt-40">
-        <div aria-hidden className="pointer-events-none absolute inset-0 bg-gradient-halo" />
-        <div
-          aria-hidden
-          className="pointer-events-none absolute inset-0 bg-dot-grid opacity-30"
-          style={{ maskImage: "radial-gradient(65% 55% at 50% 0%, #000 0%, transparent 75%)" }}
-        />
         <Container>
           <div className="relative mx-auto max-w-3xl">
             <Link
@@ -135,7 +129,7 @@ export default async function BlogPostPage({
             </Link>
 
             <span
-              className="mt-6 inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-[11px] font-bold uppercase tracking-[0.12em] text-white"
+              className="chip mt-6"
               style={{ backgroundColor: `rgb(${post.tint})` }}
             >
               {post.category}
@@ -193,7 +187,6 @@ export default async function BlogPostPage({
             <img src={post.coverImage} alt="" className="absolute inset-0 h-full w-full object-cover" />
           ) : (
             <>
-              <div aria-hidden className="absolute inset-0 bg-dot-grid opacity-[0.15]" />
               <span
                 aria-hidden
                 className="pointer-events-none absolute -right-8 -top-14 select-none font-heading text-[18rem] font-800 leading-none text-white/10"
@@ -220,7 +213,7 @@ export default async function BlogPostPage({
                 {initials(post.author.name)}
               </span>
               <div>
-                <p className="text-xs font-600 uppercase tracking-[0.1em] text-neutral-400">
+                <p className="text-caption">
                   Written by
                 </p>
                 <p className="font-heading text-base font-700 text-ink">{post.author.name}</p>

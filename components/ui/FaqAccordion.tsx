@@ -1,91 +1,91 @@
 "use client";
 
-import { useState } from "react";
-import { Plus } from "lucide-react";
-import { AnimatePresence, motion } from "motion/react";
-import { Stagger, StaggerItem } from "@/components/ui/motion-primitives";
+import { useId, useState } from "react";
 import { cn } from "@/lib/utils";
 
 /* ============================================================
-   FaqAccordion - reusable animated accordion.
-   Shared by the homepage FAQ and per-page FAQ sections.
+   FaqAccordion - all panels closed by default.
+
+   An open panel on load is a paragraph the visitor did not ask
+   for, on a page whose whole problem was unasked-for paragraphs.
+
+   Each trigger row is at least 56px tall and the whole row is
+   the target, not just the words. The chevron is drawn from two
+   hairlines so it inherits the site's single stroke weight, and
+   the panel is toggled with `hidden` rather than swapped through
+   display, so the height transition has something to animate.
    ============================================================ */
+
 export interface FaqItemData {
   q: string;
   a: string;
 }
 
-function FaqItem({
-  faq,
-  isOpen,
-  onToggle,
-}: {
-  faq: FaqItemData;
-  isOpen: boolean;
-  onToggle: () => void;
-}) {
+function Chevron({ open }: { open: boolean }) {
   return (
-    <div
+    <span
+      aria-hidden
       className={cn(
-        "overflow-hidden rounded-2xl border bg-white transition-colors duration-300",
-        isOpen ? "border-primary-200 shadow-[0_10px_30px_rgba(20,21,46,0.06)]" : "border-[#e8ecf2]",
+        "ml-4 flex h-6 w-6 flex-none items-center justify-center transition-transform transition-house-slow",
+        open && "rotate-180",
       )}
     >
-      <button
-        type="button"
-        onClick={onToggle}
-        aria-expanded={isOpen}
-        className="flex w-full items-center justify-between gap-4 px-5 py-4 text-left sm:px-6 sm:py-5"
-      >
-        <span className={cn("font-heading text-base font-600 leading-snug transition-colors sm:text-[1.05rem]", isOpen ? "text-primary-700" : "text-ink")}>
-          {faq.q}
-        </span>
-        <span
-          className={cn(
-            "flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full transition-all duration-300",
-            isOpen ? "rotate-45 bg-primary-500 text-white" : "bg-neutral-100 text-neutral-500",
-          )}
-        >
-          <Plus size={16} strokeWidth={2.5} />
-        </span>
-      </button>
-      <AnimatePresence initial={false}>
-        {isOpen && (
-          <motion.div
-            initial={{ height: 0, opacity: 0 }}
-            animate={{ height: "auto", opacity: 1 }}
-            exit={{ height: 0, opacity: 0 }}
-            transition={{ duration: 0.32, ease: [0.16, 1, 0.3, 1] }}
-            className="overflow-hidden"
-          >
-            <p className="px-5 pb-5 text-sm leading-relaxed text-neutral-600 sm:px-6 sm:pb-6 sm:text-[15px]">
-              {faq.a}
-            </p>
-          </motion.div>
-        )}
-      </AnimatePresence>
-    </div>
+      <svg viewBox="0 0 16 16" width="16" height="16" fill="none" aria-hidden>
+        <path
+          d="M3 6l5 5 5-5"
+          stroke="currentColor"
+          strokeWidth="1.5"
+          strokeLinecap="square"
+        />
+      </svg>
+    </span>
   );
 }
 
 export default function FaqAccordion({
   items,
   className,
-  defaultOpen = 0,
 }: {
   items: FaqItemData[];
   className?: string;
-  defaultOpen?: number | null;
 }) {
-  const [open, setOpen] = useState<number | null>(defaultOpen);
+  const [open, setOpen] = useState<number | null>(null);
+  const baseId = useId();
 
   return (
-    <Stagger className={cn("flex flex-col gap-3", className)} stagger={0.06}>
-      {items.map((faq, idx) => (
-        <StaggerItem key={faq.q}>
-          <FaqItem faq={faq} isOpen={open === idx} onToggle={() => setOpen(open === idx ? null : idx)} />
-        </StaggerItem>
-      ))}
-    </Stagger>
+    <div className={cn("border-t border-hairline", className)}>
+      {items.map((faq, index) => {
+        const isOpen = open === index;
+        const panelId = `${baseId}-panel-${index}`;
+        const buttonId = `${baseId}-trigger-${index}`;
+
+        return (
+          <div key={faq.q} className="border-b border-hairline">
+            <h3>
+              <button
+                type="button"
+                id={buttonId}
+                aria-expanded={isOpen}
+                aria-controls={panelId}
+                onClick={() => setOpen(isOpen ? null : index)}
+                className="flex w-full min-h-14 items-center justify-between gap-4 py-4 text-left text-h4 text-ink transition-colors transition-house hover:text-brand"
+              >
+                <span>{faq.q}</span>
+                <Chevron open={isOpen} />
+              </button>
+            </h3>
+            <div
+              id={panelId}
+              role="region"
+              aria-labelledby={buttonId}
+              hidden={!isOpen}
+              className="pb-6"
+            >
+              <p className="measure text-body text-ink-muted">{faq.a}</p>
+            </div>
+          </div>
+        );
+      })}
+    </div>
   );
 }

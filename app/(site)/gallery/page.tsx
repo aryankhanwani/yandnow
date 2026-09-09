@@ -4,7 +4,6 @@ import Container from "@/components/ui/Container";
 import PageHero from "@/components/ui/PageHero";
 import SectionHeading from "@/components/ui/SectionHeading";
 import { Reveal } from "@/components/ui/motion-primitives";
-import { CtaButton } from "@/components/ui/CtaButton";
 import { cn } from "@/lib/utils";
 
 export const metadata: Metadata = {
@@ -103,7 +102,7 @@ function GalleryTile({ shot, index }: { shot: Shot; index: number }) {
           className="absolute inset-0 bg-gradient-to-t from-ink/85 via-ink/20 to-transparent"
         />
         <figcaption className="absolute inset-x-0 bottom-0 p-6">
-          <span className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-ink/55 px-3.5 py-1.5 text-[11px] font-semibold uppercase tracking-[0.12em] text-white backdrop-blur-md">
+          <span className="text-body-sm text-white">
             {shot.caption}
           </span>
         </figcaption>
@@ -116,23 +115,19 @@ export default function GalleryPage() {
   return (
     <>
       <PageHero
-        eyebrow="Gallery"
         title="See Y&Now in"
         highlight="Action"
-        subtitle="The work, the people, and the moments behind our programmes."
-      >
-        <CtaButton href="/contact-us" variant="primary" className="px-7 py-3.5">
-          Talk to Y&amp;Now
-        </CtaButton>
-      </PageHero>
+        deck="The work, the people, and the moments behind our programmes."
+        ctaLabel="Talk to Y&amp;Now"
+        ctaHref="/contact-us"
+      />
 
       <section className="relative overflow-hidden bg-surface py-20 lg:py-28">
         <Container className="relative">
           <SectionHeading
-            eyebrow="What This Shows"
             title="Proof of work, in the places it actually"
             highlight="happens"
-            subtitle="Workshops, field delivery, and programme moments across enterprise, community, and learner settings."
+            deck="Workshops, field delivery, and programme moments across enterprise, community, and learner settings."
             align="left"
             className="mb-12 max-w-3xl lg:mb-14"
           />

@@ -57,18 +57,12 @@ export default function CareersPage() {
   return (
     <>
       <PageHero
-        eyebrow="Careers"
         title="Build Work That Helps People"
         highlight="Grow"
-        subtitle="Join us to help create programmes that strengthen employability, workforce learning, and community development."
-      >
-        <CtaButton href="#open-roles" variant="primary" className="px-7 py-3.5">
-          View open roles
-        </CtaButton>
-        <CtaButton href="/about-us" variant="secondary" className="px-7 py-3.5">
-          About Y&amp;Now
-        </CtaButton>
-      </PageHero>
+        deck="Join us to help create programmes that strengthen employability, workforce learning, and community development."
+        ctaLabel="View open roles"
+        ctaHref="#open-roles"
+      />
 
       {/* Why work with us */}
       <section className="relative overflow-hidden bg-surface py-20 lg:py-28">
@@ -76,10 +70,9 @@ export default function CareersPage() {
           <div className="grid items-start gap-12 lg:grid-cols-[0.9fr_1.1fr] lg:gap-16">
             <div className="lg:sticky lg:top-28">
               <SectionHeading
-                eyebrow="Why Work With Us"
                 title="Four reasons people stay"
                 highlight="here"
-                subtitle="A small team designing programmes that reach a lot of people."
+                deck="A small team designing programmes that reach a lot of people."
                 align="left"
               />
               <Reveal y={20} delay={0.1} className="relative mt-10 hidden lg:block">
@@ -127,10 +120,9 @@ export default function CareersPage() {
       <section id="open-roles" className="bg-white py-20 lg:py-28">
         <Container>
           <SectionHeading
-            eyebrow="Open Roles"
             title="What every Y&Now job post"
             highlight="includes"
-            subtitle="No roles are open right now. Every post we publish carries all of the following."
+            deck="No roles are open right now. Every post we publish carries all of the following."
             className="mb-14"
           />
 

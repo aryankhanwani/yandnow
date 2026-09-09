@@ -46,7 +46,6 @@ function Cover({
         background: `linear-gradient(135deg, rgb(${post.tint}) 0%, rgba(${post.tint},0.68) 100%)`,
       }}
     >
-      <div aria-hidden className="absolute inset-0 bg-dot-grid opacity-[0.15]" />
       <span
         aria-hidden
         className={`pointer-events-none absolute select-none font-heading font-800 leading-none text-white/10 ${
@@ -80,13 +79,13 @@ function FeaturedCard({ post }: { post: BlogCardData }) {
     >
       <div className="relative h-56 overflow-hidden lg:h-full lg:min-h-[22rem]">
         <Cover post={post} size="lg" />
-        <span className="absolute left-6 top-6 inline-flex items-center gap-1.5 rounded-full bg-white/15 px-3 py-1 text-[11px] font-bold uppercase tracking-[0.12em] text-white backdrop-blur-sm">
+        <span className="chip absolute left-6 top-6">
           <span className="h-1.5 w-1.5 rounded-full bg-white/80" />
           {post.category}
         </span>
       </div>
       <div className="flex flex-col justify-center p-8 lg:p-11">
-        <span className="text-caption text-primary-500">Featured</span>
+        <span className="text-caption">Featured</span>
         <h2 className="mt-3 font-heading text-[clamp(1.5rem,2.6vw,2.15rem)] font-800 leading-[1.14] tracking-tight text-ink transition-colors duration-200 group-hover:text-primary-700">
           {noOrphan(post.title)}
         </h2>
@@ -116,7 +115,7 @@ function BlogCard({ post }: { post: BlogCardData }) {
     >
       <div className="relative h-40 overflow-hidden">
         <Cover post={post} size="sm" />
-        <span className="absolute left-5 top-5 inline-flex items-center rounded-full bg-white/15 px-3 py-1 text-[11px] font-bold uppercase tracking-[0.12em] text-white backdrop-blur-sm">
+        <span className="chip absolute left-5 top-5">
           {post.category}
         </span>
       </div>
@@ -162,7 +161,7 @@ export default function BlogIndex({ posts }: { posts: BlogCardData[] }) {
       )}
 
       {/* Filter bar */}
-      <div className="sticky top-[76px] z-10 -mx-2 mb-10 flex flex-wrap items-center gap-2 rounded-2xl bg-surface/80 px-2 py-2 backdrop-blur supports-[backdrop-filter]:bg-surface/60">
+      <div className="sticky top-[76px] z-10 -mx-2 mb-10 flex flex-wrap items-center gap-2 rounded-lg bg-surface px-2 py-2">
         {categories.map((cat) => {
           const isActive = cat === active;
           return (

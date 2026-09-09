@@ -68,9 +68,7 @@ const SOCIAL_LINKS = [
 
 function ColHeading({ children }: { children: React.ReactNode }) {
   return (
-    <h3 className="mb-5 text-[11px] font-600 uppercase tracking-[0.14em] text-primary-600">
-      {children}
-    </h3>
+    <h3 className="mb-5 text-body-sm font-700 text-ink">{children}</h3>
   );
 }
 
@@ -82,9 +80,8 @@ function FooterLink({ href, children }: { href: string; children: React.ReactNod
         href={href}
         target={isExternal ? "_blank" : undefined}
         rel={isExternal ? "noopener noreferrer" : undefined}
-        className="group inline-flex items-center gap-1.5 text-sm text-neutral-600 transition-colors duration-200 hover:text-primary-600"
+        className="hover-underline inline-flex min-h-11 items-center text-body-sm text-ink-muted transition-colors transition-house hover:text-brand"
       >
-        <span className="h-px w-0 bg-secondary-400 transition-all duration-300 group-hover:w-3" aria-hidden />
         {children}
       </Link>
     </li>
@@ -95,25 +92,18 @@ export default function Footer() {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer id="site-footer" aria-label="Site footer" className="relative overflow-hidden rounded-t-[2.25rem] border-t border-primary-100 bg-white text-ink">
-      {/* Soft brand-colour wash over a clean white base. */}
-      <div
-        aria-hidden
-        className="pointer-events-none absolute inset-0"
-        style={{
-          background:
-            "radial-gradient(55% 80% at 4% 8%, rgba(46,49,146,0.10) 0%, transparent 68%), radial-gradient(50% 75% at 96% 18%, rgba(39,170,226,0.13) 0%, transparent 70%)",
-        }}
-      />
+    <footer id="site-footer" aria-label="Site footer" className="border-t border-hairline bg-surface text-ink">
 
       {/* Main grid */}
       <Container>
-        <div className="relative grid grid-cols-1 gap-10 py-14 sm:grid-cols-2 lg:grid-cols-[1.4fr_1fr_1fr_1.2fr] lg:gap-8">
+        <div className="grid grid-cols-1 gap-8 py-16 md:grid-cols-2 lg:grid-cols-[1.4fr_1fr_1fr_1.2fr]">
           {/* Brand */}
           <div>
             <FooterLogo />
-            <p className="mb-6 max-w-xs text-sm leading-relaxed text-neutral-600">
-              Y&Now designs practical learning programmes that help people and organisations build useful skills, grow with confidence, and stay ready for what comes next.
+            {/* The 40-word company description that used to sit here is
+                gone; the logo and one line do its job. */}
+            <p className="mb-6 max-w-xs text-body-sm text-ink-muted">
+              Practical learning, built around the job.
             </p>
             <div className="flex items-center gap-2">
               {SOCIAL_LINKS.map(({ label, href, Icon }) => (
@@ -124,7 +114,7 @@ export default function Footer() {
                   rel="noopener noreferrer"
                   aria-label={label}
                   id={`footer-social-${label.toLowerCase()}`}
-                  className="flex h-9 w-9 items-center justify-center rounded-lg border border-primary-100 bg-white/75 text-primary-600 shadow-sm transition-all duration-200 hover:border-secondary-500 hover:bg-secondary-500 hover:text-white"
+                  className="flex h-11 w-11 items-center justify-center rounded-lg border border-hairline text-ink transition-colors transition-house hover:bg-brand hover:text-white"
                 >
                   <Icon />
                 </a>
@@ -157,20 +147,20 @@ export default function Footer() {
             <ColHeading>Get in Touch</ColHeading>
             <ul className="space-y-4">
               <li>
-                <a href="mailto:info@broadarks.com" id="footer-email" className="flex items-start gap-3 text-sm text-neutral-600 transition-colors duration-200 hover:text-primary-600">
-                  <Mail size={15} className="mt-0.5 flex-shrink-0 text-secondary-500" />
+                <a href="mailto:info@broadarks.com" id="footer-email" className="flex min-h-11 items-start gap-3 py-1 text-body-sm text-ink-muted transition-colors transition-house hover:text-brand">
+                  <Mail size={16} aria-hidden className="mt-1 flex-shrink-0 text-brand" />
                   info@broadarks.com
                 </a>
               </li>
               <li>
-                <a href="tel:+917553553372" id="footer-phone" className="flex items-start gap-3 text-sm text-neutral-600 transition-colors duration-200 hover:text-primary-600">
-                  <Phone size={15} className="mt-0.5 flex-shrink-0 text-secondary-500" />
+                <a href="tel:+917553553372" id="footer-phone" className="flex min-h-11 items-start gap-3 py-1 text-body-sm text-ink-muted transition-colors transition-house hover:text-brand">
+                  <Phone size={16} aria-hidden className="mt-1 flex-shrink-0 text-brand" />
                   +91 75535 53372
                 </a>
               </li>
               <li>
-                <address className="flex items-start gap-3 text-sm not-italic leading-relaxed text-neutral-600">
-                  <MapPin size={15} className="mt-0.5 flex-shrink-0 text-secondary-500" />
+                <address className="flex items-start gap-3 text-body-sm not-italic text-ink-muted">
+                  <MapPin size={16} aria-hidden className="mt-1 flex-shrink-0 text-brand" />
                   <span>
                     Sagar Premium Tower, Phase I,<br />
                     Block C-1, CP-02, JK Hospital Road,<br />
@@ -184,9 +174,9 @@ export default function Footer() {
       </Container>
 
       {/* Bottom bar */}
-      <div className="relative border-t border-primary-100/80 bg-white/35">
+      <div className="border-t border-hairline">
         <Container>
-          <div className="flex flex-col items-center justify-between gap-3 py-6 text-xs text-neutral-600 sm:flex-row">
+          <div className="flex flex-col items-center justify-between gap-3 py-6 text-caption sm:flex-row">
             <p>© {currentYear} BroadArks Technology Pvt. Ltd. All rights reserved.</p>
             <div className="flex items-center gap-4">
               {/* The ISO badge that used to sit here is out until the
@@ -196,10 +186,10 @@ export default function Footer() {
                 target="_blank"
                 rel="noopener noreferrer"
                 id="footer-parent-link"
-                className="inline-flex items-center gap-1 font-medium text-neutral-600 transition-colors hover:text-primary-600"
+                className="hover-underline inline-flex min-h-11 items-center gap-1 text-ink-muted transition-colors transition-house hover:text-brand"
               >
                 BroadArks Technology
-                <ExternalLink size={11} />
+                <ExternalLink size={12} aria-hidden />
               </a>
             </div>
           </div>

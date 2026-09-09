@@ -1,6 +1,5 @@
-import Container from "@/components/ui/Container";
+import Section from "@/components/ui/Section";
 import PageHero from "@/components/ui/PageHero";
-import { Reveal } from "@/components/ui/motion-primitives";
 
 /* ============================================================
    LegalPage - the shared shell for Privacy Policy and Terms.
@@ -17,7 +16,6 @@ export interface LegalSection {
 }
 
 interface LegalPageProps {
-  eyebrow: string;
   title: string;
   highlight?: string;
   intro: string;
@@ -25,7 +23,6 @@ interface LegalPageProps {
 }
 
 export default function LegalPage({
-  eyebrow,
   title,
   highlight,
   intro,
@@ -33,31 +30,25 @@ export default function LegalPage({
 }: LegalPageProps) {
   return (
     <>
-      <PageHero eyebrow={eyebrow} title={title} highlight={highlight} subtitle={intro} />
+      <PageHero title={title} highlight={highlight} deck={intro} />
 
-      <section className="bg-white py-20 lg:py-28">
-        <Container>
-          <div className="mx-auto max-w-3xl">
-            {sections.map((section, index) => (
-              <Reveal
-                key={section.heading}
-                y={16}
-                delay={Math.min(index * 0.04, 0.2)}
-                className="border-t border-[#e8ecf2] py-9 first:border-t-0 first:pt-0"
-              >
-                <h2 className="font-heading text-[1.35rem] font-700 leading-snug tracking-tight text-ink">
-                  {section.heading}
-                </h2>
-                {section.body.map((paragraph) => (
-                  <p key={paragraph} className="mt-4 text-[15px] leading-relaxed text-neutral-600">
-                    {paragraph}
-                  </p>
-                ))}
-              </Reveal>
-            ))}
-          </div>
-        </Container>
-      </section>
+      <Section bg="surface">
+        <div className="mx-auto max-w-3xl">
+          {sections.map((section) => (
+            <div
+              key={section.heading}
+              className="border-t border-hairline py-10 first:border-t-0 first:pt-0"
+            >
+              <h2 className="text-h3 text-ink">{section.heading}</h2>
+              {section.body.map((paragraph) => (
+                <p key={paragraph} className="mt-4 measure text-body text-ink-muted">
+                  {paragraph}
+                </p>
+              ))}
+            </div>
+          ))}
+        </div>
+      </Section>
     </>
   );
 }

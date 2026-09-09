@@ -1,15 +1,19 @@
-import Container from "@/components/ui/Container";
+import Section from "@/components/ui/Section";
 import SectionHeading from "@/components/ui/SectionHeading";
-import { Reveal } from "@/components/ui/motion-primitives";
 import FaqAccordion, { type FaqItemData } from "@/components/ui/FaqAccordion";
-import { CtaButton } from "@/components/ui/CtaButton";
 
 /* ============================================================
    FAQ - "Questions About Y&Now" from the Final Copy Deck.
 
-   Four short answers, in the deck's own words. This block is
-   also mirrored as FAQPage structured data on the homepage, so
-   the two must be kept in sync: edit both, or neither.
+   Four questions, all closed by default. The "Questions &
+   Answers" eyebrow above the heading is gone - the heading says
+   it - and so is the "Talk to Y&Now" button that used to sit
+   beside it, which was the fourth of five identical CTAs on the
+   homepage.
+
+   This block is mirrored as FAQPage structured data on the
+   homepage, so the two must be kept in sync: edit both, or
+   neither.
    ============================================================ */
 
 export const HOME_FAQS: FaqItemData[] = [
@@ -19,42 +23,25 @@ export const HOME_FAQS: FaqItemData[] = [
   },
   {
     q: "Who is Y&Now for?",
-    a: "We work with corporate teams, CSR partners, industry groups, defence partners, schools, and individual learners.",
+    a: "Corporate teams, CSR partners, industry groups, defence partners, schools, and individual learners.",
   },
   {
     q: "How does Y&Now work?",
-    a: "We follow a simple loop: assess, learn, apply, perform, improve, and return.",
+    a: "A simple loop: assess, learn, apply, perform, improve, and return.",
   },
   {
     q: "Does Y&Now offer a platform?",
-    a: "Yes. The platform connects digital learning, assessments, and performance reviews in one system.",
+    a: "Yes. It connects digital learning, assessments, and performance reviews in one system.",
   },
 ];
 
 export default function FaqSection() {
   return (
-    <section id="faq" aria-labelledby="faq-heading" className="bg-surface py-20 lg:py-28">
-      <Container>
-        <div className="grid grid-cols-1 gap-10 lg:grid-cols-[0.85fr_1.15fr] lg:gap-16">
-          <div className="lg:sticky lg:top-28 lg:self-start">
-            <SectionHeading
-              id="faq-heading"
-              eyebrow="Questions & Answers"
-              title="Questions about"
-              highlight="Y&Now"
-              subtitle="Tell us what you are trying to improve and we will point you to the right route."
-              align="left"
-            />
-            <Reveal delay={0.2} className="mt-7">
-              <CtaButton href="/contact-us" id="faq-cta" variant="primary" className="px-6 py-3">
-                Talk to Y&Now
-              </CtaButton>
-            </Reveal>
-          </div>
-
-          <FaqAccordion items={HOME_FAQS} />
-        </div>
-      </Container>
-    </section>
+    <Section id="faq" aria-labelledby="faq-heading" bg="surface">
+      <div className="grid gap-10 lg:grid-cols-[0.8fr_1.2fr] lg:gap-16">
+        <SectionHeading id="faq-heading" title="Questions about" highlight="Y&Now" />
+        <FaqAccordion items={HOME_FAQS} />
+      </div>
+    </Section>
   );
 }
