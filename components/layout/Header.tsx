@@ -8,7 +8,7 @@ import { AnimatePresence, motion } from "motion/react";
 import {
   ChevronDown, Menu, X, ArrowRight, ArrowUpRight,
   Building2, Heart, Factory, Shield, School, GraduationCap, Store,
-  BriefcaseBusiness, Images, Newspaper, UserRoundPlus,
+  Images, Newspaper,
   type LucideIcon,
 } from "lucide-react";
 import { CtaButton } from "@/components/ui/CtaButton";
@@ -107,13 +107,6 @@ const RESOURCES: SubLink[] = [
     description: "Ideas, updates, and useful thinking.",
     icon: Newspaper,
     image: "/images/corporate/delivery-model/improve.jpg",
-  },
-  {
-    label: "Careers",
-    href: "/careers",
-    description: "Build work that helps people grow.",
-    icon: UserRoundPlus,
-    image: "/about/team-collaboration.png",
   },
 ];
 
@@ -471,7 +464,7 @@ function MobileDrawer({ open, onClose }: { open: boolean; onClose: () => void })
         </nav>
 
         <div className="border-t border-neutral-100 px-5 py-5">
-          <CtaButton href={CTA_HREF} id="mobile-nav-cta" variant="primary" className="w-full justify-center px-6 py-3" onClick={onClose}>
+          <CtaButton href={CTA_HREF} id="mobile-nav-cta" variant="primary" className="w-full sm:w-full justify-center px-6 py-3" onClick={onClose}>
             {CTA_LABEL}
           </CtaButton>
         </div>

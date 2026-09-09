@@ -2,8 +2,6 @@ import type { Metadata } from "next";
 import PageHero from "@/components/ui/PageHero";
 import HorizontalCapabilityScroller, { type HorizontalCapability } from "@/components/ui/HorizontalCapabilityScroller";
 import EditorialProofSection from "@/components/ui/EditorialProofSection";
-import BestFor from "@/components/ui/BestFor";
-import ClosingCta from "@/components/ui/ClosingCta";
 import DataPoint from "@/components/ui/DataPoint";
 import { CtaButton } from "@/components/ui/CtaButton";
 
@@ -50,13 +48,6 @@ const EXPECTATIONS: HorizontalCapability[] = [
   },
 ];
 
-const BEST_FOR = [
-  "Students and early-career learners",
-  "Professionals building a new skill",
-  "People changing roles or industries",
-  "Learners looking for practical, industry-relevant pathways",
-];
-
 export default function LearnersB2cPage() {
   return (
     <>
@@ -71,6 +62,14 @@ export default function LearnersB2cPage() {
         </CtaButton>
       </PageHero>
 
+      <HorizontalCapabilityScroller
+        eyebrow="For Learners"
+        items={EXPECTATIONS}
+        title="What You Can"
+        highlight="Expect"
+        subtitle="Practical learning, assessment, and - depending on the course you choose - digital delivery and employer connections."
+      />
+
       <EditorialProofSection
         title="Choose Learning Around Your"
         highlight="Goal"
@@ -79,32 +78,11 @@ export default function LearnersB2cPage() {
         imageAlt="Learners completing a practical technical task with an industry mentor"
       />
 
-      <HorizontalCapabilityScroller
-        items={EXPECTATIONS}
-        title="What You Can"
-        highlight="Expect"
-      />
-
-      <BestFor items={BEST_FOR} className="bg-surface" />
-
       <DataPoint
         value="57/100"
         statement="the job-readiness confidence reported among students in India."
         source="NIIT India Skills Gap Report 2026"
       />
-
-      <ClosingCta
-        title="Find Your"
-        highlight="Course"
-        body="Explore the current course catalogue and choose the learning route that fits your next step."
-      >
-        <CtaButton href={COURSE_ENQUIRY} variant="primary" className="px-7 py-3.5">
-          Find a course
-        </CtaButton>
-        <CtaButton href="/contact-us?type=learner" variant="secondary" className="px-7 py-3.5">
-          Explore learning programmes
-        </CtaButton>
-      </ClosingCta>
     </>
   );
 }

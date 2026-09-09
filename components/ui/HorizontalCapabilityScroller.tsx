@@ -17,7 +17,8 @@ export interface HorizontalCapability {
 interface HorizontalCapabilityScrollerProps {
   items: HorizontalCapability[];
   eyebrow?: string;
-  title?: string;
+  /** Required: the heading belongs to the page, not to this component. */
+  title: string;
   highlight?: string;
   subtitle?: string;
 }
@@ -127,12 +128,17 @@ function useMediaQuery(query: string) {
   return matches;
 }
 
+/* No copy defaults live here. The section is used on every solutions
+   page, so any default heading or subtitle would appear over another
+   page's cards - which is how manufacturing copy ended up above
+   corporate, CSR, school, defence, and learner content. Each page
+   passes its own. */
 function HorizontalCapabilityScrollerInner({
   items,
-  eyebrow = "Manufacturing & Precision Engineering",
-  title = "What our manufacturing programmes",
-  highlight = "cover",
-  subtitle = "Y&Now's manufacturing training programmes span the full technical stack, from machine operation and certification through maintenance, safety, and quality.",
+  eyebrow,
+  title,
+  highlight,
+  subtitle,
 }: HorizontalCapabilityScrollerProps) {
   const section = useRef<HTMLElement>(null);
   const viewport = useRef<HTMLDivElement>(null);

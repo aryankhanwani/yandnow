@@ -2,9 +2,6 @@ import type { Metadata } from "next";
 import PageHero from "@/components/ui/PageHero";
 import HorizontalCapabilityScroller, { type HorizontalCapability } from "@/components/ui/HorizontalCapabilityScroller";
 import EditorialProofSection from "@/components/ui/EditorialProofSection";
-import StatementSection from "@/components/ui/StatementSection";
-import BestFor from "@/components/ui/BestFor";
-import ClosingCta from "@/components/ui/ClosingCta";
 import DataPoint from "@/components/ui/DataPoint";
 import { CtaButton } from "@/components/ui/CtaButton";
 
@@ -46,12 +43,6 @@ const SUPPORT: HorizontalCapability[] = [
   },
 ];
 
-const BEST_FOR = [
-  "School principals",
-  "Education leaders",
-  "Institutional partners looking for applied learning programmes",
-];
-
 export default function SchoolSolutionsPage() {
   return (
     <>
@@ -66,7 +57,13 @@ export default function SchoolSolutionsPage() {
         </CtaButton>
       </PageHero>
 
-      <HorizontalCapabilityScroller items={SUPPORT} title="What We" highlight="Support" />
+      <HorizontalCapabilityScroller
+        eyebrow="School Solutions"
+        items={SUPPORT}
+        title="What We"
+        highlight="Support"
+        subtitle="Applied learning alongside the academic timetable, with support for the teachers who run it."
+      />
 
       <EditorialProofSection
         title="Learning Beyond the"
@@ -76,15 +73,14 @@ export default function SchoolSolutionsPage() {
         imageAlt="School students building a small robot with guidance from their teacher"
       />
 
-      <StatementSection
+      <EditorialProofSection
+        title="Preparing Students for the"
+        highlight="Next Step"
+        body="We help students understand and apply practical skills alongside academic learning. Programme design adapts to the age group, learning context, and intended pathway."
+        image="/images/solutions-navbar/school-solutions.jpg"
+        imageAlt="School students working through a practical exercise with their teacher"
+        imageFirst
         className="bg-surface"
-        items={[
-          {
-            title: "Preparing Students for the",
-            highlight: "Next Step",
-            body: "We help students understand and apply practical skills alongside academic learning. Programme design adapts to the age group, learning context, and intended pathway.",
-          },
-        ]}
       />
 
       <DataPoint
@@ -92,14 +88,6 @@ export default function SchoolSolutionsPage() {
         statement="the share of 14-18-year-olds reported to have received institutional skilling."
         source="Economic Survey 2025-26 coverage"
       />
-
-      <BestFor items={BEST_FOR} className="bg-surface" />
-
-      <ClosingCta title="Enquire About School" highlight="Programmes" className="bg-white">
-        <CtaButton href="/contact-us?type=schools" variant="primary" className="px-7 py-3.5">
-          Enquire about school programmes
-        </CtaButton>
-      </ClosingCta>
     </>
   );
 }

@@ -54,7 +54,6 @@ const COMPANY_LINKS = [
   { label: "Contact Us", href: "/contact-us" },
   { label: "Gallery", href: "/gallery" },
   { label: "Blog", href: "/blog" },
-  { label: "Careers", href: "/careers" },
   { label: "Privacy Policy", href: "/privacy-policy" },
   { label: "Terms", href: "/terms" },
 ];

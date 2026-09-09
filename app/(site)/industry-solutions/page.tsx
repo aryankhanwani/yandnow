@@ -3,9 +3,6 @@ import PageHero from "@/components/ui/PageHero";
 import ChecklistPanel from "@/components/ui/ChecklistPanel";
 import HorizontalCapabilityScroller, { type HorizontalCapability } from "@/components/ui/HorizontalCapabilityScroller";
 import EditorialProofSection from "@/components/ui/EditorialProofSection";
-import StatementSection from "@/components/ui/StatementSection";
-import BestFor from "@/components/ui/BestFor";
-import ClosingCta from "@/components/ui/ClosingCta";
 import DataPoint from "@/components/ui/DataPoint";
 import { CtaButton } from "@/components/ui/CtaButton";
 
@@ -61,19 +58,12 @@ const SUPPORT: HorizontalCapability[] = [
 
 /* The sectors the deck names under "Where This Works". */
 const SECTORS = [
-  "Banking and financial services",
-  "Construction",
-  "Healthcare",
-  "Information technology and IT-enabled services",
   "Retail",
+  "Healthcare",
+  "Construction",
+  "Banking and financial services",
   "Technical and soft-skills training",
-];
-
-const BEST_FOR = [
-  "Plant managers",
-  "Environment, Health and Safety leaders",
-  "Manufacturing human resources teams",
-  "Industrial leaders who need role-based training that fits the job",
+  "Information technology and IT-enabled services",
 ];
 
 export default function IndustrySolutionsPage() {
@@ -90,7 +80,13 @@ export default function IndustrySolutionsPage() {
         </CtaButton>
       </PageHero>
 
-      <HorizontalCapabilityScroller items={SUPPORT} title="What We" highlight="Support" />
+      <HorizontalCapabilityScroller
+        eyebrow="Industry Solutions"
+        items={SUPPORT}
+        title="What We"
+        highlight="Support"
+        subtitle="Role-based learning shaped by the equipment, standards, safety requirements, and conditions of the workplace."
+      />
 
       <EditorialProofSection
         title="Built Around the"
@@ -100,20 +96,22 @@ export default function IndustrySolutionsPage() {
         imageAlt="A technical trainer guiding plant operators through a quality inspection"
       />
 
-      <StatementSection
+      <EditorialProofSection
+        title="Manufacturing and Precision"
+        highlight="Engineering"
+        body="Our team supports workforce learning for manufacturing and precision-engineering environments, including technical roles, plant operations, safety, quality, and relevant digital or process-related skills."
+        image="/images/solutions-navbar/industry-solutions.jpg"
+        imageAlt="Machinists working to tolerance on a precision-engineering shop floor"
+        imageFirst
         className="bg-surface"
-        items={[
-          {
-            title: "Manufacturing and Precision",
-            highlight: "Engineering",
-            body: "Our team supports workforce learning for manufacturing and precision-engineering environments, including technical roles, plant operations, safety, quality, and relevant digital or process-related skills.",
-          },
-          {
-            title: "From Learning to Workplace",
-            highlight: "Readiness",
-            body: "Participants are assessed against role requirements, trained against identified gaps, and supported through workplace activities where included in the programme.",
-          },
-        ]}
+      />
+
+      <EditorialProofSection
+        title="From Learning to Workplace"
+        highlight="Readiness"
+        body="Participants are assessed against role requirements, trained against identified gaps, and supported through workplace activities where included in the programme."
+        image="/images/corporate/delivery-model/perform.jpg"
+        imageAlt="An operator being signed off on a task by a supervisor"
       />
 
       <ChecklistPanel
@@ -126,21 +124,10 @@ export default function IndustrySolutionsPage() {
         imageFirst
       />
 
-      <BestFor items={BEST_FOR} className="bg-surface" />
-
       <DataPoint
         statement="Digital, data, and artificial-intelligence-related capabilities rank among the most important future skills in recent India skills-gap reporting."
         source="India skills-gap reporting, 2026"
       />
-
-      <ClosingCta
-        title="Discuss an Industry"
-        highlight="Requirement"
-      >
-        <CtaButton href="/contact-us?type=industry" variant="primary" className="px-7 py-3.5">
-          Discuss an industry requirement
-        </CtaButton>
-      </ClosingCta>
     </>
   );
 }
