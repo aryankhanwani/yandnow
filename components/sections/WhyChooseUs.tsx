@@ -38,16 +38,18 @@ export default function WhyChooseUs() {
           className="mb-12 lg:mb-14"
         />
 
-        {/* Image and list share a row, so the first pointer lines up
-            with the top of the photograph rather than with the heading. */}
+        {/* Image and list share a row from lg, so the first pointer lines
+            up with the top of the photograph rather than with the heading.
+            Below lg the photograph sits above the list rather than being
+            dropped - a phone was getting the list with no image at all. */}
         <div className="grid items-start gap-10 lg:grid-cols-[0.88fr_1.12fr] lg:gap-16">
-          <Reveal y={22} delay={0.1} className="relative hidden lg:block">
+          <Reveal y={22} delay={0.1} className="relative">
             <div className="relative aspect-[4/3] overflow-hidden rounded-3xl border border-[#e1e7ef]">
               <Image
                 src="/images/corporate/delivery-model/apply.jpg"
                 alt="A trainer guiding an operator through a task at the machine"
                 fill
-                sizes="(max-width: 1024px) 100vw, 40vw"
+                sizes="(max-width: 1023px) 100vw, 40vw"
                 className="object-cover"
               />
             </div>

@@ -5,9 +5,6 @@ import SectionHeading from "@/components/ui/SectionHeading";
 import ChecklistPanel from "@/components/ui/ChecklistPanel";
 import HorizontalCapabilityScroller, { type HorizontalCapability } from "@/components/ui/HorizontalCapabilityScroller";
 import EditorialProofSection from "@/components/ui/EditorialProofSection";
-import StatementSection from "@/components/ui/StatementSection";
-import BestFor from "@/components/ui/BestFor";
-import ClosingCta from "@/components/ui/ClosingCta";
 import OrganisationGrid from "@/components/ui/OrganisationGrid";
 import { CtaButton } from "@/components/ui/CtaButton";
 import { CASE_STUDIES } from "@/lib/proof";
@@ -69,14 +66,7 @@ const SUPPORT: HorizontalCapability[] = [
 /* The deck's "How Learning Is Delivered" names five formats, then
    qualifies them in a second sentence. The formats are the list; the
    qualifier stays prose. */
-const DELIVERY = ["Instructor-led", "Virtual", "Blended", "Digital", "Self-paced"];
-
-const BEST_FOR = [
-  "Individuals building a specific professional skill",
-  "Teams improving performance in a shared area",
-  "Business units addressing a role or capability gap",
-  "Enterprises looking for scalable workforce learning",
-];
+const DELIVERY = ["Virtual", "Blended", "Digital", "Self-paced", "Instructor-led"];
 
 export default function CorporatePage() {
   return (
@@ -92,7 +82,13 @@ export default function CorporatePage() {
         </CtaButton>
       </PageHero>
 
-      <HorizontalCapabilityScroller items={SUPPORT} title="What We" highlight="Support" />
+      <HorizontalCapabilityScroller
+        eyebrow="Corporate Training"
+        items={SUPPORT}
+        title="What We"
+        highlight="Support"
+        subtitle="Workforce learning across leadership, operations, customer experience, digital adoption, and role-based assessment."
+      />
 
       <EditorialProofSection
         title="Start With"
@@ -113,17 +109,13 @@ export default function CorporatePage() {
         className="bg-surface"
       />
 
-      <StatementSection
-        items={[
-          {
-            title: "From Assessment to",
-            highlight: "Performance",
-            body: "Role-based assessment identifies learning gaps. Targeted learning addresses those gaps. Workplace tasks, manager feedback, and performance measures help show whether learning is being applied.",
-          },
-        ]}
+      <EditorialProofSection
+        title="From Assessment to"
+        highlight="Performance"
+        body="Role-based assessment identifies learning gaps. Targeted learning addresses those gaps. Workplace tasks, manager feedback, and performance measures help show whether learning is being applied."
+        image="/images/corporate/delivery-model/perform.jpg"
+        imageAlt="A manager reviewing performance measures with a team member after training"
       />
-
-      <BestFor items={BEST_FOR} className="bg-surface" />
 
       <section className="bg-white py-20 lg:py-24">
         <Container>
@@ -133,16 +125,6 @@ export default function CorporatePage() {
           />
         </Container>
       </section>
-
-      <ClosingCta
-        title="Ready to Discuss Your Workforce"
-        highlight="Need?"
-        body="Tell us the roles, workforce group, or business priority you are working on. We can discuss the learning approach that fits your requirement."
-      >
-        <CtaButton href="/contact-us?type=corporate" variant="primary" className="px-7 py-3.5">
-          Design a corporate programme
-        </CtaButton>
-      </ClosingCta>
     </>
   );
 }

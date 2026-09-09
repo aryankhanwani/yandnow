@@ -2,6 +2,7 @@ import Image from "next/image";
 import Container from "@/components/ui/Container";
 import SectionHeading from "@/components/ui/SectionHeading";
 import { Reveal } from "@/components/ui/motion-primitives";
+import { cn } from "@/lib/utils";
 
 interface EditorialProofSectionProps {
   /** Optional: deck sections that are just a heading omit it. */
@@ -13,6 +14,10 @@ interface EditorialProofSectionProps {
   imageAlt: string;
   /** Optional pill under the copy. Omitted where the deck has no such line. */
   note?: string;
+  /** Set to put the photograph on the left on desktop. Pages alternate
+      this so two stacked split sections do not mirror each other. */
+  imageFirst?: boolean;
+  className?: string;
 }
 
 export default function EditorialProofSection({
@@ -23,12 +28,21 @@ export default function EditorialProofSection({
   image,
   imageAlt,
   note,
+  imageFirst = false,
+  className = "bg-white",
 }: EditorialProofSectionProps) {
   return (
-    <section className="border-b border-neutral-100 bg-white py-20 lg:py-28">
+    <section className={cn("border-b border-neutral-100 py-20 lg:py-28", className)}>
       <Container>
-        <div className="grid items-center gap-10 lg:grid-cols-[0.72fr_1.28fr] lg:gap-16">
-          <div className="max-w-lg">
+        <div
+          className={cn(
+            "grid items-center gap-10 lg:gap-16",
+            /* The photograph always takes the wider column, whichever
+               side it sits on. */
+            imageFirst ? "lg:grid-cols-[1.28fr_0.72fr]" : "lg:grid-cols-[0.72fr_1.28fr]",
+          )}
+        >
+          <div className={cn("max-w-lg", imageFirst ? "lg:order-2" : "lg:order-1")}>
             <SectionHeading
               eyebrow={eyebrow}
               title={title}
@@ -45,7 +59,13 @@ export default function EditorialProofSection({
             )}
           </div>
 
-          <Reveal y={20} className="relative aspect-[16/10] overflow-hidden rounded-3xl border border-[#e1e7ef] bg-surface shadow-[0_24px_60px_-34px_rgba(20,21,46,0.4)]">
+          <Reveal
+            y={20}
+            className={cn(
+              "relative aspect-[16/10] overflow-hidden rounded-3xl border border-[#e1e7ef] bg-surface shadow-[0_24px_60px_-34px_rgba(20,21,46,0.4)]",
+              imageFirst ? "lg:order-1" : "lg:order-2",
+            )}
+          >
             <Image
               src={image}
               alt={imageAlt}

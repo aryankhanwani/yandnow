@@ -2,9 +2,6 @@ import type { Metadata } from "next";
 import PageHero from "@/components/ui/PageHero";
 import HorizontalCapabilityScroller, { type HorizontalCapability } from "@/components/ui/HorizontalCapabilityScroller";
 import EditorialProofSection from "@/components/ui/EditorialProofSection";
-import StatementSection from "@/components/ui/StatementSection";
-import BestFor from "@/components/ui/BestFor";
-import ClosingCta from "@/components/ui/ClosingCta";
 import { CtaButton } from "@/components/ui/CtaButton";
 
 /* ============================================================
@@ -58,12 +55,6 @@ const COVERS: HorizontalCapability[] = [
   },
 ];
 
-const BEST_FOR = [
-  "Self-Help Group facilitators",
-  "Livelihood programme managers",
-  "Partners working on income generation or market linkage",
-];
-
 export default function MicroEntrepreneurshipPage() {
   return (
     <>
@@ -79,19 +70,20 @@ export default function MicroEntrepreneurshipPage() {
       </PageHero>
 
       <HorizontalCapabilityScroller
+        eyebrow="Micro-Entrepreneurship"
         items={COVERS}
         title="What the Learning"
         highlight="Covers"
+        subtitle="The business, financial, digital, and customer-facing skills a small enterprise runs on."
       />
 
-      <StatementSection
-        items={[
-          {
-            title: "Learning That Can Be Put to",
-            highlight: "Work",
-            body: "Entrepreneurship learning helps participants understand how an opportunity works in practice. Programmes focus on planning, customer needs, basic business operations, digital tools, and everyday business decisions.",
-          },
-        ]}
+      <EditorialProofSection
+        title="Learning That Can Be Put to"
+        highlight="Work"
+        body="Entrepreneurship learning helps participants understand how an opportunity works in practice. Programmes focus on planning, customer needs, basic business operations, digital tools, and everyday business decisions."
+        image="/images/solutions-navbar/micro-entrepreneurship.jpg"
+        imageAlt="A small-business owner working through costing and planning with a facilitator"
+        imageFirst
       />
 
       <EditorialProofSection
@@ -101,14 +93,6 @@ export default function MicroEntrepreneurshipPage() {
         image="/images/micro-entrepreneurship/proof/women-enterprise-market-linkage.jpg"
         imageAlt="Women entrepreneurs reviewing packaged products and market information together"
       />
-
-      <BestFor items={BEST_FOR} className="bg-surface" />
-
-      <ClosingCta title="Discuss a Livelihood" highlight="Programme" className="bg-white">
-        <CtaButton href="/contact-us?type=livelihood" variant="primary" className="px-7 py-3.5">
-          Discuss a livelihood programme
-        </CtaButton>
-      </ClosingCta>
     </>
   );
 }

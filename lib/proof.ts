@@ -1,5 +1,5 @@
 import type { CaseStudyItem } from "@/components/ui/CaseStudyGrid";
-import type { ProofStat } from "@/components/ui/ProofStats";
+import type { ProofImage, ProofStat } from "@/components/ui/ProofStats";
 
 /* ============================================================
    The site's single source of proof.
@@ -50,4 +50,21 @@ export const PROOF_STATS: ProofStat[] = [
   { value: "56.35%", label: "India's employability rate" },
   { value: "57/100", label: "Student job-readiness confidence" },
   { value: "0.97%", label: "14-18-year-olds formally skilled" },
+];
+
+/** The photographs interleaved with the figures above. Existing
+    project photography only - one per figure, in the same order. */
+export const PROOF_IMAGES: ProofImage[] = [
+  {
+    src: "/images/corporate/programme-categories/operational-performance.jpg",
+    alt: "Team members in a facilitated workplace learning session",
+  },
+  {
+    src: "/images/learners/proof/practical-employability-training.jpg",
+    alt: "Learners completing a practical technical task with an industry mentor",
+  },
+  {
+    src: "/images/school/proof/applied-robotics-learning.jpg",
+    alt: "School students building a small robot with guidance from their teacher",
+  },
 ];

@@ -34,8 +34,13 @@ export function CtaButton({
   className = "",
   onClick,
 }: CtaButtonProps) {
+  /* Full width on a phone, intrinsic width from `sm` up. A CTA that
+     is only as wide as its label is a small target on a touch screen,
+     and a row of two of them wraps into a ragged stack. Anything that
+     must stay inline on a phone (the nav bar) overrides with
+     `sm:w-full` or its own width. */
   const baseClass =
-    "group relative inline-flex items-center justify-center rounded-lg font-semibold text-sm px-6 py-2.5 overflow-hidden transition-all duration-300 active:scale-95 outline-none focus-visible:ring-2 focus-visible:ring-primary-300";
+    "group relative inline-flex w-full sm:w-auto items-center justify-center rounded-lg font-semibold text-sm px-6 py-2.5 overflow-hidden transition-all duration-300 active:scale-95 outline-none focus-visible:ring-2 focus-visible:ring-primary-300";
 
   const primaryClass = glassy
     ? "bg-white text-primary-600 hover:bg-white/90 shadow-md"

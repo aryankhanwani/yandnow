@@ -3,9 +3,6 @@ import PageHero from "@/components/ui/PageHero";
 import ChecklistPanel from "@/components/ui/ChecklistPanel";
 import HorizontalCapabilityScroller, { type HorizontalCapability } from "@/components/ui/HorizontalCapabilityScroller";
 import EditorialProofSection from "@/components/ui/EditorialProofSection";
-import StatementSection from "@/components/ui/StatementSection";
-import BestFor from "@/components/ui/BestFor";
-import ClosingCta from "@/components/ui/ClosingCta";
 import { CtaButton } from "@/components/ui/CtaButton";
 
 /* ============================================================
@@ -53,18 +50,11 @@ const FOCUS: HorizontalCapability[] = [
 ];
 
 const ROUTE = [
-  "Understand existing experience and skills",
-  "Identify the target role",
   "Map the gaps",
+  "Identify the target role",
+  "Understand existing experience and skills",
   "Focus learning on the capabilities that matter",
   "Support towards employment pathways, where employer linkage is part of the programme",
-];
-
-const BEST_FOR = [
-  "Defence establishments",
-  "Public sector human resources teams",
-  "Institutional partners",
-  "Veterans preparing for their next career step",
 ];
 
 export default function DefenceProgramsPage() {
@@ -81,7 +71,13 @@ export default function DefenceProgramsPage() {
         </CtaButton>
       </PageHero>
 
-      <HorizontalCapabilityScroller items={FOCUS} title="Programme" highlight="Focus" />
+      <HorizontalCapabilityScroller
+        eyebrow="Defence Programmes"
+        items={FOCUS}
+        title="Programme"
+        highlight="Focus"
+        subtitle="Where the learning is aimed: the target role, the gaps assessment finds, and the civilian workplace people are moving into."
+      />
 
       <EditorialProofSection
         title="Make Existing Experience Work in a"
@@ -101,23 +97,13 @@ export default function DefenceProgramsPage() {
         className="bg-surface"
       />
 
-      <StatementSection
-        items={[
-          {
-            title: "For Defence and Institutional",
-            highlight: "Partners",
-            body: "Our team works with defence, institutional, and employer partners on programmes designed around the transition, reskilling, or workforce requirements identified at the start of the engagement.",
-          },
-        ]}
+      <EditorialProofSection
+        title="For Defence and Institutional"
+        highlight="Partners"
+        body="Our team works with defence, institutional, and employer partners on programmes designed around the transition, reskilling, or workforce requirements identified at the start of the engagement."
+        image="/images/solutions-navbar/defence-programs.jpg"
+        imageAlt="A programme team meeting with defence and employer partners"
       />
-
-      <BestFor items={BEST_FOR} className="bg-surface" />
-
-      <ClosingCta title="Explore Defence" highlight="Programmes" className="bg-white">
-        <CtaButton href="/contact-us?type=defence" variant="primary" className="px-7 py-3.5">
-          Explore defence programmes
-        </CtaButton>
-      </ClosingCta>
     </>
   );
 }

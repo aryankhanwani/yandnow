@@ -101,7 +101,7 @@ const SITEMAP: SitemapPage[] = [
     label: "Resources",
     href: "#resources",
     audience: "Nav group",
-    description: "Case studies, gallery, blog, and careers.",
+    description: "Case studies, gallery, and blog.",
     children: [
       {
         label: "Gallery",
@@ -118,12 +118,6 @@ const SITEMAP: SitemapPage[] = [
           "Refresh with current content; remove outdated 2020 posts from homepage feed.",
       },
     ],
-  },
-  {
-    label: "Careers",
-    href: "/careers",
-    audience: "Job seekers, candidates",
-    description: "Individual dated role pages with current openings.",
   },
   {
     label: "Contact Us",
@@ -512,7 +506,6 @@ export default function SitemapPage() {
               ["Our Platform", "/our-platform"],
               ["About Us", "/about-us"],
               ["Blog", "/blog"],
-              ["Careers", "/careers"],
               ["Gallery", "/gallery"],
             ].map(([page, url], i) => (
               <div

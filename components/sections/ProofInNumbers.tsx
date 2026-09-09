@@ -1,7 +1,7 @@
 import Container from "@/components/ui/Container";
 import SectionHeading from "@/components/ui/SectionHeading";
 import ProofStats from "@/components/ui/ProofStats";
-import { PROOF_STATS } from "@/lib/proof";
+import { PROOF_IMAGES, PROOF_STATS } from "@/lib/proof";
 
 /* ============================================================
    PROOF IN NUMBERS - Copy deck, Home.
@@ -10,8 +10,10 @@ import { PROOF_STATS } from "@/lib/proof";
    these are the published skills-gap figures the programmes are
    built to answer, not evidence about the client work above.
 
-   The reports are credited once here, so each card can carry the
-   figure and a short label and nothing else.
+   The paragraph that used to sit under the heading is gone. The
+   three reports are named in the caption at the foot of the
+   band, which is where a source belongs - it is not something
+   the reader needs before the numbers.
    ============================================================ */
 
 export default function ProofInNumbers() {
@@ -24,13 +26,15 @@ export default function ProofInNumbers() {
       <Container>
         <SectionHeading
           id="proof-in-numbers-heading"
-          eyebrow="Proof in Numbers"
           title="Why this work"
           highlight="matters"
-          subtitle="Published figures from the India Skills Report 2026, the NIIT India Skills Gap Report 2026, and Economic Survey 2025-26 coverage."
           className="mb-12 lg:mb-14"
         />
-        <ProofStats items={PROOF_STATS} />
+        <ProofStats items={PROOF_STATS} images={PROOF_IMAGES} />
+        <p className="mt-6 text-[13px] leading-relaxed text-neutral-500">
+          India Skills Report 2026 · NIIT India Skills Gap Report 2026 · Economic
+          Survey 2025-26 coverage.
+        </p>
       </Container>
     </section>
   );

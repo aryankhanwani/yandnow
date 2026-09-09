@@ -2,9 +2,7 @@ import type { Metadata } from "next";
 import PageHero from "@/components/ui/PageHero";
 import ChecklistPanel from "@/components/ui/ChecklistPanel";
 import HorizontalCapabilityScroller, { type HorizontalCapability } from "@/components/ui/HorizontalCapabilityScroller";
-import StatementSection from "@/components/ui/StatementSection";
-import BestFor from "@/components/ui/BestFor";
-import ClosingCta from "@/components/ui/ClosingCta";
+import EditorialProofSection from "@/components/ui/EditorialProofSection";
 import { CtaButton } from "@/components/ui/CtaButton";
 
 /* ============================================================
@@ -65,30 +63,23 @@ const SUPPORT: HorizontalCapability[] = [
 /* The deck's "From Community Need to Delivery" names what we support
    across the cycle; those are the list, the opening sentence is prose. */
 const DELIVERY_CYCLE = [
-  "Needs assessment",
-  "Programme design",
-  "Participant mobilisation",
-  "Learning delivery",
   "Assessment",
   "Monitoring",
+  "Needs assessment",
+  "Programme design",
+  "Learning delivery",
+  "Participant mobilisation",
   "Reporting according to the agreed scope",
 ];
 
 const REPORTING = [
-  "Participation records",
-  "Beneficiary information",
   "Attendance",
-  "Assessment results",
   "Progress updates",
+  "Assessment results",
+  "Participation records",
   "Photographic evidence",
+  "Beneficiary information",
   "Outcome reporting, where included in the agreed programme",
-];
-
-const BEST_FOR = [
-  "Corporate Social Responsibility teams",
-  "Foundations",
-  "Corporate sponsors",
-  "Institutions planning skilling and livelihood programmes",
 ];
 
 export default function CsrProgramsPage() {
@@ -105,7 +96,13 @@ export default function CsrProgramsPage() {
         </CtaButton>
       </PageHero>
 
-      <HorizontalCapabilityScroller items={SUPPORT} title="What We" highlight="Support" />
+      <HorizontalCapabilityScroller
+        eyebrow="CSR Programmes"
+        items={SUPPORT}
+        title="What We"
+        highlight="Support"
+        subtitle="What a community programme can include, from skilling and livelihoods through assessment, tracking, and linkage."
+      />
 
       <ChecklistPanel
         title="From Community Need to"
@@ -126,28 +123,13 @@ export default function CsrProgramsPage() {
         className="bg-surface"
       />
 
-      <StatementSection
-        items={[
-          {
-            title: "Why This Matters for",
-            highlight: "Communities",
-            body: "Community programmes need more than attendance records. They need relevance, participation, follow-through, and a clear view of what changed.",
-          },
-        ]}
+      <EditorialProofSection
+        title="Why This Matters for"
+        highlight="Communities"
+        body="Community programmes need more than attendance records. They need relevance, participation, follow-through, and a clear view of what changed."
+        image="/images/csr/programme-streams/community-development.jpg"
+        imageAlt="Community members taking part in a local skilling session"
       />
-
-      <BestFor items={BEST_FOR} className="bg-surface" />
-
-      <ClosingCta
-        title="Build a Programme Around Your"
-        highlight="Priorities"
-        body="Tell us the community, geography, programme objective, and intended outcome. We can help shape the right skill or livelihood route."
-        className="bg-white"
-      >
-        <CtaButton href="/contact-us?type=csr" variant="primary" className="px-7 py-3.5">
-          Partner on a CSR programme
-        </CtaButton>
-      </ClosingCta>
     </>
   );
 }
