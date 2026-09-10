@@ -6,7 +6,6 @@ import SectionHeading from "@/components/ui/SectionHeading";
 import ModuleTabs, { type ModuleTab } from "@/components/ui/ModuleTabs";
 import SupportGrid, { type SupportItem } from "@/components/ui/SupportGrid";
 import ChecklistPanel from "@/components/ui/ChecklistPanel";
-import BestFor from "@/components/ui/BestFor";
 import ClosingCta from "@/components/ui/ClosingCta";
 import { CtaButton } from "@/components/ui/CtaButton";
 import { Reveal } from "@/components/ui/motion-primitives";
@@ -27,7 +26,7 @@ export const metadata: Metadata = {
 const MODULES: ModuleTab[] = [
   {
     icon: <AnimIcon name="ClipboardCheck" size={24} />,
-    tint: "39,170,226",
+    tint: "46,49,146",
     tag: "Assess",
     image: "/images/corporate/delivery-model/assess.jpg",
     imageAlt: "Supervisors assessing an operator against the requirements of their role",
@@ -56,7 +55,7 @@ const MODULES: ModuleTab[] = [
   },
   {
     icon: <AnimIcon name="TrendingUp" size={24} />,
-    tint: "31,34,103",
+    tint: "46,49,146",
     tag: "Perform",
     image: "/images/corporate/delivery-model/perform.jpg",
     imageAlt: "A team reviewing performance measures on a dashboard",
@@ -99,13 +98,6 @@ const DATA_AND_SECURITY = [
   "Data ownership",
   "Retention",
   "Security",
-];
-
-const BEST_FOR = [
-  "Learning and Development teams",
-  "Human resources teams",
-  "Information technology teams",
-  "Enterprise buyers evaluating learning and performance systems",
 ];
 
 export default function OurPlatformPage() {
@@ -154,8 +146,6 @@ export default function OurPlatformPage() {
         imageFirst
         className="bg-surface"
       />
-
-      <BestFor items={BEST_FOR} />
 
       <ClosingCta
         title="Request a Platform"

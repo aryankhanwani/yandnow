@@ -26,7 +26,7 @@ export default function ProofInNumbers() {
       <Container>
         <SectionHeading
           id="proof-in-numbers-heading"
-          title="Why this work"
+          title="This work"
           highlight="matters"
           className="mb-12 lg:mb-14"
         />

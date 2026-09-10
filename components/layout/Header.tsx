@@ -45,7 +45,6 @@ const SOLUTIONS: SubLink[] = [
     description: "Learning that helps teams perform better.",
     icon: Building2,
     image: "/images/solutions-navbar/corporate-training.jpg",
-    tag: "Popular",
   },
   {
     label: "CSR Programmes",
@@ -188,7 +187,19 @@ function HoverSlideLabel({ children, className }: { children: React.ReactNode; c
 /* ============================================================
    DESKTOP DROPDOWN - two-pane mega menu with live preview
    ============================================================ */
-function DesktopDropdown({ item, idPrefix, tone = "light" }: { item: NavItem; idPrefix: string; tone?: NavTone }) {
+function DesktopDropdown({
+  item,
+  idPrefix,
+  tone = "light",
+  showPreview = true,
+}: {
+  item: NavItem;
+  idPrefix: string;
+  tone?: NavTone;
+  /** Resources is a shorter, lower-stakes list - it does not need a
+      live photo preview pane to help the visitor pick a link. */
+  showPreview?: boolean;
+}) {
   const [open, setOpen] = useState(false);
   const [activeIndex, setActiveIndex] = useState(0);
   const ref = useRef<HTMLDivElement>(null);
@@ -248,10 +259,13 @@ function DesktopDropdown({ item, idPrefix, tone = "light" }: { item: NavItem; id
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 8, scale: 0.98 }}
             transition={{ duration: 0.22, ease: [0.16, 1, 0.3, 1] }}
-            className="absolute left-1/2 top-full z-50 mt-3 w-[620px] -translate-x-1/2 overflow-hidden rounded-2xl border border-neutral-100 bg-white backdrop-blur-xl"
+            className={cn(
+              "absolute left-1/2 top-full z-50 mt-3 -translate-x-1/2 overflow-hidden rounded-2xl border border-neutral-100 bg-white backdrop-blur-xl",
+              showPreview ? "w-[620px]" : "w-[320px]",
+            )}
             style={{ boxShadow: "0 24px 70px rgba(14,16,58,0.16), 0 4px 16px rgba(14,16,58,0.06)" }}
           >
-            <div className="grid grid-cols-[1fr_240px]">
+            <div className={cn("grid", showPreview && "grid-cols-[1fr_240px]")}>
               {/* Left - solution list */}
               <div className="p-2.5">
                 <p className="px-3 pb-1.5 pt-2 text-[10px] font-bold uppercase tracking-[0.16em] text-neutral-400">
@@ -313,22 +327,24 @@ function DesktopDropdown({ item, idPrefix, tone = "light" }: { item: NavItem; id
               </div>
 
               {/* Right - live preview panel */}
-              <div className="relative m-2.5 ml-0 overflow-hidden rounded-xl">
-                <AnimatePresence mode="wait">
-                  <motion.div
-                    key={active.href}
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    exit={{ opacity: 0 }}
-                    transition={{ duration: 0.25 }}
-                    className="absolute inset-0"
-                  >
-                    <Link href={active.href} onClick={() => setOpen(false)} className="block h-full">
-                      <PreviewArt item={active} />
-                    </Link>
-                  </motion.div>
-                </AnimatePresence>
-              </div>
+              {showPreview && (
+                <div className="relative m-2.5 ml-0 overflow-hidden rounded-xl">
+                  <AnimatePresence mode="wait">
+                    <motion.div
+                      key={active.href}
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      exit={{ opacity: 0 }}
+                      transition={{ duration: 0.25 }}
+                      className="absolute inset-0"
+                    >
+                      <Link href={active.href} onClick={() => setOpen(false)} className="block h-full">
+                        <PreviewArt item={active} />
+                      </Link>
+                    </motion.div>
+                  </AnimatePresence>
+                </div>
+              )}
             </div>
 
             {/* Footer CTA */}
@@ -507,7 +523,13 @@ function NavRow({
       <nav aria-label="Primary navigation" className="hidden items-center gap-0.5 lg:flex">
         {NAV_ITEMS.map((item) =>
           item.children ? (
-            <DesktopDropdown key={item.label} item={item} idPrefix={idPrefix} tone={tone} />
+            <DesktopDropdown
+              key={item.label}
+              item={item}
+              idPrefix={idPrefix}
+              tone={tone}
+              showPreview={item.label !== "Resources"}
+            />
           ) : (
             <Link
               key={item.href}

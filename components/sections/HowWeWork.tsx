@@ -148,7 +148,7 @@ export default function HowWeWork() {
           className="mb-16"
         />
 
-        <div ref={railRef} className="relative mx-auto max-w-4xl">
+        <div ref={railRef} className="relative mx-auto max-w-6xl">
           {/* Rail - track + scroll-scrubbed fill */}
           <div className="absolute bottom-0 left-6 top-2 w-[2px] -translate-x-1/2 bg-neutral-150 lg:left-1/2" style={{ backgroundColor: "#e8ecf2" }} />
           <motion.div

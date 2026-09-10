@@ -88,6 +88,11 @@ export default function IndustrySolutionsPage() {
         subtitle="Role-based learning shaped by the equipment, standards, safety requirements, and conditions of the workplace."
       />
 
+      <DataPoint
+        statement="Digital, data, and artificial-intelligence-related capabilities rank among the most important future skills in recent India skills-gap reporting."
+        source="India skills-gap reporting, 2026"
+      />
+
       <EditorialProofSection
         title="Built Around the"
         highlight="Workplace"
@@ -122,11 +127,6 @@ export default function IndustrySolutionsPage() {
         image="/images/corporate/delivery-model/assess.jpg"
         imageAlt="Engineers reviewing process documentation together on a factory floor"
         imageFirst
-      />
-
-      <DataPoint
-        statement="Digital, data, and artificial-intelligence-related capabilities rank among the most important future skills in recent India skills-gap reporting."
-        source="India skills-gap reporting, 2026"
       />
     </>
   );

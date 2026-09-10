@@ -98,7 +98,7 @@ const CATEGORIES: FaqCategory[] = [
       },
       {
         q: "What reporting do partners receive?",
-        a: "Participation records, beneficiary information, attendance, assessment results, progress updates, and photographic evidence. Outcome reporting is included where it forms part of the agreed programme.",
+        a: "Participation records, beneficiary information, attendance, assessment results, progress updates, and photographic evidence.",
       },
       {
         q: "Will a programme qualify under our CSR obligations?",

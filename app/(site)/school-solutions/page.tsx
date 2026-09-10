@@ -65,6 +65,12 @@ export default function SchoolSolutionsPage() {
         subtitle="Applied learning alongside the academic timetable, with support for the teachers who run it."
       />
 
+      <DataPoint
+        value="0.97%"
+        statement="the share of 14-18-year-olds reported to have received institutional skilling."
+        source="Economic Survey 2025-26 coverage"
+      />
+
       <EditorialProofSection
         title="Learning Beyond the"
         highlight="Classroom"
@@ -81,12 +87,6 @@ export default function SchoolSolutionsPage() {
         imageAlt="School students working through a practical exercise with their teacher"
         imageFirst
         className="bg-surface"
-      />
-
-      <DataPoint
-        value="0.97%"
-        statement="the share of 14-18-year-olds reported to have received institutional skilling."
-        source="Economic Survey 2025-26 coverage"
       />
     </>
   );

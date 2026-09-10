@@ -79,7 +79,6 @@ const REPORTING = [
   "Participation records",
   "Photographic evidence",
   "Beneficiary information",
-  "Outcome reporting, where included in the agreed programme",
 ];
 
 export default function CsrProgramsPage() {

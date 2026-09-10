@@ -165,15 +165,15 @@ export default function AboutPage() {
         <Container>
           <div className="grid gap-px overflow-hidden rounded-3xl border border-[#e8ecf2] bg-[#e8ecf2] lg:grid-cols-2">
             <Reveal y={18} className="bg-white p-8 lg:p-12">
-              <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-secondary-500">Our Mission</p>
-              <p className="mt-5 font-heading text-[clamp(1.25rem,2.2vw,1.65rem)] font-600 leading-snug text-ink">
+              <p className="text-[15px] font-semibold uppercase tracking-[0.18em] text-secondary-500">Our Mission</p>
+              <p className="mt-5 font-heading text-[clamp(1.05rem,1.8vw,1.35rem)] font-600 leading-snug text-ink">
                 To make practical learning easier to access, easier to apply, and
                 more useful for real work and real life.
               </p>
             </Reveal>
             <Reveal y={18} delay={0.1} className="bg-white p-8 lg:p-12">
-              <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-secondary-500">Our Vision</p>
-              <p className="mt-5 font-heading text-[clamp(1.25rem,2.2vw,1.65rem)] font-600 leading-snug text-ink">
+              <p className="text-[15px] font-semibold uppercase tracking-[0.18em] text-secondary-500">Our Vision</p>
+              <p className="mt-5 font-heading text-[clamp(1.05rem,1.8vw,1.35rem)] font-600 leading-snug text-ink">
                 A future where more people can turn learning into opportunity,
                 confidence, and better work.
               </p>
@@ -185,7 +185,7 @@ export default function AboutPage() {
       {/* What we believe */}
       <ChecklistPanel
         eyebrow="What We Believe"
-        title="Why our work"
+        title="Our work"
         highlight="matters"
         subtitle="The gap between learning and doing is still too wide. We help people close it."
         items={BELIEFS}
